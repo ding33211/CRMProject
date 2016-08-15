@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.hotchemi/permissionsdispatcher/2.1.3/2.1.3.iml" filepath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.hotchemi/permissionsdispatcher/2.1.3/2.1.3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.getui/sdk/2.9.0.0/2.9.0.0.iml" filepath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.getui/sdk/2.9.0.0/2.9.0.0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.1.1/24.1.1.iml" filepath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.1.1/24.1.1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/androidTest/androidTest.iml" filepath="$PROJECT_DIR$/app/build/generated/source/buildConfig/androidTest/androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/build/generated/source/apt/apt.iml" filepath="$PROJECT_DIR$/app/build/generated/source/apt/apt.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/buildConfig.iml" filepath="$PROJECT_DIR$/app/build/generated/source/buildConfig/buildConfig.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/debug.iml" filepath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/debug.iml" />
-      <module fileurl="file://$PROJECT_DIR$/daogenerator/src/main/main.iml" filepath="$PROJECT_DIR$/daogenerator/src/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/src/main/main1.iml" filepath="$PROJECT_DIR$/app/src/main/main1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/build/generated/source/r/r.iml" filepath="$PROJECT_DIR$/app/build/generated/source/r/r.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CRMProject.iml" filepath="$PROJECT_DIR$/CRMProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/daogenerator/daogenerator.iml" filepath="$PROJECT_DIR$/daogenerator/daogenerator.iml" />
     </modules>
   </component>
 </project>

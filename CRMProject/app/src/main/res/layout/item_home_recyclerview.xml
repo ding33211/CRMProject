@@ -20,7 +20,7 @@
             android:textColor="@android:color/black"
             android:text="title" />
 
-        <com.soubu.CRMProject.widget.IndicatorViewPager.FixedIndicatorView
+        <com.soubu.crmproject.widget.indicatorviewpager.FixedIndicatorView
             android:id="@+id/fiv_indicator"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
