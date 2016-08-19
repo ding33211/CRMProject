@@ -3,10 +3,14 @@ package com.soubu.crmproject;
 import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
+
+import com.soubu.crmproject.sdk.eventbus.MyEventBusIndex;
 import com.soubu.crmproject.utils.CrashHandler;
 import com.soubu.crmproject.utils.PhoneUtil;
 import com.soubu.crmproject.utils.ToastUtil;
 
+
+import org.greenrobot.eventbus.EventBus;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.GINGERBREAD;
@@ -30,7 +34,7 @@ public class MyApplication extends Application {
         //初始化crash输出工具
         //具体决策需要商议
         CrashHandler.getInstance().init(instance);
-
+        EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
         ToastUtil.register(this);
     }
 

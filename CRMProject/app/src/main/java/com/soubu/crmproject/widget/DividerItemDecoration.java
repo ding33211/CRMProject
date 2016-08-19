@@ -25,15 +25,22 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDrawable;
     private static final int DEFAULT_ORENTATION = LinearLayoutManager.VERTICAL;
     private int mOrentaion;
+    private int mHeight;
 
-    public DividerItemDecoration(Context context, int orentaion) {
+    /**
+     * 自定义recyclerView分割线
+     * @param context
+     * @param orentaion
+     * @param height  定义分割线高度
+     */
+    public DividerItemDecoration(Context context, int orentaion, int height) {
         if (orentaion != LinearLayoutManager.HORIZONTAL && orentaion != LinearLayoutManager.VERTICAL) {
             this.mOrentaion = DEFAULT_ORENTATION;
         } else {
             this.mOrentaion = orentaion;
         }
-
         mDrawable = context.getResources().getDrawable(R.drawable.divider_home_recyclerview);
+        mHeight = height;
     }
 
     @Override
@@ -55,7 +62,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) chileView.getLayoutParams();
 
             int left = chileView.getRight() + params.rightMargin;
-            int right = left + mDrawable.getIntrinsicHeight();
+            int right = left + mHeight;
             mDrawable.setBounds(left, top, right, bottom);
             mDrawable.draw(c);
 
@@ -74,7 +81,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             int top = child.getBottom() + params.bottomMargin;
-            int bottom = top + mDrawable.getIntrinsicHeight();
+            int bottom = top + mHeight;
             mDrawable.setBounds(left, top, right, bottom);
             mDrawable.draw(c);
         }

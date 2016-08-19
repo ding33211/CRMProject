@@ -47,6 +47,10 @@ public class DBHelper {
         return daoSession.getClueDao();
     }
 
+    public RemindDao getRemindDao() {
+        return daoSession.getRemindDao();
+    }
+
     public AsyncSession getAsyncSession() {
         return asyncSession;
     }

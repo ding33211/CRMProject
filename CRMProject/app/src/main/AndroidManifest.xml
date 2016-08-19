@@ -39,8 +39,17 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.soubu.crmproject.view.activity.HomeActivity"></activity>
-        <activity android:name="com.soubu.crmproject.view.activity.CustomerActivity"></activity>
+        <activity android:name=".view.activity.HomeActivity"></activity>
+        <activity android:name=".view.activity.CustomerActivity"></activity>
+        <activity android:name=".view.activity.ClueActivity"></activity>
+        <activity android:name=".view.activity.BusinessOpportunityActivity"></activity>
+        <activity android:name=".view.activity.ContractActivity"></activity>
+        <activity android:name=".view.activity.AddClueActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

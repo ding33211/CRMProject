@@ -29,7 +29,7 @@ public class FixedIndicatorView extends LinearLayout implements Indicator {
     public static final int SPLITMETHOD_WEIGHT = 1;
     public static final int SPLITMETHOD_WRAP = 2;
 
-    private int splitMethod = SPLITMETHOD_EQUALS;
+    private int splitMethod = SPLITMETHOD_WEIGHT;
     private int state = ViewPager.SCROLL_STATE_IDLE;
 
     public FixedIndicatorView(Context context) {

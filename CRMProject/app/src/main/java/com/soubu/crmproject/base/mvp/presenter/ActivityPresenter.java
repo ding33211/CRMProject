@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.BaseActivity;
 import com.soubu.crmproject.base.mvp.view.IDelegate;
 
@@ -29,6 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 
 /**
  * Presenter层的实现基类
+ *
  * @param <T> View delegate class type
  */
 public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivity {
@@ -47,8 +49,11 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (viewDelegate.ifNeedEventBus()) {
+            EventBus.getDefault().register(this);
+        }
         viewDelegate.create(getLayoutInflater(), null, savedInstanceState);
-        if(viewDelegate.ifNeedFullScreen()){
+        if (viewDelegate.ifNeedFullScreen()) {
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
         setContentView(viewDelegate.getRootView());
@@ -62,9 +67,11 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
     //初始化一些布局view
     protected void initView() {
     }
+
     //初始化数据
     protected void initData() {
     }
+
     //绑定event
     protected void bindEvenListener() {
     }
@@ -72,15 +79,23 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
     protected void initToolbar() {
         Toolbar toolbar = viewDelegate.getToolbar();
         if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            //默认toolbar显示返回按钮,如无需显示可以在delegate的initWidget中修改
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            toolbar.findViewById(R.id.ll_back).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onBackPressed();
                 }
             });
+//            setSupportActionBar(toolbar);
+//            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            //默认toolbar显示返回按钮
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            toolbar.setLogo(getResources().getDrawable(R.drawable.bg_popupwindow));
+//            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    onBackPressed();
+//                }
+//            });
         }
     }
 
@@ -109,23 +124,10 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        viewDelegate = null;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(viewDelegate.ifNeedEventBus()){
-            EventBus.getDefault().register(this);
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(viewDelegate.ifNeedEventBus()){
+        if (viewDelegate.ifNeedEventBus()) {
             EventBus.getDefault().unregister(this);
         }
+        viewDelegate = null;
     }
 
     protected abstract Class<T> getDelegateClass();

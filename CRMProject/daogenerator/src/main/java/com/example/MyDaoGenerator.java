@@ -7,7 +7,7 @@ import org.greenrobot.greendao.generator.Schema;
 public class MyDaoGenerator {
     public static void main(String[] args) throws Exception {
         //生成的相关文件的包名路径
-        Schema schema = new Schema(1, "com.soubu.CRMProject.base.greendao");
+        Schema schema = new Schema(1, "com.soubu.crmproject.base.greendao");
         addTable(schema);
         //生成相关文件的具体路径
         new DaoGenerator().generateAll(schema, "../CRMProject/app/src/main/java");
@@ -141,8 +141,21 @@ public class MyDaoGenerator {
         //qq
         clue.addStringProperty("qq");
 
-
-
+        Entity remind = schema.addEntity("Remind");
+        remind.setTableName("Remind");
+        remind.addIdProperty().primaryKey().autoincrement();
+        //提醒日期
+        remind.addDateProperty("date");
+        //是否需要提醒   0表示不提醒,1表示提醒
+        remind.addIntProperty("remind_state");
+        //是否完成   0表示没完成,1表示完成
+        remind.addIntProperty("complete_state");
+        //内容
+        remind.addStringProperty("content");
+        //地址
+        remind.addStringProperty("address");
+        //电话
+        remind.addStringProperty("phone");
     }
 
 }

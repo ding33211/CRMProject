@@ -26,7 +26,7 @@ public class WorkBenchFragmentDelegate extends BaseFragmentDelegate {
 //        wclm.setAutoMeasureEnabled(false);
 //        mRvHomePage.setHasFixedSize(false);
         mRvHomePage.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRvHomePage.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        mRvHomePage.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL, 8));
         mRvHomePage.setAdapter(mAdapter);
     }
 }

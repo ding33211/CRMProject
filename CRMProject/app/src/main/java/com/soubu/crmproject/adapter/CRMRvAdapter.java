@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.view.activity.BusinessOpportunityActivity;
+import com.soubu.crmproject.view.activity.ClueActivity;
+import com.soubu.crmproject.view.activity.ContractActivity;
 import com.soubu.crmproject.view.activity.CustomerActivity;
 
 import java.util.ArrayList;
@@ -46,10 +49,10 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
     }
 
     public CRMRvAdapter(Activity activity) {
-        int[] labelsOne = new int[]{R.string.customer, R.string.clue, R.string.business_opportunity, R.string.contract};
+        int[] labelsOne = new int[]{R.string.clue, R.string.customer, R.string.business_opportunity, R.string.contract};
         int[] iconsOne = new int[]{R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal};
-        Intent[] intentsOne = new Intent[]{new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class),
-                new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class)};
+        Intent[] intentsOne = new Intent[]{new Intent(activity, ClueActivity.class), new Intent(activity, CustomerActivity.class),
+                new Intent(activity, BusinessOpportunityActivity.class), new Intent(activity, ContractActivity.class)};
 
         int[] labelsTwo = new int[]{R.string.sales_management, R.string.contract_management, R.string.product_management, R.string.customer_high_seas,
                 R.string.weekly_and_monthly_report, R.string.approval};

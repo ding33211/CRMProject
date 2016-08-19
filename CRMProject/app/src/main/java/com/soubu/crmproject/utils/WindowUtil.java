@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -67,5 +68,15 @@ public class WindowUtil {
         InputMethodManager inputManager = (InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.showSoftInput(edit, 0);
+    }
+
+
+    public static void addBackgroundAlhpa(Activity activity, float bgAlpha){
+        WindowManager.LayoutParams lp = activity.getWindow()
+                .getAttributes();
+        lp.alpha = bgAlpha;
+        Window window = activity.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        window.setAttributes(lp);
     }
 }

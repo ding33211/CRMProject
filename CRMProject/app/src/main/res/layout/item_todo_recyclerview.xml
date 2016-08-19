@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_date"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/darker_gray">
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:text="2016-08-10 周三"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:id="@+id/ll_left_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
+                android:text="14:32"
+                android:textColor="@color/bottom_bar_text_normal_color"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_remind_state"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/fx_conversation_normal" />
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_complete_state"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/ll_left_container"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/ll_left_container"
+            android:src="@drawable/fx_find_normal" />
+
+        <View
+            android:id="@+id/v_up_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/iv_complete_state"
+            android:layout_alignLeft="@+id/iv_complete_state"
+            android:layout_marginLeft="15dp"
+            android:background="@android:color/darker_gray" />
+
+        <View
+            android:id="@+id/v_down_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/iv_complete_state"
+            android:layout_below="@+id/iv_complete_state"
+            android:layout_marginLeft="15dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:id="@+id/ll_remind_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/iv_complete_state"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="意向回访"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_sub_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关联客户:芳华布艺"
+                android:textColor="@color/bottom_bar_text_normal_color"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_remind_action"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:src="@drawable/fx_find_pressed" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@id/iv_remind_action"
+            android:background="@android:color/darker_gray" />
+
+
+    </RelativeLayout>
+</LinearLayout>

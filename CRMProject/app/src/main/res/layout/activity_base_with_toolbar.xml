@@ -8,7 +8,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
+        android:background="?attr/colorPrimary">
+
+        <include layout="@layout/toolbar_custom" />
+
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/ll_content"

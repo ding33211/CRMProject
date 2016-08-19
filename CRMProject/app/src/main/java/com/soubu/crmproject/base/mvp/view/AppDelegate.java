@@ -22,7 +22,9 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.utils.ToastUtil;
@@ -164,5 +166,42 @@ public abstract class AppDelegate implements IDelegate {
     public boolean ifNeedEventBus() {
         return false;
     }
+
+    /**
+     * 设置toolbar 标题
+     * @param titleRes
+     */
+    public void setTitle(int titleRes){
+        ((TextView)getToolbar().findViewById(R.id.tv_title)).setText(titleRes);
+    }
+
+    public void setRightMenuOne(int drawableRes, View.OnClickListener listener){
+        ImageView imageView = (ImageView)getToolbar().findViewById(R.id.iv_menu_r_1);
+        imageView.setImageResource(drawableRes);
+        imageView.setOnClickListener(listener);
+        imageView.setVisibility(View.VISIBLE);
+    }
+
+    public void setRightMenuTwo(int drawableRes, View.OnClickListener listener){
+        ImageView imageView = (ImageView)getToolbar().findViewById(R.id.iv_menu_r_2);
+        imageView.setImageResource(drawableRes);
+        imageView.setOnClickListener(listener);
+        imageView.setVisibility(View.VISIBLE);
+    }
+
+    public void setSettingMenu(int drawableRes, View.OnClickListener listener){
+        ImageView imageView = (ImageView)getToolbar().findViewById(R.id.iv_setting);
+        imageView.setImageResource(drawableRes);
+        imageView.setOnClickListener(listener);
+        imageView.setVisibility(View.VISIBLE);
+    }
+
+    public void setSettingText(int titleRes, View.OnClickListener listener){
+        TextView textView = (TextView)getToolbar().findViewById(R.id.tv_setting);
+        textView.setText(titleRes);
+        textView.setOnClickListener(listener);
+        textView.setVisibility(View.VISIBLE);
+    }
+
 
 }
