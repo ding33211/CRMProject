@@ -21,19 +21,20 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     public final int TYPE_ITEM_UNABLE = 0x07;  //不可点击
 
 
-    private List<List<Pair<String, Integer>>> mList;
+    private List<Pair<String, Integer>> mList;
 
-    public AddSomethingRvAdapter(List<List<Pair<String, Integer>>> list){
+    public AddSomethingRvAdapter(List<Pair<String, Integer>> list){
          mList = list;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+        return mList.get(position).second;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         return null;
     }
 

@@ -89,7 +89,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
 //            getSupportActionBar().setDisplayShowTitleEnabled(false);
             //默认toolbar显示返回按钮
 //            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            toolbar.setLogo(getResources().getDrawable(R.drawable.bg_popupwindow));
+//            toolbar.setLogo(getResources().getDrawable(R.drawable.bg_filter_and_sort));
 //            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {

@@ -5,9 +5,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridLayout;
 import android.widget.HorizontalScrollView;
@@ -17,7 +14,6 @@ import android.widget.PopupWindow;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.CategoryAdapter;
-import com.soubu.crmproject.utils.WindowUtil;
 
 /**
  * 筛选和排序弹窗
@@ -97,7 +93,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             mLayoutParams.height = android.support.v7.widget.GridLayout.LayoutParams.MATCH_PARENT;
             mLayoutParams.setMargins(0, 0, 2, 0);
             lvParentCategory.setLayoutParams(mLayoutParams);
-            lvParentCategory.setBackgroundResource(R.drawable.bg_popupwindow);
+            lvParentCategory.setBackgroundResource(R.drawable.bg_filter_and_sort);
             lvParentCategory.setDivider(new ColorDrawable(activity.getResources().getColor(R.color.item_line_grey)));
             lvParentCategory.setDividerHeight(2);
             lvParentCategory.setAdapter(categoryAdapter);
@@ -107,7 +103,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             lvChildrenCategory.setLayoutParams(mLayoutParams);
             lvChildrenCategory.setDivider(new ColorDrawable(activity.getResources().getColor(R.color.item_line_grey)));
             lvChildrenCategory.setDividerHeight(2);
-            lvChildrenCategory.setBackgroundResource(R.drawable.bg_popupwindow);
+            lvChildrenCategory.setBackgroundResource(R.drawable.bg_filter_and_sort);
             childrenCategoryAdapter = new CategoryAdapter(activity, childrenStrings[0], CategoryAdapter.TYPE_CHILD);
             lvChildrenCategory.setAdapter(childrenCategoryAdapter);
 
@@ -150,7 +146,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             thirdList.setLayoutParams(mLayoutParams);
             thirdList.setDivider(new ColorDrawable(parent.getContext().getResources().getColor(R.color.item_line_grey)));
             thirdList.setDividerHeight(2);
-            thirdList.setBackgroundResource(R.drawable.bg_popupwindow);
+            thirdList.setBackgroundResource(R.drawable.bg_filter_and_sort);
             CategoryAdapter childrenCategoryAdapter = new CategoryAdapter(parent.getContext(), childrenStrings[position], CategoryAdapter.TYPE_CHILD);
             thirdList.setAdapter(childrenCategoryAdapter);
             mGlContainer.addView(thirdList);

@@ -26,6 +26,8 @@
     <color name="item_line_grey">#e5e5e5</color>
 
     <color name="filter_selected_color">#f5f5f5</color>
+    <!-- 渐变橙色-->
+    <color name="gradient_orange">#ff8a00</color>
 
 
 </resources>
