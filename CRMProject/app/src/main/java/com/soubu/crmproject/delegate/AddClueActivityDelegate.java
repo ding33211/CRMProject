@@ -1,6 +1,7 @@
 package com.soubu.crmproject.delegate;
 
 import android.support.v4.util.Pair;
+import android.support.v7.widget.RecyclerView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
@@ -27,7 +28,13 @@ public class AddClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
         mAdapter.notifyDataSetChanged();
     }
 
-
+//    public RecyclerView getRecyclerView(){
+//        return mRvContent;
+//    }
+//
+//    public void setOnItemClickListener(AddSomethingRvAdapter.OnRecyclerViewItemClickListener listener){
+//        mAdapter.setOnItemClickListener(listener);
+//    }
 
 
 

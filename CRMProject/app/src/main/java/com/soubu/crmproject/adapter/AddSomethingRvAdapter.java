@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-19.
  */
-public class AddSomethingRvAdapter extends RecyclerView.Adapter implements View.OnClickListener {
+public class AddSomethingRvAdapter extends RecyclerView.Adapter {
 
     public static final int TYPE_LABEL = 0x00;
     public static final int TYPE_OTHER = 0x01;
@@ -45,6 +45,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter implements View.
         mList = new ArrayList<>();
         mActivity = activity;
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -95,89 +96,111 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter implements View.
                 //TODO
                 break;
         }
-        v.setTag(viewType);
+//        vItem.setTag(viewType);
 //        vItem.setOnClickListener(this);
         return new ItemViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.e("xxxxxxxxxx", "position    " + position + "     holder    " + holder);
-        int viewType = getItemViewType(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        int viewType = getItemViewType(holder.getLayoutPosition());
         ItemViewHolder holder1 = (ItemViewHolder) holder;
-        holder1.etContent.setInputType(mList.get(position).getEditTextType());
-//        holder1.etContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (!hasFocus) {
-//                    Log.e("zzzzzzzzzzz" , "ddddddddd");
-//                    onEditTextLostFocus(v);
-//                }
-//            }
-//        });
+        holder1.etContent.setInputType(mList.get(holder.getLayoutPosition()).getEditTextType());
+        holder1.etContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Log.e("zzzzzzzzzzz" , "ddddddddd");
+                    onEditTextLostFocus(v, position);
+                }
+            }
+        });
 //        holder1.vContent.setTag(viewType);
 //        holder1.vContent.setOnClickListener(this);
-        if (position == getItemCount() - 1 || getItemViewType(position + 1) == TYPE_LABEL
-                || getItemViewType(position + 1) == TYPE_OTHER) {
+        holder1.vItemBottomLine.setVisibility(View.VISIBLE);
+        if (holder.getLayoutPosition() == getItemCount() - 1 || getItemViewType(holder.getLayoutPosition() + 1) == TYPE_LABEL
+                || getItemViewType(holder.getLayoutPosition() + 1) == TYPE_OTHER) {
             holder1.vItemBottomLine.setVisibility(View.GONE);
+        }
+        String text = mList.get(position).getContent();
+        holder1.tvAction.setVisibility(View.GONE);
+        if(TextUtils.isEmpty(text)){
+            if(viewType == TYPE_ITEM_REQUIRED_FILL){
+                holder1.tvAction.setText(R.string.required_fill);
+                holder1.tvAction.setVisibility(View.VISIBLE);
+            }
+        } else {
+            holder1.tvAction.setText(text);
+            holder1.tvAction.setVisibility(View.VISIBLE);
         }
         switch (viewType) {
             case TYPE_LABEL:
-                holder1.tvLabel.setText(mList.get(position).getTitleRes());
+                holder1.tvLabel.setText(mList.get(holder.getLayoutPosition()).getTitleRes());
                 break;
             case TYPE_OTHER:
-                holder1.tvOther.setText(mList.get(position).getTitleRes());
+                holder1.tvOther.setText(mList.get(holder.getLayoutPosition()).getTitleRes());
                 break;
             default:
-                holder1.tvTitle.setText(mList.get(position).getTitleRes());
+                holder1.tvTitle.setText(mList.get(holder.getLayoutPosition()).getTitleRes());
                 break;
         }
 
     }
 
-    @Override
-    public void onClick(View v) {
-        Log.e("zzzzzzzzzzz" , "hhhhhhhhhhhhh");
-        int viewType = (int) v.getTag();
-        View tvAction = v.findViewById(R.id.tv_action);
-        View ivAction = v.findViewById(R.id.iv_action);
-        EditText etContent = (EditText) v.findViewById(R.id.et_content);
-        switch (viewType) {
-            case TYPE_ITEM_REQUIRED_FILL:
-                tvAction.setVisibility(View.GONE);
-            case TYPE_ITEM_CAN_FILL:
-                etContent.setVisibility(View.VISIBLE);
-                WindowUtil.showSoftInput(v.getContext(), etContent);
-                etContent.setTag(v);
-                break;
-        }
+//    @Override
+//    public void onClick(View v) {
+//        Log.e("zzzzzzzzzzz" , "hhhhhhhhhhhhh");
+//        int viewType = (int) v.getTag();
+//        View tvAction = v.findViewById(R.id.tv_action);
+//        View ivAction = v.findViewById(R.id.iv_action);
+//        EditText etContent = (EditText) v.findViewById(R.id.et_content);
+//        switch (viewType) {
+//            case TYPE_ITEM_REQUIRED_FILL:
+//                tvAction.setVisibility(View.GONE);
+//            case TYPE_ITEM_CAN_FILL:
+//                etContent.setVisibility(View.VISIBLE);
+//                WindowUtil.showSoftInput(v.getContext(), etContent);
+//                etContent.setTag(v);
+//                break;
+//        }
+//
+//    }
 
-    }
-
-
-    private void onEditTextLostFocus(View editText){
+    private void onEditTextLostFocus(View editText, int pos){
         if (editText != null && editText instanceof EditText) {
-            String temp = ((EditText)editText).getText().toString();
+//            String temp = ((EditText)editText).getText().toString();
             editText.setVisibility(View.GONE);
-            View item = (View) editText.getTag();
-            int viewType = (int) item.getTag();
-            TextView tvAction = (TextView) item.findViewById(R.id.tv_action);
-            if (!TextUtils.isEmpty(temp)) {
-                tvAction.setText(temp);
-                tvAction.setVisibility(View.VISIBLE);
-            } else if (viewType == TYPE_ITEM_REQUIRED_FILL) {
-                tvAction.setVisibility(View.VISIBLE);
-            }
+            mList.get(pos).setContent(((EditText) editText).getText().toString());
+//            View item = (View) editText.getTag();
+//            int viewType = (int) item.getTag();
+//            TextView tvAction = (TextView) item.findViewById(R.id.tv_action);
+//            if (!TextUtils.isEmpty(temp)) {
+//                tvAction.setText(temp);
+//                tvAction.setVisibility(View.VISIBLE);
+//            } else if (viewType == TYPE_ITEM_REQUIRED_FILL) {
+//                tvAction.setVisibility(View.VISIBLE);
+//            }
             WindowUtil.hideSoftInput(mActivity);
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
-        TextView tvLabel;
-        TextView tvTitle;
-        TextView tvOther;
-        View vItemBottomLine;
-        EditText etContent;
+//    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+//
+//    public interface OnRecyclerViewItemClickListener {
+//        void onItemClick(View view , int pos);
+//    }
+//
+//    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+//        this.mOnItemClickListener = listener;
+//    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public TextView tvLabel;
+        public TextView tvTitle;
+        public TextView tvOther;
+        public View vItemBottomLine;
+        public EditText etContent;
+        public TextView tvAction;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -186,28 +209,36 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter implements View.
             tvOther = (TextView) itemView.findViewById(R.id.tv_other_content);
             vItemBottomLine = itemView.findViewById(R.id.v_bottom_line);
             etContent = (EditText) itemView.findViewById(R.id.et_content);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.e("zzzzzzzzzzz" , "hhhhhhhhhhhhh");
-                    int viewType = (int) v.getTag();
-                    View tvAction = v.findViewById(R.id.tv_action);
-                    View ivAction = v.findViewById(R.id.iv_action);
-                    EditText etContent = (EditText) v.findViewById(R.id.et_content);
-                    switch (viewType) {
-                        case TYPE_ITEM_REQUIRED_FILL:
-                            tvAction.setVisibility(View.GONE);
-                        case TYPE_ITEM_CAN_FILL:
-                            etContent.setVisibility(View.VISIBLE);
-                            WindowUtil.showSoftInput(v.getContext(), etContent);
-                            etContent.setTag(v);
-                            break;
-                    }
-                }
-            });
+            tvAction = (TextView) itemView.findViewById(R.id.tv_action);
+            itemView.setOnClickListener(this);
         }
 
 
+
+
+        @Override
+        public void onClick(View v) {
+            Log.e("22222222222" , "getAdapterPosition    :   " + getAdapterPosition() + "  getLayoutPosition   " + getLayoutPosition());
+
+            int viewType = getItemViewType();
+            View ivAction = v.findViewById(R.id.iv_action);
+            switch (viewType) {
+                case TYPE_ITEM_REQUIRED_FILL:
+                    tvAction.setVisibility(View.GONE);
+                case TYPE_ITEM_CAN_FILL:
+                    etContent.setVisibility(View.VISIBLE);
+                    WindowUtil.showSoftInput(v.getContext(), etContent);
+                    etContent.setTag(getAdapterPosition());
+//                    etContent.setTag(this);
+                    break;
+            }
+
+
+//            if (mOnItemClickListener != null) {
+//                //注意这里使用getTag方法获取数据
+//                mOnItemClickListener.onItemClick(v, getLayoutPosition());
+//            }
+        }
     }
 
     public void setData(List<AddItem> list) {

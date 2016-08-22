@@ -11,6 +11,16 @@ public class AddItem {
     int editTextType = InputType.TYPE_CLASS_TEXT;
     int itemType;
 
+    String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public int getTitleRes() {
         return titleRes;
     }
