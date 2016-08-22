@@ -90,7 +90,6 @@ public class ClueActivity extends ActivityPresenter<ClueActivityDelegate> {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ArrayList<ClueTest> list) {
-        Log.e("xxxxxxxxxx", list.size() + "");
         viewDelegate.stopSwipeRefresh();
         viewDelegate.setData(list);
     }

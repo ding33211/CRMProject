@@ -92,7 +92,6 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
             viewPagerItem.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, viewPagerItem.getMeasuredHeight());
             viewPager.setLayoutParams(lp);
-            Log.e("xxxxxxxxxxxx", "    viewPagerItem.getMeasuredHeight()      :  " + viewPagerItem.getMeasuredHeight());
         }
         indicatorViewPager.setCurrentItem(1, false);
 //        if (viewType == TYPE_PERFORMANCE_GOAL) {

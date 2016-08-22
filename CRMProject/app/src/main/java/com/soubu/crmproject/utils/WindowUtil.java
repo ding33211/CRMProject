@@ -79,4 +79,5 @@ public class WindowUtil {
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         window.setAttributes(lp);
     }
+
 }

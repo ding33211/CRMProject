@@ -33,7 +33,6 @@ public class CustomerActivity extends ActivityPresenter<CustomerActivityDelegate
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ArrayList<ClueTest> list){
-        Log.e("xxxxxxxxxx", list.size() + "");
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
     }

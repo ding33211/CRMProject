@@ -49,11 +49,12 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
         if(ifNeedUseSwipeRefresh()){
             initSwipeRefreshLayout();
         } else {
-            get(R.id.srl_container).setActivated(false);
+            get(R.id.srl_container).setEnabled(false);
         }
         initRecyclerView();
         if(!ifNeedFilterOrSorter()){
             get(R.id.ll_top).setVisibility(View.GONE);
+            get(R.id.v_line).setVisibility(View.GONE);
         }
     }
 
