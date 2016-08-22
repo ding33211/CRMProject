@@ -65,15 +65,37 @@
     <string name="clear_out">清空</string>
     <string name="confirm">确定</string>
 
-    <string name="last_follow_time">最新跟进时间:</string>
-    <string name="related_customers">关联客户:</string>
-    <string name="contacts">联系人:</string>
-    <string name="follow_state">跟进状态:</string>
-    <string name="follow_result">跟进结果:</string>
+    <string name="last_follow_time_with_colon">最新跟进时间:</string>
+    <string name="related_customers_with_colon">关联客户:</string>
+    <string name="contacts_with_colon">联系人:</string>
+    <string name="follow_state_with_colon">跟进状态:</string>
+    <string name="follow_result_with_colon">跟进结果:</string>
 
     <string name="loading">正在加载...</string>
     <string name="save">保存</string>
     <string name="add_clue">新建线索</string>
+
+    <string name="essential_information">基本信息</string>
+    <string name="contact_information">联系信息</string>
+    <string name="other_information">其他信息</string>
+    <string name="founder_information">创建人信息</string>
+
+    <string name="name">姓名</string>
+    <string name="department">部门</string>
+    <string name="company_name">公司名称</string>
+    <string name="post">职务</string>
+    <string name="land_line">座机</string>
+    <string name="phone">手机</string>
+    <string name="qq">QQ号</string>
+    <string name="email">邮箱</string>
+    <string name="network">网址</string>
+    <string name="area">地区</string>
+    <string name="address">地址</string>
+    <string name="add_contact">添加联系人</string>
+    <string name="clue_from">线索来源</string>
+    <string name="remark">备注</string>
+    <string name="founder">创建人</string>
+    <string name="founder_department">所属部门</string>
 
 
 </resources>
