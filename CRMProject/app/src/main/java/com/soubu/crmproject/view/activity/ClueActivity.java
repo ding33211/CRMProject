@@ -82,6 +82,13 @@ public class ClueActivity extends ActivityPresenter<ClueActivityDelegate> {
 
             }
         });
+        viewDelegate.setOnRecyclerViewItemClickListener(new ClueRvAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                Intent intent = new Intent(ClueActivity.this, ClueSpecActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -138,4 +145,6 @@ public class ClueActivity extends ActivityPresenter<ClueActivityDelegate> {
             }
         });
     }
+
+
 }

@@ -65,11 +65,13 @@
     <string name="clear_out">清空</string>
     <string name="confirm">确定</string>
 
-    <string name="last_follow_time_with_colon">最新跟进时间:</string>
-    <string name="related_customers_with_colon">关联客户:</string>
-    <string name="contacts_with_colon">联系人:</string>
-    <string name="follow_state_with_colon">跟进状态:</string>
-    <string name="follow_result_with_colon">跟进结果:</string>
+    <string name="last_follow_time_with_colon">最新跟进时间: </string>
+    <string name="related_customers_with_colon">关联客户: </string>
+    <string name="contacts_with_colon">联系人: </string>
+    <string name="follow_state_with_colon">跟进状态: </string>
+    <string name="follow_result_with_colon">跟进结果: </string>
+    <string name="follow_function_with_colon">跟进方式: </string>
+
 
     <string name="loading">正在加载...</string>
     <string name="save">保存</string>
@@ -99,6 +101,11 @@
     <string name="founder_department">所属部门</string>
     <string name="required_fill">必填</string>
     <string name="required_choose">必选</string>
+    <string name="follow_plan">跟进计划</string>
+    <string name="follow_record">跟进记录</string>
+    <string name="fill_follow_record">填写跟进记录</string>
+    <string name="add_follow_plan">新增跟进计划</string>
+    <string name="clue_home">线索主页</string>
 
 
 </resources>

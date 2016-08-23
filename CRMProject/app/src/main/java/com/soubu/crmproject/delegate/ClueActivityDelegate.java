@@ -34,6 +34,10 @@ public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
         mAdapter.notifyDataSetChanged();
     }
 
+    public void setOnRecyclerViewItemClickListener(ClueRvAdapter.OnItemClickListener listener){
+        mAdapter.setOnItemClickListener(listener);
+    }
+
     @Override
     public boolean ifNeedEventBus() {
         return true;

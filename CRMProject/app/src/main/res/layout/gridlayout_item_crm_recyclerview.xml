@@ -3,33 +3,56 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/bottom_bar_normal_bg">
+    <RelativeLayout
+        android:id="@+id/rl_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/fx_find_normal" />
 
-    <ImageView
-        android:id="@+id/iv_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:src="@drawable/fx_find_normal" />
-    <TextView
-        android:id="@+id/tv_bottom_title"
+        <TextView
+            android:id="@+id/tv_right_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_image"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/title_black"
+            android:text="@string/customer"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/iv_image"
-        android:layout_marginTop="4dp"
-        android:textColor="@android:color/black"
-        android:text="@string/business_card_scanning"
-        android:visibility="gone"/>
-    <TextView
-        android:id="@+id/tv_right_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/iv_image"
-        android:layout_marginLeft="10dp"
-        android:textColor="@android:color/black"
-        android:text="@string/customer"/>
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/iv_image_vertical"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fx_find_normal" />
+        <TextView
+            android:id="@+id/tv_bottom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/title_black"
+            android:layout_below="@+id/iv_image_vertical"
+            android:text="@string/business_card_scanning"/>
+    </RelativeLayout>
+
+
 </RelativeLayout>

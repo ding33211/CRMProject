@@ -3,6 +3,7 @@ package com.soubu.crmproject.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.GridLayout;
 import android.view.LayoutInflater;
@@ -50,18 +51,19 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
 
     public CRMRvAdapter(Activity activity) {
         int[] labelsOne = new int[]{R.string.clue, R.string.customer, R.string.business_opportunity, R.string.contract};
-        int[] iconsOne = new int[]{R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal};
+        int[] iconsOne = new int[]{R.drawable.clue, R.drawable.customer, R.drawable.business_opportunity, R.drawable.contract};
         Intent[] intentsOne = new Intent[]{new Intent(activity, ClueActivity.class), new Intent(activity, CustomerActivity.class),
                 new Intent(activity, BusinessOpportunityActivity.class), new Intent(activity, ContractActivity.class)};
 
         int[] labelsTwo = new int[]{R.string.sales_management, R.string.contract_management, R.string.product_management, R.string.customer_high_seas,
                 R.string.weekly_and_monthly_report, R.string.approval};
-        int[] iconsTwo = new int[]{R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal};
+        int[] iconsTwo = new int[]{R.drawable.sales_management, R.drawable.contract, R.drawable.product_management, R.drawable.customer_high_seas,
+                R.drawable.weekly_and_monthly_report, R.drawable.approval};
         Intent[] intentsTwo = new Intent[]{new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class),
                 new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class)};
 
         int[] labelsThree = new int[]{R.string.business_card_scanning, R.string.nearby_customers, R.string.fill_in_follow_up, R.string.new_reminder};
-        int[] iconsThree = new int[]{R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal, R.drawable.fx_find_normal};
+        int[] iconsThree = new int[]{R.drawable.business_card_scanning, R.drawable.nearby_customers, R.drawable.fill_in_follow_up, R.drawable.new_reminder};
         Intent[] intentsThree = new Intent[]{new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class),
                 new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class)};
         mCustomerItems = new ArrayList<>();
@@ -115,12 +117,14 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
     private void addContainer(GridLayout container, final Context context, List<CRMRvItem> list, int type) {
         if(type == TYPE_POPULAR_FUNCTION){
             container.setColumnCount(4);
+            container.setBackgroundResource(android.R.color.white);
             for (final CRMRvItem item : list) {
                 View v = LayoutInflater.from(context).inflate(R.layout.gridlayout_item_crm_recyclerview, null, false);
-                v.findViewById(R.id.tv_right_title).setVisibility(View.GONE);
-                v.findViewById(R.id.tv_bottom_title).setVisibility(View.VISIBLE);
-                ((TextView) v.findViewById(R.id.tv_bottom_title)).setText(item.getTitle());
-                ((ImageView) v.findViewById(R.id.iv_image)).setImageResource(item.getIconRes());
+                v.findViewById(R.id.rl_horizontal).setVisibility(View.GONE);
+                v.findViewById(R.id.rl_vertical).setVisibility(View.VISIBLE);
+                TextView textView = (TextView) v.findViewById(R.id.tv_bottom_title);
+                textView.setText(item.getTitle());
+                ((ImageView) v.findViewById(R.id.iv_image_vertical)).setImageResource(item.getIconRes());
                 android.support.v7.widget.GridLayout.LayoutParams params =
                         new android.support.v7.widget.GridLayout.LayoutParams();
                 params.columnSpec = android.support.v7.widget.GridLayout.spec(GridLayout.UNDEFINED, 1f);
@@ -134,6 +138,7 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
                 container.addView(v);
             }
         }else {
+            int i = 0;
             for (final CRMRvItem item : list) {
                 View v = LayoutInflater.from(context).inflate(R.layout.gridlayout_item_crm_recyclerview, null, false);
                 ((TextView) v.findViewById(R.id.tv_right_title)).setText(item.getTitle());
@@ -141,7 +146,7 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
                 android.support.v7.widget.GridLayout.LayoutParams params =
                         new android.support.v7.widget.GridLayout.LayoutParams();
                 params.columnSpec = android.support.v7.widget.GridLayout.spec(GridLayout.UNDEFINED, 1f);
-                params.setMargins(0,2,2,0);//设置边距
+                params.setMargins(0,i == 0 || i ==1 ? 0 : 2,2,0);//设置边距,顶上两个没有上边距
                 v.setLayoutParams(params);
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -150,6 +155,7 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
                     }
                 });
                 container.addView(v);
+                i++;
             }
         }
 

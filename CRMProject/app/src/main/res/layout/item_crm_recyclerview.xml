@@ -7,15 +7,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/bottom_bar_text_normal_color">
+        android:layout_height="26dp"
+        android:background="@drawable/bg_grey_stroke_top_bottom">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
+            android:textColor="@color/subtitle_grey"
+            android:textSize="14sp"
+            android:layout_marginLeft="16dp"
             android:text="@string/customer_management" />
     </LinearLayout>
 
@@ -23,7 +25,7 @@
         android:id="@+id/gl_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bottom_bar_text_normal_color"
+        android:background="@color/line_color"
         android:gravity="fill_horizontal|center"
         app:columnCount="2" />
 </LinearLayout>

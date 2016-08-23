@@ -6,17 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.adapter.ClueSpecIndicatorViewPagerAdapter;
 import com.soubu.crmproject.base.mvp.view.AppDelegate;
+import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.widget.indicatorviewpager.ColorBar;
 import com.soubu.crmproject.widget.indicatorviewpager.Indicator;
 import com.soubu.crmproject.widget.indicatorviewpager.IndicatorViewPager;
 import com.soubu.crmproject.widget.indicatorviewpager.OnTransitionTextListener;
+
+import java.util.List;
 
 
 /**
  * Created by lakers on 16/8/21.
  */
 public class ClueSpecActivityDelegate extends AppDelegate {
+    ViewPager mViewPager;
+    Indicator mIndicator;
+
     @Override
     public int getRootLayoutId() {
         return R.layout.activity_clue_spec;
@@ -25,18 +32,20 @@ public class ClueSpecActivityDelegate extends AppDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-//        View v = LayoutInflater.from(get).inflate(R.layout.item_home_recyclerview, parent, false);
-//        View viewPagerItem = null;
-//        IndicatorViewPager.IndicatorViewPagerAdapter adapter = null;
-//        final ViewPager viewPager = (ViewPager) v.findViewById(R.id.vp_content);
-//        Indicator indicator = (Indicator) v.findViewById(R.id.fiv_indicator);
-//        indicator.setScrollBar(new ColorBar(getActivity(), Color.RED, 5));
-//        float unSelectSize = 16;
-//        float selectSize = unSelectSize * 1.2f;
-//        int selectColor = getActivity().getResources().getColor(R.color.bottom_bar_text_selected_color);
-//        int unSelectColor = getActivity().getResources().getColor(R.color.bottom_bar_text_normal_color);
-//        indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
-//        IndicatorViewPager indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
-//        indicatorViewPager.setAdapter(new );
+        setTitle(R.string.clue_home);
+        mViewPager = get(R.id.vp_content);
+        mIndicator = get(R.id.fiv_indicator);
+        mIndicator.setScrollBar(new ColorBar(getActivity(), getActivity().getResources().getColor(R.color.colorPrimary), 5));
+        float unSelectSize = 16;
+        float selectSize = unSelectSize * 1.2f;
+        int selectColor = getActivity().getResources().getColor(R.color.colorPrimary);
+        int unSelectColor = getActivity().getResources().getColor(R.color.subtitle_grey);
+        mIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
+    }
+
+    public void setIndicatorViewPagerAdapter(List<FollowTest> list){
+        IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
+        indicatorViewPager.setAdapter(new ClueSpecIndicatorViewPagerAdapter(list));
+        indicatorViewPager.setCurrentItem(1, false);
     }
 }

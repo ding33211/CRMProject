@@ -92,14 +92,16 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/fx_conversation_normal" />
+                android:background="@drawable/clue_spec_circle"
+                android:src="@drawable/clue_spec_phone" />
 
             <ImageView
                 android:id="@+id/iv_sns3"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/fx_conversation_normal" />
+                android:background="@drawable/clue_spec_circle"
+                android:src="@drawable/clue_spec_qq" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -112,7 +114,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/fx_conversation_normal" />
+                    android:background="@drawable/clue_spec_circle"
+                    android:src="@drawable/clue_spec_locate" />
             </RelativeLayout>
 
             <ImageView
@@ -120,20 +123,22 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/fx_conversation_normal" />
+                android:background="@drawable/clue_spec_circle"
+                android:src="@drawable/clue_spec_email" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/iv_sns3"
-                android:layout_toLeftOf="@+id/iv_sns5">
+                android:layout_toLeftOf="@+id/iv_sns5"
+                android:layout_toRightOf="@+id/iv_sns3">
 
                 <ImageView
                     android:id="@+id/iv_sns4"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/fx_conversation_normal" />
+                    android:background="@drawable/clue_spec_circle"
+                    android:src="@drawable/clue_spec_message" />
             </RelativeLayout>
 
         </RelativeLayout>
@@ -145,28 +150,84 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@android:color/white">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
             android:text="所有跟进"
             android:textColor="#333333"
-            android:layout_marginLeft="16dp"
-            android:layout_centerVertical="true"/>
+            android:textSize="16sp" />
 
-        <com.soubu.CRMProject.widget.IndicatorViewPager.FixedIndicatorView
+        <com.soubu.crmproject.widget.indicatorviewpager.FixedIndicatorView
             android:id="@+id/fiv_indicator"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
+            android:layout_width="150dp"
+            android:layout_height="36dp"
             android:layout_alignParentBottom="true"
-            android:layout_width="80dp"
-            android:layout_height="36dp" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp" />
     </RelativeLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_weight="1" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_grey_stroke_top_bottom">
 
+        <View
+            android:id="@+id/v_mid_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:id="@+id/ll_fill_follow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/v_mid_line"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/fill_follow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="@string/fill_follow_record"
+                android:textColor="@color/title_black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_add_follow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/v_mid_line"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/add_follow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="@string/add_follow_plan"
+                android:textColor="@color/title_black"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

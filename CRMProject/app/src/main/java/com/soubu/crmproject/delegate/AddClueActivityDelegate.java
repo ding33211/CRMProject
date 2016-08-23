@@ -27,15 +27,4 @@ public class AddClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
     }
-
-//    public RecyclerView getRecyclerView(){
-//        return mRvContent;
-//    }
-//
-//    public void setOnItemClickListener(AddSomethingRvAdapter.OnRecyclerViewItemClickListener listener){
-//        mAdapter.setOnItemClickListener(listener);
-//    }
-
-
-
 }

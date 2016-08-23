@@ -130,17 +130,6 @@ public class AddClueActivity extends ActivityPresenter<AddClueActivityDelegate> 
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         viewDelegate.setData(mList);
-//        viewDelegate.setOnItemClickListener(new AddSomethingRvAdapter.OnRecyclerViewItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int pos) {
-//                RecyclerView recyclerView = viewDelegate.getRecyclerView();
-//                RecyclerView.ViewHolder holder = recyclerView.findViewHolderForLayoutPosition(pos);
-//                if(holder instanceof AddSomethingRvAdapter.ItemViewHolder){
-//                    ((AddSomethingRvAdapter.ItemViewHolder)holder).etContent.setVisibility(View.VISIBLE);
-//
-//                }
-//            }
-//        });
     }
 
 

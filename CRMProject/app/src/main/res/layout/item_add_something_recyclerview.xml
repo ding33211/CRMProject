@@ -56,6 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/required_fill"
+                android:singleLine="true"
+                android:maxWidth="300dp"
                 android:textColor="@color/line_color"
                 android:textSize="16sp" />
 

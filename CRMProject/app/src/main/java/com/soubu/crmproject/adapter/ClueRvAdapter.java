@@ -17,6 +17,7 @@ import java.util.List;
 public class ClueRvAdapter extends BaseWithFooterRvAdapter {
 
     List<ClueTest> mList;
+    OnItemClickListener mListener;
 
 
     public ClueRvAdapter() {
@@ -57,11 +58,29 @@ public class ClueRvAdapter extends BaseWithFooterRvAdapter {
         mList.addAll(list);
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(mListener != null){
+                mListener.onItemClick(v, getLayoutPosition());
+            }
         }
     }
+
+    public interface OnItemClickListener{
+        void onItemClick(View v, int pos);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
+
+
 }
