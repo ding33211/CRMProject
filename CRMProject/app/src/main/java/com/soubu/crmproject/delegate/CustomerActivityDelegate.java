@@ -14,7 +14,7 @@ public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        getActivity().setTitle(R.string.customer);
+        setTitle(R.string.customer);
     }
 
 

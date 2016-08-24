@@ -106,6 +106,9 @@
     <string name="fill_follow_record">填写跟进记录</string>
     <string name="add_follow_plan">新增跟进计划</string>
     <string name="clue_home">线索主页</string>
+    <string name="transfer_to_other">转移给其他人</string>
+    <string name="transfer_customer">转成客户</string>
+    <string name="clue_spec">线索详情</string>
 
 
 </resources>

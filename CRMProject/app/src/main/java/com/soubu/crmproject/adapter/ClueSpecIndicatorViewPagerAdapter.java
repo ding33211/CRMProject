@@ -20,14 +20,14 @@ import java.util.List;
 public class ClueSpecIndicatorViewPagerAdapter extends IndicatorViewPager.IndicatorViewPagerAdapter {
 
     private List<FollowTest> mList;
-    private ClueSpecRvAdapter mAdapter0;
-    private ClueSpecRvAdapter mAdapter1;
+    private ClueSpecViewPagerRvAdapter mAdapter0;
+    private ClueSpecViewPagerRvAdapter mAdapter1;
 
 
     public ClueSpecIndicatorViewPagerAdapter(List<FollowTest> mList) {
         this.mList = mList;
-        mAdapter1 = new ClueSpecRvAdapter(mList, ClueSpecRvAdapter.POS_RECORD);
-        mAdapter0 = new ClueSpecRvAdapter(mList, ClueSpecRvAdapter.POS_PLAN);
+        mAdapter1 = new ClueSpecViewPagerRvAdapter(mList, ClueSpecViewPagerRvAdapter.POS_RECORD);
+        mAdapter0 = new ClueSpecViewPagerRvAdapter(mList, ClueSpecViewPagerRvAdapter.POS_PLAN);
 
     }
 

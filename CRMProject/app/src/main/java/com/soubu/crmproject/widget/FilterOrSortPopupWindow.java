@@ -45,12 +45,12 @@ public class FilterOrSortPopupWindow extends PopupWindow {
      * @param activity
      * @param selectCategory  回调接口注入
      */
-    public FilterOrSortPopupWindow(String[] parentStrings, String[][] childrenStrings, String[][][] grandChildStrings,  final Activity activity, SelectCategory selectCategory) {
+    public FilterOrSortPopupWindow(String[] parentStrings, String[][] childrenStrings, String[][][] grandChildStrings, final Activity activity, SelectCategory selectCategory) {
         this.selectCategory = selectCategory;
         this.childrenStrings = childrenStrings;
         this.grandChildrenStrings = grandChildStrings;
 
-        if(parentStrings == null || parentStrings.length == 0){
+        if (parentStrings == null || parentStrings.length == 0) {
             return;
         }
         if (childrenStrings == null || childrenStrings.length == 0) {
@@ -62,7 +62,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
         mGlContainer = (GridLayout) contentView.findViewById(R.id.gl_container);
         mHsvContainer = (CustomHorizontalScrollView) contentView.findViewById(R.id.hsv_container);
         View llAction = contentView.findViewById(R.id.ll_action);
-        ListView lvSort = (ListView)contentView.findViewById(R.id.lv_sort);
+        ListView lvSort = (ListView) contentView.findViewById(R.id.lv_sort);
         categoryAdapter = new CategoryAdapter(activity, parentStrings, CategoryAdapter.TYPE_PARENT);
         /* 设置触摸外面时消失 */
         setOutsideTouchable(true);
@@ -120,7 +120,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             lvSort.setDividerHeight(2);
             lvSort.setOnItemClickListener(sortItemClickListener);
             //最多显示8个item的高度
-            if(parentStrings.length > 8){
+            if (parentStrings.length > 8) {
                 View item = categoryAdapter.getView(0, null, lvSort);
                 item.measure(0, 0);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (8 * item.getMeasuredHeight()));
@@ -139,23 +139,24 @@ public class FilterOrSortPopupWindow extends PopupWindow {
                 mGlContainer.removeViewAt(2);
             }
             childrenCategoryAdapter.setSelectedPosition(position);
-            childrenCategoryAdapter.setHaveThreeListVIew(true);
+            if (grandChildrenStrings != null && grandChildrenStrings[categoryAdapter.getmPos()][position].length != 0) {
+                ListView thirdList = new ListView(parent.getContext());
+                thirdList.setLayoutParams(mLayoutParams);
+                thirdList.setDivider(new ColorDrawable(parent.getContext().getResources().getColor(R.color.item_line_grey)));
+                thirdList.setDividerHeight(2);
+                thirdList.setBackgroundResource(R.drawable.bg_filter_and_sort);
+                CategoryAdapter childrenCategoryAdapter = new CategoryAdapter(parent.getContext(), childrenStrings[position], CategoryAdapter.TYPE_CHILD);
+                thirdList.setAdapter(childrenCategoryAdapter);
+                mGlContainer.addView(thirdList);
+                mHsvContainer.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mHsvContainer.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+                    }
+                }, 100);
+                childrenCategoryAdapter.setHaveThreeListVIew(true);
+            }
             childrenCategoryAdapter.notifyDataSetChanged();
-
-            ListView thirdList = new ListView(parent.getContext());
-            thirdList.setLayoutParams(mLayoutParams);
-            thirdList.setDivider(new ColorDrawable(parent.getContext().getResources().getColor(R.color.item_line_grey)));
-            thirdList.setDividerHeight(2);
-            thirdList.setBackgroundResource(R.drawable.bg_filter_and_sort);
-            CategoryAdapter childrenCategoryAdapter = new CategoryAdapter(parent.getContext(), childrenStrings[position], CategoryAdapter.TYPE_CHILD);
-            thirdList.setAdapter(childrenCategoryAdapter);
-            mGlContainer.addView(thirdList);
-            mHsvContainer.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mHsvContainer.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
-                }
-            }, 100);
         }
     };
 
@@ -185,8 +186,8 @@ public class FilterOrSortPopupWindow extends PopupWindow {
         /**
          * 把选中的下标通过方法回调回来
          *
-         * @param parentSelectPosition   父类选中下标
-         * @param childrenSelectPosition 子类选中下标
+         * @param parentSelectPosition     父类选中下标
+         * @param childrenSelectPosition   子类选中下标
          * @param grandChildSelectPosition 孙类选中下标
          */
         public void selectCategory(int parentSelectPosition, int childrenSelectPosition, int grandChildSelectPosition);

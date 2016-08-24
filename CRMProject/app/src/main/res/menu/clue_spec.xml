@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/btn_search"
-        android:title="33"
+        android:id="@+id/action_for_other"
+        android:title="@string/transfer_to_other"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/btn_add"
-        android:title="444"
+        android:id="@+id/action_to_customer"
+        android:title="@string/transfer_customer"
         app:showAsAction="ifRoom" />
 </menu>

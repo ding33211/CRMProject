@@ -12,7 +12,7 @@ public class BusinessOpportunityDelegate extends BaseRecyclerViewActivityDelegat
     @Override
     public void initWidget() {
         super.initWidget();
-        getActivity().setTitle(R.string.business_opportunity);
+        setTitle(R.string.business_opportunity);
     }
 
 

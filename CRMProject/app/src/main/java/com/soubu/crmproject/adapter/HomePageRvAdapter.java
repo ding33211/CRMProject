@@ -62,11 +62,11 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
         IndicatorViewPager.IndicatorViewPagerAdapter adapter = null;
         final ViewPager viewPager = (ViewPager) v.findViewById(R.id.vp_content);
         Indicator indicator = (Indicator) v.findViewById(R.id.fiv_indicator);
-        indicator.setScrollBar(new ColorBar(context, Color.RED, 5));
+        indicator.setScrollBar(new ColorBar(context, context.getResources().getColor(R.color.colorPrimary), 5));
         float unSelectSize = 16;
         float selectSize = unSelectSize * 1.2f;
-        int selectColor = context.getResources().getColor(R.color.bottom_bar_text_selected_color);
-        int unSelectColor = context.getResources().getColor(R.color.bottom_bar_text_normal_color);
+        int selectColor = context.getResources().getColor(R.color.colorPrimary);
+        int unSelectColor = context.getResources().getColor(R.color.subtitle_grey);
         indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
         IndicatorViewPager indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
 

@@ -1,51 +1,27 @@
 package com.soubu.crmproject.delegate;
 
-import android.graphics.Color;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-
 import com.soubu.crmproject.R;
-import com.soubu.crmproject.adapter.ClueSpecIndicatorViewPagerAdapter;
-import com.soubu.crmproject.base.mvp.view.AppDelegate;
-import com.soubu.crmproject.model.FollowTest;
-import com.soubu.crmproject.widget.indicatorviewpager.ColorBar;
-import com.soubu.crmproject.widget.indicatorviewpager.Indicator;
-import com.soubu.crmproject.widget.indicatorviewpager.IndicatorViewPager;
-import com.soubu.crmproject.widget.indicatorviewpager.OnTransitionTextListener;
+import com.soubu.crmproject.adapter.ClueSpecRvAdapter;
+import com.soubu.crmproject.model.AddItem;
 
 import java.util.List;
 
-
 /**
- * Created by lakers on 16/8/21.
+ * Created by dingsigang on 16-8-24.
  */
-public class ClueSpecActivityDelegate extends AppDelegate {
-    ViewPager mViewPager;
-    Indicator mIndicator;
-
-    @Override
-    public int getRootLayoutId() {
-        return R.layout.activity_clue_spec;
-    }
+public class ClueSpecActivityDelegate extends BaseRecyclerViewActivityDelegate {
+    private ClueSpecRvAdapter mAdapter;
 
     @Override
     public void initWidget() {
         super.initWidget();
-        setTitle(R.string.clue_home);
-        mViewPager = get(R.id.vp_content);
-        mIndicator = get(R.id.fiv_indicator);
-        mIndicator.setScrollBar(new ColorBar(getActivity(), getActivity().getResources().getColor(R.color.colorPrimary), 5));
-        float unSelectSize = 16;
-        float selectSize = unSelectSize * 1.2f;
-        int selectColor = getActivity().getResources().getColor(R.color.colorPrimary);
-        int unSelectColor = getActivity().getResources().getColor(R.color.subtitle_grey);
-        mIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
+        setTitle(R.string.clue_spec);
+        mAdapter = new ClueSpecRvAdapter();
+        setListAdapter(mAdapter);
     }
 
-    public void setIndicatorViewPagerAdapter(List<FollowTest> list){
-        IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
-        indicatorViewPager.setAdapter(new ClueSpecIndicatorViewPagerAdapter(list));
-        indicatorViewPager.setCurrentItem(1, false);
+    public void setData(List<AddItem> list){
+        mAdapter.setData(list);
+        mAdapter.notifyDataSetChanged();
     }
 }

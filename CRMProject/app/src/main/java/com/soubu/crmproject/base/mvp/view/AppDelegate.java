@@ -17,9 +17,11 @@ package com.soubu.crmproject.base.mvp.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -178,29 +180,40 @@ public abstract class AppDelegate implements IDelegate {
     public void setRightMenuOne(int drawableRes, View.OnClickListener listener){
         ImageView imageView = (ImageView)getToolbar().findViewById(R.id.iv_menu_r_1);
         imageView.setImageResource(drawableRes);
-        imageView.setOnClickListener(listener);
-        imageView.setVisibility(View.VISIBLE);
+        View v = get(R.id.ll_menu_r_1);
+        v.setOnClickListener(listener);
+        v.setVisibility(View.VISIBLE);
     }
 
     public void setRightMenuTwo(int drawableRes, View.OnClickListener listener){
         ImageView imageView = (ImageView)getToolbar().findViewById(R.id.iv_menu_r_2);
         imageView.setImageResource(drawableRes);
-        imageView.setOnClickListener(listener);
-        imageView.setVisibility(View.VISIBLE);
+        View v = get(R.id.ll_menu_r_2);
+        v.setOnClickListener(listener);
+        v.setVisibility(View.VISIBLE);
     }
 
-    public void setSettingMenu(int drawableRes, View.OnClickListener listener){
-        ImageView imageView = (ImageView)getToolbar().findViewById(R.id.iv_setting);
-        imageView.setImageResource(drawableRes);
-        imageView.setOnClickListener(listener);
-        imageView.setVisibility(View.VISIBLE);
+    public void setSettingMenuListener(final int menuRes, final PopupMenu.OnMenuItemClickListener listener){
+        final ImageView imageView = (ImageView)getToolbar().findViewById(R.id.iv_setting);
+        View v = get(R.id.ll_setting_image);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(imageView.getContext(), v);
+                popupMenu.getMenuInflater().inflate(menuRes, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(listener);
+                popupMenu.show();
+            }
+        });
+        v.setVisibility(View.VISIBLE);
     }
 
     public void setSettingText(int titleRes, View.OnClickListener listener){
         TextView textView = (TextView)getToolbar().findViewById(R.id.tv_setting);
         textView.setText(titleRes);
-        textView.setOnClickListener(listener);
-        textView.setVisibility(View.VISIBLE);
+        View v = get(R.id.ll_setting_text);
+        v.setOnClickListener(listener);
+        v.setVisibility(View.VISIBLE);
     }
 
 

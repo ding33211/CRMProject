@@ -1,11 +1,9 @@
 package com.soubu.crmproject.view.activity;
 
-import android.util.Log;
-
 import com.soubu.crmproject.adapter.ContractRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.ContractDelegate;
-import com.soubu.crmproject.model.ClueTest;
+import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.widget.FilterOrSortPopupWindow;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -31,7 +29,7 @@ public class ContractActivity extends ActivityPresenter<ContractDelegate> {
      * 监听Clue请求回调
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(ArrayList<ClueTest> list){
+    public void refreshData(ArrayList<ClueParams> list){
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
     }

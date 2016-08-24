@@ -45,7 +45,7 @@
         <activity android:name=".view.activity.BusinessOpportunityActivity"></activity>
         <activity android:name=".view.activity.ContractActivity"></activity>
         <activity android:name=".view.activity.AddClueActivity"></activity>
-        <activity android:name=".view.activity.ClueSpecActivity"></activity>
+        <activity android:name=".view.activity.ClueHomeActivity"></activity>
 
 
     </application>

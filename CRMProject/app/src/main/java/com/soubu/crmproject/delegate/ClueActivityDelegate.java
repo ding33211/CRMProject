@@ -2,8 +2,7 @@ package com.soubu.crmproject.delegate;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.ClueRvAdapter;
-import com.soubu.crmproject.base.greendao.Clue;
-import com.soubu.crmproject.model.ClueTest;
+import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
 import java.util.List;
@@ -29,13 +28,17 @@ public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
     }
 
 
-    public void setData(List<ClueTest> list){
-        mAdapter.setData(list);
+    public void setData(List<ClueParams> list, boolean isRefresh){
+        mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
     }
 
     public void setOnRecyclerViewItemClickListener(ClueRvAdapter.OnItemClickListener listener){
         mAdapter.setOnItemClickListener(listener);
+    }
+
+    public ClueParams getClueParams(int pos){
+        return mAdapter.getClueParams(pos);
     }
 
     @Override

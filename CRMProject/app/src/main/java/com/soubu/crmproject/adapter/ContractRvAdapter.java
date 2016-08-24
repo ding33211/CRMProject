@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.soubu.crmproject.R;
-import com.soubu.crmproject.model.ClueTest;
+import com.soubu.crmproject.model.ClueParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by dingsigang on 16-8-18.
  */
 public class ContractRvAdapter extends BaseWithFooterRvAdapter {
-    List<ClueTest> mList;
+    List<ClueParams> mList;
 
 
     public ContractRvAdapter() {
@@ -26,7 +26,7 @@ public class ContractRvAdapter extends BaseWithFooterRvAdapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM) {
             View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_clue_recyclerview, parent, false);
+                    .inflate(R.layout.item_big_4_recyclerview, parent, false);
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
         } else {
@@ -48,7 +48,7 @@ public class ContractRvAdapter extends BaseWithFooterRvAdapter {
         return mList.size();
     }
 
-    public void setData(List<ClueTest> list) {
+    public void setData(List<ClueParams> list) {
         if (!mList.isEmpty()) {
             mList.clear();
         }

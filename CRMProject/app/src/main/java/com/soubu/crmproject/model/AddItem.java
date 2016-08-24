@@ -10,7 +10,6 @@ public class AddItem {
     //默认输入type
     int editTextType = InputType.TYPE_CLASS_TEXT;
     int itemType;
-
     String content;
 
     public String getContent() {

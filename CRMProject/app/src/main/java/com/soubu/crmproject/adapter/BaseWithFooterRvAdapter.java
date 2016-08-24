@@ -9,6 +9,9 @@ import android.view.View;
 public abstract class BaseWithFooterRvAdapter extends RecyclerView.Adapter {
     public static final int TYPE_ITEM = 0x00;//内容
     public static final int TYPE_FOOTER = 0x01;//加载更多
+
+    //默认一页显式10项数据
+     final int PAGE_SIZE = 10;
     /**
      * 是否显示加载更多视图
      */
@@ -33,6 +36,11 @@ public abstract class BaseWithFooterRvAdapter extends RecyclerView.Adapter {
         } else {
             return TYPE_ITEM;
         }
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
     }
 
     class FooterViewHolder extends RecyclerView.ViewHolder {

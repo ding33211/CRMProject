@@ -12,7 +12,7 @@ public class ContractDelegate extends BaseRecyclerViewActivityDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        getActivity().setTitle(R.string.contract);
+        setTitle(R.string.contract);
     }
 
 

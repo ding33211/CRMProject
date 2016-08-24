@@ -4,148 +4,62 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_date"
+    <RelativeLayout
+        android:id="@+id/rl_label"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:background="@drawable/bg_grey_stroke_top_bottom">
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:text="2016-08-10 周三"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="label"
             android:textColor="@color/subtitle_grey"
             android:textSize="14sp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_item_content"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
-        <!--<LinearLayout-->
-        <!--android:id="@+id/ll_left_container"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/tv_time"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="20dp"-->
-        <!--android:layout_marginTop="4dp"-->
-        <!--android:text="14:32"-->
-        <!--android:textColor="@color/bottom_bar_text_normal_color"-->
-        <!--android:textSize="16sp" />-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/iv_remind_state"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_marginLeft="20dp"-->
-        <!--android:src="@drawable/fx_conversation_normal" />-->
-
-
-        <!--</LinearLayout>-->
-        <View
-            android:id="@+id/v_up_line"
-            android:layout_width="1dp"
-            android:layout_height="16dp"
-            android:layout_marginLeft="9dp"
-            android:background="@android:color/darker_gray" />
-
-        <ImageView
-            android:id="@+id/iv_complete_state"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_below="@+id/v_up_line"
-            android:src="@drawable/clue_spec_point" />
-
-        <View
-            android:id="@+id/v_down_line"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/iv_complete_state"
-            android:layout_marginLeft="9dp"
-            android:background="@android:color/darker_gray" />
-
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
+            android:text="@string/name"
+            android:textColor="@color/title_black"
             android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/iv_complete_state"
-            android:text="14:30"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14dp" />
-
-        <LinearLayout
-            android:id="@+id/ll_follow_content"
-            android:layout_width="match_parent"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_time"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/iv_complete_state"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:id="@+id/tv_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="跟进标题"
-                android:textColor="@color/title_black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_sub_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="跟进内容"
-                android:textColor="@color/subtitle_grey"
-                android:textSize="14sp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:id="@+id/tv_follow_state_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/follow_state_with_colon"
-                    android:textColor="@color/filter_tab_text_color"
-                    android:textSize="14sp" />
-                <TextView
-                    android:id="@+id/tv_follow_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="继续跟进"/>
-            </LinearLayout>
-            <View
-                android:id="@+id/v_bottom_line"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line_color"/>
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/iv_alarm"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/clue_spec_alerm"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/tv_title"
+            android:layout_alignBaseline="@+id/tv_title"
+            android:textColor="@color/title_black"
+            android:text=":"/>
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/tv_title"
+            android:layout_marginLeft="10dp"
+            android:layout_alignBaseline="@+id/tv_title"
+            android:textColor="@color/subtitle_grey"
+            android:text="dadddadadadadaddddddddddddddddafvavafafaxacjipoaj m;maspocjqwpmc poajcpomW "/>
+        <View
+            android:id="@+id/v_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@+id/tv_content"
+            android:background="@android:color/transparent"
             android:visibility="gone"/>
     </RelativeLayout>
 </LinearLayout>

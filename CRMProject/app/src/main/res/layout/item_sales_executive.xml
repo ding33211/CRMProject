@@ -12,20 +12,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp">
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp">
 
             <ImageView
                 android:id="@+id/iv_total_follow_up"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/fx_find_pressed" />
 
             <TextView
                 android:id="@+id/tv_total_follow_up_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
                 android:layout_toRightOf="@+id/iv_total_follow_up"
                 android:text="@string/total_follow_up" />
 
@@ -35,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tv_total_follow_up_label"
                 android:layout_below="@+id/tv_total_follow_up_label"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="6dp"
+                android:textSize="14sp"
                 android:text="84"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
@@ -76,12 +79,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dp">
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp">
 
             <ImageView
                 android:id="@+id/iv_new_customer"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/fx_find_pressed" />
 
             <TextView
@@ -113,12 +117,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp">
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp">
 
             <ImageView
                 android:id="@+id/iv_new_clue"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/fx_find_pressed" />
 
             <TextView
@@ -146,12 +151,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp">
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp">
 
             <ImageView
                 android:id="@+id/iv_new_business_opportunity"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/fx_find_pressed" />
 
             <TextView
@@ -186,12 +192,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dp">
+            android:paddingTop="20dp"
+            android:paddingLeft="16dp"
+            android:paddingBottom="20dp">
 
             <ImageView
                 android:id="@+id/iv_new_contract"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/fx_find_pressed" />
 
             <TextView
