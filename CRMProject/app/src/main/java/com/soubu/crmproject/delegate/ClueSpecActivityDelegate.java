@@ -24,4 +24,9 @@ public class ClueSpecActivityDelegate extends BaseRecyclerViewActivityDelegate {
         mAdapter.setData(list);
         mAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

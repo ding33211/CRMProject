@@ -11,7 +11,9 @@ import android.widget.PopupWindow;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
+import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.base.mvp.view.AppDelegate;
+import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.utils.WindowUtil;
 import com.soubu.crmproject.widget.DividerItemDecoration;
@@ -107,8 +109,7 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
 
     public void bindFilterAndSortEventListener(final Activity activity, final String[] parentStrings,
                                                final String[][] childrenStrings, final String[][][] grandChildStrings,
-                                               final String[] sortStrings, FilterOrSortPopupWindow.SelectCategory filterListener,
-                                               FilterOrSortPopupWindow.SelectCategory sortListener){
+                                               final String[] sortStrings, final FilterOrSortPopupWindow.SelectCategory filterListener){
         setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,12 +118,7 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
                     ImageView ivArrow = (ImageView)v.findViewById(R.id.iv_filter1);
                     ivArrow.setImageResource(R.drawable.arrow_up);
                     if(mFilterPopupWindow == null){
-                        mFilterPopupWindow = new FilterOrSortPopupWindow(parentStrings, childrenStrings, null, activity, new FilterOrSortPopupWindow.SelectCategory() {
-                            @Override
-                            public void selectCategory(int parentSelectPosition, int childrenSelectPosition, int grandChildSelectPosition) {
-
-                            }
-                        });
+                        mFilterPopupWindow = new FilterOrSortPopupWindow(parentStrings, childrenStrings, null, activity, filterListener);
                     }
                     mFilterPopupWindow.showAsDropDown(v, 0, 0);
                     bindOnDismissListener(mFilterPopupWindow, ivArrow);
@@ -130,12 +126,7 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
                     ImageView ivArrow = (ImageView)v.findViewById(R.id.iv_filter2);
                     ivArrow.setImageResource(R.drawable.arrow_up);
                     if(mSortPopupWindow == null){
-                        mSortPopupWindow = new FilterOrSortPopupWindow(sortStrings, null, null, activity, new FilterOrSortPopupWindow.SelectCategory() {
-                            @Override
-                            public void selectCategory(int parentSelectPosition, int childrenSelectPosition, int grandChildSelectPosition) {
-
-                            }
-                        });
+                        mSortPopupWindow = new FilterOrSortPopupWindow(sortStrings, null, null, activity, filterListener);
                     }
                     mSortPopupWindow.showAsDropDown(v, 0, 0);
                     bindOnDismissListener(mSortPopupWindow, ivArrow);
@@ -166,5 +157,13 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
 
     public void stopSwipeRefresh(){
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    public void registerSwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack callBack){
+        //big4的共有方法
+    }
+
+    public  void setOnRecyclerViewItemClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+        //big4的共有方法
     }
 }

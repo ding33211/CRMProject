@@ -58,10 +58,10 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
         }
         setContentView(viewDelegate.getRootView());
         initToolbar();
+        initView();
         viewDelegate.initWidget();
         bindEvenListener();
         initData();
-        initView();
     }
 
     //初始化一些布局view

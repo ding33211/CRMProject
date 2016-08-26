@@ -29,5 +29,6 @@
     <!-- 渐变橙色-->
     <color name="gradient_orange">#ff8a00</color>
 
+    <color name="translucent_white">#88ffffff</color>
 
 </resources>

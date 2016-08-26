@@ -19,15 +19,24 @@
 
 package com.soubu.crmproject.utils;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class ToastUtil {
+import com.soubu.crmproject.R;
+
+import java.lang.reflect.Field;
+
+public class ShowWidgetUtil {
 
     public static Context sContext;
 
 
-    private ToastUtil() {
+    private ShowWidgetUtil() {
     }
 
 
@@ -39,7 +48,7 @@ public class ToastUtil {
     private static void check() {
         if (sContext == null) {
             throw new NullPointerException(
-                    "Must initial call ToastUtil.register(Context context) in your " +
+                    "Must initial call ShowWidgetUtil.register(Context context) in your " +
                             "<? " +
                             "extends Application class>");
         }
@@ -93,6 +102,14 @@ public class ToastUtil {
         showLong(message);
         showLong(message);
         showLong(message);
+    }
+
+
+    public static void showMultiItemDialog(Activity activity, int titleRes, int arrayRes, boolean multiChoice, DialogInterface.OnClickListener listener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, android.R.style.Theme_Material_Light_Dialog_NoActionBar);
+        builder.setItems(arrayRes, listener);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }

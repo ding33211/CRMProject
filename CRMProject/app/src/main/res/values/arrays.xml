@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="clue_status">
+        <item>未处理</item>
+        <item>联系方式有效</item>
+        <item>联系方式无效</item>
+        <item>关闭</item>
+    </string-array>
+
+    <string-array name="clue_status_web">
+        <item>UNHANDLED</item>
+        <item>CONTACT_VALID</item>
+        <item>CONTACT_INVALID</item>
+        <item>CLOSED</item>
+    </string-array>
+
+    <string-array name="clue_source">
+        <item>广告</item>
+        <item>社交推广</item>
+        <item>研讨会</item>
+        <item>搜索引擎</item>
+        <item>客户介绍</item>
+        <item>独立开发</item>
+        <item>代理商</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="clue_source_web">
+        <item>ADVERTISEMENT</item>
+        <item>SOCIAL_MEDIA</item>
+        <item>WORKSHOP</item>
+        <item>SEARCH_ENGINE</item>
+        <item>CUSTOMER_REFERRAL</item>
+        <item>BUSINESS_DEVELOPMENT</item>
+        <item>AGENT</item>
+        <item>OTHER</item>
+    </string-array>
+
+    <string-array name="clue_related">
+        <item>我自己的</item>
+        <item>部门的</item>
+        <item>下属部门的</item>
+    </string-array>
+
+    <string-array name="clue_related_web">
+        <item>ME</item>
+        <item>DEPARTMENT</item>
+        <item>DESCENDANT</item>
+    </string-array>
+
+
+    <string-array name="clue_filter">
+        <item>线索来源</item>
+        <item>线索状态</item>
+        <item>线索数据</item>
+    </string-array>
+
+    <string-array name="clue_sort">
+        <item>创建时间升序</item>
+        <item>创建时间降序</item>
+        <item>更新时间升序</item>
+        <item>更新时间降序</item>
+    </string-array>
+
+    <string-array name="customer_filter">
+        <item>客户类型</item>
+        <item>客户来源</item>
+        <item>公司规模</item>
+        <item>所属行业</item>
+        <item>客户状态</item>
+        <item>客户数据</item>
+    </string-array>
+
+    <string-array name="customer_type">
+        <item>重要客户</item>
+        <item>普通客户</item>
+        <item>低价值客户</item>
+    </string-array>
+
+    <string-array name="customer_type_web">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+    </string-array>
+
+    <string-array name="customer_size">
+        <item>&lt;10人</item>
+        <item>10&#8211;20人</item>
+        <item>20&#8211;50人</item>
+        <item>50&#8211;100人</item>
+        <item>100&#8211;500人</item>
+        <item>&gt;500人</item>
+    </string-array>
+
+    <string-array name="customer_size_web">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+    </string-array>
+
+    <string-array name="customer_industry">
+        <item>服务</item>
+        <item>金融</item>
+        <item>电信</item>
+        <item>教育</item>
+        <item>科技</item>
+        <item>政府</item>
+        <item>制造</item>
+        <item>能源</item>
+        <item>零售</item>
+        <item>媒体</item>
+        <item>娱乐</item>
+        <item>咨询</item>
+        <item>非营利组织</item>
+        <item>共用事业</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="customer_industry_web">
+        <item>SERVICE</item>
+        <item>FINANCE</item>
+        <item>TELECOM</item>
+        <item>EDUCATION</item>
+        <item>TECH</item>
+        <item>GOVERNMENT</item>
+        <item>MANUFACTURE</item>
+        <item>ENERGY</item>
+        <item>RETAIL</item>
+        <item>MEDIA</item>
+        <item>ENTERTAINMENT</item>
+        <item>CONSULTANCY</item>
+        <item>NGO</item>
+        <item>PUBLIC</item>
+        <item>OTHER</item>
+    </string-array>
+
+    <string-array name="customer_status">
+        <item>初访</item>
+        <item>意向</item>
+        <item>报价</item>
+        <item>成交</item>
+        <item>暂时搁置</item>
+    </string-array>
+
+    <string-array name="customer_status_web">
+        <item>CONTACTED</item>
+        <item>INTENTION</item>
+        <item>OFFER</item>
+        <item>CLOSED</item>
+        <item>FAILED</item>
+    </string-array>
+</resources>

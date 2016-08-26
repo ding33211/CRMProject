@@ -30,7 +30,7 @@
         android:background="@color/bottom_bar_text_normal_color" />
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_toorbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

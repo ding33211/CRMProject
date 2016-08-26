@@ -15,6 +15,9 @@ import android.widget.PopupWindow;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.CategoryAdapter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 筛选和排序弹窗
  * Created by dingsigang on 16-8-16.
@@ -24,20 +27,22 @@ public class FilterOrSortPopupWindow extends PopupWindow {
     //是筛选还是排序
     private boolean mIsFilter = true;
 
-    private SelectCategory selectCategory;
+    private SelectCategory mSelectCategory;
 
-    private String[][] childrenStrings;
-    private String[][][] grandChildrenStrings;
+    private String[][] mChildrenStrings;
+    private String[][][] mGrandChildrenStrings;
 
     private CustomHorizontalScrollView mHsvContainer;
     private GridLayout mGlContainer;
     private int mWindowWidth;
     android.support.v7.widget.GridLayout.LayoutParams mLayoutParams;
 
-    private ListView lvParentCategory = null;
-    private ListView lvChildrenCategory = null;
-    private CategoryAdapter categoryAdapter = null;
-    private CategoryAdapter childrenCategoryAdapter = null;
+    private ListView mLvParentCategory = null;
+    private ListView mLvChildrenCategory = null;
+    private CategoryAdapter mCategoryAdapter = null;
+    private CategoryAdapter mChildrenCategoryAdapter = null;
+    private Map<Integer, Integer> mMap;
+    private int mParentPos;
 
     /**
      * @param parentStrings   字类别数据
@@ -46,9 +51,9 @@ public class FilterOrSortPopupWindow extends PopupWindow {
      * @param selectCategory  回调接口注入
      */
     public FilterOrSortPopupWindow(String[] parentStrings, String[][] childrenStrings, String[][][] grandChildStrings, final Activity activity, SelectCategory selectCategory) {
-        this.selectCategory = selectCategory;
-        this.childrenStrings = childrenStrings;
-        this.grandChildrenStrings = grandChildStrings;
+        this.mSelectCategory = selectCategory;
+        this.mChildrenStrings = childrenStrings;
+        this.mGrandChildrenStrings = grandChildStrings;
 
         if (parentStrings == null || parentStrings.length == 0) {
             return;
@@ -63,7 +68,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
         mHsvContainer = (CustomHorizontalScrollView) contentView.findViewById(R.id.hsv_container);
         View llAction = contentView.findViewById(R.id.ll_action);
         ListView lvSort = (ListView) contentView.findViewById(R.id.lv_sort);
-        categoryAdapter = new CategoryAdapter(activity, parentStrings, CategoryAdapter.TYPE_PARENT);
+        mCategoryAdapter = new CategoryAdapter(activity, parentStrings, CategoryAdapter.TYPE_PARENT);
         /* 设置触摸外面时消失 */
         setOutsideTouchable(true);
         setTouchable(true);
@@ -86,47 +91,67 @@ public class FilterOrSortPopupWindow extends PopupWindow {
         this.setHeight(dm.heightPixels);
         if (mIsFilter) {
             //父类别适配器
-            lvParentCategory = new ListView(activity);
-            lvParentCategory.setDivider(null);
+            mLvParentCategory = new ListView(activity);
+            mLvParentCategory.setDivider(null);
             mLayoutParams = new android.support.v7.widget.GridLayout.LayoutParams();
             mLayoutParams.width = dm.widthPixels / 2;
             mLayoutParams.height = android.support.v7.widget.GridLayout.LayoutParams.MATCH_PARENT;
             mLayoutParams.setMargins(0, 0, 2, 0);
-            lvParentCategory.setLayoutParams(mLayoutParams);
-            lvParentCategory.setBackgroundResource(R.drawable.bg_filter_and_sort);
-            lvParentCategory.setDivider(new ColorDrawable(activity.getResources().getColor(R.color.item_line_grey)));
-            lvParentCategory.setDividerHeight(2);
-            lvParentCategory.setAdapter(categoryAdapter);
+            mLvParentCategory.setLayoutParams(mLayoutParams);
+            mLvParentCategory.setBackgroundResource(R.drawable.bg_filter_and_sort);
+            mLvParentCategory.setDivider(new ColorDrawable(activity.getResources().getColor(R.color.item_line_grey)));
+            mLvParentCategory.setDividerHeight(2);
+            mLvParentCategory.setAdapter(mCategoryAdapter);
 
             //子类别适配器
-            lvChildrenCategory = new ListView(activity);
-            lvChildrenCategory.setLayoutParams(mLayoutParams);
-            lvChildrenCategory.setDivider(new ColorDrawable(activity.getResources().getColor(R.color.item_line_grey)));
-            lvChildrenCategory.setDividerHeight(2);
-            lvChildrenCategory.setBackgroundResource(R.drawable.bg_filter_and_sort);
-            childrenCategoryAdapter = new CategoryAdapter(activity, childrenStrings[0], CategoryAdapter.TYPE_CHILD);
-            lvChildrenCategory.setAdapter(childrenCategoryAdapter);
+            mLvChildrenCategory = new ListView(activity);
+            mLvChildrenCategory.setLayoutParams(mLayoutParams);
+            mLvChildrenCategory.setDivider(new ColorDrawable(activity.getResources().getColor(R.color.item_line_grey)));
+            mLvChildrenCategory.setDividerHeight(2);
+            mLvChildrenCategory.setBackgroundResource(R.drawable.bg_filter_and_sort);
+            mChildrenCategoryAdapter = new CategoryAdapter(activity, childrenStrings[0], CategoryAdapter.TYPE_CHILD);
+            mLvChildrenCategory.setAdapter(mChildrenCategoryAdapter);
 
-            lvParentCategory.setOnItemClickListener(parentItemClickListener);
-            lvChildrenCategory.setOnItemClickListener(childrenItemClickListener);
-            mGlContainer.addView(lvParentCategory);
-            mGlContainer.addView(lvChildrenCategory);
+            mLvParentCategory.setOnItemClickListener(parentItemClickListener);
+            mLvChildrenCategory.setOnItemClickListener(childrenItemClickListener);
+            mGlContainer.addView(mLvParentCategory);
+            mGlContainer.addView(mLvChildrenCategory);
         } else {
             llAction.setVisibility(View.GONE);
             mHsvContainer.setVisibility(View.GONE);
             lvSort.setVisibility(View.VISIBLE);
-            lvSort.setAdapter(categoryAdapter);
+            lvSort.setAdapter(mCategoryAdapter);
             lvSort.setDivider(new ColorDrawable(activity.getResources().getColor(R.color.item_line_grey)));
             lvSort.setDividerHeight(2);
             lvSort.setOnItemClickListener(sortItemClickListener);
             //最多显示8个item的高度
             if (parentStrings.length > 8) {
-                View item = categoryAdapter.getView(0, null, lvSort);
+                View item = mCategoryAdapter.getView(0, null, lvSort);
                 item.measure(0, 0);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (8 * item.getMeasuredHeight()));
                 lvSort.setLayoutParams(params);
             }
         }
+        mMap = new HashMap<Integer, Integer>();
+        View vClear = contentView.findViewById(R.id.ll_filter_clear);
+        View vOk = contentView.findViewById(R.id.rl_filter_ok);
+        vClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                mChildrenCategoryAdapter.setSelectedPosition(0);
+                mChildrenCategoryAdapter.notifyDataSetChanged();
+            }
+        });
+        vOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mSelectCategory != null) {
+                    mSelectCategory.selectFilter(mMap);
+                }
+                dismiss();
+            }
+        });
     }
 
     /**
@@ -138,14 +163,14 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             if (mGlContainer.getChildCount() == 3) {
                 mGlContainer.removeViewAt(2);
             }
-            childrenCategoryAdapter.setSelectedPosition(position);
-            if (grandChildrenStrings != null && grandChildrenStrings[categoryAdapter.getmPos()][position].length != 0) {
+            mChildrenCategoryAdapter.setSelectedPosition(position);
+            if (mGrandChildrenStrings != null && mGrandChildrenStrings[mCategoryAdapter.getmPos()][position].length != 0) {
                 ListView thirdList = new ListView(parent.getContext());
                 thirdList.setLayoutParams(mLayoutParams);
                 thirdList.setDivider(new ColorDrawable(parent.getContext().getResources().getColor(R.color.item_line_grey)));
                 thirdList.setDividerHeight(2);
                 thirdList.setBackgroundResource(R.drawable.bg_filter_and_sort);
-                CategoryAdapter childrenCategoryAdapter = new CategoryAdapter(parent.getContext(), childrenStrings[position], CategoryAdapter.TYPE_CHILD);
+                CategoryAdapter childrenCategoryAdapter = new CategoryAdapter(parent.getContext(), mChildrenStrings[position], CategoryAdapter.TYPE_CHILD);
                 thirdList.setAdapter(childrenCategoryAdapter);
                 mGlContainer.addView(thirdList);
                 mHsvContainer.postDelayed(new Runnable() {
@@ -156,7 +181,8 @@ public class FilterOrSortPopupWindow extends PopupWindow {
                 }, 100);
                 childrenCategoryAdapter.setHaveThreeListVIew(true);
             }
-            childrenCategoryAdapter.notifyDataSetChanged();
+            mChildrenCategoryAdapter.notifyDataSetChanged();
+            mMap.put(mParentPos, position);
         }
     };
 
@@ -169,13 +195,13 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             if (mGlContainer.getChildCount() == 3) {
                 mGlContainer.removeViewAt(2);
             }
-            childrenCategoryAdapter.setData(childrenStrings[position]);
-            childrenCategoryAdapter.setHaveThreeListVIew(false);
-            childrenCategoryAdapter.setSelectedPosition(0);
-            childrenCategoryAdapter.notifyDataSetChanged();
-
-            categoryAdapter.setSelectedPosition(position);
-            categoryAdapter.notifyDataSetChanged();
+            mChildrenCategoryAdapter.setData(mChildrenStrings[position]);
+            mChildrenCategoryAdapter.setHaveThreeListVIew(false);
+            mChildrenCategoryAdapter.setSelectedPosition(0);
+            mChildrenCategoryAdapter.notifyDataSetChanged();
+            mCategoryAdapter.setSelectedPosition(position);
+            mCategoryAdapter.notifyDataSetChanged();
+            mParentPos = position;
         }
     };
 
@@ -184,13 +210,18 @@ public class FilterOrSortPopupWindow extends PopupWindow {
      */
     public interface SelectCategory {
         /**
-         * 把选中的下标通过方法回调回来
+         * 筛选的map
+         * key为左,value为右
          *
-         * @param parentSelectPosition     父类选中下标
-         * @param childrenSelectPosition   子类选中下标
-         * @param grandChildSelectPosition 孙类选中下标
+         * @param map
          */
-        public void selectCategory(int parentSelectPosition, int childrenSelectPosition, int grandChildSelectPosition);
+        public void selectFilter(Map<Integer, Integer> map);
+
+        /**
+         * 排序的回调
+         * @param pos 选择位置
+         */
+        public void selectSort(int pos);
     }
 
 
@@ -200,9 +231,10 @@ public class FilterOrSortPopupWindow extends PopupWindow {
     private AdapterView.OnItemClickListener sortItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (selectCategory != null) {
-                selectCategory.selectCategory(categoryAdapter.getmPos(), 0, 0);
+            if (mSelectCategory != null) {
+                mSelectCategory.selectSort(position);
             }
+            dismiss();
         }
     };
 

@@ -21,7 +21,6 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -29,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
-import com.soubu.crmproject.utils.ToastUtil;
+import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 
 
@@ -136,7 +135,7 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     public void showToast(String msg) {
-        ToastUtil.showShort(msg);
+        ShowWidgetUtil.showShort(msg);
     }
 
     /**
@@ -174,7 +173,7 @@ public abstract class AppDelegate implements IDelegate {
      * @param titleRes
      */
     public void setTitle(int titleRes){
-        ((TextView)getToolbar().findViewById(R.id.tv_title)).setText(titleRes);
+        ((TextView)getToolbar().findViewById(R.id.tv_toorbar_title)).setText(titleRes);
     }
 
     public void setRightMenuOne(int drawableRes, View.OnClickListener listener){

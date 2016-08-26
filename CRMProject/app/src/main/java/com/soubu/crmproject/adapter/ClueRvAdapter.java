@@ -15,15 +15,7 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-16.
  */
-public class ClueRvAdapter extends BaseWithFooterRvAdapter {
-
-    List<ClueParams> mList;
-    OnItemClickListener mListener;
-
-
-    public ClueRvAdapter() {
-        mList = new ArrayList<>();
-    }
+public class ClueRvAdapter extends BaseWithFooterRvAdapter<ClueParams> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,25 +43,6 @@ public class ClueRvAdapter extends BaseWithFooterRvAdapter {
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return isShowFooter() ? mList.size() + 1 : mList.size();
-    }
-
-    public void setData(List<ClueParams> list, boolean isRefresh) {
-        if(isRefresh){
-            if (!mList.isEmpty()) {
-                mList.clear();
-            }
-        }
-        if(list.size() < PAGE_SIZE){
-            setShowFooter(false);
-        } else {
-            setShowFooter(true);
-        }
-        mList.addAll(list);
-    }
-
     class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView title;
         TextView subTitle;
@@ -92,15 +65,4 @@ public class ClueRvAdapter extends BaseWithFooterRvAdapter {
         }
     }
 
-    public interface OnItemClickListener{
-        void onItemClick(View v, int pos);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        mListener = listener;
-    }
-
-    public ClueParams getClueParams(int pos){
-        return mList.get(pos);
-    }
 }

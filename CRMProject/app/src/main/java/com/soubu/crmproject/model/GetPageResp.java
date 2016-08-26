@@ -8,26 +8,26 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-24.
  */
-public class GetCluePageResp extends BaseResp {
+public class GetPageResp<T> extends BaseResp {
 //    @SerializedName("count")
 //    @Expose
 //    public int count;
 
     @SerializedName("result")
     @Expose
-    private Result result;
+    private BaseData<T> result;
 
     /**
      * @return The result
      */
-    public Result getResult() {
+    public BaseData<T> getResult() {
         return result;
     }
 
     /**
      * @param result The result
      */
-    public void setResult(Result result) {
+    public void setResult(BaseData<T> result) {
         this.result = result;
     }
 

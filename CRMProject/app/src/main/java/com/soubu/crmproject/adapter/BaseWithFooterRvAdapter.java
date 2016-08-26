@@ -3,10 +3,15 @@ package com.soubu.crmproject.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.soubu.crmproject.model.ClueParams;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by dingsigang on 16-8-17.
  */
-public abstract class BaseWithFooterRvAdapter extends RecyclerView.Adapter {
+public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
     public static final int TYPE_ITEM = 0x00;//内容
     public static final int TYPE_FOOTER = 0x01;//加载更多
 
@@ -25,6 +30,13 @@ public abstract class BaseWithFooterRvAdapter extends RecyclerView.Adapter {
         return this.mShowFooter;
     }
 
+    List<T> mList;
+    OnItemClickListener mListener;
+
+    public BaseWithFooterRvAdapter(){
+        mList = new ArrayList<T>();
+    }
+
     @Override
     public int getItemViewType(int position) {
         // 最后一个item设置为footerView
@@ -38,16 +50,42 @@ public abstract class BaseWithFooterRvAdapter extends RecyclerView.Adapter {
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return 0;
-    }
-
     class FooterViewHolder extends RecyclerView.ViewHolder {
 
         public FooterViewHolder(View view) {
             super(view);
         }
 
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View v, int pos);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
+
+    public T getParams(int pos){
+        return mList.get(pos);
+    }
+
+    public void setData(List<T> list, boolean isRefresh) {
+        if(isRefresh){
+            if (!mList.isEmpty()) {
+                mList.clear();
+            }
+        }
+        if(list.size() < PAGE_SIZE){
+            setShowFooter(false);
+        } else {
+            setShowFooter(true);
+        }
+        mList.addAll(list);
+    }
+
+    @Override
+    public int getItemCount() {
+        return isShowFooter() ? mList.size() + 1 : mList.size();
     }
 }

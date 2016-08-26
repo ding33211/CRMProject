@@ -7,7 +7,7 @@ import android.os.StrictMode;
 import com.soubu.crmproject.sdk.eventbus.MyEventBusIndex;
 import com.soubu.crmproject.utils.CrashHandler;
 import com.soubu.crmproject.utils.PhoneUtil;
-import com.soubu.crmproject.utils.ToastUtil;
+import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,7 +35,7 @@ public class MyApplication extends Application {
         //具体决策需要商议
         CrashHandler.getInstance().init(instance);
         EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
-        ToastUtil.register(this);
+        ShowWidgetUtil.register(this);
     }
 
     private void enabledStrictMode() {

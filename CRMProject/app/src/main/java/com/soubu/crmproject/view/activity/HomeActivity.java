@@ -9,7 +9,7 @@ import android.view.View;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.HomeActivityDelegate;
-import com.soubu.crmproject.utils.ToastUtil;
+import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 /**
  * 首页
@@ -69,7 +69,7 @@ public class HomeActivity extends ActivityPresenter<HomeActivityDelegate> {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (!mNeedQuit) {
                 mNeedQuit = true;
-                ToastUtil.showShort(R.string.click_again_to_quit);
+                ShowWidgetUtil.showShort(R.string.click_again_to_quit);
                 // 利用handler延迟发送更改状态信息
                 mHandler.sendEmptyMessageDelayed(0, 2000);
             } else {

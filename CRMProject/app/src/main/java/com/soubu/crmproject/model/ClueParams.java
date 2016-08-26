@@ -6,21 +6,21 @@ import java.util.Date;
 /**
  * Created by dingsigang on 16-8-17.
  */
-public class ClueParams implements Serializable{
-
-    public static final String SOURCE_ADVERTISEMENT = "ADVERTISEMENT";
-    public static final String SOURCE_SOCIAL_MEDIA = "SOCIAL_MEDIA";
-    public static final String SOURCE_WORKSHOP = "WORKSHOP";
-    public static final String SOURCE_SEARCH_ENGINE = "SEARCH_ENGINE";
-    public static final String SOURCE_CUSTOMER_REFERRAL = "CUSTOMER_REFERRAL";
-    public static final String SOURCE_BUSINESS_DEVELOPMENT = "BUSINESS_DEVELOPMENT";
-    public static final String SOURCE_AGENT = "AGENT";
-    public static final String SOURCE_OTHER = "OTHER";
-
-    public static final String STATUS_UNHANDLED = "UNHANDLED";
-    public static final String STATUS_CONTACT_VALID = "CONTACT_VALID";
-    public static final String STATUS_CONTACT_INVALID = "CONTACT_INVALID";
-    public static final String STATUS_CLOSED = "CLOSED";
+public class ClueParams implements Serializable, Cloneable{
+//
+//    public static final String SOURCE_ADVERTISEMENT = "ADVERTISEMENT";
+//    public static final String SOURCE_SOCIAL_MEDIA = "SOCIAL_MEDIA";
+//    public static final String SOURCE_WORKSHOP = "WORKSHOP";
+//    public static final String SOURCE_SEARCH_ENGINE = "SEARCH_ENGINE";
+//    public static final String SOURCE_CUSTOMER_REFERRAL = "CUSTOMER_REFERRAL";
+//    public static final String SOURCE_BUSINESS_DEVELOPMENT = "BUSINESS_DEVELOPMENT";
+//    public static final String SOURCE_AGENT = "AGENT";
+//    public static final String SOURCE_OTHER = "OTHER";
+//
+//    public static final String STATUS_UNHANDLED = "UNHANDLED";
+//    public static final String STATUS_CONTACT_VALID = "CONTACT_VALID";
+//    public static final String STATUS_CONTACT_INVALID = "CONTACT_INVALID";
+//    public static final String STATUS_CLOSED = "CLOSED";
 
     private String companyName;
     private String manager;
@@ -35,13 +35,13 @@ public class ClueParams implements Serializable{
     private String email;
     private String website;
     private String address;
-    private int postcode;
+    private String postcode;
     private String note;
     private String source;
     private String status;
     private Date createdAt;
     private Date updatedAt;
-    private String _id;
+    private String id;
 
     public String getCompanyName() {
         return companyName;
@@ -147,11 +147,11 @@ public class ClueParams implements Serializable{
         this.address = address;
     }
 
-    public int getPostcode() {
+    public String getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(int postcode) {
+    public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
@@ -196,10 +196,14 @@ public class ClueParams implements Serializable{
     }
 
     public String getId() {
-        return _id;
+        return id;
     }
 
     public void setId(String id) {
-        this._id = id;
+        this.id = id;
+    }
+
+    public ClueParams clone() throws CloneNotSupportedException{
+        return (ClueParams)super.clone();
     }
 }

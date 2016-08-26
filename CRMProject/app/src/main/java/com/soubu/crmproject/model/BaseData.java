@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Result {
+public class BaseData<T> {
 
     @SerializedName("data")
     @Expose
-    public List<ClueParams> data;
+    public T data;
 
 
 }

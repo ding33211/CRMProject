@@ -23,11 +23,6 @@ public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
         setListAdapter(mAdapter);
     }
 
-    public void registerSwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack callBack){
-        registerSwipeRefreshCallBack(callBack, mAdapter);
-    }
-
-
     public void setData(List<ClueParams> list, boolean isRefresh){
         mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
@@ -38,7 +33,7 @@ public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
     }
 
     public ClueParams getClueParams(int pos){
-        return mAdapter.getClueParams(pos);
+        return mAdapter.getParams(pos);
     }
 
     @Override
@@ -54,6 +49,10 @@ public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
     @Override
     public boolean ifNeedUseSwipeRefresh() {
         return true;
+    }
+
+    public void registerSwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack callBack) {
+        registerSwipeRefreshCallBack(callBack, mAdapter);
     }
 
 

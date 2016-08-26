@@ -34,12 +34,12 @@ public class ClueSpecRvAdapter extends RecyclerView.Adapter {
             case AddSomethingRvAdapter.TYPE_LABEL:
                 vContent.setVisibility(View.GONE);
                 break;
+            case AddSomethingRvAdapter.TYPE_OTHER:
+                vBottom.setVisibility(View.VISIBLE);
             case AddSomethingRvAdapter.TYPE_ITEM_UNABLE:
                 vLabel.setVisibility(View.GONE);
                 break;
-            case AddSomethingRvAdapter.TYPE_OTHER:
-                vBottom.setVisibility(View.VISIBLE);
-                break;
+
         }
         return new ItemViewHolder(v);
     }
