@@ -17,6 +17,18 @@ public class BaseResp {
     public String msg;
 
 
+    @SerializedName("errors")
+    @Expose
+    public Object errors;
+
+    public Object getErrors() {
+        return errors;
+    }
+
+    public void setErrors(Object errors) {
+        this.errors = errors;
+    }
+
     public String getMsg() {
         return msg;
     }

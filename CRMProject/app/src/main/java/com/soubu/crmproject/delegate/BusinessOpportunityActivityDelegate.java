@@ -2,37 +2,35 @@ package com.soubu.crmproject.delegate;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
+import com.soubu.crmproject.adapter.BusinessOpportunityRvAdapter;
 import com.soubu.crmproject.adapter.CustomerRvAdapter;
 import com.soubu.crmproject.base.greendao.Clue;
-import com.soubu.crmproject.base.mvp.view.AppDelegate;
-import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
 import java.util.List;
 
 /**
- * Created by dingsigang on 16-8-12.
+ * Created by dingsigang on 16-8-18.
  */
-public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
-
-    CustomerRvAdapter mAdapter;
+public class BusinessOpportunityActivityDelegate extends BaseRecyclerViewActivityDelegate {
+    BusinessOpportunityRvAdapter mAdapter;
 
     @Override
     public void initWidget() {
         super.initWidget();
-        setTitle(R.string.all_customer);
-        mAdapter = new CustomerRvAdapter();
+        setTitle(R.string.all_business_opportunity);
+        mAdapter = new BusinessOpportunityRvAdapter();
         setListAdapter(mAdapter);
     }
 
-
-    public void setData(List<CustomerParams> list, boolean isRefresh) {
+    public void setData(List<BusinessOpportunityParams> list, boolean isRefresh) {
         mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
     }
 
-    public CustomerParams getCustomerParams(int pos){
+    public BusinessOpportunityParams getBusinessOpportunityParams(int pos){
         return mAdapter.getParams(pos);
     }
 
@@ -61,5 +59,4 @@ public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
     public void setOnRecyclerViewItemClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
         mAdapter.setOnItemClickListener(listener);
     }
-
 }

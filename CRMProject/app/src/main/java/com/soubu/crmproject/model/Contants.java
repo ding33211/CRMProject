@@ -19,4 +19,8 @@ public class Contants {
 
     public static final String EXTRA_CLUE = "CLUE";
     public static final String EXTRA_CUSTOMER = "CUSTOMER";
+    public static final String EXTRA_BUSINESS_OPPORTUNITY = "BUSINESS_OPPORTUNITY";
+    public static final String EXTRA_CONTRACT = "CONTRACT";
+
+
 }

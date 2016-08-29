@@ -1,7 +1,13 @@
 package com.soubu.crmproject.delegate;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
+import com.soubu.crmproject.adapter.BusinessOpportunityRvAdapter;
+import com.soubu.crmproject.adapter.ContractRvAdapter;
 import com.soubu.crmproject.base.greendao.Clue;
+import com.soubu.crmproject.model.BusinessOpportunityParams;
+import com.soubu.crmproject.model.ContractParams;
+import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
 import java.util.List;
 
@@ -9,16 +15,25 @@ import java.util.List;
  * Created by dingsigang on 16-8-18.
  */
 public class ContractDelegate extends BaseRecyclerViewActivityDelegate {
+    ContractRvAdapter mAdapter;
+
     @Override
     public void initWidget() {
         super.initWidget();
-        setTitle(R.string.contract);
+        setTitle(R.string.all_contract);
+        mAdapter = new ContractRvAdapter();
+        setListAdapter(mAdapter);
     }
 
-
-    public void setData(List<Clue> list) {
-
+    public void setData(List<ContractParams> list, boolean isRefresh) {
+        mAdapter.setData(list, isRefresh);
+        mAdapter.notifyDataSetChanged();
     }
+
+    public ContractParams getContractParams(int pos){
+        return mAdapter.getParams(pos);
+    }
+
 
     @Override
     public boolean ifNeedEventBus() {
@@ -33,5 +48,15 @@ public class ContractDelegate extends BaseRecyclerViewActivityDelegate {
     @Override
     public boolean ifNeedUseSwipeRefresh() {
         return true;
+    }
+
+    @Override
+    public void registerSwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack callBack) {
+        registerSwipeRefreshCallBack(callBack, mAdapter);
+    }
+
+    @Override
+    public void setOnRecyclerViewItemClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
+        mAdapter.setOnItemClickListener(listener);
     }
 }

@@ -1,6 +1,8 @@
 package com.soubu.crmproject.server;
 
+import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.GetPageResp;
 import com.soubu.crmproject.model.BaseData;
@@ -40,12 +42,12 @@ public interface RetrofitApi {
     //获取线索
     @GET("opportunities")
     Call<GetPageResp<List<ClueParams>>> getClue(@Query("source") String source,//线索来源
-                                    @Query("status") String status,//线索状态
-                                    @Query("page") Integer page,//页数
-                                    @Query("sort") String sort,//排序项
-                                    @Query("order") String order,//顺序
-                                    @Query("related") String related,//数据相关
-                                    @Query("count") Integer count);//每页条数,默认10
+                                                @Query("status") String status,//线索状态
+                                                @Query("page") Integer page,//页数
+                                                @Query("sort") String sort,//排序项
+                                                @Query("order") String order,//顺序
+                                                @Query("related") String related,//数据相关
+                                                @Query("count") Integer count);//每页条数,默认10
 
     //添加线索
     @Headers({"Content-type:application/json"})
@@ -80,5 +82,51 @@ public interface RetrofitApi {
     @FormUrlEncoded
     @PUT("customers/{id}")
     Call<GetPageResp<List<CustomerParams>>> updateCustomer(@Path("id") String id, @FieldMap Map<String, String> names);
+
+
+    //获取商机
+    @GET("deals")
+    Call<GetPageResp<List<BusinessOpportunityParams>>> getBusinessOpportunity(@Query("type") String type,//商机类型
+                                                                              @Query("source") String source,//商机来源
+                                                                              @Query("status") String status,//商机状态
+                                                                              @Query("page") Integer page,//页数
+                                                                              @Query("sort") String sort,//排序项
+                                                                              @Query("order") String order,//顺序
+                                                                              @Query("related") String related,//数据相关
+                                                                              @Query("count") Integer count);//每页条数,默认10
+
+
+    //添加线索
+    @Headers({"Content-type:application/json"})
+    @POST("deals")
+    Call<GetPageResp<List<BusinessOpportunityParams>>> addBusinessOpportunity(@Body BusinessOpportunityParams params);
+
+    //修改线索
+    @FormUrlEncoded
+    @PUT("deals/{id}")
+    Call<GetPageResp<List<BusinessOpportunityParams>>> updateBusinessOpportunity(@Path("id") String id, @FieldMap Map<String, String> names);
+
+
+    //获取商机
+    @GET("contracts")
+    Call<GetPageResp<List<ContractParams>>> getContract(@Query("type") String type,//合同类型
+                                                        @Query("payMethod") String payMethod,//付款方式
+                                                        @Query("status") String status,//合同状态
+                                                        @Query("receivedPayType") String receivedPayType,//汇款方式
+                                                        @Query("page") Integer page,//页数
+                                                        @Query("sort") String sort,//排序项
+                                                        @Query("order") String order,//顺序
+                                                        @Query("related") String related,//数据相关
+                                                        @Query("count") Integer count);//每页条数,默认10
+
+    //添加线索
+    @Headers({"Content-type:application/json"})
+    @POST("contracts")
+    Call<GetPageResp<List<ContractParams>>> addContract(@Body ContractParams params);
+
+    //修改线索
+    @FormUrlEncoded
+    @PUT("contracts/{id}")
+    Call<GetPageResp<List<ContractParams>>> updateContract(@Path("id") String id, @FieldMap Map<String, String> names);
 
 }

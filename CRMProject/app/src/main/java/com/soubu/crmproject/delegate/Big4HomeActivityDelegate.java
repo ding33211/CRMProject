@@ -46,6 +46,8 @@ public class Big4HomeActivityDelegate extends AppDelegate {
                 get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
                 get(R.id.ll_clue_content).setVisibility(View.GONE);
                 break;
+            case FROM_CONTRACT:
+
         }
         mViewPager = get(R.id.vp_content);
         mIndicator = get(R.id.fiv_indicator);

@@ -11,6 +11,7 @@ import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
@@ -58,11 +59,6 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
     @Override
     protected void initData() {
         super.initData();
-        mClueParams = (ClueParams) getIntent().getSerializableExtra("clue");
-        mFromEdit = false;
-        if (mClueParams != null) {
-            mFromEdit = true;
-        }
         mList = new ArrayList<>();
         AddItem item = new AddItem();
         item.setTitleRes(R.string.essential_information);
@@ -199,9 +195,16 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-        viewDelegate.setTitle(R.string.add_clue);
+    protected void initToolbar() {
+        super.initToolbar();
+        mClueParams = (ClueParams) getIntent().getSerializableExtra(Contants.EXTRA_CLUE);
+        mFromEdit = false;
+        if (mClueParams != null) {
+            mFromEdit = true;
+            viewDelegate.setTitle(R.string.edit_clue);
+        } else {
+            viewDelegate.setTitle(R.string.add_clue);
+        }
     }
 
     public ClueParams getNewClueParams(){

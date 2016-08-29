@@ -10,6 +10,7 @@ import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
@@ -33,11 +34,17 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
     }
 
     @Override
-    protected void initView() {
-        super.initView();
-        viewDelegate.setTitle(R.string.add_customer);
+    protected void initToolbar() {
+        super.initToolbar();
+        mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
+        mFromEdit = false;
+        if (mCustomerParams != null) {
+            mFromEdit = true;
+            viewDelegate.setTitle(R.string.edit_customer);
+        } else {
+            viewDelegate.setTitle(R.string.add_customer);
+        }
     }
-
 
     @Override
     protected void bindEvenListener() {
@@ -65,11 +72,6 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
     @Override
     protected void initData() {
         super.initData();
-        mCustomerParams = (CustomerParams) getIntent().getSerializableExtra("customer");
-        mFromEdit = false;
-        if (mCustomerParams != null) {
-            mFromEdit = true;
-        }
         mList = new ArrayList<>();
         AddItem item = new AddItem();
         item.setTitleRes(R.string.essential_information);

@@ -1,37 +1,48 @@
 package com.soubu.crmproject.view.activity;
 
-import com.soubu.crmproject.adapter.BusinessOpportunityRvAdapter;
-import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
-import com.soubu.crmproject.delegate.BusinessOpportunityDelegate;
+import android.content.Intent;
+import android.view.View;
+
+import com.soubu.crmproject.R;
+import com.soubu.crmproject.delegate.BusinessOpportunityActivityDelegate;
+import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
-import com.soubu.crmproject.widget.FilterOrSortPopupWindow;
+import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.server.RetrofitRequest;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by dingsigang on 16-8-18.
  */
-public class BusinessOpportunityActivity extends ActivityPresenter<BusinessOpportunityDelegate> {
-    private FilterOrSortPopupWindow mPopupWindow = null;
+public class BusinessOpportunityActivity extends Big4AllActivityPresenter<BusinessOpportunityActivityDelegate> {
 
-    private BusinessOpportunityRvAdapter mAdapter;
-    private int mPageNum = 1;
+    String mSource = null;
+    String mStatus = null;
+    String mType = null;
+    String mSort = null;
+    String mOrder = null;
+    String mRelated = null;
 
     @Override
-    protected Class<BusinessOpportunityDelegate> getDelegateClass() {
-        return BusinessOpportunityDelegate.class;
+    protected Class<BusinessOpportunityActivityDelegate> getDelegateClass() {
+        return BusinessOpportunityActivityDelegate.class;
     }
 
     /**
      * 监听Clue请求回调
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(ArrayList<ClueParams> list) {
-        mAdapter.setData(list);
-        mAdapter.notifyDataSetChanged();
+    public void refreshData(ArrayList<BusinessOpportunityParams> list) {
+        viewDelegate.setData(list, mIsRefresh);
+        if (mIsRefresh) {
+            mIsRefresh = false;
+            viewDelegate.stopSwipeRefresh();
+        }
     }
 
     /**
@@ -41,6 +52,98 @@ public class BusinessOpportunityActivity extends ActivityPresenter<BusinessOppor
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void throwError(Throwable t) {
+
+    }
+
+    @Override
+    protected int getParentArray() {
+        return R.array.business_opportunity_filter;
+    }
+
+    @Override
+    protected String[][] getChildrenArray() {
+        return new String[][]{getResources().getStringArray(R.array.business_opportunity_type), getResources().getStringArray(R.array.clue_source),
+                getResources().getStringArray(R.array.business_opportunity_status), getResources().getStringArray(R.array.clue_related)};
+    }
+
+    @Override
+    protected int getSortArray() {
+        return R.array.clue_sort;
+    }
+
+    @Override
+    protected void doRequest(int pageNum) {
+        RetrofitRequest.getInstance().getBusinessOpportunityList(pageNum, mType, mSource, mStatus, mSort, mOrder, mRelated, null);
+    }
+
+    @Override
+    protected void onRvItemClickListener(View v, int pos) {
+        Intent intent = new Intent(BusinessOpportunityActivity.this, BusinessOpportunityHomeActivity.class);
+        intent.putExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY, viewDelegate.getBusinessOpportunityParams(pos));
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onSelectFilter(Map<Integer, Integer> map) {
+        if (map.isEmpty()) {
+            mStatus = null;
+            mSource = null;
+            mRelated = null;
+            mType = null;
+        } else {
+            String[] strings0 = getResources().getStringArray(R.array.business_opportunity_type_web);
+            String[] strings1 = getResources().getStringArray(R.array.clue_source_web);
+            String[] strings2 = getResources().getStringArray(R.array.business_opportunity_status_web);
+            String[] strings3 = getResources().getStringArray(R.array.clue_related_web);
+            if (map.containsKey(0)) {
+                mType = strings0[map.get(0)];
+            }
+            if (map.containsKey(1)) {
+                mSource = strings1[map.get(1)];
+            }
+            if (map.containsKey(2)) {
+                mStatus = strings2[map.get(2)];
+            }
+            if(map.containsKey(3)){
+                mRelated = strings3[map.get(3)];
+            }
+        }
+        mIsRefresh = true;
+        doRequest(1);
+    }
+
+    @Override
+    protected void onSelectSort(int pos) {
+        switch (pos) {
+            case 0:
+                mSort = "CREATED_AT";
+                mOrder = "ASC";
+                break;
+            case 1:
+                mSort = "CREATED_AT";
+                mOrder = "DESC";
+                break;
+            case 2:
+                mSort = "UPDATED_AT";
+                mOrder = "ASC";
+                break;
+            case 3:
+                mSort = "CREATED_AT";
+                mOrder = "DESC";
+                break;
+        }
+        mIsRefresh = true;
+        doRequest(1);
+    }
+
+    @Override
+    protected void onClickAdd(View v) {
+        Intent intent = new Intent(this, AddBusinessOpportunityActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onClickSearch(View v) {
 
     }
 }

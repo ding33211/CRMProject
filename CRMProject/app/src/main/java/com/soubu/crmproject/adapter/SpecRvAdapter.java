@@ -15,10 +15,10 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-24.
  */
-public class ClueSpecRvAdapter extends RecyclerView.Adapter {
+public class SpecRvAdapter extends RecyclerView.Adapter {
     private List<AddItem> mList;
 
-    public ClueSpecRvAdapter() {
+    public SpecRvAdapter() {
         mList = new ArrayList<>();
     }
 

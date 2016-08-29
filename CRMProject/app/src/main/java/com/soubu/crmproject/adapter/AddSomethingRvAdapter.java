@@ -18,6 +18,7 @@ import com.soubu.crmproject.utils.ShowWidgetUtil;
 import com.soubu.crmproject.utils.WindowUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +34,9 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     public static final int TYPE_ITEM_CAN_CHOOSE = 0x05;  //可选
     public static final int TYPE_ITEM_CAN_LOCATE = 0x06;  //可定位
     public static final int TYPE_ITEM_UNABLE = 0x07;  //不可点击
+    public static final int TYPE_ITEM_REQUIRED_CHOOSE_DATE = 0x08;  //必选日期
+    public static final int TYPE_ITEM_CAN_CHOOSE_DATE = 0x09;  //可选日期
+
 
     private List<AddItem> mList;
     private Activity mActivity;
@@ -82,9 +86,11 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
             case TYPE_ITEM_CAN_LOCATE:
                 ivAction.setImageResource(R.drawable.locate);
             case TYPE_ITEM_CAN_CHOOSE:
+            case TYPE_ITEM_CAN_CHOOSE_DATE:
                 tvAction.setVisibility(View.GONE);
                 break;
             case TYPE_ITEM_REQUIRED_CHOOSE:
+            case TYPE_ITEM_REQUIRED_CHOOSE_DATE:
                 tvAction.setText(R.string.required_choose);
                 break;
             case TYPE_ITEM_REQUIRED_FILL:
@@ -134,6 +140,11 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         if(TextUtils.isEmpty(text)){
             if(viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_REQUIRED_CHOOSE){
                 holder1.tvAction.setText(viewType == TYPE_ITEM_REQUIRED_FILL ? R.string.required_fill : R.string.required_choose);
+                holder1.tvAction.setVisibility(View.VISIBLE);
+            }
+            if((viewType == TYPE_ITEM_CAN_CHOOSE_DATE || viewType == TYPE_ITEM_REQUIRED_CHOOSE_DATE)
+                    && mList.get(position).getDate() != null){
+                holder1.tvAction.setText(mList.get(position).getDate().toString());
                 holder1.tvAction.setVisibility(View.VISIBLE);
             }
         } else {
@@ -208,6 +219,11 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                     v.setTag(viewType);
                     etContent.setTag(v);
                     break;
+                case TYPE_ITEM_CAN_CHOOSE_DATE:
+                case TYPE_ITEM_REQUIRED_CHOOSE_DATE:
+                    mList.get(getAdapterPosition()).setDate(new Date());
+                    notifyDataSetChanged();
+                    break;
                 case TYPE_ITEM_CAN_CHOOSE:
                 case TYPE_ITEM_REQUIRED_CHOOSE:
                     final String originalContent = mList.get(getAdapterPosition()).getContent();
@@ -248,6 +264,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                             }
                         });
                     }
+                    break;
             }
         }
     }

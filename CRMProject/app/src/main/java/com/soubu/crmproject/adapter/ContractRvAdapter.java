@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.ContractParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,52 +16,24 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-18.
  */
-public class ContractRvAdapter extends BaseWithFooterRvAdapter {
-    List<ClueParams> mList;
-
-
-    public ContractRvAdapter() {
-        mList = new ArrayList<>();
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_ITEM) {
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_big_4_recyclerview, parent, false);
-            ItemViewHolder vh = new ItemViewHolder(v);
-            return vh;
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.item_recyclerview_footer, null);
-            view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            return new BaseWithFooterRvAdapter.FooterViewHolder(view);
-        }
-    }
+public class ContractRvAdapter extends BaseBig4RvAdapter<ContractParams> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        if (holder instanceof BaseBig4RvAdapter.ItemViewHolder){
+            ((ItemViewHolder) holder).title.setText(mList.get(position).getTitle());
+            ((ItemViewHolder) holder).subTitle.setText(mList.get(position).getAmountPrice());
+            ((ItemViewHolder) holder).state.setText(mList.get(position).getStatus());
+            ((ItemViewHolder) holder).subRight.setText(mList.get(position).getCustomer());
+//            if(mList.get(position).getStatus() == )
+            ((ItemViewHolder) holder).ivState.setImageResource(R.drawable.pass);
+        }
     }
+
 
     @Override
-    public int getItemCount() {
-        return mList.size();
+    int getTypeOf4() {
+        return TYPE_CONTRACT;
     }
 
-    public void setData(List<ClueParams> list) {
-        if (!mList.isEmpty()) {
-            mList.clear();
-        }
-        mList.addAll(list);
-    }
-
-    class ItemViewHolder extends RecyclerView.ViewHolder {
-
-
-        public ItemViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
 }

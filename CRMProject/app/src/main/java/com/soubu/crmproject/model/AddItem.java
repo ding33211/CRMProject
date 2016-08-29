@@ -2,6 +2,8 @@ package com.soubu.crmproject.model;
 
 import android.text.InputType;
 
+import java.util.Date;
+
 /**
  * Created by dingsigang on 16-8-22.
  */
@@ -11,6 +13,15 @@ public class AddItem {
     int editTextType = InputType.TYPE_CLASS_TEXT;
     int itemType;
     String content;
+    Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public String getContent() {
         return content;

@@ -152,4 +152,107 @@
         <item>CLOSED</item>
         <item>FAILED</item>
     </string-array>
+
+    <string-array name="business_opportunity_type">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+    </string-array>
+
+    <string-array name="business_opportunity_type_web">
+        <item>重要商机</item>
+        <item>普通商机</item>
+        <item>特殊商机</item>
+    </string-array>
+
+    <string-array name="business_opportunity_status">
+        <item>IN_CONTACT</item>
+        <item>CONFIRM_NEED</item>
+        <item>PROPOSE</item>
+        <item>NEGOTIATION</item>
+        <item>SUCCEEDED</item>
+        <item>FAILED</item>
+    </string-array>
+
+    <string-array name="business_opportunity_status_web">
+        <item>初步接洽</item>
+        <item>需求确定</item>
+        <item>方案/报价</item>
+        <item>谈判/合同</item>
+        <item>赢单</item>
+        <item>输单</item>
+    </string-array>
+
+    <string-array name="business_opportunity_filter">
+        <item>商机类型</item>
+        <item>商机来源</item>
+        <item>商机状态</item>
+        <item>客户数据</item>
+    </string-array>
+
+    <string-array name="contract_filter">
+        <item>合同类型</item>
+        <item>付款方式</item>
+        <item>客户状态</item>
+        <item>回款类型</item>
+        <item>客户数据</item>
+    </string-array>
+
+    <string-array name="contract_type">
+        <item>直销合同</item>
+        <item>采购合同</item>
+        <item>代理合同</item>
+        <item>服务合同</item>
+        <item>其它</item>
+    </string-array>
+
+    <string-array name="contract_type_web">
+        <item>DIRECT_SELLING</item>
+        <item>PURCHASE</item>
+        <item>AGENT</item>
+        <item>SERVICE</item>
+        <item>OTHER</item>
+    </string-array>
+
+    <string-array name="contract_pay_method">
+        <item>支票</item>
+        <item>现金</item>
+        <item>转账</item>
+        <item>其它</item>
+    </string-array>
+
+    <string-array name="contract_pay_method_web">
+        <item>CHECK</item>
+        <item>CASH</item>
+        <item>TRANSFER</item>
+        <item>OTHER</item>
+    </string-array>
+
+    <string-array name="contract_status">
+        <item>未开始</item>
+        <item>进行中</item>
+        <item>成功结束</item>
+        <item>意外终止</item>
+    </string-array>
+
+    <string-array name="contract_status_web">
+        <item>NOT_STARTED</item>
+        <item>IN_PROGRESS</item>
+        <item>SUCCEEDED</item>
+        <item>FAILED</item>
+    </string-array>
+
+    <string-array name="contract_received_pay_method">
+        <item>正常回款</item>
+        <item>退款</item>
+        <item>定金</item>
+        <item>其它</item>
+    </string-array>
+
+    <string-array name="contract_received_pay_method_web">
+        <item>NORMAL</item>
+        <item>REFUND</item>
+        <item>DEPOSIT</item>
+        <item>OTHER</item>
+    </string-array>
 </resources>

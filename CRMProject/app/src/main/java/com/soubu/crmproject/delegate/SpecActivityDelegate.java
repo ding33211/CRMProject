@@ -1,7 +1,6 @@
 package com.soubu.crmproject.delegate;
 
-import com.soubu.crmproject.R;
-import com.soubu.crmproject.adapter.ClueSpecRvAdapter;
+import com.soubu.crmproject.adapter.SpecRvAdapter;
 import com.soubu.crmproject.model.AddItem;
 
 import java.util.List;
@@ -9,14 +8,13 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-24.
  */
-public class ClueSpecActivityDelegate extends BaseRecyclerViewActivityDelegate {
-    private ClueSpecRvAdapter mAdapter;
+public class SpecActivityDelegate extends BaseRecyclerViewActivityDelegate {
+    private SpecRvAdapter mAdapter;
 
     @Override
     public void initWidget() {
         super.initWidget();
-        setTitle(R.string.clue_spec);
-        mAdapter = new ClueSpecRvAdapter();
+        mAdapter = new SpecRvAdapter();
         setListAdapter(mAdapter);
     }
 
