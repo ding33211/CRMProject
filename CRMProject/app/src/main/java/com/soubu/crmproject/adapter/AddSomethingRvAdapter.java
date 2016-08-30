@@ -1,6 +1,7 @@
 package com.soubu.crmproject.adapter;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,8 +20,11 @@ import com.soubu.crmproject.utils.ShowWidgetUtil;
 import com.soubu.crmproject.utils.WindowUtil;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by dingsigang on 16-8-19.
@@ -36,6 +41,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     public static final int TYPE_ITEM_UNABLE = 0x07;  //不可点击
     public static final int TYPE_ITEM_REQUIRED_CHOOSE_DATE = 0x08;  //必选日期
     public static final int TYPE_ITEM_CAN_CHOOSE_DATE = 0x09;  //可选日期
+    public static final int TYPE_NOT_PASS = 0x10;  //审核状态
 
 
     private List<AddItem> mList;
@@ -221,8 +227,23 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                     break;
                 case TYPE_ITEM_CAN_CHOOSE_DATE:
                 case TYPE_ITEM_REQUIRED_CHOOSE_DATE:
-                    mList.get(getAdapterPosition()).setDate(new Date());
-                    notifyDataSetChanged();
+                    Calendar c = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
+                    new DatePickerDialog(mActivity,
+                            // 绑定监听器
+                            new DatePickerDialog.OnDateSetListener() {
+
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+                                    Calendar c = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
+                                    c.set(year, monthOfYear, dayOfMonth);
+                                    mList.get(getAdapterPosition()).setDate(c.getTime());
+                                    notifyDataSetChanged();
+                                }
+                            }
+                            // 设置初始日期
+                            , c.get(Calendar.YEAR), c.get(Calendar.MONTH), c
+                            .get(Calendar.DAY_OF_MONTH)).show();
                     break;
                 case TYPE_ITEM_CAN_CHOOSE:
                 case TYPE_ITEM_REQUIRED_CHOOSE:

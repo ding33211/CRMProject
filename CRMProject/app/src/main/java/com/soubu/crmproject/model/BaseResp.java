@@ -16,10 +16,33 @@ public class BaseResp {
     @Expose
     public String msg;
 
-
     @SerializedName("errors")
     @Expose
     public Object errors;
+
+    @SerializedName("rawString")
+    @Expose
+    public String rawString;
+
+    @SerializedName("sign")
+    @Expose
+    public String sign;
+
+    public String getRawString() {
+        return rawString;
+    }
+
+    public void setRawString(String rawString) {
+        this.rawString = rawString;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
 
     public Object getErrors() {
         return errors;

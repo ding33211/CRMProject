@@ -69,12 +69,12 @@
     <string name="clear_out">清空</string>
     <string name="confirm">确定</string>
 
-    <string name="last_follow_time_with_colon">最新跟进时间: </string>
+    <string name="last_follow_time_with_colon">最新跟进时间 : </string>
     <string name="related_customers_with_colon">关联客户: </string>
-    <string name="contacts_with_colon">联系人: </string>
-    <string name="follow_state_with_colon">跟进状态: </string>
-    <string name="follow_result_with_colon">跟进结果: </string>
-    <string name="follow_function_with_colon">跟进方式: </string>
+    <string name="contacts_with_colon">联系人 : </string>
+    <string name="follow_state_with_colon">跟进状态 : </string>
+    <string name="follow_result_with_colon">跟进结果 : </string>
+    <string name="follow_function_with_colon">跟进方式 : </string>
 
 
     <string name="loading">正在加载...</string>
@@ -163,6 +163,10 @@
     <string name="contract_attachments">合同附件</string>
     <string name="contract_home">合同主页</string>
     <string name="contract_spec">合同详情</string>
+    <string name="related_contacts">关联联系人</string>
+    <string name="colon"> : </string>
+    <string name="bigger_than"> &gt; </string>
+
 
 
 

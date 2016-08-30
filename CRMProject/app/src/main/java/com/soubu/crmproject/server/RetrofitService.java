@@ -1,9 +1,11 @@
 package com.soubu.crmproject.server;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.soubu.crmproject.MyApplication;
 import com.soubu.crmproject.common.ApiConfig;
+import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.PhoneUtil;
 
 import java.io.File;
@@ -84,8 +86,16 @@ public class RetrofitService {
                     Request request = chain.request();
                     if (!PhoneUtil.isConnected(MyApplication.getContext())) {
                         request = request.newBuilder()
+                                .addHeader("uid",
+                                        "57c50934d178e0776c761e28")
+                                .addHeader("sign", "")
                                 .cacheControl(CacheControl.FORCE_CACHE).build();
                     }
+                    request = request.newBuilder()
+                            .addHeader("uid",
+                                    "57c50934d178e0776c761e28")
+                            .addHeader("sign", ConvertUtil.hmacsha256(request.url(), "97d46250-6e7b-11e6-8448-09f14aa322a9"))
+                            .build();
                     Response originalResponse = chain.proceed(request);
                     if (PhoneUtil.isConnected(MyApplication.getContext())) {
                         //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置
@@ -107,7 +117,7 @@ public class RetrofitService {
 //            mOkHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
             //okhttp 3
             mOkHttpClient = new OkHttpClient.Builder().cache(cache)
-                    .addNetworkInterceptor(rewriteCacheControlInterceptor)
+//                    .addNetworkInterceptor(rewriteCacheControlInterceptor)
                     .addInterceptor(rewriteCacheControlInterceptor)
                     .connectTimeout(30, TimeUnit.SECONDS).build();
 

@@ -39,6 +39,8 @@ public class SpecRvAdapter extends RecyclerView.Adapter {
             case AddSomethingRvAdapter.TYPE_ITEM_UNABLE:
                 vLabel.setVisibility(View.GONE);
                 break;
+            case AddSomethingRvAdapter.TYPE_NOT_PASS:
+
 
         }
         return new ItemViewHolder(v);
