@@ -27,7 +27,7 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
     private List<AddItem> mList;
     private boolean mFromEdit;
     private CustomerParams mCustomerParams;
-    
+
     @Override
     protected Class<AddSomethingActivityDelegate> getDelegateClass() {
         return AddSomethingActivityDelegate.class;
@@ -52,11 +52,13 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         viewDelegate.setSettingText(R.string.save, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(viewDelegate.verifyRequired()){
-                    if(mFromEdit){
+                if (viewDelegate.verifyRequired()) {
+                    if (mFromEdit) {
                         Map<String, String> map = CompileUtil.compile(mCustomerParams, getNewCustomerParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
-                        RetrofitRequest.getInstance().updateCustomer(mCustomerParams.getId(), map);
+                        if (map.size() > 0) {
+                            RetrofitRequest.getInstance().updateCustomer(mCustomerParams.getId(), map);
+                        }
                     } else {
                         RetrofitRequest.getInstance().addCustomer(getNewCustomerParams());
                     }
@@ -225,10 +227,10 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
     }
 
 
-    public CustomerParams getNewCustomerParams(){
+    public CustomerParams getNewCustomerParams() {
         List<AddItem> list = viewDelegate.getData();
         CustomerParams customerParams;
-        if(mFromEdit) {
+        if (mFromEdit) {
             try {
                 customerParams = mCustomerParams.clone();
             } catch (Exception e) {
@@ -238,46 +240,46 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         } else {
             customerParams = new CustomerParams();
         }
-        for(AddItem item : list){
-            if(item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || item.getItemType() == AddSomethingRvAdapter.TYPE_OTHER){
+        for (AddItem item : list) {
+            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || item.getItemType() == AddSomethingRvAdapter.TYPE_OTHER) {
                 continue;
             }
-            if(item.getTitleRes() == R.string.customer_name){
+            if (item.getTitleRes() == R.string.customer_name) {
                 customerParams.setName(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.customer_type){
+            if (item.getTitleRes() == R.string.customer_type) {
                 customerParams.setType(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.website){
+            if (item.getTitleRes() == R.string.website) {
                 customerParams.setWebsite(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.address){
+            if (item.getTitleRes() == R.string.address) {
                 customerParams.setAddress(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.name){
+            if (item.getTitleRes() == R.string.name) {
 //                customerParams.setPhone(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.mobile){
+            if (item.getTitleRes() == R.string.mobile) {
 //                customerParams.setMobile(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.qq){
+            if (item.getTitleRes() == R.string.qq) {
 //                customerParams.setQq(item.getContent());
             }
-            if(item.getTitleRes() == R.string.email){
+            if (item.getTitleRes() == R.string.email) {
 //                customerParams.setEmail(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.website){
+            if (item.getTitleRes() == R.string.website) {
 //                customerParams.setWebsite(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.customer_source){
+            if (item.getTitleRes() == R.string.customer_source) {
                 customerParams.setSource(item.getContent());
                 continue;
             }
@@ -285,11 +287,11 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
 //                customerParams.setProducts(item.getContent());
 //                continue;
 //            }
-            if(item.getTitleRes() == R.string.personal_size){
+            if (item.getTitleRes() == R.string.personal_size) {
                 customerParams.setSize(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.manager){
+            if (item.getTitleRes() == R.string.manager) {
                 customerParams.setManager(item.getContent());
                 continue;
             }

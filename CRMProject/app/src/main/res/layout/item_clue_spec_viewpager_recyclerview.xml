@@ -138,7 +138,7 @@
                     android:id="@+id/tv_related_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/related_contacts"
+                    android:text="@string/related_contact"
                     android:textColor="@color/filter_tab_text_color"
                     android:textSize="14sp" />
 
@@ -174,7 +174,7 @@
                 android:layout_marginTop="10dp"
                 android:columnCount="4"
                 android:orientation="horizontal"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -194,16 +194,24 @@
                     android:id="@+id/tv_follow_state_before"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="继续跟进" />
+                    android:text="继续跟进"
+                    android:textColor="@color/filter_tab_text_color"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bigger_than" />
+                    android:text="@string/bigger_than"
+                    android:textColor="@color/filter_tab_text_color"
+                    android:textSize="14sp" />
+
                 <TextView
                     android:id="@+id/tv_follow_state_next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="继续跟进" />
+                    android:text="继续跟进"
+                    android:textColor="@color/filter_tab_text_color"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <View

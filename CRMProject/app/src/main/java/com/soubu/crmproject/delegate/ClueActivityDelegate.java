@@ -19,7 +19,7 @@ public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
     public void initWidget() {
         super.initWidget();
         setTitle(R.string.clue);
-        mAdapter = new ClueRvAdapter();
+        mAdapter = new ClueRvAdapter(getActivity().getApplicationContext());
         setListAdapter(mAdapter);
     }
 

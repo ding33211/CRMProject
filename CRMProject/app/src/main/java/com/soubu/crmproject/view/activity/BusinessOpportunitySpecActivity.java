@@ -11,6 +11,8 @@ import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.utils.ConvertUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -25,6 +27,12 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
     List<AddItem> mList;
     boolean hasTop;
     BusinessOpportunityParams mBusinessOpportunityParams;
+    CharSequence[] mStateArray;
+    CharSequence[] mStateWebArray;
+    CharSequence[] mSourceArray;
+    CharSequence[] mSourceWebArray;
+    CharSequence[] mTypeArray;
+    CharSequence[] mTypeWebArray;
 
     @Override
     protected Class<SpecActivityDelegate> getDelegateClass() {
@@ -35,6 +43,12 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
     protected void initData() {
         super.initData();
         mBusinessOpportunityParams = (BusinessOpportunityParams) getIntent().getSerializableExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY);
+        mStateArray = SearchUtil.searchBusinessOpportunityStateArray(getApplicationContext());
+        mStateWebArray = SearchUtil.searchBusinessOpportunityStateWebArray(getApplicationContext());
+        mSourceArray = SearchUtil.searchClueSourceArray(getApplicationContext());
+        mSourceWebArray = SearchUtil.searchClueStateWebArray(getApplicationContext());
+        mTypeArray = SearchUtil.searchBusinessOpportunityTypeArray(getApplicationContext());
+        mTypeWebArray = SearchUtil.searchBusinessOpportunityTypeWebArray(getApplicationContext());
         initBusinessOpportunityParams(mBusinessOpportunityParams);
     }
 
@@ -49,7 +63,7 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
         initItem(businessOpportunityParams.getCustomer(), R.string.related_customer, hasTop ? false : true);
         initItem(businessOpportunityParams.getProduct(), R.string.related_product, hasTop ? false : true);
         initItem(businessOpportunityParams.getAmountPrice(), R.string.signing_amount, hasTop ? false : true);
-        initItem(businessOpportunityParams.getClosingAt().toString(), R.string.expected_time_to_sign, hasTop ? false : true);
+        initItem(ConvertUtil.dateToYYYY_MM_DD(businessOpportunityParams.getClosingAt()), R.string.expected_time_to_sign, hasTop ? false : true);
         initItem(businessOpportunityParams.getGotAt(), R.string.actual_signing_time, hasTop ? false : true);
         hasTop = false;
 //        addItem = new AddItem();
@@ -70,9 +84,12 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
         addItem.setTitleRes(R.string.other_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(businessOpportunityParams.getSource(), R.string.business_opportunity_source, true);
-        initItem(businessOpportunityParams.getType(), R.string.business_opportunity_type, hasTop ? false : true);
-        initItem(businessOpportunityParams.getStatus(), R.string.business_opportunity_status, hasTop ? false : true);
+        initItem(TextUtils.isEmpty(businessOpportunityParams.getSource()) ? "" : mSourceArray[SearchUtil.searchInArray(mSourceWebArray, businessOpportunityParams.getSource())].toString()
+                , R.string.business_opportunity_source, true);
+        initItem(TextUtils.isEmpty(businessOpportunityParams.getType()) ? "" : mTypeArray[SearchUtil.searchInArray(mTypeWebArray, businessOpportunityParams.getType())].toString()
+                , R.string.business_opportunity_type, hasTop ? false : true);
+        initItem(TextUtils.isEmpty(businessOpportunityParams.getStatus()) ? "" : mStateArray[SearchUtil.searchInArray(mStateWebArray, businessOpportunityParams.getStatus())].toString()
+                , R.string.business_opportunity_status, hasTop ? false : true);
         initItem(businessOpportunityParams.getNote(), R.string.remark, hasTop ? false : true);
         hasTop = false;
         addItem = new AddItem();

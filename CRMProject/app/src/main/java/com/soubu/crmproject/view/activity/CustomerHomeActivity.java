@@ -12,6 +12,7 @@ import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowTest;
+import com.soubu.crmproject.utils.SearchUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,8 @@ import java.util.List;
  */
 public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener{
     CustomerParams mCustomerParams;
+//    CharSequence[] mStateArray;
+//    CharSequence[] mStateArrayWeb;
 
     @Override
     protected Class<Big4HomeActivityDelegate> getDelegateClass() {
@@ -33,9 +36,11 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
         super.initView();
         viewDelegate.setTitle(R.string.customer_home);
         viewDelegate.setFrom(Big4HomeActivityDelegate.FROM_CUSTOMER);
+//        mStateArray = getResources().getStringArray(R.array.customer_status);
+//        mStateArrayWeb = getResources().getStringArray(R.array.customer_status_web);
         mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mCustomerParams.getName());
-        ((TextView) viewDelegate.get(R.id.tv_company_name)).setText(mCustomerParams.getManager());
+//        ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mCustomerParams.getStatus())]);
     }
 
     @Override

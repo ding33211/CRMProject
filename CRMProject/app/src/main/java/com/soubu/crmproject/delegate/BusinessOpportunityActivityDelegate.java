@@ -3,10 +3,7 @@ package com.soubu.crmproject.delegate;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
 import com.soubu.crmproject.adapter.BusinessOpportunityRvAdapter;
-import com.soubu.crmproject.adapter.CustomerRvAdapter;
-import com.soubu.crmproject.base.greendao.Clue;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
-import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
 import java.util.List;
@@ -21,7 +18,7 @@ public class BusinessOpportunityActivityDelegate extends BaseRecyclerViewActivit
     public void initWidget() {
         super.initWidget();
         setTitle(R.string.all_business_opportunity);
-        mAdapter = new BusinessOpportunityRvAdapter();
+        mAdapter = new BusinessOpportunityRvAdapter(getActivity().getApplicationContext());
         setListAdapter(mAdapter);
     }
 

@@ -22,5 +22,10 @@ public class Contants {
     public static final String EXTRA_BUSINESS_OPPORTUNITY = "BUSINESS_OPPORTUNITY";
     public static final String EXTRA_CONTRACT = "CONTRACT";
 
+    public static final String EXTRA_FROM = "FROM";
+    public static final String EXTRA_TYPE = "TYPE";
+    public static final String EXTRA_ENTITY = "ENTITY";
+
+
 
 }

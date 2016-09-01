@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/common_bg_loading"/>
+        android:src="@drawable/splash"/>
 
     <ImageView android:id="@+id/imgLoadUrl"
         android:layout_width="match_parent"

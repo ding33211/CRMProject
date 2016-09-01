@@ -60,7 +60,7 @@ public class ColorArcProgressBar extends View {
     private String hintColor = "#676767";
     private String longDegreeColor = "#111111";
     private String shortDegreeColor = "#111111";
-    private String bgArcColor = "#111111";
+    private String bgArcColor = "#666666";
     private String titleString;
     private String hintString;
 

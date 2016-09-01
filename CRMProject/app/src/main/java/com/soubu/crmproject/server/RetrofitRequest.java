@@ -8,6 +8,7 @@ import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.BaseData;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
+import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.GetPageResp;
 
 import org.greenrobot.eventbus.EventBus;
@@ -92,7 +93,11 @@ public class RetrofitRequest {
                     }
                     return;
                 } else {
-                    Log.e(TAG, response.body().errors.toString());
+                    if(response.body().errors != null){
+                        Log.e(TAG, response.body().errors.toString());
+                    } else if(response.body().getRawString() != null && response.body().getSign() != null){
+                        Log.e(TAG, response.body().getRawString() + "       " + response.body().getSign());
+                    }
                 }
             }
             @Override
@@ -206,6 +211,18 @@ public class RetrofitRequest {
                 .createApi()
                 .updateContract(id, map);
         enqueueClue(call, true);
+    }
+
+
+    /**
+     * 新增跟进
+     * @param followParams 跟进对象
+     */
+    public void addFollow(FollowParams followParams) {
+        Call<GetPageResp<List<FollowParams>>> call = RetrofitService.getInstance()
+                .createApi()
+                .addFollow(followParams);
+        enqueueClue(call, false);
     }
 
 }

@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.AddItem;
+import com.soubu.crmproject.utils.ConvertUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 import com.soubu.crmproject.utils.WindowUtil;
 
@@ -116,8 +118,8 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         int viewType = getItemViewType(holder.getLayoutPosition());
-        if(viewType == TYPE_ITEM_REQUIRED_CHOOSE || viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_CAN_LOCATE){
-            if(!mRequiredPosList.contains(position)){
+        if (viewType == TYPE_ITEM_REQUIRED_CHOOSE || viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_CAN_LOCATE) {
+            if (!mRequiredPosList.contains(position)) {
                 mRequiredPosList.add(position);
             }
         }
@@ -127,7 +129,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         holder1.etContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     mVStillFocus = v;
                 }
                 if (!hasFocus) {
@@ -143,17 +145,24 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         }
         String text = mList.get(position).getContent();
         holder1.tvAction.setVisibility(View.GONE);
-        if(TextUtils.isEmpty(text)){
-            if(viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_REQUIRED_CHOOSE){
+        if (TextUtils.isEmpty(text)) {
+            if (viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_REQUIRED_CHOOSE) {
                 holder1.tvAction.setText(viewType == TYPE_ITEM_REQUIRED_FILL ? R.string.required_fill : R.string.required_choose);
                 holder1.tvAction.setVisibility(View.VISIBLE);
             }
-            if((viewType == TYPE_ITEM_CAN_CHOOSE_DATE || viewType == TYPE_ITEM_REQUIRED_CHOOSE_DATE)
-                    && mList.get(position).getDate() != null){
-                holder1.tvAction.setText(mList.get(position).getDate().toString());
+            if ((viewType == TYPE_ITEM_CAN_CHOOSE_DATE || viewType == TYPE_ITEM_REQUIRED_CHOOSE_DATE)
+                    && mList.get(position).getDate() != null) {
+                holder1.tvAction.setText(ConvertUtil.dateToYYYY_MM_DD(mList.get(position).getDate()));
                 holder1.tvAction.setVisibility(View.VISIBLE);
             }
         } else {
+            if(viewType == TYPE_ITEM_REQUIRED_CHOOSE || viewType == TYPE_ITEM_CAN_CHOOSE){
+                int arrayRes = mList.get(position).getArrayRes();
+                int webArrayRes = mList.get(position).getWebArrayRes();
+                if(arrayRes != 0 && webArrayRes != 0){
+                    text = mActivity.getResources().getStringArray(arrayRes)[SearchUtil.searchInArray(mActivity.getResources().getStringArray(webArrayRes), text)];
+                }
+            }
             holder1.tvAction.setText(text);
             holder1.tvAction.setVisibility(View.VISIBLE);
         }
@@ -171,9 +180,9 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
 
     }
 
-    private void onEditTextLostFocus(View editText, int pos){
+    private void onEditTextLostFocus(View editText, int pos) {
         if (editText != null && editText instanceof EditText) {
-            String temp = ((EditText)editText).getText().toString();
+            String temp = ((EditText) editText).getText().toString();
             editText.setVisibility(View.GONE);
             mList.get(pos).setContent(((EditText) editText).getText().toString());
             View item = (View) editText.getTag();
@@ -189,7 +198,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView tvLabel;
         public TextView tvTitle;
         public TextView tvOther;
@@ -210,7 +219,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-            Log.e("22222222222" , "getAdapterPosition    :   " + getAdapterPosition() + "  getLayoutPosition   " + getLayoutPosition());
+            Log.e("22222222222", "getAdapterPosition    :   " + getAdapterPosition() + "  getLayoutPosition   " + getLayoutPosition());
             int viewType = getItemViewType();
             View ivAction = v.findViewById(R.id.iv_action);
             switch (viewType) {
@@ -247,43 +256,22 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                     break;
                 case TYPE_ITEM_CAN_CHOOSE:
                 case TYPE_ITEM_REQUIRED_CHOOSE:
-                    final String originalContent = mList.get(getAdapterPosition()).getContent();
-                    if (mList.get(getAdapterPosition()).getTitleRes() == R.string.follow_state){
-                        ShowWidgetUtil.showMultiItemDialog(mActivity, R.string.follow_state, R.array.clue_status, false, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                CharSequence[] states = mActivity.getResources().getTextArray(R.array.clue_status_web);
-                                mList.get(getAdapterPosition()).setContent(states[which].toString());
-                                notifyDataSetChanged();
-                                dialog.dismiss();
-                            }
-                        });
-                    } else if(mList.get(getAdapterPosition()).getTitleRes() == R.string.clue_from){
-                        ShowWidgetUtil.showMultiItemDialog(mActivity, R.string.clue_from, R.array.clue_source, false, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                CharSequence[] states = mActivity.getResources().getTextArray(R.array.clue_source_web);
-                                mList.get(getAdapterPosition()).setContent(states[which].toString());
-                                notifyDataSetChanged();
-                                dialog.dismiss();
-                            }
-                        });
-                    } else if(mList.get(getAdapterPosition()).getTitleRes() == R.string.manager){
-//                        Intent intent = new Intent(mActivity, )
+                    if (mList.get(getAdapterPosition()).getTitleRes() == R.string.manager) {
                         mList.get(getAdapterPosition()).setContent("56f0f862ca3e870a6457156a");
                         notifyDataSetChanged();
-                    } else if(mList.get(getAdapterPosition()).getTitleRes() == R.string.customer_type){
-                        ShowWidgetUtil.showMultiItemDialog(mActivity, R.string.customer_type, R.array.customer_type, false, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                CharSequence[] states = mActivity.getResources().getTextArray(R.array.customer_type_web);
-                                mList.get(getAdapterPosition()).setContent(states[which].toString());
-                                notifyDataSetChanged();
-                                dialog.dismiss();
-                            }
-                        });
+                    } else {
+                        final AddItem item = mList.get(getAdapterPosition());
+                        if (item.getArrayRes() != 0 && item.getWebArrayRes() != 0) {
+                            ShowWidgetUtil.showMultiItemDialog(mActivity, item.getTitleRes(), item.getArrayRes(), false, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    CharSequence[] webArray = mActivity.getResources().getTextArray(item.getWebArrayRes());
+                                    mList.get(getAdapterPosition()).setContent(webArray[which].toString());
+                                    notifyDataSetChanged();
+                                    dialog.dismiss();
+                                }
+                            });
+                        }
                     }
                     break;
             }
@@ -297,7 +285,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         mList.addAll(list);
     }
 
-    public List<AddItem> getData(){
+    public List<AddItem> getData() {
         return mList;
     }
 
@@ -308,14 +296,15 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
 
     /**
      * 验证有没有填写必填和勾选
-     * @return   true 通过  false 没通过
+     *
+     * @return true 通过  false 没通过
      */
-    public boolean verifyRequired(){
-        if(mVStillFocus != null){
+    public boolean verifyRequired() {
+        if (mVStillFocus != null) {
             mVStillFocus.clearFocus();
         }
-        for(int pos : mRequiredPosList){
-            if(TextUtils.isEmpty(mList.get(pos).getContent())){
+        for (int pos : mRequiredPosList) {
+            if (TextUtils.isEmpty(mList.get(pos).getContent())) {
                 return false;
             }
         }

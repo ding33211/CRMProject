@@ -1,5 +1,7 @@
 package com.soubu.crmproject.utils;
 
+import android.text.TextUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -37,6 +39,11 @@ public class CompileUtil {
 //                        }
                         changedMap.put(field.getName(), newString);
                     }
+                } else {
+                    if(valNew != null && !TextUtils.equals("", valNew.toString())){
+                        changedMap.put(field.getName(), String.valueOf(valNew));
+                    }
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

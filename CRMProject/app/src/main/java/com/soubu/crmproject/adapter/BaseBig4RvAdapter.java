@@ -69,4 +69,9 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
     }
 
     abstract int getTypeOf4();
+
+    abstract CharSequence[] getStatusWebArray();
+
+    abstract CharSequence[] getStatusArray();
+
 }

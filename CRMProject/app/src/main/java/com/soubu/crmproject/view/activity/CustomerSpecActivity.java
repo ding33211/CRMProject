@@ -11,6 +11,7 @@ import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
+import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -25,6 +26,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
     private CustomerParams mCustomerParams;
     List<AddItem> mList;
     boolean hasTop;
+    CharSequence[] mSizeArray;
+    CharSequence[] mSizeWebArray;
 
     @Override
     protected Class<SpecActivityDelegate> getDelegateClass() {
@@ -35,6 +38,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
     protected void initData() {
         super.initData();
         mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
+        mSizeArray = SearchUtil.searchCustomerSizeArray(getApplicationContext());
+        mSizeWebArray = SearchUtil.searchCustomerSizeWebArray(getApplicationContext());
         initClueParams(mCustomerParams);
     }
 
@@ -70,7 +75,7 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         if(customerParams.getProducts() != null && customerParams.getProducts().length != 0){
             initItem(customerParams.getProducts()[0], R.string.operating_products, hasTop ? false : true);
         }
-        initItem(customerParams.getSize(), R.string.personal_size, hasTop ? false : true);
+        initItem(TextUtils.isEmpty(customerParams.getSize()) ? "" : mSizeArray[SearchUtil.searchInArray(mSizeWebArray, customerParams.getSize())].toString() , R.string.personal_size, hasTop ? false : true);
         hasTop = false;
         addItem = new AddItem();
         addItem.setTitleRes(R.string.founder_information);

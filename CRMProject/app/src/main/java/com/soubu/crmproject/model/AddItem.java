@@ -14,6 +14,24 @@ public class AddItem {
     int itemType;
     String content;
     Date date;
+    int arrayRes;
+    int webArrayRes;
+
+    public int getArrayRes() {
+        return arrayRes;
+    }
+
+    public void setArrayRes(int arrayRes) {
+        this.arrayRes = arrayRes;
+    }
+
+    public int getWebArrayRes() {
+        return webArrayRes;
+    }
+
+    public void setWebArrayRes(int webArrayRes) {
+        this.webArrayRes = webArrayRes;
+    }
 
     public Date getDate() {
         return date;

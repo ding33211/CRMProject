@@ -41,7 +41,7 @@ public class TodoEventsAdapter extends IndicatorViewPager.IndicatorViewPagerAdap
         if (position == 0) {
             textView.setText(R.string.no_reminder);
         } else if (position == 1) {
-            textView.setText(R.string.reminder);
+            textView.setText(R.string.remind);
         } else {
             textView.setText(R.string.all);
         }

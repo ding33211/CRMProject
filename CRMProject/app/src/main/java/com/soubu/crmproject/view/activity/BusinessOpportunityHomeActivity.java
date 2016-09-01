@@ -12,6 +12,7 @@ import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowTest;
+import com.soubu.crmproject.utils.SearchUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,8 @@ import java.util.List;
  */
 public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener{
     BusinessOpportunityParams mBusinessOpportunityParams;
+    CharSequence[] mStateArray;
+    CharSequence[] mStateArrayWeb;
 
     @Override
     protected Class<Big4HomeActivityDelegate> getDelegateClass() {
@@ -89,9 +92,11 @@ public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeA
         super.initView();
         viewDelegate.setTitle(R.string.business_opportunity);
         viewDelegate.setFrom(Big4HomeActivityDelegate.FROM_BUSINESS_OPPORTUNITY);
+        mStateArray = getResources().getStringArray(R.array.business_opportunity_status);
+        mStateArrayWeb = getResources().getStringArray(R.array.business_opportunity_status_web);
         mBusinessOpportunityParams = (BusinessOpportunityParams) getIntent().getSerializableExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mBusinessOpportunityParams.getTitle());
         ((TextView) viewDelegate.get(R.id.tv_company_name)).setText(mBusinessOpportunityParams.getCustomer());
-        ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mBusinessOpportunityParams.getStatus());
+        ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mBusinessOpportunityParams.getStatus())]);
     }
 }

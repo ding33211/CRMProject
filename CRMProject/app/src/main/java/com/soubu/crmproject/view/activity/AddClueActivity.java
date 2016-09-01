@@ -43,7 +43,9 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
                     if(mFromEdit){
                         Map<String, String> map = CompileUtil.compile(mClueParams, getNewClueParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
-                        RetrofitRequest.getInstance().updateClue(mClueParams.getId(), map);
+                        if(map.size() > 0) {
+                            RetrofitRequest.getInstance().updateClue(mClueParams.getId(), map);
+                        }
                     } else {
                         RetrofitRequest.getInstance().addClue(getNewClueParams());
                     }

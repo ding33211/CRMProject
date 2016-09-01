@@ -1,6 +1,7 @@
 package com.soubu.crmproject.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.math.BigInteger;
@@ -21,6 +22,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import okhttp3.HttpUrl;
+import okhttp3.Request;
 
 /**
  * 用于各种转换的工具
@@ -68,33 +70,13 @@ public class ConvertUtil {
         return formatter.format(date);
     }
 
-
-
-
-    /**
-     * 对字符串加密,加密算法使用MD5,SHA-1,SHA-256,默认使用SHA-256
-     *
-     * @param strSrc 要加密的字符串
-     * @param encName  加密类型
-     * @return
-     */
-    public static String Encrypt(String strSrc, String encName) {
-        MessageDigest md = null;
-        String strDes = null;
-        byte[] bt = strSrc.getBytes();
-        try {
-            if (encName == null || encName.equals("")) {
-                encName = "SHA-256";
-            }
-            md = MessageDigest.getInstance(encName);
-            md.update(bt);
-            strDes = bytes2Hex(md.digest()); // to HexString
-        } catch (NoSuchAlgorithmException e) {
+    public static String dateToYYYY_MM_DD_HH_mm(Date date){
+        if(date == null){
             return null;
         }
-        return strDes;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+        return formatter.format(date);
     }
-
 
     public static String bytes2Hex(byte[] bts) {
         String des = "";
@@ -110,31 +92,38 @@ public class ConvertUtil {
     }
 
 
-    public static String hmacsha256(HttpUrl url, String macKey){
+    public static String hmacsha256(Request request, String macKey){
         try{
             Mac mac = Mac.getInstance("HmacSHA256");
             byte[] secretByte = macKey.getBytes("UTF-8");
             String macData = "";
-            if(url.queryParameterNames().size() > 1){
-                List<String> list = new ArrayList<>(url.queryParameterNames());
-                Collections.sort(list);
-                for(String a : list){
-                    macData += a + "=" + url.queryParameter(a) + "&";
+            if(TextUtils.equals(request.method(), "GET")){
+                HttpUrl url = request.url();
+                if(url.queryParameterNames().size() > 1){
+                    List<String> list = new ArrayList<>(url.queryParameterNames());
+                    Collections.sort(list);
+                    for(String a : list){
+                        macData += a + "=" + url.queryParameter(a) + "&";
+                    }
+                    macData = macData.substring(0, macData.length() - 1);
+                } else {
+                    macData = url.encodedQuery() == null ? "" : url.encodedQuery();
                 }
-                macData = macData.substring(0, macData.length() - 1);
             } else {
-                macData = url.encodedQuery();
+
             }
             byte[] dataBytes = macData.getBytes("UTF-8");
+            Log.e("xxxxxxxxxxxxxxx", "data   :   " + macData + "      key   :   " + macKey);
             SecretKey secret = new SecretKeySpec(secretByte, "HMACSHA256");
-
             mac.init(secret);
             byte[] doFinal = mac.doFinal(dataBytes);
 //            byte[] hexB = new Hex().encode(doFinal);
+            Log.e("xxxxxxxxxxxxxxx", "result   :   " + bytes2Hex(doFinal));
+
             return bytes2Hex(doFinal);
         } catch (Exception e){
             e.printStackTrace();
-            return null;
+            return "";
         }
     }
 

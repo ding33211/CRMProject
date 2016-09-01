@@ -12,6 +12,7 @@ import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.utils.ConvertUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -26,6 +27,12 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
     List<AddItem> mList;
     boolean hasTop;
     ContractParams mContractParams;
+    CharSequence[] mStateArray;
+    CharSequence[] mStateWebArray;
+    CharSequence[] mPayMethodArray;
+    CharSequence[] mPayMethodWebArray;
+    CharSequence[] mTypeArray;
+    CharSequence[] mTypeWebArray;
 
     @Override
     protected Class<SpecActivityDelegate> getDelegateClass() {
@@ -36,6 +43,12 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
     protected void initData() {
         super.initData();
         mContractParams = (ContractParams) getIntent().getSerializableExtra(Contants.EXTRA_CONTRACT);
+        mStateArray = SearchUtil.searchContractStateArray(getApplicationContext());
+        mStateWebArray = SearchUtil.searchContractStateWebArray(getApplicationContext());
+        mPayMethodArray = SearchUtil.searchContractPayMethodArray(getApplicationContext());
+        mPayMethodWebArray = SearchUtil.searchContractPayMethodWebArray(getApplicationContext());
+        mTypeArray = SearchUtil.searchContractTypeArray(getApplicationContext());
+        mTypeWebArray = SearchUtil.searchContractTypeWebArray(getApplicationContext());
         initContractParams(mContractParams);
     }
 
@@ -54,13 +67,16 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         addItem.setTitleRes(R.string.contact_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(contractParams.getType(), R.string.contract_type, true);
+        initItem(TextUtils.isEmpty(contractParams.getType()) ? "" : mTypeArray[SearchUtil.searchInArray(mTypeWebArray, contractParams.getType())].toString(),
+                R.string.contract_type, true);
         initItem(contractParams.getSerialNumber(), R.string.contract_serial_number, hasTop ? false : true);
         initItem(contractParams.getAmountPrice(), R.string.contract_amount_price, hasTop ? false : true);
-        initItem(contractParams.getStatus(), R.string.contract_status, hasTop ? false : true);
+        initItem(TextUtils.isEmpty(contractParams.getStatus()) ? "" : mStateArray[SearchUtil.searchInArray(mStateWebArray, contractParams.getStatus())].toString(),
+                R.string.contract_status, hasTop ? false : true);
         initItem(ConvertUtil.dateToYYYY_MM_DD(contractParams.getStartedAt()), R.string.start_date, hasTop ? false : true);
         initItem(ConvertUtil.dateToYYYY_MM_DD(contractParams.getFinishedAt()), R.string.finish_date, hasTop ? false : true);
-        initItem(contractParams.getPayMethod(), R.string.pay_method, hasTop ? false : true);
+        initItem(TextUtils.isEmpty(contractParams.getPayMethod()) ? "" : mPayMethodArray[SearchUtil.searchInArray(mPayMethodWebArray, contractParams.getPayMethod())].toString(),
+                R.string.pay_method, hasTop ? false : true);
         initItem(contractParams.getClientSignedPerson(), R.string.client_signed_person, hasTop ? false : true);
         initItem(contractParams.getSignedPerson(), R.string.signed_person, hasTop ? false : true);
         initItem(ConvertUtil.dateToYYYY_MM_DD(contractParams.getClosedAt()), R.string.signed_date, hasTop ? false : true);

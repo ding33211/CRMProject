@@ -14,6 +14,7 @@ import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import java.util.ArrayList;
@@ -44,7 +45,9 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
                     if (mFromEdit) {
                         Map<String, String> map = CompileUtil.compile(mBusinessOpportunityParams, getNewBusinessOpportunityParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
-                        RetrofitRequest.getInstance().updateBusinessOpportunity(mBusinessOpportunityParams.getId(), map);
+                        if (map.size() > 0) {
+                            RetrofitRequest.getInstance().updateBusinessOpportunity(mBusinessOpportunityParams.getId(), map);
+                        }
                     } else {
                         RetrofitRequest.getInstance().addBusinessOpportunity(getNewBusinessOpportunityParams());
                     }
@@ -186,22 +189,34 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_source);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getSource())) {
-            item.setContent(mBusinessOpportunityParams.getSource());
+            CharSequence[] array = SearchUtil.searchClueSourceArray(getApplicationContext());
+            CharSequence[] webArray = SearchUtil.searchClueSourceWebArray(getApplicationContext());
+            item.setContent(array[SearchUtil.searchInArray(webArray, mBusinessOpportunityParams.getSource())].toString());
         }
+        item.setArrayRes(R.array.clue_source);
+        item.setWebArrayRes(R.array.clue_source_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_type);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getType())) {
-            item.setContent(mBusinessOpportunityParams.getType());
+            CharSequence[] array = SearchUtil.searchBusinessOpportunityTypeArray(getApplicationContext());
+            CharSequence[] webArray = SearchUtil.searchBusinessOpportunityTypeWebArray(getApplicationContext());
+            item.setContent(array[SearchUtil.searchInArray(webArray, mBusinessOpportunityParams.getType())].toString());
         }
+        item.setArrayRes(R.array.business_opportunity_type);
+        item.setWebArrayRes(R.array.business_opportunity_type_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_status);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getStatus())) {
-            item.setContent(mBusinessOpportunityParams.getStatus());
+            CharSequence[] array = SearchUtil.searchBusinessOpportunityStateArray(getApplicationContext());
+            CharSequence[] webArray = SearchUtil.searchBusinessOpportunityStateWebArray(getApplicationContext());
+            item.setContent(array[SearchUtil.searchInArray(webArray, mBusinessOpportunityParams.getStatus())].toString());
         }
+        item.setArrayRes(R.array.business_opportunity_status);
+        item.setWebArrayRes(R.array.business_opportunity_status_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new AddItem();

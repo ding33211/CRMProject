@@ -18,7 +18,7 @@
     <application
         android:name="com.soubu.crmproject.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/crm_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -56,6 +56,9 @@
         <activity android:name=".view.activity.AddContractActivity"></activity>
         <activity android:name=".view.activity.ContractHomeActivity"></activity>
         <activity android:name=".view.activity.ContractSpecActivity"></activity>
+        <activity
+            android:name=".view.activity.AddFollowActivity"
+            android:windowSoftInputMode="adjustPan|stateVisible" />
 
     </application>
 

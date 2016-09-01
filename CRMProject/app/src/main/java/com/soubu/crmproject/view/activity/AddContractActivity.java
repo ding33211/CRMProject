@@ -46,8 +46,9 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
                         //附件先不做考虑
                         map.remove("attachments");
-
-                        RetrofitRequest.getInstance().updateContract(mContractParams.getId(), map);
+                        if(map.size() > 0) {
+                            RetrofitRequest.getInstance().updateContract(mContractParams.getId(), map);
+                        }
                     } else {
                         RetrofitRequest.getInstance().addContract(getNewContractParams());
                     }

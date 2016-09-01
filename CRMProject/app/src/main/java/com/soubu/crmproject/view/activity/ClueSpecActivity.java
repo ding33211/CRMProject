@@ -11,6 +11,7 @@ import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -25,6 +26,10 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
     List<AddItem> mList;
     boolean hasTop;
     ClueParams mClueParams;
+    CharSequence[] mStateArray;
+    CharSequence[] mStateWebArray;
+    CharSequence[] mSourceArray;
+    CharSequence[] mSourceWebArray;
 
     @Override
     protected Class<SpecActivityDelegate> getDelegateClass() {
@@ -35,6 +40,10 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
     protected void initData() {
         super.initData();
         mClueParams = (ClueParams) getIntent().getSerializableExtra(Contants.EXTRA_CLUE);
+        mStateArray = SearchUtil.searchClueStateArray(getApplicationContext());
+        mStateWebArray = SearchUtil.searchClueStateWebArray(getApplicationContext());
+        mSourceArray = SearchUtil.searchClueSourceArray(getApplicationContext());
+        mSourceWebArray = SearchUtil.searchClueSourceWebArray(getApplicationContext());
         initClueParams(mClueParams);
     }
 
@@ -67,8 +76,8 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         addItem.setTitleRes(R.string.other_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(clueParams.getStatus(), R.string.follow_state, true);
-        initItem(clueParams.getSource(), R.string.clue_from, hasTop ? false : true);
+        initItem(TextUtils.isEmpty(clueParams.getStatus()) ? "" : mStateArray[SearchUtil.searchInArray(mStateWebArray, clueParams.getStatus())].toString(), R.string.follow_state, true);
+        initItem(TextUtils.isEmpty(clueParams.getSource()) ? "" : mSourceArray[SearchUtil.searchInArray(mSourceWebArray, clueParams.getSource())].toString(), R.string.clue_from, hasTop ? false : true);
         initItem(clueParams.getNote(), R.string.remark, hasTop ? false : true);
         hasTop = false;
         addItem = new AddItem();

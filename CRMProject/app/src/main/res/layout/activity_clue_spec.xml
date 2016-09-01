@@ -308,7 +308,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="@string/fill_follow_record"
+                android:text="@string/add_follow_record"
                 android:textColor="@color/title_black"
                 android:textSize="16sp" />
         </LinearLayout>

@@ -91,10 +91,11 @@ public class RetrofitService {
                                 .addHeader("sign", "")
                                 .cacheControl(CacheControl.FORCE_CACHE).build();
                     }
+
                     request = request.newBuilder()
                             .addHeader("uid",
                                     "57c50934d178e0776c761e28")
-                            .addHeader("sign", ConvertUtil.hmacsha256(request.url(), "97d46250-6e7b-11e6-8448-09f14aa322a9"))
+                            .addHeader("sign", ConvertUtil.hmacsha256(request, "823aa1a0-6f31-11e6-bc89-69b2f3fb2423"))
                             .build();
                     Response originalResponse = chain.proceed(request);
                     if (PhoneUtil.isConnected(MyApplication.getContext())) {

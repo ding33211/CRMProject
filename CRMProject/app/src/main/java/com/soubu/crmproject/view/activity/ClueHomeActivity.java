@@ -12,6 +12,7 @@ import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowTest;
+import com.soubu.crmproject.utils.SearchUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,8 @@ import java.util.List;
  */
 public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener {
     ClueParams mClueParams;
+    CharSequence[] mStateArray;
+    CharSequence[] mStateArrayWeb;
 
     @Override
     protected Class<Big4HomeActivityDelegate> getDelegateClass() {
@@ -60,6 +63,8 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
         list.add(followTest);
         list.add(followTest);
         viewDelegate.setIndicatorViewPagerAdapter(list);
+        viewDelegate.setEntity(mClueParams);
+
     }
 
     @Override
@@ -89,10 +94,13 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
         super.initView();
         viewDelegate.setTitle(R.string.clue_home);
         viewDelegate.setFrom(Big4HomeActivityDelegate.FROM_CLUE);
+        mStateArray = getResources().getStringArray(R.array.clue_status);
+        mStateArrayWeb = getResources().getStringArray(R.array.clue_status_web);
         mClueParams = (ClueParams) getIntent().getSerializableExtra(Contants.EXTRA_CLUE);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mClueParams.getCompanyName());
         ((TextView) viewDelegate.get(R.id.tv_company_name)).setText(mClueParams.getContactName());
-        ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mClueParams.getStatus());
+        ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mClueParams.getStatus())]);
     }
+
 
 }

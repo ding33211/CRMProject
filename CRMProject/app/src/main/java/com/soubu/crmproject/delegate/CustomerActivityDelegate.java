@@ -22,7 +22,7 @@ public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
     public void initWidget() {
         super.initWidget();
         setTitle(R.string.all_customer);
-        mAdapter = new CustomerRvAdapter();
+        mAdapter = new CustomerRvAdapter(getActivity().getApplicationContext());
         setListAdapter(mAdapter);
     }
 

@@ -4,6 +4,7 @@ import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
+import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.GetPageResp;
 import com.soubu.crmproject.model.BaseData;
 
@@ -129,4 +130,9 @@ public interface RetrofitApi {
     @PUT("contracts/{id}")
     Call<GetPageResp<List<ContractParams>>> updateContract(@Path("id") String id, @FieldMap Map<String, String> names);
 
+
+    //添加跟进
+    @Headers({"Content-type:application/json"})
+    @POST("actions")
+    Call<GetPageResp<List<FollowParams>>> addFollow(@Body FollowParams params);
 }

@@ -153,19 +153,19 @@
         <item>FAILED</item>
     </string-array>
 
-    <string-array name="business_opportunity_type">
+    <string-array name="business_opportunity_type_web">
         <item>A</item>
         <item>B</item>
         <item>C</item>
     </string-array>
 
-    <string-array name="business_opportunity_type_web">
+    <string-array name="business_opportunity_type">
         <item>重要商机</item>
         <item>普通商机</item>
         <item>特殊商机</item>
     </string-array>
 
-    <string-array name="business_opportunity_status">
+    <string-array name="business_opportunity_status_web">
         <item>IN_CONTACT</item>
         <item>CONFIRM_NEED</item>
         <item>PROPOSE</item>
@@ -174,7 +174,7 @@
         <item>FAILED</item>
     </string-array>
 
-    <string-array name="business_opportunity_status_web">
+    <string-array name="business_opportunity_status">
         <item>初步接洽</item>
         <item>需求确定</item>
         <item>方案/报价</item>
@@ -253,6 +253,27 @@
         <item>NORMAL</item>
         <item>REFUND</item>
         <item>DEPOSIT</item>
+        <item>OTHER</item>
+    </string-array>
+
+
+    <string-array name="follow_method">
+        <item>电话</item>
+        <item>QQ</item>
+        <item>微信</item>
+        <item>拜访</item>
+        <item>邮件</item>
+        <item>短信</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="follow_method_web">
+        <item>PHONE</item>
+        <item>QQ</item>
+        <item>WECHAT</item>
+        <item>VISITATION</item>
+        <item>EMAIL</item>
+        <item>SMS</item>
         <item>OTHER</item>
     </string-array>
 </resources>
