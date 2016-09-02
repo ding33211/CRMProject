@@ -3,13 +3,13 @@ package com.soubu.crmproject.delegate;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.soubu.crmproject.R;
-import com.soubu.crmproject.adapter.ClueSpecIndicatorViewPagerAdapter;
+import com.soubu.crmproject.adapter.FollowInBig4HomeIndicatorViewPagerAdapter;
 import com.soubu.crmproject.base.mvp.view.AppDelegate;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.view.activity.AddFollowActivity;
 import com.soubu.crmproject.widget.indicatorviewpager.ColorBar;
@@ -37,6 +37,7 @@ public class Big4HomeActivityDelegate extends AppDelegate {
 
     private int mFrom = 0;
     private Serializable mSerializable;
+    private FollowInBig4HomeIndicatorViewPagerAdapter mIndicatorViewPagerAdapter;
 
 
     @Override
@@ -56,6 +57,8 @@ public class Big4HomeActivityDelegate extends AppDelegate {
             case FROM_CONTRACT:
 
         }
+        new Gson().toJson(mIndicatorViewPagerAdapter);
+        mIndicatorViewPagerAdapter = new FollowInBig4HomeIndicatorViewPagerAdapter();
         mViewPager = get(R.id.vp_content);
         mIndicator = get(R.id.fiv_indicator);
         mIndicator.setScrollBar(new ColorBar(getActivity(), getActivity().getResources().getColor(R.color.colorPrimary), 5));
@@ -64,7 +67,9 @@ public class Big4HomeActivityDelegate extends AppDelegate {
         int selectColor = getActivity().getResources().getColor(R.color.colorPrimary);
         int unSelectColor = getActivity().getResources().getColor(R.color.subtitle_grey);
         mIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
-
+        IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
+        indicatorViewPager.setAdapter(mIndicatorViewPagerAdapter);
+        indicatorViewPager.setCurrentItem(1, false);
         get(R.id.ll_fill_follow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +80,6 @@ public class Big4HomeActivityDelegate extends AppDelegate {
                 getActivity().startActivity(intent);
             }
         });
-
         get(R.id.ll_add_follow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,12 +92,6 @@ public class Big4HomeActivityDelegate extends AppDelegate {
         });
     }
 
-    public void setIndicatorViewPagerAdapter(List<FollowTest> list){
-        IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
-        indicatorViewPager.setAdapter(new ClueSpecIndicatorViewPagerAdapter(list));
-        indicatorViewPager.setCurrentItem(1, false);
-    }
-
     public void setEntity(Serializable entity){
         mSerializable = entity;
     }
@@ -102,6 +100,13 @@ public class Big4HomeActivityDelegate extends AppDelegate {
         mFrom = from;
     }
 
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 
+    public void setViewPagerData(int pos, List<FollowParams> list){
+        mIndicatorViewPagerAdapter.setViewPagerData(pos, list);
+    }
 
 }

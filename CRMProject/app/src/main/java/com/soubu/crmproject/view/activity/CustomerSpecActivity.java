@@ -28,6 +28,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
     boolean hasTop;
     CharSequence[] mSizeArray;
     CharSequence[] mSizeWebArray;
+    CharSequence[] mTypeArray;
+    CharSequence[] mTypeWebArray;
 
     @Override
     protected Class<SpecActivityDelegate> getDelegateClass() {
@@ -40,6 +42,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
         mSizeArray = SearchUtil.searchCustomerSizeArray(getApplicationContext());
         mSizeWebArray = SearchUtil.searchCustomerSizeWebArray(getApplicationContext());
+        mTypeArray = SearchUtil.searchCustomerTypeArray(getApplicationContext());
+        mTypeWebArray = SearchUtil.searchCustomerTypeWebArray(getApplicationContext());
         initClueParams(mCustomerParams);
     }
 
@@ -51,7 +55,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
         initItem(customerParams.getName(), R.string.customer_name, true);
-        initItem(customerParams.getType(), R.string.customer_type, hasTop ? false : true);
+        initItem(TextUtils.isEmpty(customerParams.getType()) ? "" : mTypeArray[SearchUtil.searchInArray(mTypeWebArray, customerParams.getType())].toString(), R.string.customer_type, hasTop ? false : true);
+
         initItem(customerParams.getWebsite(), R.string.website, hasTop ? false : true);
         initItem(customerParams.getAddress(), R.string.address, hasTop ? false : true);
         hasTop = false;
@@ -72,10 +77,10 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
         initItem(customerParams.getStatus(), R.string.follow_state, true);
-        if(customerParams.getProducts() != null && customerParams.getProducts().length != 0){
+        if (customerParams.getProducts() != null && customerParams.getProducts().length != 0) {
             initItem(customerParams.getProducts()[0], R.string.operating_products, hasTop ? false : true);
         }
-        initItem(TextUtils.isEmpty(customerParams.getSize()) ? "" : mSizeArray[SearchUtil.searchInArray(mSizeWebArray, customerParams.getSize())].toString() , R.string.personal_size, hasTop ? false : true);
+        initItem(TextUtils.isEmpty(customerParams.getSize()) ? "" : mSizeArray[SearchUtil.searchInArray(mSizeWebArray, customerParams.getSize())].toString(), R.string.personal_size, hasTop ? false : true);
         hasTop = false;
         addItem = new AddItem();
         addItem.setTitleRes(R.string.founder_information);
@@ -122,7 +127,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(List<CustomerParams> list) {
-        initClueParams(list.get(0));
+        mCustomerParams = list.get(0);
+        initClueParams(mCustomerParams);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

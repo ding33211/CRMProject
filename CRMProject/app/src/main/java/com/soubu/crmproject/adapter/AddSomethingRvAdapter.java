@@ -237,6 +237,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 case TYPE_ITEM_CAN_CHOOSE_DATE:
                 case TYPE_ITEM_REQUIRED_CHOOSE_DATE:
                     Calendar c = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
+                    c.setTime(mList.get(getAdapterPosition()).getDate());
                     new DatePickerDialog(mActivity,
                             // 绑定监听器
                             new DatePickerDialog.OnDateSetListener() {

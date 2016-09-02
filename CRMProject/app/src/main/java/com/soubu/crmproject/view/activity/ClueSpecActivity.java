@@ -128,7 +128,8 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(List<ClueParams> list) {
-        initClueParams(list.get(0));
+        mClueParams = list.get(0);
+        initClueParams(mClueParams);
     }
 
     /**

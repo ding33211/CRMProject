@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.widget.indicatorviewpager.IndicatorViewPager;
 
@@ -17,17 +18,15 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-23.
  */
-public class ClueSpecIndicatorViewPagerAdapter extends IndicatorViewPager.IndicatorViewPagerAdapter {
+public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPager.IndicatorViewPagerAdapter {
 
-    private List<FollowTest> mList;
-    private ClueSpecViewPagerRvAdapter mAdapter0;
-    private ClueSpecViewPagerRvAdapter mAdapter1;
+    private FollowInBig4HomeViewPagerRvAdapter mAdapter0;
+    private FollowInBig4HomeViewPagerRvAdapter mAdapter1;
 
 
-    public ClueSpecIndicatorViewPagerAdapter(List<FollowTest> mList) {
-        this.mList = mList;
-        mAdapter1 = new ClueSpecViewPagerRvAdapter(mList, ClueSpecViewPagerRvAdapter.POS_RECORD);
-        mAdapter0 = new ClueSpecViewPagerRvAdapter(mList, ClueSpecViewPagerRvAdapter.POS_PLAN);
+    public FollowInBig4HomeIndicatorViewPagerAdapter() {
+        mAdapter1 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_RECORD);
+        mAdapter0 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_PLAN);
 
     }
 
@@ -69,5 +68,13 @@ public class ClueSpecIndicatorViewPagerAdapter extends IndicatorViewPager.Indica
     @Override
     public int getViewPagerLayoutRes() {
         return R.layout.recyclerview_base;
+    }
+
+    public void setViewPagerData(int pos, List<FollowParams> list){
+        if (pos == 0){
+            mAdapter0.setData(list);
+        } else {
+            mAdapter1.setData(list);
+        }
     }
 }

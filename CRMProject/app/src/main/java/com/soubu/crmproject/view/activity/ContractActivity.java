@@ -4,14 +4,10 @@ import android.content.Intent;
 import android.view.View;
 
 import com.soubu.crmproject.R;
-import com.soubu.crmproject.adapter.ContractRvAdapter;
-import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.ContractDelegate;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.widget.FilterOrSortPopupWindow;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -66,7 +62,7 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
     @Override
     protected String[][] getChildrenArray() {
         return new String[][]{getResources().getStringArray(R.array.contract_type), getResources().getStringArray(R.array.contract_pay_method),
-                getResources().getStringArray(R.array.contract_status), getResources().getStringArray(R.array.contract_received_pay_method),
+                getResources().getStringArray(R.array.contract_state), getResources().getStringArray(R.array.contract_received_pay_method),
                 getResources().getStringArray(R.array.clue_related)};
     }
 
@@ -98,7 +94,7 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
         } else {
             String[] strings0 = getResources().getStringArray(R.array.contract_type_web);
             String[] strings1 = getResources().getStringArray(R.array.contract_pay_method_web);
-            String[] strings2 = getResources().getStringArray(R.array.contract_status_web);
+            String[] strings2 = getResources().getStringArray(R.array.contract_state_web);
             String[] strings3 = getResources().getStringArray(R.array.contract_received_pay_method_web);
             String[] strings4 = getResources().getStringArray(R.array.clue_related_web);
             if (map.containsKey(0)) {

@@ -3,8 +3,6 @@ package com.soubu.crmproject.view.activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.support.v7.widget.SwitchCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -17,6 +15,7 @@ import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
+import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.ConvertUtil;
@@ -24,10 +23,7 @@ import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -96,10 +92,16 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 ClueParams clueParams = (ClueParams) mEntity;
                 mFollowParams.setEntity(clueParams.getId());
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, clueParams.getStatus())].toString());
-                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.related_clue));
                 viewDelegate.giveTextViewString(R.id.tv_related_one, clueParams.getCompanyName());
-                viewDelegate.get(R.id.ll_related_two).setVisibility(View.GONE);
                 break;
+
+            case Big4HomeActivityDelegate.FROM_CUSTOMER:
+                CustomerParams customerParams = (CustomerParams) mEntity;
+                mFollowParams.setEntity(customerParams.getId());
+                viewDelegate.giveTextViewString(R.id.tv_related_one, customerParams.getName());
+                viewDelegate.get(R.id.rl_state).setVisibility(View.GONE);
+                return;
+
             case Big4HomeActivityDelegate.FROM_BUSINESS_OPPORTUNITY:
                 mStateLabelRes = R.string.business_opportunity_status;
                 mStateArrayRes = R.array.business_opportunity_status;
@@ -108,21 +110,19 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 BusinessOpportunityParams businessOpportunityParams = (BusinessOpportunityParams)mEntity;
                 mFollowParams.setEntity(businessOpportunityParams.getId());
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, businessOpportunityParams.getStatus())].toString());
-                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.related_business_opportunity));
                 viewDelegate.giveTextViewString(R.id.tv_related_one, businessOpportunityParams.getTitle());
-                viewDelegate.giveTextViewString(R.id.tv_related_two, businessOpportunityParams.getCustomer());
                 break;
             case Big4HomeActivityDelegate.FROM_CONTRACT:
                 mStateLabelRes = R.string.contract_status;
-                mStateArrayRes = R.array.contract_status;
+                mStateArrayRes = R.array.contract_state;
                 mStateArray = getResources().getTextArray(mStateArrayRes);
-                mStateArrayWeb = getResources().getTextArray(R.array.contract_status_web);
+                mStateArrayWeb = getResources().getTextArray(R.array.contract_state_web);
                 ContractParams contractParams = (ContractParams)mEntity;
                 mFollowParams.setEntity(contractParams.getId());
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, contractParams.getStatus())].toString());
-                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.related_contact));
+//                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.related_contact));
                 viewDelegate.giveTextViewString(R.id.tv_related_one, contractParams.getTitle());
-                viewDelegate.giveTextViewString(R.id.tv_related_two, contractParams.getCustomer());
+//                viewDelegate.giveTextViewString(R.id.tv_related_two, contractParams.getCustomer());
                 break;
         }
         viewDelegate.giveTextViewString(R.id.tv_state_label, getString(mStateLabelRes));

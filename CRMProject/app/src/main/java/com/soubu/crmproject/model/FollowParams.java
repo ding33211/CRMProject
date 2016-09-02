@@ -1,11 +1,13 @@
 package com.soubu.crmproject.model;
 
+import com.soubu.crmproject.server.ObjectToMapInterface;
+
 import java.util.Date;
 
 /**
  * Created by dingsigang on 16-8-31.
  */
-public class FollowParams {
+public class FollowParams extends ObjectToMapInterface {
     String user;
     String username;
     String entity;

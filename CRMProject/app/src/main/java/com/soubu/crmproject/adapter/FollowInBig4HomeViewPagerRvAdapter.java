@@ -8,8 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.FollowTest;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,8 +21,8 @@ import java.util.TimeZone;
 /**
  * Created by dingsigang on 16-8-23.
  */
-public class ClueSpecViewPagerRvAdapter extends RecyclerView.Adapter {
-    List<FollowTest> mList;
+public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
+    List<FollowParams> mList;
     private static final int TYPE_TOP = 0X00;
     private static final int TYPE_MID = 0X01;
     private static final int TYPE_BOTTOM = 0X02;
@@ -37,8 +39,8 @@ public class ClueSpecViewPagerRvAdapter extends RecyclerView.Adapter {
     private int mDay;
 
 
-    public ClueSpecViewPagerRvAdapter(List<FollowTest> list, int pos) {
-        mList = list;
+    public FollowInBig4HomeViewPagerRvAdapter(int pos) {
+        mList = new ArrayList<>();
         mPos = pos;
         mCalendar = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
         mCalendar.setTime(new Date());
@@ -78,51 +80,52 @@ public class ClueSpecViewPagerRvAdapter extends RecyclerView.Adapter {
         ItemViewHolder holder1 = null;
         if(holder instanceof ItemViewHolder){
             holder1 = (ItemViewHolder) holder;
+
         } else {
             return;
         }
         if(mPos == POS_PLAN){
-            mCalendar.setTime(new Date(mList.get(position).getTime()));
-            boolean isToday = false;
-            if(mCalendar.get(Calendar.DAY_OF_MONTH) == mDay)
-            {
-                if(mCalendar.get(Calendar.MONTH) == mMonth && mCalendar.get(Calendar.DAY_OF_MONTH) == mDay){
-                    isToday = true;
-                }
-            }
-            if(isToday){
-                if(mList.get(position).getFollowState() == FollowTest.STATE_COMPLETE){
-                    holder1.ivFollowState.setImageResource(R.drawable.today_complete);
-                } else {
-                    holder1.ivFollowState.setImageResource(R.drawable.today_not_complete);
-                }
-            } else {
-                if(mList.get(position).getFollowState() == FollowTest.STATE_COMPLETE){
-                    holder1.ivFollowState.setImageResource(R.drawable.other_day_complete);
-                } else {
-                    holder1.ivFollowState.setImageResource(R.drawable.other_day_not_complete);
-                }
-            }
-            holder1.ivAlarm.setVisibility(View.GONE);
-            if(mList.get(position).isNeedRecord()){
-                holder1.ivAlarm.setVisibility(View.VISIBLE);
-            }
+//            mCalendar.setTime(new Date(mList.get(position).getTime()));
+//            boolean isToday = false;
+//            if(mCalendar.get(Calendar.DAY_OF_MONTH) == mDay)
+//            {
+//                if(mCalendar.get(Calendar.MONTH) == mMonth && mCalendar.get(Calendar.DAY_OF_MONTH) == mDay){
+//                    isToday = true;
+//                }
+//            }
+//            if(isToday){
+//                if(mList.get(position).getFollowState() == FollowTest.STATE_COMPLETE){
+//                    holder1.ivFollowState.setImageResource(R.drawable.today_complete);
+//                } else {
+//                    holder1.ivFollowState.setImageResource(R.drawable.today_not_complete);
+//                }
+//            } else {
+//                if(mList.get(position).getFollowState() == FollowTest.STATE_COMPLETE){
+//                    holder1.ivFollowState.setImageResource(R.drawable.other_day_complete);
+//                } else {
+//                    holder1.ivFollowState.setImageResource(R.drawable.other_day_not_complete);
+//                }
+//            }
+//            holder1.ivAlarm.setVisibility(View.GONE);
+//            if(mList.get(position).isNeedRecord()){
+//                holder1.ivAlarm.setVisibility(View.VISIBLE);
+//            }
 
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        mCalendar.setTime(new Date(mList.get(position).getTime()));
+        mCalendar.setTime(mList.get(position).getCreatedAt());
         int thisDay = mCalendar.get(Calendar.DAY_OF_MONTH);
         int lastDay = -1;
         int nextDay = -1;
         if (position != 0) {
-            mCalendar.setTime(new Date(mList.get(position - 1).getTime()));
+            mCalendar.setTime(mList.get(position - 1).getCreatedAt());
             lastDay = mCalendar.get(Calendar.DAY_OF_MONTH);
         }
         if (position != getItemCount() - 1) {
-            mCalendar.setTime(new Date(mList.get(position + 1).getTime()));
+            mCalendar.setTime(mList.get(position + 1).getCreatedAt());
             nextDay = mCalendar.get(Calendar.DAY_OF_MONTH);
         }
         if (thisDay == lastDay) {
@@ -155,5 +158,10 @@ public class ClueSpecViewPagerRvAdapter extends RecyclerView.Adapter {
             ivFollowState = (ImageView) itemView.findViewById(R.id.iv_complete_state);
             ivAlarm = (ImageView) itemView.findViewById(R.id.iv_alarm);
         }
+    }
+
+    public void setData(List<FollowParams> list){
+        mList = list;
+        notifyDataSetChanged();
     }
 }

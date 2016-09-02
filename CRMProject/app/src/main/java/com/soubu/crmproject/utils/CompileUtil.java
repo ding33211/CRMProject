@@ -43,7 +43,6 @@ public class CompileUtil {
                     if(valNew != null && !TextUtils.equals("", valNew.toString())){
                         changedMap.put(field.getName(), String.valueOf(valNew));
                     }
-
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -16,6 +16,7 @@ import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -53,12 +54,12 @@ public interface RetrofitApi {
     //添加线索
     @Headers({"Content-type:application/json"})
     @POST("opportunities")
-    Call<GetPageResp<List<ClueParams>>> addClue(@Body ClueParams params);
+    Call<GetPageResp<List<ClueParams>>> addClue(@Body ClueParams params, @Header("sign") String sign);
 
     //修改线索
     @FormUrlEncoded
     @PUT("opportunities/{id}")
-    Call<GetPageResp<List<ClueParams>>> updateClue(@Path("id") String id, @FieldMap Map<String, String> names);
+    Call<GetPageResp<List<ClueParams>>> updateClue(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
 
     //获取客户
@@ -74,15 +75,15 @@ public interface RetrofitApi {
                                                         @Query("related") String related,//数据相关
                                                         @Query("count") Integer count);//每页条数,默认10
 
-    //添加线索
+    //添加客户
     @Headers({"Content-type:application/json"})
     @POST("customers")
-    Call<GetPageResp<List<CustomerParams>>> addCustomer(@Body CustomerParams params);
+    Call<GetPageResp<List<CustomerParams>>> addCustomer(@Body CustomerParams params, @Header("sign") String sign);
 
-    //修改线索
+    //修改客户
     @FormUrlEncoded
     @PUT("customers/{id}")
-    Call<GetPageResp<List<CustomerParams>>> updateCustomer(@Path("id") String id, @FieldMap Map<String, String> names);
+    Call<GetPageResp<List<CustomerParams>>> updateCustomer(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
 
     //获取商机
@@ -97,18 +98,19 @@ public interface RetrofitApi {
                                                                               @Query("count") Integer count);//每页条数,默认10
 
 
-    //添加线索
+    //添加商机
     @Headers({"Content-type:application/json"})
     @POST("deals")
-    Call<GetPageResp<List<BusinessOpportunityParams>>> addBusinessOpportunity(@Body BusinessOpportunityParams params);
+    Call<GetPageResp<List<BusinessOpportunityParams>>> addBusinessOpportunity(@Body BusinessOpportunityParams params, @Header("sign") String sign);
 
-    //修改线索
+    //修改商机
     @FormUrlEncoded
     @PUT("deals/{id}")
-    Call<GetPageResp<List<BusinessOpportunityParams>>> updateBusinessOpportunity(@Path("id") String id, @FieldMap Map<String, String> names);
+    Call<GetPageResp<List<BusinessOpportunityParams>>> updateBusinessOpportunity(@Path("id") String id, @FieldMap Map<String, String> names,
+                                                                                 @Header("sign") String sign);
 
 
-    //获取商机
+    //获取合同
     @GET("contracts")
     Call<GetPageResp<List<ContractParams>>> getContract(@Query("type") String type,//合同类型
                                                         @Query("payMethod") String payMethod,//付款方式
@@ -120,19 +122,29 @@ public interface RetrofitApi {
                                                         @Query("related") String related,//数据相关
                                                         @Query("count") Integer count);//每页条数,默认10
 
-    //添加线索
+    //添加合同
     @Headers({"Content-type:application/json"})
     @POST("contracts")
-    Call<GetPageResp<List<ContractParams>>> addContract(@Body ContractParams params);
+    Call<GetPageResp<List<ContractParams>>> addContract(@Body ContractParams params, @Header("sign") String sign);
 
-    //修改线索
+    //修改合同
     @FormUrlEncoded
     @PUT("contracts/{id}")
-    Call<GetPageResp<List<ContractParams>>> updateContract(@Path("id") String id, @FieldMap Map<String, String> names);
+    Call<GetPageResp<List<ContractParams>>> updateContract(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
 
     //添加跟进
     @Headers({"Content-type:application/json"})
     @POST("actions")
-    Call<GetPageResp<List<FollowParams>>> addFollow(@Body FollowParams params);
+    Call<GetPageResp<List<FollowParams>>> addFollow(@Body FollowParams params, @Header("sign") String sign);
+
+
+    //获取线索相关的跟进
+    @GET("opportunities/{id}/actions")
+    Call<GetPageResp<List<FollowParams>>> getClueFollow(@Path("id") String id,
+                                                        @Query("status") String status,//线索状态
+                                                        @Query("sort") String sort,//排序项
+                                                        @Query("order") String order,//顺序
+                                                        @Query("page") Integer page,//页数
+                                                        @Query("count") Integer count);//每页条数,默认10
 }

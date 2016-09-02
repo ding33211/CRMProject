@@ -137,7 +137,8 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(List<BusinessOpportunityParams> list) {
-        initBusinessOpportunityParams(list.get(0));
+        mBusinessOpportunityParams = list.get(0);
+        initBusinessOpportunityParams(mBusinessOpportunityParams);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

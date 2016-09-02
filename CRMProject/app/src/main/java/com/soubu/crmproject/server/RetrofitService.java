@@ -1,6 +1,7 @@
 package com.soubu.crmproject.server;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.soubu.crmproject.MyApplication;
@@ -91,12 +92,18 @@ public class RetrofitService {
                                 .addHeader("sign", "")
                                 .cacheControl(CacheControl.FORCE_CACHE).build();
                     }
-
-                    request = request.newBuilder()
-                            .addHeader("uid",
-                                    "57c50934d178e0776c761e28")
-                            .addHeader("sign", ConvertUtil.hmacsha256(request, "823aa1a0-6f31-11e6-bc89-69b2f3fb2423"))
-                            .build();
+                    if(TextUtils.equals(request.method(), "GET")){
+                        request = request.newBuilder()
+                                .addHeader("uid",
+                                        "57c50934d178e0776c761e28")
+                                .addHeader("sign", ConvertUtil.hmacsha256(request.url(), ApiConfig.getToken()))
+                                .build();
+                    } else {
+                        request = request.newBuilder()
+                                .addHeader("uid",
+                                        "57c50934d178e0776c761e28")
+                                .build();
+                    }
                     Response originalResponse = chain.proceed(request);
                     if (PhoneUtil.isConnected(MyApplication.getContext())) {
                         //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置

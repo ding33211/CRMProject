@@ -10,11 +10,11 @@ import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import java.util.ArrayList;
@@ -103,8 +103,12 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
         item = new AddItem();
         item.setTitleRes(R.string.contract_type);
         if (mFromEdit && !TextUtils.isEmpty(mContractParams.getType())) {
+//            CharSequence[] array = SearchUtil.searchContractTypeArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchContractTypeWebArray(getApplicationContext());
             item.setContent(mContractParams.getType());
         }
+        item.setArrayRes(R.array.contract_type);
+        item.setWebArrayRes(R.array.contract_type_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new AddItem();
@@ -126,9 +130,13 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
         item = new AddItem();
         item.setTitleRes(R.string.contract_status);
         if (mFromEdit && !TextUtils.isEmpty(mContractParams.getStatus())) {
+//            CharSequence[] array = SearchUtil.searchContractStateArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchContractStateWebArray(getApplicationContext());
             item.setContent(mContractParams.getStatus());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+        item.setArrayRes(R.array.contract_state);
+        item.setWebArrayRes(R.array.contract_state_web);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.start_date);
@@ -147,8 +155,12 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
         item = new AddItem();
         item.setTitleRes(R.string.pay_method);
         if (mFromEdit && !TextUtils.isEmpty(mContractParams.getPayMethod())) {
+//            CharSequence[] array = SearchUtil.searchContractPayMethodArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchContractPayMethodWebArray(getApplicationContext());
             item.setContent(mContractParams.getPayMethod());
         }
+        item.setArrayRes(R.array.contract_pay_method);
+        item.setWebArrayRes(R.array.contract_pay_method_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new AddItem();

@@ -228,14 +228,14 @@
         <item>OTHER</item>
     </string-array>
 
-    <string-array name="contract_status">
+    <string-array name="contract_state">
         <item>未开始</item>
         <item>进行中</item>
         <item>成功结束</item>
         <item>意外终止</item>
     </string-array>
 
-    <string-array name="contract_status_web">
+    <string-array name="contract_state_web">
         <item>NOT_STARTED</item>
         <item>IN_PROGRESS</item>
         <item>SUCCEEDED</item>

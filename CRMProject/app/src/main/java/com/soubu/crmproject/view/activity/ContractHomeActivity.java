@@ -11,8 +11,12 @@ import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
+import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.utils.SearchUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,35 +39,8 @@ public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     @Override
     protected void initData() {
         super.initData();
-        FollowTest followTest = new FollowTest();
-        List<FollowTest> list = new ArrayList<>();
-        Date date = new Date();
-        followTest.setTime(date.getTime());
-        followTest.setFollowState(FollowTest.STATE_NOT_COMPLETE);
-        followTest.setNeedRecord(true);
-        list.add(followTest);
-        followTest = new FollowTest();
-        followTest.setFollowState(FollowTest.STATE_COMPLETE);
-        followTest.setTime(date.getTime() + 360000000);
-        list.add(followTest);
-        followTest = new FollowTest();
-        followTest.setTime(date.getTime() + 360000000 * 2);
-        followTest.setFollowState(FollowTest.STATE_COMPLETE);
-        list.add(followTest);
-        followTest = new FollowTest();
-        followTest.setTime(date.getTime() + 360000000 * 3);
-        followTest.setNeedRecord(true);
-        list.add(followTest);
-        followTest = new FollowTest();
-        followTest.setTime(date.getTime() + 360000000 * 4);
-        list.add(followTest);
-        followTest = new FollowTest();
-        followTest.setTime(date.getTime() + 360000000 * 5);
-        followTest.setFollowState(FollowTest.STATE_NOT_COMPLETE);
-        list.add(followTest);
-        list.add(followTest);
-        list.add(followTest);
-        viewDelegate.setIndicatorViewPagerAdapter(list);
+        viewDelegate.setEntity(mContractParams);
+
     }
 
     @Override
@@ -93,13 +70,22 @@ public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDele
         super.initView();
         viewDelegate.setTitle(R.string.contract_home);
         viewDelegate.setFrom(Big4HomeActivityDelegate.FROM_CONTRACT);
-        mStateArray = getResources().getStringArray(R.array.contract_status);
-        mStateArrayWeb = getResources().getStringArray(R.array.contract_status_web);
+        mStateArray = getResources().getStringArray(R.array.contract_state);
+        mStateArrayWeb = getResources().getStringArray(R.array.contract_state_web);
         mContractParams = (ContractParams) getIntent().getSerializableExtra(Contants.EXTRA_CONTRACT);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mContractParams.getTitle());
         ((TextView) viewDelegate.get(R.id.tv_company_name)).setText(mContractParams.getCustomer());
         ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mContractParams.getStatus())]);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(List<ContractParams> list) {
+        mContractParams = list.get(0);
+        viewDelegate.setEntity(mContractParams);
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void throwError(Throwable t) {
+
+    }
 }

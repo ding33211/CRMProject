@@ -123,7 +123,9 @@
                 <LinearLayout
                     android:id="@+id/ll_related_one"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/grey_circle_bg"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp">
 
@@ -131,7 +133,7 @@
                         android:id="@+id/tv_related_one_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/related_business_opportunity"
+                        android:text="@string/follow_object"
                         android:textColor="@color/title_black"
                         android:textSize="16sp" />
 
@@ -146,38 +148,49 @@
                         android:id="@+id/tv_related_one"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="商机标题"
+                        android:layout_weight="1"
+                        android:text="商机标题商机标题商机标商机标题商机标题商机标题商机标题"
+                        android:singleLine="true"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_related_one"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_weight="0"
+                        android:src="@drawable/arrow_choose"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_related_two"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp">
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/ll_related_two"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="20dp">-->
 
-                    <TextView
-                        android:id="@+id/tv_related_two_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/related_customer"
-                        android:textColor="@color/title_black"
-                        android:textSize="16sp" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_related_two_label"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/related_customer"-->
+                        <!--android:textColor="@color/title_black"-->
+                        <!--android:textSize="16sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/colon"
-                        android:textColor="@color/title_black"
-                        android:textSize="16sp" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/colon"-->
+                        <!--android:textColor="@color/title_black"-->
+                        <!--android:textSize="16sp" />-->
 
-                    <TextView
-                        android:id="@+id/tv_related_two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="吴超"
-                        android:textSize="16sp" />
-                </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_related_two"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="吴超"-->
+                        <!--android:textSize="16sp" />-->
+                <!--</LinearLayout>-->
             </LinearLayout>
 
             <LinearLayout

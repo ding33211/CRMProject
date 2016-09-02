@@ -14,6 +14,7 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import java.util.ArrayList;
@@ -89,8 +90,12 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         item = new AddItem();
         item.setTitleRes(R.string.customer_type);
         if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getType())) {
+//            CharSequence[] array = SearchUtil.searchCustomerTypeArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchCustomerTypeWebArray(getApplicationContext());
             item.setContent(mCustomerParams.getType());
         }
+        item.setArrayRes(R.array.customer_type);
+        item.setWebArrayRes(R.array.customer_type_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new AddItem();
@@ -188,8 +193,12 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         item = new AddItem();
         item.setTitleRes(R.string.customer_source);
         if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getSource())) {
+//            CharSequence[] array = SearchUtil.searchClueSourceArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchClueSourceWebArray(getApplicationContext());
             item.setContent(mCustomerParams.getSource());
         }
+        item.setArrayRes(R.array.clue_source);
+        item.setWebArrayRes(R.array.clue_source_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
         item = new AddItem();
@@ -202,11 +211,14 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         item = new AddItem();
         item.setTitleRes(R.string.personal_size);
         if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getSize())) {
+//            CharSequence[] array = SearchUtil.searchCustomerSizeArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchCustomerSizeWebArray(getApplicationContext());
             item.setContent(mCustomerParams.getSize());
         }
+        item.setArrayRes(R.array.customer_size);
+        item.setWebArrayRes(R.array.customer_size_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
-
 
         item = new AddItem();
         item.setTitleRes(R.string.manager_information);

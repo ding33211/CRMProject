@@ -2,18 +2,10 @@ package com.soubu.crmproject.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.soubu.crmproject.R;
-import com.soubu.crmproject.model.BusinessOpportunityParams;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.utils.SearchUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by dingsigang on 16-8-18.
@@ -46,12 +38,12 @@ public class ContractRvAdapter extends BaseBig4RvAdapter<ContractParams> {
 
     @Override
     CharSequence[] getStatusWebArray() {
-        return mContext.getResources().getStringArray(R.array.contract_status_web);
+        return mContext.getResources().getStringArray(R.array.contract_state_web);
     }
 
     @Override
     CharSequence[] getStatusArray() {
-        return mContext.getResources().getStringArray(R.array.contract_status);
+        return mContext.getResources().getStringArray(R.array.contract_state);
     }
 
 }

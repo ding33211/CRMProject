@@ -164,7 +164,7 @@
     <string name="contract_home">合同主页</string>
     <string name="contract_spec">合同详情</string>
     <string name="related_contact">关联联系人</string>
-    <string name="colon"> : </string>
+    <string name="colon">:</string>
     <string name="bigger_than"> &gt; </string>
 
 
@@ -184,6 +184,7 @@
     <string name="content_empty_error">内容不能为空</string>
     <string name="follow_time_empty_error">跟进时间不能为空</string>
     <string name="follow_method_empty_error">跟进方式不能为空</string>
+    <string name="follow_object">跟进对象</string>
 
 
 </resources>

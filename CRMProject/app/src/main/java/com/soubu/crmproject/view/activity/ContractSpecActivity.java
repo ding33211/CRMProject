@@ -136,7 +136,8 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(List<ContractParams> list) {
-        initContractParams(list.get(0));
+        mContractParams = list.get(0);
+        initContractParams(mContractParams);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

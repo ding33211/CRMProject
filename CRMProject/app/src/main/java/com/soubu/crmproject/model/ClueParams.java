@@ -1,12 +1,19 @@
 package com.soubu.crmproject.model;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.soubu.crmproject.server.ObjectToMapInterface;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by dingsigang on 16-8-17.
  */
-public class ClueParams implements Serializable, Cloneable{
+public class ClueParams extends ObjectToMapInterface implements Serializable, Cloneable{
 //
 //    public static final String SOURCE_ADVERTISEMENT = "ADVERTISEMENT";
 //    public static final String SOURCE_SOCIAL_MEDIA = "SOCIAL_MEDIA";
@@ -206,4 +213,5 @@ public class ClueParams implements Serializable, Cloneable{
     public ClueParams clone() throws CloneNotSupportedException{
         return (ClueParams)super.clone();
     }
+
 }

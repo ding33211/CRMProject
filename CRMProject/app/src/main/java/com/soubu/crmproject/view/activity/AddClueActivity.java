@@ -14,6 +14,7 @@ import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import java.util.ArrayList;
@@ -160,15 +161,23 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         item = new AddItem();
         item.setTitleRes(R.string.follow_state);
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getStatus())) {
+//            CharSequence[] array = SearchUtil.searchClueStateArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchClueStateWebArray(getApplicationContext());
             item.setContent(mClueParams.getStatus());
         }
+        item.setArrayRes(R.array.clue_status);
+        item.setWebArrayRes(R.array.clue_status_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.clue_from);
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getSource())) {
+//            CharSequence[] array = SearchUtil.searchClueSourceArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchClueSourceWebArray(getApplicationContext());
             item.setContent(mClueParams.getSource());
         }
+        item.setArrayRes(R.array.clue_source);
+        item.setWebArrayRes(R.array.clue_source_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();

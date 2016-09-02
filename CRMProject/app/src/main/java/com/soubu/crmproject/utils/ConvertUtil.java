@@ -1,28 +1,24 @@
 package com.soubu.crmproject.utils;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
 
+import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.Map;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import okhttp3.HttpUrl;
-import okhttp3.Request;
 
 /**
  * 用于各种转换的工具
@@ -62,16 +58,16 @@ public class ConvertUtil {
     }
 
 
-    public static String dateToYYYY_MM_DD(Date date){
-        if(date == null){
+    public static String dateToYYYY_MM_DD(Date date) {
+        if (date == null) {
             return null;
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.format(date);
     }
 
-    public static String dateToYYYY_MM_DD_HH_mm(Date date){
-        if(date == null){
+    public static String dateToYYYY_MM_DD_HH_mm(Date date) {
+        if (date == null) {
             return null;
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
@@ -92,25 +88,48 @@ public class ConvertUtil {
     }
 
 
-    public static String hmacsha256(Request request, String macKey){
-        try{
+    public static String hmacsha256(HttpUrl url, String macKey) {
+        try {
             Mac mac = Mac.getInstance("HmacSHA256");
             byte[] secretByte = macKey.getBytes("UTF-8");
             String macData = "";
-            if(TextUtils.equals(request.method(), "GET")){
-                HttpUrl url = request.url();
-                if(url.queryParameterNames().size() > 1){
-                    List<String> list = new ArrayList<>(url.queryParameterNames());
-                    Collections.sort(list);
-                    for(String a : list){
-                        macData += a + "=" + url.queryParameter(a) + "&";
-                    }
-                    macData = macData.substring(0, macData.length() - 1);
-                } else {
-                    macData = url.encodedQuery() == null ? "" : url.encodedQuery();
+            if (url != null && url.queryParameterNames().size() > 1) {
+                List<String> list = new ArrayList<>(url.queryParameterNames());
+                Collections.sort(list);
+                for (String a : list) {
+                    macData += a + "=" + url.queryParameter(a) + "&";
                 }
+                macData = macData.substring(0, macData.length() - 1);
             } else {
+                macData = url.encodedQuery() == null ? "" : url.encodedQuery();
+            }
+            byte[] dataBytes = macData.getBytes("UTF-8");
+            Log.e("xxxxxxxxxxxxxxx", "data   :   " + macData + "      key   :   " + macKey);
+            SecretKey secret = new SecretKeySpec(secretByte, "HMACSHA256");
+            mac.init(secret);
+            byte[] doFinal = mac.doFinal(dataBytes);
+            Log.e("xxxxxxxxxxxxxxx", "result   :   " + bytes2Hex(doFinal));
 
+            return bytes2Hex(doFinal);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
+    public static String hmacsha256(Map<String, String> map, String macKey) {
+        try {
+            Mac mac = Mac.getInstance("HmacSHA256");
+            byte[] secretByte = macKey.getBytes("UTF-8");
+            String macData = "";
+            if (map != null && map.size() > 0) {
+                List<String> list = new ArrayList<>(map.keySet());
+                Collections.sort(list);
+                for (String a : list) {
+                    macData += a + "=" + map.get(a) + "&";
+                }
+                macData = macData.substring(0, macData.length() - 1);
             }
             byte[] dataBytes = macData.getBytes("UTF-8");
             Log.e("xxxxxxxxxxxxxxx", "data   :   " + macData + "      key   :   " + macKey);
@@ -121,11 +140,9 @@ public class ConvertUtil {
             Log.e("xxxxxxxxxxxxxxx", "result   :   " + bytes2Hex(doFinal));
 
             return bytes2Hex(doFinal);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
     }
-
-
 }

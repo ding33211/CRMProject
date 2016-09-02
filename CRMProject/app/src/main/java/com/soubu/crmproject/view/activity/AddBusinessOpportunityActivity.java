@@ -189,9 +189,9 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_source);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getSource())) {
-            CharSequence[] array = SearchUtil.searchClueSourceArray(getApplicationContext());
-            CharSequence[] webArray = SearchUtil.searchClueSourceWebArray(getApplicationContext());
-            item.setContent(array[SearchUtil.searchInArray(webArray, mBusinessOpportunityParams.getSource())].toString());
+//            CharSequence[] array = SearchUtil.searchClueSourceArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchClueSourceWebArray(getApplicationContext());
+            item.setContent(mBusinessOpportunityParams.getSource());
         }
         item.setArrayRes(R.array.clue_source);
         item.setWebArrayRes(R.array.clue_source_web);
@@ -200,9 +200,9 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_type);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getType())) {
-            CharSequence[] array = SearchUtil.searchBusinessOpportunityTypeArray(getApplicationContext());
-            CharSequence[] webArray = SearchUtil.searchBusinessOpportunityTypeWebArray(getApplicationContext());
-            item.setContent(array[SearchUtil.searchInArray(webArray, mBusinessOpportunityParams.getType())].toString());
+//            CharSequence[] array = SearchUtil.searchBusinessOpportunityTypeArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchBusinessOpportunityTypeWebArray(getApplicationContext());
+            item.setContent(mBusinessOpportunityParams.getType());
         }
         item.setArrayRes(R.array.business_opportunity_type);
         item.setWebArrayRes(R.array.business_opportunity_type_web);
@@ -211,9 +211,9 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_status);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getStatus())) {
-            CharSequence[] array = SearchUtil.searchBusinessOpportunityStateArray(getApplicationContext());
-            CharSequence[] webArray = SearchUtil.searchBusinessOpportunityStateWebArray(getApplicationContext());
-            item.setContent(array[SearchUtil.searchInArray(webArray, mBusinessOpportunityParams.getStatus())].toString());
+//            CharSequence[] array = SearchUtil.searchBusinessOpportunityStateArray(getApplicationContext());
+//            CharSequence[] webArray = SearchUtil.searchBusinessOpportunityStateWebArray(getApplicationContext());
+            item.setContent(mBusinessOpportunityParams.getStatus());
         }
         item.setArrayRes(R.array.business_opportunity_status);
         item.setWebArrayRes(R.array.business_opportunity_status_web);
