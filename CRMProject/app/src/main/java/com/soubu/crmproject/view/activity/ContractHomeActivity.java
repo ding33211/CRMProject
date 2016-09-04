@@ -11,15 +11,11 @@ import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
-import com.soubu.crmproject.model.CustomerParams;
-import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,8 +42,8 @@ public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.rl_top);
-        viewDelegate.setSettingMenuListener(R.menu.clue_spec, new PopupMenu.OnMenuItemClickListener() {
+        viewDelegate.setOnClickListener(this, R.id.rl_content);
+        viewDelegate.setSettingMenuListener(R.menu.clue_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 return false;

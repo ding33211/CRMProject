@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_for_other"
+        android:title="@string/transfer_to_other"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_to_customer_high_seas"
+        android:title="@string/transfer_customer_high_seas"
+        app:showAsAction="ifRoom" />
+</menu>

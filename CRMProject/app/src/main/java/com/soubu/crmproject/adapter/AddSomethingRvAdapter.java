@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -95,7 +96,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 ivAction.setImageResource(R.drawable.locate);
             case TYPE_ITEM_CAN_CHOOSE:
             case TYPE_ITEM_CAN_CHOOSE_DATE:
-                tvAction.setVisibility(View.GONE);
+                tvAction.setVisibility(View.INVISIBLE);
                 break;
             case TYPE_ITEM_REQUIRED_CHOOSE:
             case TYPE_ITEM_REQUIRED_CHOOSE_DATE:
@@ -105,7 +106,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 ivAction.setVisibility(View.GONE);
                 break;
             case TYPE_ITEM_CAN_FILL:
-                tvAction.setVisibility(View.GONE);
+                tvAction.setVisibility(View.INVISIBLE);
                 ivAction.setVisibility(View.GONE);
                 break;
             case TYPE_ITEM_UNABLE:
@@ -124,7 +125,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
             }
         }
         ItemViewHolder holder1 = (ItemViewHolder) holder;
-        holder1.etContent.setInputType(mList.get(holder.getLayoutPosition()).getEditTextType());
+        holder1.etContent.setInputType(mList.get(holder.getLayoutPosition()).getEditTextType() | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         holder1.etContent.setText(mList.get(position).getContent());
         holder1.etContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -141,10 +142,11 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         holder1.vItemBottomLine.setVisibility(View.VISIBLE);
         if (holder.getLayoutPosition() == getItemCount() - 1 || getItemViewType(holder.getLayoutPosition() + 1) == TYPE_LABEL
                 || getItemViewType(holder.getLayoutPosition() + 1) == TYPE_OTHER) {
-            holder1.vItemBottomLine.setVisibility(View.GONE);
+            holder1.vItemBottomLine.setVisibility(View.INVISIBLE);
         }
         String text = mList.get(position).getContent();
-        holder1.tvAction.setVisibility(View.GONE);
+        holder1.tvAction.setText("");
+        holder1.tvAction.setVisibility(View.INVISIBLE);
         if (TextUtils.isEmpty(text)) {
             if (viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_REQUIRED_CHOOSE) {
                 holder1.tvAction.setText(viewType == TYPE_ITEM_REQUIRED_FILL ? R.string.required_fill : R.string.required_choose);
@@ -226,11 +228,12 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 case TYPE_ITEM_REQUIRED_FILL:
                 case TYPE_ITEM_CAN_FILL:
                 case TYPE_ITEM_CAN_LOCATE:
-                    tvAction.setVisibility(View.GONE);
+                    tvAction.setVisibility(View.INVISIBLE);
                     etContent.setVisibility(View.VISIBLE);
                     WindowUtil.showSoftInput(v.getContext(), etContent);
                     etContent.setTag(getAdapterPosition());
                     etContent.setSelection(etContent.getText().length());
+                    Log.e("xxxxxxxxxx", "inputtype    :   " + etContent.getInputType());
                     v.setTag(viewType);
                     etContent.setTag(v);
                     break;

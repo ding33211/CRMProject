@@ -96,7 +96,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             mLayoutParams = new android.support.v7.widget.GridLayout.LayoutParams();
             mLayoutParams.width = dm.widthPixels / 2;
             mLayoutParams.height = android.support.v7.widget.GridLayout.LayoutParams.MATCH_PARENT;
-            mLayoutParams.setMargins(0, 0, 2, 0);
+            mLayoutParams.setMargins(0, 0, 1, 0);
             mLvParentCategory.setLayoutParams(mLayoutParams);
             mLvParentCategory.setBackgroundResource(R.drawable.bg_filter_and_sort);
             mLvParentCategory.setDivider(new ColorDrawable(activity.getResources().getColor(R.color.item_line_grey)));

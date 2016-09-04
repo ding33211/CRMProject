@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.utils.PhoneUtil;
+import com.soubu.crmproject.view.activity.AddFollowActivity;
 import com.soubu.crmproject.view.activity.BusinessOpportunityActivity;
 import com.soubu.crmproject.view.activity.ClueActivity;
 import com.soubu.crmproject.view.activity.ContractActivity;
@@ -65,7 +69,7 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
         int[] labelsThree = new int[]{R.string.business_card_scanning, R.string.nearby_customers, R.string.fill_in_follow_up, R.string.new_reminder};
         int[] iconsThree = new int[]{R.drawable.business_card_scanning, R.drawable.nearby_customers, R.drawable.fill_in_follow_up, R.drawable.new_reminder};
         Intent[] intentsThree = new Intent[]{new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class),
-                new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class)};
+                new Intent(activity, AddFollowActivity.class), new Intent(activity, CustomerActivity.class)};
         mCustomerItems = new ArrayList<>();
         for (int i = 0; i < labelsOne.length; i++) {
             CRMRvItem crm = new CRMRvItem();
@@ -132,6 +136,10 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        ClueParams params1 = new ClueParams();
+                        params1.setId("12345");
+                        params1.setCompanyName("1234");
+                        item.getTarget().putExtra(Contants.EXTRA_ENTITY, params1);
                         context.startActivity(item.getTarget());
                     }
                 });
@@ -143,7 +151,7 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
                 View v = LayoutInflater.from(context).inflate(R.layout.gridlayout_item_crm_recyclerview, null, false);
                 ((TextView) v.findViewById(R.id.tv_right_title)).setText(item.getTitle());
                 ((ImageView) v.findViewById(R.id.iv_image)).setImageResource(item.getIconRes());
-                android.support.v7.widget.GridLayout.LayoutParams params =
+                final android.support.v7.widget.GridLayout.LayoutParams params =
                         new android.support.v7.widget.GridLayout.LayoutParams();
                 params.columnSpec = android.support.v7.widget.GridLayout.spec(GridLayout.UNDEFINED, 1f);
                 params.setMargins(0,i == 0 || i ==1 ? 0 : 2,2,0);//设置边距,顶上两个没有上边距

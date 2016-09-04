@@ -31,6 +31,7 @@
 
     <color name="press_orange">#fe8a36</color>
 
-    <color name="translucent_white">#88ffffff</color>
+    <color name="five_translucent_white">#88ffffff</color>
+    <color name="three_translucent_white">#4dffffff</color>
 
 </resources>

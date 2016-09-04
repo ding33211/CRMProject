@@ -11,127 +11,133 @@
         android:background="@drawable/gradient_clue_spec"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="title"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/contract_home_pass"
-            android:layout_alignParentRight="true"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/tv_company_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_title"
-            android:layout_marginTop="10dp"
-            android:text="company"
-            android:textColor="@color/translucent_white"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:id="@+id/ll_mid_layout"
+        <RelativeLayout
+            android:id="@+id/rl_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_company_name"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="title"
+                android:textColor="@android:color/white"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/contract_home_pass"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:layout_marginTop="10dp"
+                android:text="company"
+                android:textColor="@color/five_translucent_white"
+                android:textSize="14sp" />
 
             <LinearLayout
-                android:id="@+id/ll_clue_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_follow_state_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="跟进阶段: "
-                    android:textColor="@color/translucent_white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_follow_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="初步沟通"
-                    android:textColor="@color/translucent_white"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/rl_customer_content"
+                android:id="@+id/ll_mid_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:layout_below="@+id/tv_company_name"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/ll_business_opportunity_left"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:id="@+id/ll_clue_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_follow_state_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/business_opportunity"
-                        android:textColor="@color/translucent_white" 
-                        android:textSize="14sp"/>
+                        android:text="跟进阶段: "
+                        android:textColor="@color/five_translucent_white"
+                        android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tv_new_business_opportunity_number"
+                        android:id="@+id/tv_follow_state"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/white"/>
+                        android:text="初步沟通"
+                        android:textColor="@color/five_translucent_white"
+                        android:textSize="14sp" />
                 </LinearLayout>
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@color/translucent_white"/>
 
                 <LinearLayout
-                    android:id="@+id/ll_contract_right"
-                    android:layout_width="0dp"
+                    android:id="@+id/rl_customer_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:visibility="gone">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/ll_business_opportunity_left"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/contract"
-                        android:textSize="14sp"
-                        android:textColor="@color/translucent_white" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_contract_number"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/business_opportunity"
+                            android:textColor="@color/five_translucent_white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_new_business_opportunity_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="3"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/five_translucent_white" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_contract_right"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="3"
-                        android:layout_marginTop="10dp"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/white"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/contract"
+                            android:textColor="@color/five_translucent_white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_contract_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="3"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
                 </LinearLayout>
+
             </LinearLayout>
-
-        </LinearLayout>
-
+        </RelativeLayout>
         <!--<TextView-->
         <!--android:id="@+id/tv_follow_state_label"-->
         <!--android:layout_width="wrap_content"-->
@@ -186,7 +192,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_mid_layout"
+            android:layout_below="@+id/rl_content"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="20dp">
 
@@ -297,7 +303,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toLeftOf="@+id/v_mid_line"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/selector_item_white_grey_bg">
 
             <ImageView
                 android:layout_width="16dp"
@@ -318,7 +325,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/v_mid_line"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/selector_item_white_grey_bg">
 
             <ImageView
                 android:layout_width="16dp"

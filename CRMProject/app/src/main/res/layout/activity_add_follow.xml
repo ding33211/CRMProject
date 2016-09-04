@@ -109,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="@android:color/transparent"
+                    android:background="@null"
                     android:gravity="top"
                     android:hint="@string/please_input_content"
                     android:minHeight="50dp" />
@@ -203,7 +203,7 @@
                     android:id="@+id/rl_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_item_white_orange_bg"
+                    android:background="@drawable/selector_item_white_grey_bg"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
@@ -248,7 +248,7 @@
                     android:id="@+id/rl_follow_function"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_item_white_orange_bg"
+                    android:background="@drawable/selector_item_white_grey_bg"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
@@ -285,7 +285,7 @@
                     android:id="@+id/rl_follow_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_item_white_orange_bg"
+                    android:background="@drawable/selector_item_white_grey_bg"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
@@ -328,7 +328,7 @@
                     android:id="@+id/rl_expected_contract"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_item_white_orange_bg"
+                    android:background="@drawable/selector_item_white_grey_bg"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
@@ -380,7 +380,7 @@
                     android:id="@+id/rl_remind"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_item_white_orange_bg"
+                    android:background="@drawable/selector_item_white_grey_bg"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
@@ -407,7 +407,7 @@
                     android:id="@+id/rl_remind_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_item_white_orange_bg"
+                    android:background="@drawable/selector_item_white_grey_bg"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 
@@ -450,7 +450,7 @@
                     android:id="@+id/rl_remind_function"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector_item_white_orange_bg"
+                    android:background="@drawable/selector_item_white_grey_bg"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp">
 

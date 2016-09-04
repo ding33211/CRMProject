@@ -117,6 +117,9 @@
     <string name="clue_home">线索主页</string>
     <string name="transfer_to_other">转移给其他人</string>
     <string name="transfer_customer">转成客户</string>
+    <string name="transfer_customer_high_seas">转入客户公海</string>
+    <string name="transfer_contract">转成合同</string>
+
     <string name="clue_spec">线索详情</string>
     <string name="edit">编辑</string>
     <string name="please_complete_required">请将必填和必选以及地址填写完整</string>

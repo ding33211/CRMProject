@@ -57,7 +57,6 @@ public class Big4HomeActivityDelegate extends AppDelegate {
             case FROM_CONTRACT:
 
         }
-        new Gson().toJson(mIndicatorViewPagerAdapter);
         mIndicatorViewPagerAdapter = new FollowInBig4HomeIndicatorViewPagerAdapter();
         mViewPager = get(R.id.vp_content);
         mIndicator = get(R.id.fiv_indicator);

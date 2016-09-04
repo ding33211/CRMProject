@@ -224,6 +224,7 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getNote())) {
             item.setContent(mBusinessOpportunityParams.getNote());
         }
+
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
         item = new AddItem();
