@@ -11,12 +11,14 @@ import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -127,7 +129,8 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
      * 监听Clue请求回调
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(List<ClueParams> list) {
+    public void refreshData(ClueParams[] params) {
+        List<ClueParams> list = Arrays.asList(params);
         mClueParams = list.get(0);
         initClueParams(mClueParams);
     }

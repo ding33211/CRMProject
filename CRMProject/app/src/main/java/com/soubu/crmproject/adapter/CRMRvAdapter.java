@@ -17,6 +17,7 @@ import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.utils.PhoneUtil;
 import com.soubu.crmproject.view.activity.AddFollowActivity;
+import com.soubu.crmproject.view.activity.AddFollowHomeActivity;
 import com.soubu.crmproject.view.activity.BusinessOpportunityActivity;
 import com.soubu.crmproject.view.activity.ClueActivity;
 import com.soubu.crmproject.view.activity.ContractActivity;
@@ -61,15 +62,15 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
 
         int[] labelsTwo = new int[]{R.string.sales_management, R.string.contract_management, R.string.product_management, R.string.customer_high_seas,
                 R.string.weekly_and_monthly_report, R.string.approval};
-        int[] iconsTwo = new int[]{R.drawable.sales_management, R.drawable.contract, R.drawable.product_management, R.drawable.customer_high_seas,
-                R.drawable.weekly_and_monthly_report, R.drawable.approval};
-        Intent[] intentsTwo = new Intent[]{new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class),
-                new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class)};
+        int[] iconsTwo = new int[]{R.drawable.sales_management_disable, R.drawable.contract, R.drawable.product_management_disable, R.drawable.customer_high_seas,
+                R.drawable.weekly_and_monthly_report_disable, R.drawable.approval_disable};
+        Intent[] intentsTwo = new Intent[]{null, null,
+                null, null, null, null};
 
         int[] labelsThree = new int[]{R.string.business_card_scanning, R.string.nearby_customers, R.string.fill_in_follow_up, R.string.new_reminder};
-        int[] iconsThree = new int[]{R.drawable.business_card_scanning, R.drawable.nearby_customers, R.drawable.fill_in_follow_up, R.drawable.new_reminder};
-        Intent[] intentsThree = new Intent[]{new Intent(activity, CustomerActivity.class), new Intent(activity, CustomerActivity.class),
-                new Intent(activity, AddFollowActivity.class), new Intent(activity, CustomerActivity.class)};
+        int[] iconsThree = new int[]{R.drawable.business_card_scanning_disable, R.drawable.nearby_customers_disable, R.drawable.fill_in_follow_up, R.drawable.new_reminder_disable};
+        Intent[] intentsThree = new Intent[]{null, null,
+                new Intent(activity, AddFollowHomeActivity.class), null};
         mCustomerItems = new ArrayList<>();
         for (int i = 0; i < labelsOne.length; i++) {
             CRMRvItem crm = new CRMRvItem();
@@ -136,11 +137,13 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ClueParams params1 = new ClueParams();
-                        params1.setId("12345");
-                        params1.setCompanyName("1234");
-                        item.getTarget().putExtra(Contants.EXTRA_ENTITY, params1);
-                        context.startActivity(item.getTarget());
+                        if(item.getTarget() != null) {
+//                        ClueParams params1 = new ClueParams();
+//                        params1.setId("12345");
+//                        params1.setCompanyName("1234");
+//                        item.getTarget().putExtra(Contants.EXTRA_ENTITY, params1);
+                            context.startActivity(item.getTarget());
+                        }
                     }
                 });
                 container.addView(v);
@@ -159,7 +162,9 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        context.startActivity(item.getTarget());
+                        if(item.getTarget() != null){
+                            context.startActivity(item.getTarget());
+                        }
                     }
                 });
                 container.addView(v);

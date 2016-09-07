@@ -3,6 +3,10 @@ package com.soubu.crmproject.view.activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -10,7 +14,6 @@ import android.widget.TimePicker;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddFollowActivityDelegate;
-import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
@@ -18,6 +21,7 @@ import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.utils.AppUtil;
 import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
@@ -33,6 +37,9 @@ import java.util.TimeZone;
 public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelegate> implements View.OnClickListener {
     public static final int TYPE_RECORD = 0x00;
     public static final int TYPE_PLAN = 0x01;
+
+    private static final int REQUEST_CODE_CHANGE_OBJECT = 1001;
+    private boolean mFromAddHome = false;
     private int mType;
     private int mFrom;
     private int mStateLabelRes;
@@ -56,21 +63,24 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
         viewDelegate.setSettingText(R.string.save, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewDelegate.verify(mFollowParams);
-                RetrofitRequest.getInstance().addFollow(mFollowParams);
-                finish();
+                if(viewDelegate.verify(mFollowParams)){
+                    RetrofitRequest.getInstance().addFollow(mFollowParams);
+                    finish();
+                }
             }
         });
         viewDelegate.setOnClickListener(this, R.id.rl_state, R.id.rl_follow_function, R.id.rl_follow_time, R.id.rl_remind_time,
-                R.id.rl_remind);
+                R.id.rl_remind, R.id.ll_related_one);
     }
 
     @Override
     protected void initToolbar() {
         super.initToolbar();
         mType = getIntent().getIntExtra(Contants.EXTRA_TYPE, TYPE_RECORD);
-        mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, Big4HomeActivityDelegate.FROM_CLUE);
+        mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, Contants.FROM_CLUE);
         mEntity = getIntent().getSerializableExtra(Contants.EXTRA_ENTITY);
+        mFromAddHome = getIntent().getBooleanExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, false);
+        mFollowParams = new FollowParams();
         if (mType == TYPE_RECORD) {
             viewDelegate.setTitle(R.string.add_follow_record);
         } else {
@@ -82,43 +92,49 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
     @Override
     protected void initView() {
         super.initView();
-        mFollowParams = new FollowParams();
-        switch (mFrom){
-            case Big4HomeActivityDelegate.FROM_CLUE:
+        if (mFromAddHome) {
+            viewDelegate.get(R.id.iv_related_one).setVisibility(View.VISIBLE);
+        }
+        switch (mFrom) {
+            case Contants.FROM_CLUE:
                 mStateLabelRes = R.string.clue_status;
                 mStateArrayRes = R.array.clue_status;
                 mStateArray = getResources().getTextArray(mStateArrayRes);
                 mStateArrayWeb = getResources().getTextArray(R.array.clue_status_web);
                 ClueParams clueParams = (ClueParams) mEntity;
                 mFollowParams.setEntity(clueParams.getId());
+                mFollowParams.setEntityType(Contants.FOLLOW_TYPE_OPPORTUNITY);
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, clueParams.getStatus())].toString());
                 viewDelegate.giveTextViewString(R.id.tv_related_one, clueParams.getCompanyName());
                 break;
 
-            case Big4HomeActivityDelegate.FROM_CUSTOMER:
+            case Contants.FROM_CUSTOMER:
                 CustomerParams customerParams = (CustomerParams) mEntity;
                 mFollowParams.setEntity(customerParams.getId());
+                mFollowParams.setEntityType(Contants.FOLLOW_TYPE_CUSTOMER);
                 viewDelegate.giveTextViewString(R.id.tv_related_one, customerParams.getName());
                 viewDelegate.get(R.id.rl_state).setVisibility(View.GONE);
                 return;
 
-            case Big4HomeActivityDelegate.FROM_BUSINESS_OPPORTUNITY:
+            case Contants.FROM_BUSINESS_OPPORTUNITY:
                 mStateLabelRes = R.string.business_opportunity_status;
                 mStateArrayRes = R.array.business_opportunity_status;
                 mStateArray = getResources().getTextArray(mStateArrayRes);
                 mStateArrayWeb = getResources().getTextArray(R.array.business_opportunity_status_web);
-                BusinessOpportunityParams businessOpportunityParams = (BusinessOpportunityParams)mEntity;
+                BusinessOpportunityParams businessOpportunityParams = (BusinessOpportunityParams) mEntity;
                 mFollowParams.setEntity(businessOpportunityParams.getId());
+                mFollowParams.setEntityType(Contants.FOLLOW_TYPE_DEAL);
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, businessOpportunityParams.getStatus())].toString());
                 viewDelegate.giveTextViewString(R.id.tv_related_one, businessOpportunityParams.getTitle());
                 break;
-            case Big4HomeActivityDelegate.FROM_CONTRACT:
+            case Contants.FROM_CONTRACT:
                 mStateLabelRes = R.string.contract_status;
                 mStateArrayRes = R.array.contract_state;
                 mStateArray = getResources().getTextArray(mStateArrayRes);
                 mStateArrayWeb = getResources().getTextArray(R.array.contract_state_web);
-                ContractParams contractParams = (ContractParams)mEntity;
+                ContractParams contractParams = (ContractParams) mEntity;
                 mFollowParams.setEntity(contractParams.getId());
+                mFollowParams.setEntityType(Contants.FOLLOW_TYPE_CONTRACT);
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, contractParams.getStatus())].toString());
 //                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.related_contact));
                 viewDelegate.giveTextViewString(R.id.tv_related_one, contractParams.getTitle());
@@ -127,6 +143,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
         }
         viewDelegate.giveTextViewString(R.id.tv_state_label, getString(mStateLabelRes));
     }
+
 
     @Override
     protected void initData() {
@@ -214,6 +231,25 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
             case R.id.rl_remind:
                 viewDelegate.pressRemind();
                 break;
+            case R.id.ll_related_one:
+                if (mFromAddHome) {
+                    Intent intent = new Intent(this, AddFollowHomeActivity.class);
+                    intent.putExtra(Contants.EXTRA_FROM_ADD_FOLLOW, true);
+                    startActivityForResult(intent, REQUEST_CODE_CHANGE_OBJECT);
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == REQUEST_CODE_CHANGE_OBJECT){
+                mFrom = data.getIntExtra(Contants.EXTRA_FROM, Contants.FROM_CLUE);
+                mEntity = data.getSerializableExtra(Contants.EXTRA_ENTITY);
+                initView();
+            }
         }
     }
 }

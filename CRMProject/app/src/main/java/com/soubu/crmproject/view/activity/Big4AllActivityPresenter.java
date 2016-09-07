@@ -1,12 +1,12 @@
 package com.soubu.crmproject.view.activity;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.BaseRecyclerViewActivityDelegate;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.widget.FilterOrSortPopupWindow;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
@@ -23,15 +23,17 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
     String[] sortStrings;
     boolean mIsRefresh = false;
     int mPageNum = 1;
+    int mFrom = -1;
 
 
     @Override
     protected void initData() {
         super.initData();
-
     }
 
-
+    protected int getFrom(){
+        return -1;
+    }
 
     protected abstract int getParentArray();
 
@@ -97,12 +99,14 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        viewDelegate.setRightMenuOne(R.drawable.btn_add, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickAdd(v);
-            }
-        });
+        if(getFrom() != Contants.FROM_ADD_SOMETHING_ACTIVITY){
+            viewDelegate.setRightMenuOne(R.drawable.btn_add, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickAdd(v);
+                }
+            });
+        }
         viewDelegate.setRightMenuTwo(R.drawable.btn_search, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

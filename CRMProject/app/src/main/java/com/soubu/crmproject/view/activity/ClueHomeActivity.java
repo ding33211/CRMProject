@@ -11,12 +11,14 @@ import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,7 +38,6 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
     protected void initData() {
         super.initData();
         viewDelegate.setEntity(mClueParams);
-        RetrofitRequest.getInstance().getClueFollow(mClueParams.getId(), null, null, null, null, null);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.rl_top) {
+        if (id == R.id.rl_content) {
             Intent intent = new Intent(this, ClueSpecActivity.class);
             intent.putExtra(Contants.EXTRA_CLUE, mClueParams);
             startActivity(intent);
@@ -65,17 +66,18 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
     protected void initView() {
         super.initView();
         viewDelegate.setTitle(R.string.clue_home);
-        viewDelegate.setFrom(Big4HomeActivityDelegate.FROM_CLUE);
+        viewDelegate.setFrom(Contants.FROM_CLUE);
         mStateArray = getResources().getStringArray(R.array.clue_status);
         mStateArrayWeb = getResources().getStringArray(R.array.clue_status_web);
         mClueParams = (ClueParams) getIntent().getSerializableExtra(Contants.EXTRA_CLUE);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mClueParams.getCompanyName());
-        ((TextView) viewDelegate.get(R.id.tv_company_name)).setText(mClueParams.getContactName());
+        ((TextView) viewDelegate.get(R.id.tv_subtitle)).setText(mClueParams.getContactName());
         ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mClueParams.getStatus())]);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(List<ClueParams> list) {
+    public void refreshData(ClueParams[] params) {
+        List<ClueParams> list = Arrays.asList(params);
         mClueParams = list.get(0);
         viewDelegate.setEntity(mClueParams);
 
@@ -87,9 +89,15 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
     }
 
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void refreshFollow(List<FollowParams> list) {
-//        viewDelegate.setViewPagerData(1, list);
-//    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshFollow(FollowParams[] params) {
+        List<FollowParams> list = Arrays.asList(params);
+        viewDelegate.setViewPagerData(1, list);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RetrofitRequest.getInstance().getClueFollow(mClueParams.getId(), null, null, null, null, null);
+    }
 }

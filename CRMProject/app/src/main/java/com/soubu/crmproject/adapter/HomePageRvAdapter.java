@@ -64,7 +64,8 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
         Indicator indicator = (Indicator) v.findViewById(R.id.fiv_indicator);
         indicator.setScrollBar(new ColorBar(context, context.getResources().getColor(R.color.colorPrimary), 5));
         float unSelectSize = 16;
-        float selectSize = unSelectSize * 1.2f;
+        //字体都用一个大小
+        float selectSize = unSelectSize;
         int selectColor = context.getResources().getColor(R.color.colorPrimary);
         int unSelectColor = context.getResources().getColor(R.color.subtitle_grey);
         indicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));

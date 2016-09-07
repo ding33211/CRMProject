@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.utils.SearchUtil;
 
@@ -36,7 +37,7 @@ public class CustomerRvAdapter extends BaseBig4RvAdapter<CustomerParams> {
 
     @Override
     int getTypeOf4() {
-        return TYPE_CUSTOMER;
+        return Contants.TYPE_CUSTOMER;
     }
 
     @Override

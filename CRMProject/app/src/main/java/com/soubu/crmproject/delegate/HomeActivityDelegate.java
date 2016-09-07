@@ -30,12 +30,14 @@ public class HomeActivityDelegate extends AppDelegate {
         mCRMFragment = new CRMFragment();
         mTodoFragment = new TodoFragment();
         mProfileFragment = new ProfileFragment();
-        mTabs = new Button[]{get(R.id.btn_conversation), get(R.id.btn_address_list),
-                get(R.id.btn_find)};
+        mTabs = new Button[]{get(R.id.btn_home), get(R.id.btn_crm),
+                get(R.id.btn_todo)};
         fragments = new Fragment[]{mWorkBenchFragment, mCRMFragment, mTodoFragment};
-        mTabs[0].setSelected(true);
-        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mWorkBenchFragment).
-                add(R.id.fragment_container, mCRMFragment).hide(mCRMFragment).show(mWorkBenchFragment).commit();
+        //一期只显示第二个界面
+        mTabs[1].setSelected(true);
+//        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mWorkBenchFragment).
+//                add(R.id.fragment_container, mCRMFragment).hide(mCRMFragment).show(mWorkBenchFragment).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mCRMFragment).show(mCRMFragment).commit();
     }
 
     @Override

@@ -83,6 +83,16 @@
         <item>C</item>
     </string-array>
 
+    <string-array name="customer_property">
+        <item>供应商</item>
+        <item>采购商</item>
+    </string-array>
+
+    <string-array name="customer_property_web">
+        <item>PROVIDER</item>
+        <item>BUYER</item>
+    </string-array>
+
     <string-array name="customer_size">
         <item>&lt;10人</item>
         <item>10&#8211;20人</item>
@@ -154,9 +164,9 @@
     </string-array>
 
     <string-array name="business_opportunity_type_web">
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
+        <item>IMPORTANT</item>
+        <item>NORMAL</item>
+        <item>SPECIAL</item>
     </string-array>
 
     <string-array name="business_opportunity_type">
@@ -275,5 +285,18 @@
         <item>EMAIL</item>
         <item>SMS</item>
         <item>OTHER</item>
+    </string-array>
+
+
+    <string-array name="contract_review_state">
+        <item>未审核</item>
+        <item>审核通过</item>
+        <item>审核失败</item>
+    </string-array>
+
+    <string-array name="contract_review_state_web">
+        <item>NOT_STARTED</item>
+        <item>SUCCEEDED</item>
+        <item>FAILED</item>
     </string-array>
 </resources>

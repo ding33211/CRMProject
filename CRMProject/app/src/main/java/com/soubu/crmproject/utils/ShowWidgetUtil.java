@@ -106,7 +106,7 @@ public class ShowWidgetUtil {
 
 
     public static void showMultiItemDialog(Activity activity, int titleRes, int arrayRes, boolean multiChoice, DialogInterface.OnClickListener listener){
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity, android.R.style.Theme_Material_Light_Dialog_NoActionBar);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setItems(arrayRes, listener);
         AlertDialog dialog = builder.create();
         dialog.show();

@@ -5,7 +5,7 @@ import android.util.Log;
 import com.soubu.crmproject.common.ApiConfig;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
-import com.soubu.crmproject.model.BaseData;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
@@ -20,7 +20,7 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Query;
+import retrofit2.Retrofit;
 
 /**
  * Retrofit的网络请求类
@@ -49,7 +49,7 @@ public class RetrofitRequest {
      * @param page
      */
     public void getClueList(Integer page, String source, String status, String sort, String order, String related, Integer count) {
-        Call<GetPageResp<List<ClueParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .getClue(source, status, page, sort, order, related, count);
         enqueueClue(call, true);
@@ -60,7 +60,7 @@ public class RetrofitRequest {
      * @param clue 线索对象
      */
     public void addClue(ClueParams clue) {
-        Call<GetPageResp<List<ClueParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .addClue(clue, ConvertUtil.hmacsha256(clue.getMap(), ApiConfig.getToken()));
         enqueueClue(call, false);
@@ -71,8 +71,8 @@ public class RetrofitRequest {
      * @param id  线索id
      * @param map  更新项
      */
-    public  void updateClue(String id, Map<String, String> map) {
-        Call<GetPageResp<List<ClueParams>>> call = RetrofitService.getInstance()
+    public void updateClue(String id, Map<String, String> map) {
+        Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .updateClue(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
         enqueueClue(call, true);
@@ -117,7 +117,7 @@ public class RetrofitRequest {
      *
      */
     public void getCustomerList(Integer page, String type, String source, String size, String industry, String status, String sort, String order, String related, Integer count) {
-        Call<GetPageResp<List<CustomerParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .getCustomer(type, source, size, industry, status, page, sort, order, related, count);
         enqueueClue(call, true);
@@ -128,7 +128,7 @@ public class RetrofitRequest {
      * @param customerParams 客户对象
      */
     public void addCustomer(CustomerParams customerParams) {
-        Call<GetPageResp<List<CustomerParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .addCustomer(customerParams, ConvertUtil.hmacsha256(customerParams.getMap(), ApiConfig.getToken()));
         enqueueClue(call, false);
@@ -140,7 +140,7 @@ public class RetrofitRequest {
      * @param map  更新项
      */
     public  void updateCustomer(String id, Map<String, String> map) {
-        Call<GetPageResp<List<CustomerParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .updateCustomer(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
         enqueueClue(call, true);
@@ -151,7 +151,7 @@ public class RetrofitRequest {
      *
      */
     public void getBusinessOpportunityList(Integer page, String type, String source, String status, String sort, String order, String related, Integer count) {
-        Call<GetPageResp<List<BusinessOpportunityParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<BusinessOpportunityParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .getBusinessOpportunity(type, source, status, page, sort, order, related, count);
         enqueueClue(call, true);
@@ -163,7 +163,7 @@ public class RetrofitRequest {
      * @param businessOpportunityParams 商机对象
      */
     public void addBusinessOpportunity(BusinessOpportunityParams businessOpportunityParams) {
-        Call<GetPageResp<List<BusinessOpportunityParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<BusinessOpportunityParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .addBusinessOpportunity(businessOpportunityParams, ConvertUtil.hmacsha256(businessOpportunityParams.getMap(), ApiConfig.getToken()));
         enqueueClue(call, false);
@@ -175,7 +175,7 @@ public class RetrofitRequest {
      * @param map  更新项
      */
     public  void updateBusinessOpportunity(String id, Map<String, String> map) {
-        Call<GetPageResp<List<BusinessOpportunityParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<BusinessOpportunityParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .updateBusinessOpportunity(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
         enqueueClue(call, true);
@@ -186,7 +186,7 @@ public class RetrofitRequest {
      *
      */
     public void getContractList(Integer page, String type, String payMethod, String status, String receivedPayMethod, String sort, String order, String related, Integer count) {
-        Call<GetPageResp<List<ContractParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .getContract(type, payMethod, status, receivedPayMethod, page, sort, order, related, count);
         enqueueClue(call, true);
@@ -197,7 +197,7 @@ public class RetrofitRequest {
      * @param contractParams 合同对象
      */
     public void addContract(ContractParams contractParams) {
-        Call<GetPageResp<List<ContractParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .addContract(contractParams, ConvertUtil.hmacsha256(contractParams.getMap(), ApiConfig.getToken()));
         enqueueClue(call, false);
@@ -209,7 +209,7 @@ public class RetrofitRequest {
      * @param map  更新项
      */
     public  void updateContract(String id, Map<String, String> map) {
-        Call<GetPageResp<List<ContractParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .updateContract(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
         enqueueClue(call, true);
@@ -221,7 +221,7 @@ public class RetrofitRequest {
      * @param followParams 跟进对象
      */
     public void addFollow(FollowParams followParams) {
-        Call<GetPageResp<List<FollowParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .addFollow(followParams, ConvertUtil.hmacsha256(followParams.getMap(), ApiConfig.getToken()));
         enqueueClue(call, false);
@@ -232,10 +232,43 @@ public class RetrofitRequest {
      * @param id 线索id
      */
     public void getClueFollow(String  id, String status, String sort, String order, Integer page, Integer count) {
-        Call<GetPageResp<List<FollowParams>>> call = RetrofitService.getInstance()
+        Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
                 .createApi()
                 .getClueFollow(id, status, sort, order, page, count);
-        enqueueClue(call, false);
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取客户的跟进
+     * @param id 线索id
+     */
+    public void getCustomerFollow(String  id, String status, String sort, String order, Integer page, Integer count) {
+        Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
+                .createApi()
+                .getCustomerFollow(id, status, sort, order, page, count);
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取商机的跟进
+     * @param id 线索id
+     */
+    public void getBusinessOpportunityFollow(String  id, String status, String sort, String order, Integer page, Integer count) {
+        Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
+                .createApi()
+                .getBusinessOpportunityFollow(id, status, sort, order, page, count);
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取合同的跟进
+     * @param id 线索id
+     */
+    public void getContractFollow(String  id, String status, String sort, String order, Integer page, Integer count) {
+        Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
+                .createApi()
+                .getContractFollow(id, status, sort, order, page, count);
+        enqueueClue(call, true);
     }
 
 

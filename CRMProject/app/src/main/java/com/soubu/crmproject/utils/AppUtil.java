@@ -1,8 +1,11 @@
 package com.soubu.crmproject.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+
+import com.soubu.crmproject.model.Contants;
 
 /**
  * 与App相关的工具类
@@ -59,5 +62,10 @@ public class AppUtil {
             versionCode = info.versionCode;
         }
         return versionCode;
+    }
+
+
+    public static SharedPreferences getDefaultSharedPreference(Context context){
+        return context.getSharedPreferences(Contants.SHARED_PREFERENCE_DEFAULT, Context.MODE_PRIVATE);
     }
 }

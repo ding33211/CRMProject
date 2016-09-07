@@ -37,7 +37,7 @@ public class TodoEventsAdapter extends IndicatorViewPager.IndicatorViewPagerAdap
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.text_home_indicator, container, false);
         }
-        TextView textView = (TextView) convertView;
+        TextView textView = (TextView) convertView.findViewById(R.id.tv_tab);
         if (position == 0) {
             textView.setText(R.string.no_reminder);
         } else if (position == 1) {

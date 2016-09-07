@@ -38,13 +38,13 @@ public class HomeActivity extends ActivityPresenter<HomeActivityDelegate> {
 
     public void onTabClicked(View view) {
         switch (view.getId()) {
-            case R.id.btn_conversation:
+            case R.id.btn_home:
                 mIndex = 0;
                 break;
-            case R.id.btn_address_list:
+            case R.id.btn_crm:
                 mIndex = 1;
                 break;
-            case R.id.btn_find:
+            case R.id.btn_todo:
                 mIndex = 2;
                 break;
 //            case R.id.btn_profile:

@@ -6,7 +6,6 @@ import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.GetPageResp;
-import com.soubu.crmproject.model.BaseData;
 
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,7 @@ public interface RetrofitApi {
 
     //获取线索
     @GET("opportunities")
-    Call<GetPageResp<List<ClueParams>>> getClue(@Query("source") String source,//线索来源
+    Call<GetPageResp<ClueParams[]>> getClue(@Query("source") String source,//线索来源
                                                 @Query("status") String status,//线索状态
                                                 @Query("page") Integer page,//页数
                                                 @Query("sort") String sort,//排序项
@@ -54,17 +53,17 @@ public interface RetrofitApi {
     //添加线索
     @Headers({"Content-type:application/json"})
     @POST("opportunities")
-    Call<GetPageResp<List<ClueParams>>> addClue(@Body ClueParams params, @Header("sign") String sign);
+    Call<GetPageResp<ClueParams[]>> addClue(@Body ClueParams params, @Header("sign") String sign);
 
     //修改线索
     @FormUrlEncoded
     @PUT("opportunities/{id}")
-    Call<GetPageResp<List<ClueParams>>> updateClue(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
+    Call<GetPageResp<ClueParams[]>> updateClue(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
 
     //获取客户
     @GET("customers")
-    Call<GetPageResp<List<CustomerParams>>> getCustomer(@Query("type") String type,//客户类型
+    Call<GetPageResp<CustomerParams[]>> getCustomer(@Query("type") String type,//客户类型
                                                         @Query("source") String source,//线索来源
                                                         @Query("size") String size,//规模
                                                         @Query("industry") String industry,//行业
@@ -78,17 +77,17 @@ public interface RetrofitApi {
     //添加客户
     @Headers({"Content-type:application/json"})
     @POST("customers")
-    Call<GetPageResp<List<CustomerParams>>> addCustomer(@Body CustomerParams params, @Header("sign") String sign);
+    Call<GetPageResp<CustomerParams[]>> addCustomer(@Body CustomerParams params, @Header("sign") String sign);
 
     //修改客户
     @FormUrlEncoded
     @PUT("customers/{id}")
-    Call<GetPageResp<List<CustomerParams>>> updateCustomer(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
+    Call<GetPageResp<CustomerParams[]>> updateCustomer(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
 
     //获取商机
     @GET("deals")
-    Call<GetPageResp<List<BusinessOpportunityParams>>> getBusinessOpportunity(@Query("type") String type,//商机类型
+    Call<GetPageResp<BusinessOpportunityParams[]>> getBusinessOpportunity(@Query("type") String type,//商机类型
                                                                               @Query("source") String source,//商机来源
                                                                               @Query("status") String status,//商机状态
                                                                               @Query("page") Integer page,//页数
@@ -101,18 +100,18 @@ public interface RetrofitApi {
     //添加商机
     @Headers({"Content-type:application/json"})
     @POST("deals")
-    Call<GetPageResp<List<BusinessOpportunityParams>>> addBusinessOpportunity(@Body BusinessOpportunityParams params, @Header("sign") String sign);
+    Call<GetPageResp<BusinessOpportunityParams[]>> addBusinessOpportunity(@Body BusinessOpportunityParams params, @Header("sign") String sign);
 
     //修改商机
     @FormUrlEncoded
     @PUT("deals/{id}")
-    Call<GetPageResp<List<BusinessOpportunityParams>>> updateBusinessOpportunity(@Path("id") String id, @FieldMap Map<String, String> names,
+    Call<GetPageResp<BusinessOpportunityParams[]>> updateBusinessOpportunity(@Path("id") String id, @FieldMap Map<String, String> names,
                                                                                  @Header("sign") String sign);
 
 
     //获取合同
     @GET("contracts")
-    Call<GetPageResp<List<ContractParams>>> getContract(@Query("type") String type,//合同类型
+    Call<GetPageResp<ContractParams[]>> getContract(@Query("type") String type,//合同类型
                                                         @Query("payMethod") String payMethod,//付款方式
                                                         @Query("status") String status,//合同状态
                                                         @Query("receivedPayType") String receivedPayType,//汇款方式
@@ -125,26 +124,55 @@ public interface RetrofitApi {
     //添加合同
     @Headers({"Content-type:application/json"})
     @POST("contracts")
-    Call<GetPageResp<List<ContractParams>>> addContract(@Body ContractParams params, @Header("sign") String sign);
+    Call<GetPageResp<ContractParams[]>> addContract(@Body ContractParams params, @Header("sign") String sign);
 
     //修改合同
     @FormUrlEncoded
     @PUT("contracts/{id}")
-    Call<GetPageResp<List<ContractParams>>> updateContract(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
+    Call<GetPageResp<ContractParams[]>> updateContract(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
 
     //添加跟进
     @Headers({"Content-type:application/json"})
     @POST("actions")
-    Call<GetPageResp<List<FollowParams>>> addFollow(@Body FollowParams params, @Header("sign") String sign);
+    Call<GetPageResp<FollowParams[]>> addFollow(@Body FollowParams params, @Header("sign") String sign);
 
 
     //获取线索相关的跟进
     @GET("opportunities/{id}/actions")
-    Call<GetPageResp<List<FollowParams>>> getClueFollow(@Path("id") String id,
+    Call<GetPageResp<FollowParams[]>> getClueFollow(@Path("id") String id,
                                                         @Query("status") String status,//线索状态
                                                         @Query("sort") String sort,//排序项
                                                         @Query("order") String order,//顺序
                                                         @Query("page") Integer page,//页数
                                                         @Query("count") Integer count);//每页条数,默认10
+
+    //获取线索相关的跟进
+    @GET("customers/{id}/actions")
+    Call<GetPageResp<FollowParams[]>> getCustomerFollow(@Path("id") String id,
+                                                    @Query("status") String status,//线索状态
+                                                    @Query("sort") String sort,//排序项
+                                                    @Query("order") String order,//顺序
+                                                    @Query("page") Integer page,//页数
+                                                    @Query("count") Integer count);//每页条数,默认10
+
+    //获取线索相关的跟进
+    @GET("deals/{id}/actions")
+    Call<GetPageResp<FollowParams[]>> getBusinessOpportunityFollow(@Path("id") String id,
+                                                    @Query("status") String status,//线索状态
+                                                    @Query("sort") String sort,//排序项
+                                                    @Query("order") String order,//顺序
+                                                    @Query("page") Integer page,//页数
+                                                    @Query("count") Integer count);//每页条数,默认10
+
+    //获取线索相关的跟进
+    @GET("contracts/{id}/actions")
+    Call<GetPageResp<FollowParams[]>> getContractFollow(@Path("id") String id,
+                                                    @Query("status") String status,//线索状态
+                                                    @Query("sort") String sort,//排序项
+                                                    @Query("order") String order,//顺序
+                                                    @Query("page") Integer page,//页数
+                                                    @Query("count") Integer count);//每页条数,默认10
+
+
 }

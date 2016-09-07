@@ -18,6 +18,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -135,7 +136,8 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(List<ContractParams> list) {
+    public void refreshData(ContractParams[] params) {
+        List<ContractParams> list = Arrays.asList(params);
         mContractParams = list.get(0);
         initContractParams(mContractParams);
     }

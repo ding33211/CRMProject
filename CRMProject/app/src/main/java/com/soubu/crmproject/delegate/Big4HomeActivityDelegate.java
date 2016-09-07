@@ -3,14 +3,13 @@ package com.soubu.crmproject.delegate;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.FollowInBig4HomeIndicatorViewPagerAdapter;
 import com.soubu.crmproject.base.mvp.view.AppDelegate;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowParams;
-import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.view.activity.AddFollowActivity;
 import com.soubu.crmproject.widget.indicatorviewpager.ColorBar;
 import com.soubu.crmproject.widget.indicatorviewpager.Indicator;
@@ -29,12 +28,6 @@ public class Big4HomeActivityDelegate extends AppDelegate {
     ViewPager mViewPager;
     Indicator mIndicator;
 
-    public static final int FROM_CLUE = 0x00;
-    public static final int FROM_CUSTOMER = 0x01;
-    public static final int FROM_BUSINESS_OPPORTUNITY = 0x02;
-    public static final int FROM_CONTRACT = 0x03;
-
-
     private int mFrom = 0;
     private Serializable mSerializable;
     private FollowInBig4HomeIndicatorViewPagerAdapter mIndicatorViewPagerAdapter;
@@ -49,20 +42,27 @@ public class Big4HomeActivityDelegate extends AppDelegate {
     public void initWidget() {
         super.initWidget();
         switch (mFrom){
-            case FROM_CUSTOMER:
+            case Contants.FROM_CUSTOMER:
                 get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
-                get(R.id.ll_clue_content).setVisibility(View.GONE);
-                get(R.id.tv_company_name).setVisibility(View.GONE);
+                get(R.id.ll_state_content).setVisibility(View.GONE);
+                ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.customer_property);
                 break;
-            case FROM_CONTRACT:
+            case Contants.FROM_CONTRACT:
+                get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
+                get(R.id.iv_contract_review_state).setVisibility(View.VISIBLE);
+                get(R.id.ll_contract_content).setVisibility(View.VISIBLE);
+                ((TextView)get(R.id.tv_left_label)).setText(R.string.sales_back_plan);
+                ((TextView)get(R.id.tv_right_label)).setText(R.string.already_sales_back);
+                ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.related_customer);
 
+                break;
         }
         mIndicatorViewPagerAdapter = new FollowInBig4HomeIndicatorViewPagerAdapter();
         mViewPager = get(R.id.vp_content);
         mIndicator = get(R.id.fiv_indicator);
         mIndicator.setScrollBar(new ColorBar(getActivity(), getActivity().getResources().getColor(R.color.colorPrimary), 5));
         float unSelectSize = 16;
-        float selectSize = unSelectSize * 1.2f;
+        float selectSize = unSelectSize;
         int selectColor = getActivity().getResources().getColor(R.color.colorPrimary);
         int unSelectColor = getActivity().getResources().getColor(R.color.subtitle_grey);
         mIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));

@@ -12,7 +12,8 @@ import com.soubu.crmproject.server.RetrofitRequest;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +38,8 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
      * 监听Clue请求回调
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(ArrayList<ContractParams> list){
+    public void refreshData(ContractParams[] params){
+        List<ContractParams> list = Arrays.asList(params);
         viewDelegate.setData(list, mIsRefresh);
         if (mIsRefresh) {
             mIsRefresh = false;

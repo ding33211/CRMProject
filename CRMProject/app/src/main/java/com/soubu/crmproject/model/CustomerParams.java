@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class CustomerParams extends ObjectToMapInterface implements Serializable, Cloneable{
     String name;
+    String property;
     String type;
     String source;
     String phone;
@@ -23,6 +24,32 @@ public class CustomerParams extends ObjectToMapInterface implements Serializable
     String manager;
     String size;
     String revenue;
+    String dealsCount;
+    String contractsCount;
+
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
+    }
+
+    public String getDealsCount() {
+        return dealsCount;
+    }
+
+    public void setDealsCount(String dealsCount) {
+        this.dealsCount = dealsCount;
+    }
+
+    public String getContractsCount() {
+        return contractsCount;
+    }
+
+    public void setContractsCount(String contractsCount) {
+        this.contractsCount = contractsCount;
+    }
 
     public String[] getProducts() {
         return products;

@@ -8,12 +8,15 @@ import com.soubu.crmproject.delegate.BusinessOpportunityActivityDelegate;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +40,8 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
      * 监听Clue请求回调
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(ArrayList<BusinessOpportunityParams> list) {
+    public void refreshData(BusinessOpportunityParams[] params) {
+        List<BusinessOpportunityParams> list = Arrays.asList(params);
         viewDelegate.setData(list, mIsRefresh);
         if (mIsRefresh) {
             mIsRefresh = false;

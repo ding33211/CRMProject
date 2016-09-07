@@ -74,6 +74,22 @@ public class ConvertUtil {
         return formatter.format(date);
     }
 
+    public static String dateToYYYY_MM_DD_EEEE(Date date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  EEEE");
+        return formatter.format(date);
+    }
+
+    public static String dateToHH_mm(Date date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        return formatter.format(date);
+    }
+
     public static String bytes2Hex(byte[] bts) {
         String des = "";
         String tmp = null;

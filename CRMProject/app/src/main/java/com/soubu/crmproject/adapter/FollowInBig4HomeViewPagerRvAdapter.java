@@ -1,6 +1,8 @@
 package com.soubu.crmproject.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.FollowTest;
+import com.soubu.crmproject.utils.ConvertUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,14 +37,17 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
     public static final int POS_RECORD = 0X01;
 
 
+
+
     private int mPos;
+    private int mWhere;
     private Calendar mCalendar;
     private int mYear;
     private int mMonth;
     private int mDay;
 
 
-    public FollowInBig4HomeViewPagerRvAdapter(int pos) {
+    public FollowInBig4HomeViewPagerRvAdapter(int pos, int where) {
         mList = new ArrayList<>();
         mPos = pos;
         mCalendar = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
@@ -47,6 +55,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
         mYear = mCalendar.get(Calendar.YEAR);
         mMonth = mCalendar.get(Calendar.MONTH);
         mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
+        mWhere = where;
     }
 
     @Override
@@ -69,6 +78,9 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
             case TYPE_TOP:
                 break;
         }
+        if(mWhere == Contants.IN_4_HOME){
+            v.findViewById(R.id.ll_related_one).setVisibility(View.GONE);
+        }
         if(mPos == POS_PLAN){
              tvFollowState.setText(R.string.follow_function_with_colon);
         }
@@ -80,6 +92,49 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
         ItemViewHolder holder1 = null;
         if(holder instanceof ItemViewHolder){
             holder1 = (ItemViewHolder) holder;
+            holder1.tvTitle.setText(mList.get(position).getTitle());
+            holder1.tvContent.setText(mList.get(position).getContent());
+            CharSequence[] arrays = null;
+            CharSequence[] arrayWebs = null;
+            String entityType = mList.get(position).getEntityType();
+            Context context = holder1.tvTitle.getContext();
+            if(TextUtils.equals(entityType, Contants.FOLLOW_TYPE_OPPORTUNITY)){
+               arrays = SearchUtil.searchClueStateArray(context);
+                arrayWebs = SearchUtil.searchClueStateWebArray(context);
+            } else if(TextUtils.equals(entityType, Contants.FOLLOW_TYPE_DEAL)){
+                arrays = SearchUtil.searchBusinessOpportunityStateArray(context);
+                arrayWebs = SearchUtil.searchBusinessOpportunityStateWebArray(context);
+            } else if(TextUtils.equals(entityType, Contants.FOLLOW_TYPE_CONTRACT)){
+                arrays = SearchUtil.searchContractStateArray(context);
+                arrayWebs = SearchUtil.searchContractStateWebArray(context);
+            }
+            holder1.vContract.setVisibility(View.VISIBLE);
+            if(TextUtils.equals(entityType, Contants.FOLLOW_TYPE_CUSTOMER)){
+                holder1.vContract.setVisibility(View.GONE);
+            } else {
+                if(position == 0){
+                    holder1.vLast.setVisibility(View.GONE);
+                    if(arrays != null && arrayWebs != null){
+                        holder1.tvNowState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position).getStatus())]);
+                    }
+                } else {
+                    if(TextUtils.equals(mList.get(position).getStatus(), mList.get(position - 1).getStatus())){
+                        holder1.vLast.setVisibility(View.GONE);
+                        if(arrays != null && arrayWebs != null){
+                            holder1.tvNowState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position).getStatus())]);
+                        }
+                    } else {
+                        holder1.vLast.setVisibility(View.VISIBLE);
+                        if(arrays != null && arrayWebs != null){
+                            holder1.tvNowState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position).getStatus())]);
+                            holder1.tvLastState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position - 1).getStatus())]);
+                        }
+                    }
+                }
+            }
+            holder1.tvDate.setText(ConvertUtil.dateToYYYY_MM_DD_EEEE(mList.get(position).getFollowupAt()));
+            holder1.tvTime.setText(ConvertUtil.dateToHH_mm(mList.get(position).getFollowupAt()));
+
 
         } else {
             return;
@@ -116,16 +171,16 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        mCalendar.setTime(mList.get(position).getCreatedAt());
+        mCalendar.setTime(mList.get(position).getFollowupAt());
         int thisDay = mCalendar.get(Calendar.DAY_OF_MONTH);
         int lastDay = -1;
         int nextDay = -1;
         if (position != 0) {
-            mCalendar.setTime(mList.get(position - 1).getCreatedAt());
+            mCalendar.setTime(mList.get(position - 1).getFollowupAt());
             lastDay = mCalendar.get(Calendar.DAY_OF_MONTH);
         }
         if (position != getItemCount() - 1) {
-            mCalendar.setTime(mList.get(position + 1).getCreatedAt());
+            mCalendar.setTime(mList.get(position + 1).getFollowupAt());
             nextDay = mCalendar.get(Calendar.DAY_OF_MONTH);
         }
         if (thisDay == lastDay) {
@@ -152,11 +207,29 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
     class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView ivFollowState;
         ImageView ivAlarm;
+        TextView tvTitle;
+        TextView tvContent;
+        TextView tvTime;
+        TextView tvDate;
+        TextView tvContact;
+        View vLast;
+        View vContract;
+        TextView tvLastState;
+        TextView tvNowState;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             ivFollowState = (ImageView) itemView.findViewById(R.id.iv_complete_state);
             ivAlarm = (ImageView) itemView.findViewById(R.id.iv_alarm);
+            tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
+            tvContent = (TextView) itemView.findViewById(R.id.tv_content);
+            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
+            tvDate = (TextView) itemView.findViewById(R.id.tv_date);
+            tvContact = (TextView) itemView.findViewById(R.id.tv_related_two_value);
+            vLast = itemView.findViewById(R.id.ll_last_state);
+            tvLastState = (TextView)itemView.findViewById(R.id.tv_follow_state_before);
+            tvNowState = (TextView) itemView.findViewById(R.id.tv_follow_state_next);
+            vContract = itemView.findViewById(R.id.ll_related_two);
         }
     }
 

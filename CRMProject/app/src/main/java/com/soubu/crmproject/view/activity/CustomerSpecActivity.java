@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,18 +61,18 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         initItem(customerParams.getWebsite(), R.string.website, hasTop ? false : true);
         initItem(customerParams.getAddress(), R.string.address, hasTop ? false : true);
         hasTop = false;
-        addItem = new AddItem();
-        addItem.setTitleRes(R.string.contact_information);
-        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
-        mList.add(addItem);
-        initItem(customerParams.getPhone(), R.string.phone, true);
-//        initItem(customerParams.getMobile(), R.string.mobile, hasTop ? false : true);
-//        initItem(customerParams.getQq(), R.string.qq, hasTop ? false : true);
-//        initItem(customerParams.getWechat(), R.string.wechat, hasTop ? false : true);
-//        initItem(customerParams.getWangwang(), R.string.wangwang, hasTop ? false : true);
-        initItem(customerParams.getEmail(), R.string.email, hasTop ? false : true);
-        initItem(customerParams.getPostcode(), R.string.postcode, hasTop ? false : true);
-        hasTop = false;
+//        addItem = new AddItem();
+//        addItem.setTitleRes(R.string.contact_information);
+//        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
+//        mList.add(addItem);
+//        initItem(customerParams.getPhone(), R.string.phone, true);
+////        initItem(customerParams.getMobile(), R.string.mobile, hasTop ? false : true);
+////        initItem(customerParams.getQq(), R.string.qq, hasTop ? false : true);
+////        initItem(customerParams.getWechat(), R.string.wechat, hasTop ? false : true);
+////        initItem(customerParams.getWangwang(), R.string.wangwang, hasTop ? false : true);
+//        initItem(customerParams.getEmail(), R.string.email, hasTop ? false : true);
+//        initItem(customerParams.getPostcode(), R.string.postcode, hasTop ? false : true);
+//        hasTop = false;
         addItem = new AddItem();
         addItem.setTitleRes(R.string.other_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -126,7 +127,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(List<CustomerParams> list) {
+    public void refreshData(CustomerParams[] params) {
+        List<CustomerParams> list = Arrays.asList(params);
         mCustomerParams = list.get(0);
         initClueParams(mCustomerParams);
     }

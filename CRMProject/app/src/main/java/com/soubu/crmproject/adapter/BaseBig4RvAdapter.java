@@ -8,28 +8,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.model.Contants;
 
 /**
  * Created by dingsigang on 16-8-29.
  */
 public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
-    final int TYPE_CLUE = 0x00;
-    final int TYPE_CUSTOMER = 0x01;
-    final int TYPE_BUSINESS_OPPORTUNITY = 0x02;
-    final int TYPE_CONTRACT = 0x03;
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_ITEM) {
+        if (viewType == TYPE_ITEM || viewType == TYPE_LAST_ONE) {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_big_4_recyclerview, parent, false);
             switch (getTypeOf4()){
-                case TYPE_CONTRACT:
+                case Contants.TYPE_CONTRACT:
                     v.findViewById(R.id.iv_approval_state).setVisibility(View.VISIBLE);
-                case TYPE_BUSINESS_OPPORTUNITY:
+                case Contants.TYPE_BUSINESS_OPPORTUNITY:
                     v.findViewById(R.id.ll_sub_right).setVisibility(View.VISIBLE);
                     break;
+            }
+            if(viewType == TYPE_LAST_ONE){
+                v.findViewById(R.id.v_line).setVisibility(View.GONE);
             }
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;

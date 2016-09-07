@@ -59,6 +59,9 @@
         <activity
             android:name=".view.activity.AddFollowActivity"
             android:windowSoftInputMode="adjustPan|stateVisible" />
+        <activity android:name=".view.activity.AddFollowHomeActivity"></activity>
+        <activity android:name=".view.activity.BackSalesPlanActivity"></activity>
+        <activity android:name=".view.activity.AddBackSalesPlanActivity"></activity>
 
     </application>
 

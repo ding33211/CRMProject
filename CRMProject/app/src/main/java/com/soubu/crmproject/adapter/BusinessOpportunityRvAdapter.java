@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.utils.SearchUtil;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class BusinessOpportunityRvAdapter extends BaseBig4RvAdapter<BusinessOppo
 
     @Override
     int getTypeOf4() {
-        return TYPE_BUSINESS_OPPORTUNITY;
+        return Contants.TYPE_BUSINESS_OPPORTUNITY;
     }
 
     @Override

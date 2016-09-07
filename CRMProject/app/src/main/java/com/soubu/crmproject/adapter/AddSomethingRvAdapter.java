@@ -3,6 +3,7 @@ package com.soubu.crmproject.adapter;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -17,14 +18,16 @@ import android.widget.TextView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.AddItem;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 import com.soubu.crmproject.utils.WindowUtil;
+import com.soubu.crmproject.view.activity.AddBusinessOpportunityActivity;
+import com.soubu.crmproject.view.activity.CustomerActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -55,6 +58,8 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     //防止出现编辑框没有转化成数据,就点击了保存的情况
     private View mVStillFocus;
 
+    private int mLastClickPosBeforeLeave = 0;
+
     public AddSomethingRvAdapter(Activity activity) {
         mList = new ArrayList<>();
         mActivity = activity;
@@ -71,7 +76,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_add_something_recyclerview, parent, false);
         View vLabel = v.findViewById(R.id.rl_label);
-        View vItem = v.findViewById(R.id.rl_item_content);
+        View vItem = v.findViewById(R.id.fl_item_content);
         TextView tvAction = (TextView) v.findViewById(R.id.tv_action);
         ImageView ivAction = (ImageView) v.findViewById(R.id.iv_action);
         View vOther = v.findViewById(R.id.ll_other_content);
@@ -158,10 +163,10 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 holder1.tvAction.setVisibility(View.VISIBLE);
             }
         } else {
-            if(viewType == TYPE_ITEM_REQUIRED_CHOOSE || viewType == TYPE_ITEM_CAN_CHOOSE){
+            if (viewType == TYPE_ITEM_REQUIRED_CHOOSE || viewType == TYPE_ITEM_CAN_CHOOSE) {
                 int arrayRes = mList.get(position).getArrayRes();
                 int webArrayRes = mList.get(position).getWebArrayRes();
-                if(arrayRes != 0 && webArrayRes != 0){
+                if (arrayRes != 0 && webArrayRes != 0) {
                     text = mActivity.getResources().getStringArray(arrayRes)[SearchUtil.searchInArray(mActivity.getResources().getStringArray(webArrayRes), text)];
                 }
             }
@@ -240,7 +245,9 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 case TYPE_ITEM_CAN_CHOOSE_DATE:
                 case TYPE_ITEM_REQUIRED_CHOOSE_DATE:
                     Calendar c = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
-                    c.setTime(mList.get(getAdapterPosition()).getDate());
+                    if (mList.get(getAdapterPosition()).getDate() != null) {
+                        c.setTime(mList.get(getAdapterPosition()).getDate());
+                    }
                     new DatePickerDialog(mActivity,
                             // 绑定监听器
                             new DatePickerDialog.OnDateSetListener() {
@@ -263,6 +270,11 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                     if (mList.get(getAdapterPosition()).getTitleRes() == R.string.manager) {
                         mList.get(getAdapterPosition()).setContent("56f0f862ca3e870a6457156a");
                         notifyDataSetChanged();
+                    } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.related_customer) {
+                        Intent intent = new Intent(mActivity, CustomerActivity.class);
+                        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
+                        mActivity.startActivityForResult(intent, AddBusinessOpportunityActivity.REQUEST_ADD_BUSINESS);
+                        mLastClickPosBeforeLeave = getAdapterPosition();
                     } else {
                         final AddItem item = mList.get(getAdapterPosition());
                         if (item.getArrayRes() != 0 && item.getWebArrayRes() != 0) {
@@ -313,6 +325,11 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
             }
         }
         return true;
+    }
+
+    public void setCustomerName(String name){
+        mList.get(mLastClickPosBeforeLeave).setContent(name);
+        notifyDataSetChanged();
     }
 
 }

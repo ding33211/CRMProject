@@ -128,6 +128,7 @@
     <string name="edit_customer">编辑客户</string>
     <string name="customer_name">客户名称</string>
     <string name="customer_type">客户类型</string>
+    <string name="customer_property">客户属性</string>
     <string name="level">级别</string>
     <string name="customer_source">客户来源</string>
     <string name="operating_products">经营产品</string>
@@ -188,6 +189,17 @@
     <string name="follow_time_empty_error">跟进时间不能为空</string>
     <string name="follow_method_empty_error">跟进方式不能为空</string>
     <string name="follow_object">跟进对象</string>
+    <string name="please_choose_follow_object">请选择跟进对象</string>
+    <string name="please_input_clue_name">请输入线索名称</string>
+    <string name="please_input_customer_name">请输入客户名称</string>
+    <string name="please_input_business_opportunity_name">请输入商机名称</string>
+    <string name="please_input_contract_name">请输入合同名称</string>
 
+    <string name="sales_back_plan">回款计划</string>
+    <string name="add_sales_back_plan">新增回款计划</string>
+    <string name="already_sales_back">已回款</string>
+    <string name="plan_date_of_sales_back">计划回款日期</string>
+    <string name="plan_price_of_sales_back">计划回款金额</string>
+    <string name="sales_back_state">回款阶段</string>
 
 </resources>

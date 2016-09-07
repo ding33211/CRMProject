@@ -12,11 +12,14 @@ import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.FollowParams;
+import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -43,7 +46,7 @@ public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeA
     protected void bindEvenListener() {
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this, R.id.rl_content);
-        viewDelegate.setSettingMenuListener(R.menu.clue_home, new PopupMenu.OnMenuItemClickListener() {
+        viewDelegate.setSettingMenuListener(R.menu.business_opportunity_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 return false;
@@ -54,7 +57,7 @@ public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeA
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.rl_top) {
+        if (id == R.id.rl_content) {
             Intent intent = new Intent(this, BusinessOpportunitySpecActivity.class);
             intent.putExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY, mBusinessOpportunityParams);
             startActivity(intent);
@@ -65,17 +68,18 @@ public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeA
     protected void initView() {
         super.initView();
         viewDelegate.setTitle(R.string.business_opportunity);
-        viewDelegate.setFrom(Big4HomeActivityDelegate.FROM_BUSINESS_OPPORTUNITY);
+        viewDelegate.setFrom(Contants.FROM_BUSINESS_OPPORTUNITY);
         mStateArray = getResources().getStringArray(R.array.business_opportunity_status);
         mStateArrayWeb = getResources().getStringArray(R.array.business_opportunity_status_web);
         mBusinessOpportunityParams = (BusinessOpportunityParams) getIntent().getSerializableExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mBusinessOpportunityParams.getTitle());
-        ((TextView) viewDelegate.get(R.id.tv_company_name)).setText(mBusinessOpportunityParams.getCustomer());
+        ((TextView) viewDelegate.get(R.id.tv_subtitle)).setText(mBusinessOpportunityParams.getCustomer());
         ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mBusinessOpportunityParams.getStatus())]);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(List<BusinessOpportunityParams> list) {
+    public void refreshData(BusinessOpportunityParams[] params) {
+        List<BusinessOpportunityParams> list = Arrays.asList(params);
         mBusinessOpportunityParams = list.get(0);
         viewDelegate.setEntity(mBusinessOpportunityParams);
     }
@@ -83,5 +87,17 @@ public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeA
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void throwError(Throwable t) {
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshFollow(FollowParams[] params) {
+        List<FollowParams> list = Arrays.asList(params);
+        viewDelegate.setViewPagerData(1, list);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RetrofitRequest.getInstance().getBusinessOpportunityFollow(mBusinessOpportunityParams.getId(), null, null, null, null, null);
     }
 }

@@ -139,10 +139,10 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         item.setEditTextType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.area);
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.area);
+//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.address);
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getAddress())) {
@@ -150,10 +150,10 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_LOCATE);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.add_contact);
-        item.setItemType(AddSomethingRvAdapter.TYPE_OTHER);
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.add_contact);
+//        item.setItemType(AddSomethingRvAdapter.TYPE_OTHER);
+//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.other_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -198,10 +198,10 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.in_department);
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.in_department);
+//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+//        mList.add(item);
         viewDelegate.setData(mList);
     }
 

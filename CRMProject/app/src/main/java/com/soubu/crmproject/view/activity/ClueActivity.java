@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.delegate.ClueActivityDelegate;
+import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
@@ -13,6 +14,7 @@ import com.soubu.crmproject.server.RetrofitRequest;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +55,8 @@ public class ClueActivity extends Big4AllActivityPresenter<ClueActivityDelegate>
      * 监听Clue请求回调
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(List<ClueParams> list) {
+    public void refreshData(ClueParams[] params) {
+        List<ClueParams> list = Arrays.asList(params);
         Log.e("xxxxxxxxxx", "    refreshData     mIsRefresh   " + mIsRefresh);
         viewDelegate.setData(list, mIsRefresh);
         if (mIsRefresh) {

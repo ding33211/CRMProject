@@ -1,5 +1,6 @@
 package com.soubu.crmproject.view.activity;
 
+import android.content.Intent;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,6 +30,8 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
     private List<AddItem> mList;
     private boolean mFromEdit;
     private BusinessOpportunityParams mBusinessOpportunityParams;
+    private String mCustomerId;
+    public static final int REQUEST_ADD_BUSINESS = 1002;
 
     @Override
     protected Class<AddSomethingActivityDelegate> getDelegateClass() {
@@ -92,7 +95,7 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getCustomer())) {
             item.setContent(mBusinessOpportunityParams.getCustomer());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.related_product);
@@ -266,8 +269,8 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
                 businessOpportunityParams.setTitle(item.getContent());
                 continue;
             }
-            if (item.getTitleRes() == R.string.related_customer) {
-                businessOpportunityParams.setCustomer("57c01ad43bd574a612b4df32");
+            if (item.getTitleRes() == R.string.related_customer && !TextUtils.isEmpty(mCustomerId)) {
+                businessOpportunityParams.setCustomer(mCustomerId);
                 continue;
             }
             if (item.getTitleRes() == R.string.related_product) {
@@ -307,5 +310,18 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
             }
         }
         return businessOpportunityParams;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == REQUEST_ADD_BUSINESS){
+                mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
+                String name = data.getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
+                viewDelegate.setCustomerName(name);
+            }
+        }
     }
 }

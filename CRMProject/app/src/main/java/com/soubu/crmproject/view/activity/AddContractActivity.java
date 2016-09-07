@@ -209,10 +209,10 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.in_department);
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.in_department);
+//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+//        mList.add(item);
         viewDelegate.setData(mList);
     }
 

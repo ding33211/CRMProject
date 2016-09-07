@@ -20,17 +20,17 @@
             android:layout_weight="1" >
 
             <Button
-                android:id="@+id/btn_conversation"
+                android:id="@+id/btn_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/bottom_bar_normal_bg"
                 android:drawableTop="@drawable/selector_home_tab_workbench_bg"
-                android:onClick="onTabClicked"
                 android:paddingTop="8dip"
                 android:scaleType="matrix"
                 android:text="@string/home_page"
                 android:textColor="@color/selector_home_bottom_text_color"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:clickable="false"/>
 
             <TextView
                 android:id="@+id/unread_msg_number"
@@ -54,12 +54,11 @@
             android:layout_weight="1" >
 
             <Button
-                android:id="@+id/btn_address_list"
+                android:id="@+id/btn_crm"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/bottom_bar_normal_bg"
                 android:drawableTop="@drawable/selector_home_tab_crm_bg"
-                android:onClick="onTabClicked"
                 android:paddingTop="8dip"
                 android:scaleType="matrix"
                 android:text="@string/crm"
@@ -83,17 +82,17 @@
             android:layout_weight="1" >
 
             <Button
-                android:id="@+id/btn_find"
+                android:id="@+id/btn_todo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/bottom_bar_normal_bg"
                 android:drawableTop="@drawable/selector_home_tab_todo_bg"
-                android:onClick="onTabClicked"
                 android:paddingTop="8dip"
                 android:scaleType="matrix"
                 android:text="@string/todo"
                 android:textColor="@color/selector_home_bottom_text_color"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:clickable="false"/>
         </RelativeLayout>
         <!--<RelativeLayout-->
             <!--android:id="@+id/btn_container_profile"-->

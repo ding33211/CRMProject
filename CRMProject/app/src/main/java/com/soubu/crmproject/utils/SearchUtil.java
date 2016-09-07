@@ -102,4 +102,12 @@ public class SearchUtil {
     public static CharSequence[] searchContractPayMethodWebArray(Context context){
         return context.getResources().getStringArray(R.array.contract_pay_method_web);
     }
+
+    public static CharSequence[] searchContractReviewStateArray(Context context){
+        return context.getResources().getStringArray(R.array.contract_review_state);
+    }
+
+    public static CharSequence[] searchContractReviewStateWebArray(Context context){
+        return context.getResources().getStringArray(R.array.contract_review_state_web);
+    }
 }

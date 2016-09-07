@@ -90,13 +90,20 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         item = new AddItem();
         item.setTitleRes(R.string.customer_type);
         if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getType())) {
-//            CharSequence[] array = SearchUtil.searchCustomerTypeArray(getApplicationContext());
-//            CharSequence[] webArray = SearchUtil.searchCustomerTypeWebArray(getApplicationContext());
             item.setContent(mCustomerParams.getType());
         }
         item.setArrayRes(R.array.customer_type);
         item.setWebArrayRes(R.array.customer_type_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+        mList.add(item);
+        item = new AddItem();
+        item.setTitleRes(R.string.customer_property);
+        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getProperty())) {
+            item.setContent(mCustomerParams.getProperty());
+        }
+        item.setArrayRes(R.array.customer_property);
+        item.setWebArrayRes(R.array.customer_property_web);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.website);
@@ -113,48 +120,35 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_LOCATE);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.contact_information);
-        item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
-        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.name);
-//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getManager())) {
-//            item.setContent(mCustomerParams.getManager());
-//        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.level);
-//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.get)) {
-//            item.setContent(mCustomerParams.getMobile());
-//        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.phone);
-//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getQq())) {
-//            item.setContent(mCustomerParams.getQq());
-//        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-        item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
-        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.mobile);
-//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getQq())) {
-//            item.setContent(mCustomerParams.getQq());
-//        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-        item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
-        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.qq);
-//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getQq())) {
-//            item.setContent(mCustomerParams.getQq());
-//        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-        item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
-        mList.add(item);
+        if(!mFromEdit) {
+            item = new AddItem();
+            item.setTitleRes(R.string.contact_information);
+            item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
+            mList.add(item);
+            item = new AddItem();
+            item.setTitleRes(R.string.name);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+            mList.add(item);
+            item = new AddItem();
+            item.setTitleRes(R.string.level);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+            mList.add(item);
+            item = new AddItem();
+            item.setTitleRes(R.string.phone);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+            item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
+            mList.add(item);
+            item = new AddItem();
+            item.setTitleRes(R.string.mobile);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+            item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
+            mList.add(item);
+            item = new AddItem();
+            item.setTitleRes(R.string.qq);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+            item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
+            mList.add(item);
+        }
 //        item = new AddItem();
 //        item.setTitleRes(R.string.email);
 //        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getEmail())) {
@@ -182,10 +176,10 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
 //        }
 //        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_LOCATE);
 //        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.add_contact);
-        item.setItemType(AddSomethingRvAdapter.TYPE_OTHER);
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.add_contact);
+//        item.setItemType(AddSomethingRvAdapter.TYPE_OTHER);
+//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.other_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -231,10 +225,10 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.in_department);
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.in_department);
+//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+//        mList.add(item);
         viewDelegate.setData(mList);
     }
 

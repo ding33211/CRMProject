@@ -22,11 +22,11 @@
     </RelativeLayout>
 
     <FrameLayout
+        android:id="@+id/fl_item_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:id="@+id/rl_item_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_item_white_grey_bg"

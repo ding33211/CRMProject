@@ -6,6 +6,7 @@ import android.view.View;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.delegate.CustomerActivityDelegate;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 
@@ -13,6 +14,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,7 +42,8 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
      * 监听Clue请求回调
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(ArrayList<CustomerParams> list) {
+    public void refreshData(CustomerParams[] params) {
+        List<CustomerParams> list = Arrays.asList(params);
         viewDelegate.setData(list, mIsRefresh);
         if (mIsRefresh) {
             mIsRefresh = false;
@@ -83,9 +87,19 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
 
     @Override
     protected void onRvItemClickListener(View v, int pos) {
-        Intent intent = new Intent(this, CustomerHomeActivity.class);
-        intent.putExtra(Contants.EXTRA_CUSTOMER, viewDelegate.getCustomerParams(pos));
-        startActivity(intent);
+        CustomerParams params = viewDelegate.getCustomerParams(pos);
+        if(mFrom == Contants.FROM_ADD_SOMETHING_ACTIVITY){
+            Intent intent = new Intent();
+            intent.putExtra(Contants.EXTRA_CUSTOMER_ID, params.getId());
+            intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, params.getName());
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            Intent intent = new Intent(this, CustomerHomeActivity.class);
+            intent.putExtra(Contants.EXTRA_CUSTOMER, params);
+            startActivity(intent);
+        }
+
     }
 
     @Override
@@ -162,5 +176,8 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
 
     }
 
-
+    @Override
+    protected int getFrom() {
+        return mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, -1);
+    }
 }

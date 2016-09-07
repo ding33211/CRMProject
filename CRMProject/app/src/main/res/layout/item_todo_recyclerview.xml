@@ -91,7 +91,7 @@
 
 
             <TextView
-                android:id="@+id/tv_content"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="意向回访"
@@ -99,7 +99,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tv_sub_content"
+                android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="关联客户:芳华布艺"

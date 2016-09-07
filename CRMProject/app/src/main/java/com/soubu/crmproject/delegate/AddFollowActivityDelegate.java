@@ -55,7 +55,7 @@ public class AddFollowActivityDelegate extends AppDelegate {
             ShowWidgetUtil.showLong(R.string.title_empty_error);
             return false;
         } else {
-//            followParams.set
+            followParams.setTitle(title);
         }
         String content = ((EditText)get(R.id.et_content)).getText().toString();
         if(TextUtils.isEmpty(content)){

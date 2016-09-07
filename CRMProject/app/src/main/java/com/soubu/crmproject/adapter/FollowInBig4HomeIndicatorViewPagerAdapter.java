@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.widget.indicatorviewpager.IndicatorViewPager;
@@ -25,8 +26,8 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
 
 
     public FollowInBig4HomeIndicatorViewPagerAdapter() {
-        mAdapter1 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_RECORD);
-        mAdapter0 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_PLAN);
+        mAdapter1 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_RECORD, Contants.IN_4_HOME);
+        mAdapter0 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_PLAN, Contants.IN_4_HOME);
 
     }
 
@@ -40,7 +41,7 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
         if (convertView == null) {
             convertView = LayoutInflater.from(container.getContext()).inflate(R.layout.text_home_indicator, container, false);
         }
-        TextView textView = (TextView) convertView;
+        TextView textView = (TextView) convertView.findViewById(R.id.tv_tab);
         if (position == 0) {
             textView.setText(R.string.follow_plan);
         } else {

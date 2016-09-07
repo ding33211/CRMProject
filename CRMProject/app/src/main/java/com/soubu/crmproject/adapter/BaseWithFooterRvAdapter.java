@@ -14,6 +14,7 @@ import java.util.List;
 public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
     public static final int TYPE_ITEM = 0x00;//内容
     public static final int TYPE_FOOTER = 0x01;//加载更多
+    public static final int TYPE_LAST_ONE = 0x02;//最后一个
 
     //默认一页显式10项数据
      final int PAGE_SIZE = 10;
@@ -39,12 +40,12 @@ public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        // 最后一个item设置为footerView
-        if (!mShowFooter) {
-            return TYPE_ITEM;
-        }
         if (position + 1 == getItemCount()) {
-            return TYPE_FOOTER;
+            if(mShowFooter){
+                return TYPE_FOOTER;
+            } else {
+                return TYPE_LAST_ONE;
+            }
         } else {
             return TYPE_ITEM;
         }

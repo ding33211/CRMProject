@@ -6,6 +6,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
+import com.soubu.crmproject.R;
+
 
 /**
  * 
@@ -73,7 +75,7 @@ public class OnTransitionTextListener implements Indicator.OnTransitionListener 
 	 * @return
 	 */
 	public TextView getTextView(View tabItemView, int position) {
-		return (TextView) tabItemView;
+		return (TextView) tabItemView.findViewById(R.id.tv_tab);
 	}
 
 	@Override

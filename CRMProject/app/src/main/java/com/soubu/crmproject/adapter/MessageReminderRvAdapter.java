@@ -130,8 +130,8 @@ public class MessageReminderRvAdapter extends RecyclerView.Adapter {
             ivRemindState = (ImageView)itemView.findViewById(R.id.iv_remind_state);
             ivAction = (ImageView)itemView.findViewById(R.id.iv_remind_action);
             tvTime = (TextView)itemView.findViewById(R.id.tv_time);
-            tvContent = (TextView)itemView.findViewById(R.id.tv_content);
-            tvSubContent = (TextView)itemView.findViewById(R.id.tv_sub_content);
+            tvContent = (TextView)itemView.findViewById(R.id.tv_title);
+            tvSubContent = (TextView)itemView.findViewById(R.id.tv_content);
         }
     }
 }

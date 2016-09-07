@@ -18,6 +18,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -136,7 +137,8 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(List<BusinessOpportunityParams> list) {
+    public void refreshData(BusinessOpportunityParams[] params) {
+        List<BusinessOpportunityParams> list = Arrays.asList(params);
         mBusinessOpportunityParams = list.get(0);
         initBusinessOpportunityParams(mBusinessOpportunityParams);
     }

@@ -21,11 +21,20 @@ public class ContractParams extends ObjectToMapInterface implements Serializable
     String serialNumber;
     String payMethod;
     String status;
+    String reviewStatus;
     String clientSignedPerson;
     String signedPerson;
     Date closedAt;
     Object[] attachments;
     String note;
+
+    public String getReviewStatus() {
+        return reviewStatus;
+    }
+
+    public void setReviewStatus(String reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
 
     public Object[] getAttachments() {
         return attachments;

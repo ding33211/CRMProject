@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.utils.SearchUtil;
 
 /**
@@ -28,7 +29,7 @@ public class ClueRvAdapter extends BaseBig4RvAdapter<ClueParams> {
 
     @Override
     int getTypeOf4() {
-        return TYPE_CLUE;
+        return Contants.TYPE_CLUE;
     }
 
     @Override

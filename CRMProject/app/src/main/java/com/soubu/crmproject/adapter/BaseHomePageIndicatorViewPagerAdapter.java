@@ -29,7 +29,7 @@ public class BaseHomePageIndicatorViewPagerAdapter extends IndicatorViewPager.In
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.text_home_indicator, container, false);
         }
-        TextView textView = (TextView) convertView;
+        TextView textView = (TextView) convertView.findViewById(R.id.tv_tab);
         if (position == 0) {
             textView.setText(R.string.last_month);
         } else {
