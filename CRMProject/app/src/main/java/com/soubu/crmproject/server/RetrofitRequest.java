@@ -3,8 +3,10 @@ package com.soubu.crmproject.server;
 import android.util.Log;
 
 import com.soubu.crmproject.common.ApiConfig;
+import com.soubu.crmproject.model.BackSalesParams;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
@@ -269,6 +271,43 @@ public class RetrofitRequest {
                 .createApi()
                 .getContractFollow(id, status, sort, order, page, count);
         enqueueClue(call, true);
+    }
+
+
+    /**
+     * 新增已回款记录
+     * @param params 回款对象
+     * @param id 合同id
+     */
+    public void addBackSales(BackSalesParams params, String id) {
+        Call<GetPageResp<BackSalesParams[]>> call = RetrofitService.getInstance()
+                .createApi()
+                .addBackSales(params, ConvertUtil.hmacsha256(params.getMap(), ApiConfig.getToken()), id);
+        enqueueClue(call, false);
+    }
+
+
+    /**
+     * 获取客户下联系人列表
+     *
+     * @param page
+     */
+    public void getContactList(Integer page, String customerId) {
+        Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
+                .createApi()
+                .getContact(customerId, page, null, null, null, null);
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 新增联系人
+     * @param params 联系人对象
+     */
+    public void addContact(ContactParams params) {
+        Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
+                .createApi()
+                .addContact(params, ConvertUtil.hmacsha256(params.getMap(), ApiConfig.getToken()));
+        enqueueClue(call, false);
     }
 
 

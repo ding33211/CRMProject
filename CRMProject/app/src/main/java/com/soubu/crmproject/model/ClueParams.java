@@ -13,21 +13,7 @@ import java.util.Map;
 /**
  * Created by dingsigang on 16-8-17.
  */
-public class ClueParams extends ObjectToMapInterface implements Serializable, Cloneable{
-//
-//    public static final String SOURCE_ADVERTISEMENT = "ADVERTISEMENT";
-//    public static final String SOURCE_SOCIAL_MEDIA = "SOCIAL_MEDIA";
-//    public static final String SOURCE_WORKSHOP = "WORKSHOP";
-//    public static final String SOURCE_SEARCH_ENGINE = "SEARCH_ENGINE";
-//    public static final String SOURCE_CUSTOMER_REFERRAL = "CUSTOMER_REFERRAL";
-//    public static final String SOURCE_BUSINESS_DEVELOPMENT = "BUSINESS_DEVELOPMENT";
-//    public static final String SOURCE_AGENT = "AGENT";
-//    public static final String SOURCE_OTHER = "OTHER";
-//
-//    public static final String STATUS_UNHANDLED = "UNHANDLED";
-//    public static final String STATUS_CONTACT_VALID = "CONTACT_VALID";
-//    public static final String STATUS_CONTACT_INVALID = "CONTACT_INVALID";
-//    public static final String STATUS_CLOSED = "CLOSED";
+public class ClueParams extends ObjectToMapInterface implements Serializable{
 
     private String companyName;
     private String manager;

@@ -1,7 +1,9 @@
 package com.soubu.crmproject.server;
 
+import com.soubu.crmproject.model.BackSalesParams;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
+import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
@@ -134,12 +136,12 @@ public interface RetrofitApi {
 
     //添加跟进
     @Headers({"Content-type:application/json"})
-    @POST("actions")
+    @POST("records")
     Call<GetPageResp<FollowParams[]>> addFollow(@Body FollowParams params, @Header("sign") String sign);
 
 
     //获取线索相关的跟进
-    @GET("opportunities/{id}/actions")
+    @GET("opportunities/{id}/records")
     Call<GetPageResp<FollowParams[]>> getClueFollow(@Path("id") String id,
                                                         @Query("status") String status,//线索状态
                                                         @Query("sort") String sort,//排序项
@@ -148,7 +150,7 @@ public interface RetrofitApi {
                                                         @Query("count") Integer count);//每页条数,默认10
 
     //获取线索相关的跟进
-    @GET("customers/{id}/actions")
+    @GET("customers/{id}/records")
     Call<GetPageResp<FollowParams[]>> getCustomerFollow(@Path("id") String id,
                                                     @Query("status") String status,//线索状态
                                                     @Query("sort") String sort,//排序项
@@ -157,7 +159,7 @@ public interface RetrofitApi {
                                                     @Query("count") Integer count);//每页条数,默认10
 
     //获取线索相关的跟进
-    @GET("deals/{id}/actions")
+    @GET("deals/{id}/records")
     Call<GetPageResp<FollowParams[]>> getBusinessOpportunityFollow(@Path("id") String id,
                                                     @Query("status") String status,//线索状态
                                                     @Query("sort") String sort,//排序项
@@ -166,7 +168,7 @@ public interface RetrofitApi {
                                                     @Query("count") Integer count);//每页条数,默认10
 
     //获取线索相关的跟进
-    @GET("contracts/{id}/actions")
+    @GET("contracts/{id}/records")
     Call<GetPageResp<FollowParams[]>> getContractFollow(@Path("id") String id,
                                                     @Query("status") String status,//线索状态
                                                     @Query("sort") String sort,//排序项
@@ -174,5 +176,23 @@ public interface RetrofitApi {
                                                     @Query("page") Integer page,//页数
                                                     @Query("count") Integer count);//每页条数,默认10
 
+    //添加已回款
+    @Headers({"Content-type:application/json"})
+    @POST("contracts/{id}/ccs")
+    Call<GetPageResp<BackSalesParams[]>> addBackSales(@Body BackSalesParams params, @Header("sign") String sign, @Path("id") String id);
 
+
+    //获取客户下联系人
+    @GET("contacts")
+    Call<GetPageResp<ContactParams[]>> getContact(@Query("customer") String customerId,//客户id
+                                            @Query("page") Integer page,//页数
+                                            @Query("sort") String sort,//排序项
+                                            @Query("order") String order,//顺序
+                                            @Query("related") String related,//数据相关
+                                            @Query("count") Integer count);//每页条数,默认10
+
+    //添加联系人
+    @Headers({"Content-type:application/json"})
+    @POST("contacts")
+    Call<GetPageResp<ContactParams[]>> addContact(@Body ContactParams params, @Header("sign") String sign);
 }

@@ -15,10 +15,7 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-9-7.
  */
-public class BackSalesPlanRvAdapter extends RecyclerView.Adapter {
-
-    List<BackSalesParams> mList;
-
+public class BackSalesPlanRvAdapter extends BaseWithFooterRvAdapter<BackSalesParams> {
 
 
     @Override
@@ -31,11 +28,6 @@ public class BackSalesPlanRvAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-    }
-
-    @Override
-    public int getItemCount() {
-        return 2;
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {

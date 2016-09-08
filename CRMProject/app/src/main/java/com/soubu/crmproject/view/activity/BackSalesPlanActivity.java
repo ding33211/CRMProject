@@ -20,12 +20,12 @@ public class BackSalesPlanActivity extends ActivityPresenter<BackSalesPlanActivi
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setRightMenuOne(R.drawable.btn_add, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BackSalesPlanActivity.this, AddBackSalesPlanActivity.class);
-                startActivity(intent);
-            }
-        });
+//        viewDelegate.setRightMenuOne(R.drawable.btn_add, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(BackSalesPlanActivity.this, AddBackSalesActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 }

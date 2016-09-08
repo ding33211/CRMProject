@@ -77,7 +77,7 @@ public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
                 mList.clear();
             }
         }
-        if(list.size() < PAGE_SIZE){
+        if(list.size() <= PAGE_SIZE){
             setShowFooter(false);
         } else {
             setShowFooter(true);

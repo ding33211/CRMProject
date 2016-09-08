@@ -63,17 +63,25 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
                 return false;
             }
         });
-        viewDelegate.setOnClickListener(this, R.id.rl_content);
+        viewDelegate.setOnClickListener(this, R.id.rl_content, R.id.iv_horizontal_more);
 
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.rl_content) {
-            Intent intent = new Intent(this, CustomerSpecActivity.class);
-            intent.putExtra(Contants.EXTRA_CUSTOMER, mCustomerParams);
-            startActivity(intent);
+        switch (id){
+            case R.id.rl_content:
+                Intent intent = new Intent(this, CustomerSpecActivity.class);
+                intent.putExtra(Contants.EXTRA_CUSTOMER, mCustomerParams);
+                startActivity(intent);
+                break;
+            case R.id.iv_horizontal_more:
+                Intent intent1 = new Intent(this, ContactActivity.class);
+                intent1.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerParams.getId());
+                intent1.putExtra(Contants.EXTRA_CUSTOMER_NAME, mCustomerParams.getName());
+                startActivity(intent1);
+                break;
         }
     }
 

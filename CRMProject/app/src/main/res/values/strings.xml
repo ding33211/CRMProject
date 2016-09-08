@@ -71,7 +71,7 @@
 
     <string name="last_follow_time_with_colon">最新跟进时间 : </string>
     <string name="related_customers_with_colon">关联客户: </string>
-    <string name="contact_with_colon">联系人 : </string>
+    <string name="contact">联系人</string>
     <string name="follow_state_with_colon">跟进状态 : </string>
     <string name="follow_result_with_colon">跟进结果 : </string>
     <string name="follow_function_with_colon">跟进方式 : </string>
@@ -122,7 +122,7 @@
 
     <string name="clue_spec">线索详情</string>
     <string name="edit">编辑</string>
-    <string name="please_complete_required">请将必填和必选以及地址填写完整</string>
+    <string name="please_complete_required">请将%s填写完整</string>
 
     <string name="add_customer">新建客户</string>
     <string name="edit_customer">编辑客户</string>
@@ -198,8 +198,14 @@
     <string name="sales_back_plan">回款计划</string>
     <string name="add_sales_back_plan">新增回款计划</string>
     <string name="already_sales_back">已回款</string>
+    <string name="add_already_sales_back">新建已回款</string>
     <string name="plan_date_of_sales_back">计划回款日期</string>
     <string name="plan_price_of_sales_back">计划回款金额</string>
-    <string name="sales_back_state">回款阶段</string>
+    <string name="method_of_sales_back">回款方式</string>
+    <string name="payee">收款人</string>
+    <string name="date_of_sales_back">回款日期</string>
+    <string name="price_of_sales_back">回款金额</string>
+    <string name="percent_of_sales_back">回款百分比</string>
+    <string name="price_of_bill">开票金额</string>
 
 </resources>

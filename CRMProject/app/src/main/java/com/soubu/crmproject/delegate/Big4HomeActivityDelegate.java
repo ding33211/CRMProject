@@ -45,6 +45,8 @@ public class Big4HomeActivityDelegate extends AppDelegate {
             case Contants.FROM_CUSTOMER:
                 get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
                 get(R.id.ll_state_content).setVisibility(View.GONE);
+                get(R.id.rl_contact_method).setVisibility(View.GONE);
+                get(R.id.rl_contact).setVisibility(View.VISIBLE);
                 ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.customer_property);
                 break;
             case Contants.FROM_CONTRACT:

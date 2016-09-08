@@ -40,6 +40,10 @@ public class Contants {
     public static final String FOLLOW_TYPE_DEAL = "DEAL";
     public static final String FOLLOW_TYPE_CONTRACT = "CONTRACT";
 
+    public static final String BACK_SALES_TYPE_PLAN = "PLAN";
+    public static final String BACK_SALES_TYPE_DETAIL = "DETAIL";
+
+
     public static final String SHARED_PREFERENCE_DEFAULT = "DEFAULT";
 
 
@@ -47,6 +51,10 @@ public class Contants {
     public static final String EXTRA_CUSTOMER = "CUSTOMER";
     public static final String EXTRA_BUSINESS_OPPORTUNITY = "BUSINESS_OPPORTUNITY";
     public static final String EXTRA_CONTRACT = "CONTRACT";
+    public static final String EXTRA_CONTRACT_ID = "CONTRACT_ID";
+    public static final String EXTRA_CONTACT = "CONTACT";
+
+
 
     public static final String EXTRA_FROM = "FROM";
     public static final String EXTRA_TYPE = "TYPE";

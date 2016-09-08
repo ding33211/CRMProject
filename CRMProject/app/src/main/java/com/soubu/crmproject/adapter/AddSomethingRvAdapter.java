@@ -115,7 +115,9 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 ivAction.setVisibility(View.GONE);
                 break;
             case TYPE_ITEM_UNABLE:
-                //TODO
+                tvAction.setTextColor(mActivity.getResources().getColor(R.color.title_black));
+                ivAction.setVisibility(View.GONE);
+                v.setClickable(false);
                 break;
         }
         return new ItemViewHolder(v);
@@ -226,7 +228,6 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-            Log.e("22222222222", "getAdapterPosition    :   " + getAdapterPosition() + "  getLayoutPosition   " + getLayoutPosition());
             int viewType = getItemViewType();
             View ivAction = v.findViewById(R.id.iv_action);
             switch (viewType) {
@@ -238,7 +239,6 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                     WindowUtil.showSoftInput(v.getContext(), etContent);
                     etContent.setTag(getAdapterPosition());
                     etContent.setSelection(etContent.getText().length());
-                    Log.e("xxxxxxxxxx", "inputtype    :   " + etContent.getInputType());
                     v.setTag(viewType);
                     etContent.setTag(v);
                     break;
@@ -321,6 +321,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         }
         for (int pos : mRequiredPosList) {
             if (TextUtils.isEmpty(mList.get(pos).getContent())) {
+                ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.please_complete_required, mActivity.getResources().getString(mList.get(pos).getTitleRes())));
                 return false;
             }
         }

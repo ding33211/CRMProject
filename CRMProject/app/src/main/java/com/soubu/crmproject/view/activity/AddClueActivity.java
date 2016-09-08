@@ -51,8 +51,6 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
                         RetrofitRequest.getInstance().addClue(getNewClueParams());
                     }
                     finish();
-                } else {
-                    ShowWidgetUtil.showLong(R.string.please_complete_required);
                 }
             }
         });

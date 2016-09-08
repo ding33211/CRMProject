@@ -68,7 +68,10 @@ public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDele
                 startActivity(intent1);
                 break;
             case R.id.ll_right:
-
+                Intent intent2 = new Intent(this, AlreadyBackSalesActivity.class);
+                intent2.putExtra(Contants.EXTRA_CONTRACT_ID, mContractParams.getId());
+                startActivity(intent2);
+                break;
         }
 
     }
@@ -85,7 +88,7 @@ public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDele
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mContractParams.getTitle());
         ((TextView) viewDelegate.get(R.id.tv_subtitle)).setText(mContractParams.getCustomer());
         ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(stateArray[SearchUtil.searchInArray(stateArrayWeb, mContractParams.getStatus())]);
-        ((TextView) viewDelegate.get(R.id.tv_contract_price)).setText(stateArray[SearchUtil.searchInArray(stateArrayWeb, mContractParams.getAmountPrice())]);
+        ((TextView) viewDelegate.get(R.id.tv_contract_price)).setText(mContractParams.getAmountPrice());
         if (TextUtils.equals(mContractParams.getReviewStatus(), reviewStateWebArray[0])) {
             ((ImageView) viewDelegate.get(R.id.iv_contract_review_state)).setImageResource(R.drawable.contract_home_wait_approval);
         } else if (TextUtils.equals(mContractParams.getReviewStatus(), reviewStateWebArray[1])) {

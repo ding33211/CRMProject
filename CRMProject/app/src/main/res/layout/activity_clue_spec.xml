@@ -306,6 +306,7 @@
         <!--android:textSize="14sp" />-->
 
         <RelativeLayout
+            android:id="@+id/rl_contact_method"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -370,8 +371,11 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_contact"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/iv_horizontal_more"
@@ -400,8 +404,8 @@
                     android:id="@+id/iv_contact_phone"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="4dp"
                     android:layout_toLeftOf="@+id/iv_contact_message"
                     android:src="@drawable/clue_spec_phone" />
 
@@ -413,12 +417,33 @@
                     android:background="@color/five_translucent_white" />
 
                 <TextView
+                    android:id="@+id/tv_related_contract_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/contact_with_colon"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/contact"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_contact_colon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/colon"
+                    android:layout_toRightOf="@+id/tv_related_contract_label"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_related_contract"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="吴超"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@+id/tv_contact_colon"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"/>
             </RelativeLayout>
         </RelativeLayout>
 
