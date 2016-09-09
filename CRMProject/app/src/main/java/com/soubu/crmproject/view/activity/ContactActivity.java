@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
+import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.BaseRecyclerViewActivityDelegate;
 import com.soubu.crmproject.delegate.ContactActivityDelegate;
@@ -53,6 +55,14 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
             @Override
             public void loadMore() {
                 getList(false);
+            }
+        });
+        viewDelegate.setOnRecyclerViewItemClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                Intent intent = new Intent(ContactActivity.this, ContactSpecActivity.class);
+                intent.putExtra(Contants.EXTRA_CONTACT, viewDelegate.getContactParams(pos));
+                startActivity(intent);
             }
         });
     }

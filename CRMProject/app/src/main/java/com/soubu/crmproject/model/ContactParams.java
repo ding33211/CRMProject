@@ -2,12 +2,13 @@ package com.soubu.crmproject.model;
 
 import com.soubu.crmproject.server.ObjectToMapInterface;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by dingsigang on 16-9-8.
  */
-public class ContactParams extends ObjectToMapInterface{
+public class ContactParams extends ObjectToMapInterface implements Serializable, Cloneable{
 
     String name;
     String customer;

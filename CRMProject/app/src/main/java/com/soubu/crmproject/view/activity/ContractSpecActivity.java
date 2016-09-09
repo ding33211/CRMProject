@@ -102,7 +102,7 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
     }
 
     public void initItem(String content, int labelRes, boolean isTop) {
-        if (!TextUtils.isEmpty(content)) {
+        if (!TextUtils.isEmpty(content) && !TextUtils.equals(content, "0")) {
             if (!isTop) {
                 mList.get(mList.size() - 1).setItemType(AddSomethingRvAdapter.TYPE_ITEM_UNABLE);
             } else {

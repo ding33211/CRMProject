@@ -40,7 +40,7 @@ public class AlreadyBackSalesRvAdapter extends BaseWithFooterRvAdapter<BackSales
 
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView date;
         TextView price;
@@ -48,10 +48,17 @@ public class AlreadyBackSalesRvAdapter extends BaseWithFooterRvAdapter<BackSales
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             date = (TextView) itemView.findViewById(R.id.tv_sales_back_date);
             price = (TextView) itemView.findViewById(R.id.tv_sales_back_price);
             method = (TextView) itemView.findViewById(R.id.tv_sales_back_method);
         }
 
+        @Override
+        public void onClick(View v) {
+            if (mListener != null) {
+                mListener.onItemClick(v, getLayoutPosition());
+            }
+        }
     }
 }

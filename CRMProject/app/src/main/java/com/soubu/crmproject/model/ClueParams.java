@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Created by dingsigang on 16-8-17.
  */
-public class ClueParams extends ObjectToMapInterface implements Serializable{
+public class ClueParams extends ObjectToMapInterface implements Serializable, Cloneable{
 
     private String companyName;
     private String manager;

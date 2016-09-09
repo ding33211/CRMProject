@@ -55,7 +55,6 @@ public class Contants {
     public static final String EXTRA_CONTACT = "CONTACT";
 
 
-
     public static final String EXTRA_FROM = "FROM";
     public static final String EXTRA_TYPE = "TYPE";
     public static final String EXTRA_ENTITY = "ENTITY";
@@ -65,5 +64,6 @@ public class Contants {
     public static final String EXTRA_CUSTOMER_NAME = "CUSTOMER_NAME";
 
 
+    public static final String SP_KEY_TOKEN = "TOKEN";
 
 }

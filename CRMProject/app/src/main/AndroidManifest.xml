@@ -18,7 +18,7 @@
     <application
         android:name="com.soubu.crmproject.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/crm_launcher"
+        android:icon="@drawable/crm_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -65,7 +65,10 @@
         <activity android:name=".view.activity.AlreadyBackSalesActivity"></activity>
         <activity android:name=".view.activity.ContactActivity"></activity>
         <activity android:name=".view.activity.AddContactActivity"></activity>
+        <activity android:name=".view.activity.ContactSpecActivity"></activity>
+        <activity android:name=".view.activity.LoginActivity"></activity>
+        <activity android:name=".view.activity.RegisterActivity"></activity>
 
-    </application>
+    </application>z
 
 </manifest>

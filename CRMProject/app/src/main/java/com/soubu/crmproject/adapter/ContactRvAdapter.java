@@ -1,6 +1,7 @@
 package com.soubu.crmproject.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,22 +38,52 @@ public class ContactRvAdapter extends BaseWithFooterRvAdapter<ContactParams> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+         if(holder instanceof ItemViewHolder){
+             ItemViewHolder holder1 = (ItemViewHolder)holder;
+             holder1.tvName.setText(mList.get(position).getName());
+             String post = mList.get(position).getPosition();
+             if(TextUtils.isEmpty(post)){
+                 holder1.tvPosition.setVisibility(View.GONE);
+             } else {
+                 holder1.tvPosition.setVisibility(View.VISIBLE);
+                 holder1.tvPosition.setText(post);
+             }
+             String phone = mList.get(position).getPhone();
+             String mobile = mList.get(position).getMobile();
+             if(TextUtils.isEmpty(phone) && TextUtils.isEmpty(mobile)){
+                 holder1.vPhone.setVisibility(View.GONE);
+                 holder1.vMessage.setVisibility(View.GONE);
+             } else if(TextUtils.isEmpty(mobile)){
+                 holder1.vMessage.setVisibility(View.GONE);
+             } else {
+                 holder1.vPhone.setVisibility(View.VISIBLE);
+                 holder1.vMessage.setVisibility(View.VISIBLE);
+             }
+         }
     }
 
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView date;
-        TextView price;
-        TextView state;
+        TextView tvName;
+        TextView tvPosition;
+        View vPhone;
+        View vMessage;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            date = (TextView) itemView.findViewById(R.id.tv_sales_back_date);
-            price = (TextView) itemView.findViewById(R.id.tv_sales_back_price);
-            state = (TextView) itemView.findViewById(R.id.tv_sales_back_state);
+            itemView.setOnClickListener(this);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            tvPosition = (TextView) itemView.findViewById(R.id.tv_position);
+            vPhone = itemView.findViewById(R.id.iv_mobile_contact);
+            vMessage = itemView.findViewById(R.id.iv_message_contact);
         }
 
+        @Override
+        public void onClick(View v) {
+            if (mListener != null) {
+                mListener.onItemClick(v, getLayoutPosition());
+            }
+        }
     }
 }

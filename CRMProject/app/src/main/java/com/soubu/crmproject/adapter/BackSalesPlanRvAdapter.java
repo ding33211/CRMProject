@@ -1,5 +1,6 @@
 package com.soubu.crmproject.adapter;
 
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class BackSalesPlanRvAdapter extends BaseWithFooterRvAdapter<BackSalesPar
 
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder{
 
         TextView date;
         TextView price;
@@ -42,6 +43,8 @@ public class BackSalesPlanRvAdapter extends BaseWithFooterRvAdapter<BackSalesPar
             price = (TextView) itemView.findViewById(R.id.tv_sales_back_price);
             state = (TextView) itemView.findViewById(R.id.tv_sales_back_state);
         }
+
+
 
     }
 }

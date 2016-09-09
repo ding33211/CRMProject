@@ -154,7 +154,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         String text = mList.get(position).getContent();
         holder1.tvAction.setText("");
         holder1.tvAction.setVisibility(View.INVISIBLE);
-        if (TextUtils.isEmpty(text)) {
+        if (TextUtils.isEmpty(text) || TextUtils.equals(text, "0")) {
             if (viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_REQUIRED_CHOOSE) {
                 holder1.tvAction.setText(viewType == TYPE_ITEM_REQUIRED_FILL ? R.string.required_fill : R.string.required_choose);
                 holder1.tvAction.setVisibility(View.VISIBLE);

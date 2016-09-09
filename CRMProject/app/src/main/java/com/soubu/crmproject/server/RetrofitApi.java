@@ -8,6 +8,7 @@ import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.GetPageResp;
+import com.soubu.crmproject.model.UserParams;
 
 import java.util.List;
 import java.util.Map;
@@ -195,4 +196,21 @@ public interface RetrofitApi {
     @Headers({"Content-type:application/json"})
     @POST("contacts")
     Call<GetPageResp<ContactParams[]>> addContact(@Body ContactParams params, @Header("sign") String sign);
+
+    //修改线索
+    @FormUrlEncoded
+    @PUT("contacts/{id}")
+    Call<GetPageResp<ContactParams[]>> updateContact(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
+
+
+
+    //注册
+    @Headers({"Content-type:application/json"})
+    @POST("users/signup")
+    Call<GetPageResp<UserParams[]>> register(@Body UserParams params);
+
+    //登录
+    @Headers({"Content-type:application/json"})
+    @POST("users/signin")
+    Call<GetPageResp<UserParams[]>> login(@Body UserParams params);
 }

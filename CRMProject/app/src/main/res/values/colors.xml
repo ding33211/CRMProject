@@ -29,9 +29,10 @@
     <!-- 渐变橙色-->
     <color name="gradient_orange">#ff8a00</color>
 
-    <color name="press_orange">#fe8a36</color>
+    <color name="press_orange">#cc5100</color>
 
     <color name="five_translucent_white">#88ffffff</color>
     <color name="three_translucent_white">#4dffffff</color>
+    <color name="two_translucent_black">#33000000</color>
 
 </resources>

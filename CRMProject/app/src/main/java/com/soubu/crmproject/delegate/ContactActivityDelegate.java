@@ -1,6 +1,8 @@
 package com.soubu.crmproject.delegate;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
+import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.adapter.ContactRvAdapter;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.ContactParams;
@@ -45,5 +47,13 @@ public class ContactActivityDelegate extends BaseRecyclerViewActivityDelegate {
 
     public void registerSwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack callBack) {
         registerSwipeRefreshCallBack(callBack, mAdapter);
+    }
+
+    public void setOnRecyclerViewItemClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+        mAdapter.setOnItemClickListener(listener);
+    }
+
+    public ContactParams getContactParams(int pos){
+        return mAdapter.getParams(pos);
     }
 }

@@ -3,11 +3,14 @@ package com.soubu.crmproject.view.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.igexin.sdk.PushManager;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
+import com.soubu.crmproject.common.ApiConfig;
 import com.soubu.crmproject.delegate.SplashActivityDelegate;
+import com.soubu.crmproject.utils.AppUtil;
 import com.soubu.crmproject.utils.PermissionUtil;
 
 import permissions.dispatcher.NeedsPermission;
@@ -34,6 +37,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
         super.onCreate(savedInstanceState);
         //初始化个推
         PushManager.getInstance().initialize(this.getApplicationContext());
+        ApiConfig.initContext(getApplicationContext());
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -50,9 +54,16 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     //需要验证权限的方法
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     void load() {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+        if(TextUtils.isEmpty(ApiConfig.getToken())){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     //之前拒绝过这个请求,当再次请求这个权限的时候调起的方法

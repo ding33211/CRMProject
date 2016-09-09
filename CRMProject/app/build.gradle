@@ -7,6 +7,9 @@ apt {
     }
 }
 
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
 
 android {
     compileSdkVersion 23
@@ -22,23 +25,76 @@ android {
 
         //参数说明
         manifestPlaceholders = [
-                GETUI_APP_ID : "DHxwBykwf76HduE2K2II42",
-                GETUI_APP_KEY : "17LJk3i9DO8xLvbHfnr1i3",
-                GETUI_APP_SECRET : "rFPr975q9J6A1KJlNHhaj3",
-                PACKAGE_NAME : applicationId
+                GETUI_APP_ID    : "DHxwBykwf76HduE2K2II42",
+                GETUI_APP_KEY   : "17LJk3i9DO8xLvbHfnr1i3",
+                GETUI_APP_SECRET: "rFPr975q9J6A1KJlNHhaj3",
+                PACKAGE_NAME    : applicationId
         ]
+        multiDexEnabled true
 
     }
-    buildTypes {
+
+    signingConfigs {
+        debug {
+            // No debug config
+        }
+
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 暂时没有签名
         }
     }
 
-    sourceSets{
-        main{
+    buildTypes {
+//        release {
+//            buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+////            applicationVariants.all { variant ->
+////                variant.outputs.each { output ->
+////                    def outputFile = output.outputFile
+////                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+////                        // 输出apk名称为crm_v1.0_2015-01-15.apk
+////                        def fileName = "crm_v${defaultConfig.versionName}_${releaseTime()}.apk"
+////                        output.outputFile = new File(outputFile.parent, fileName)
+////                    }
+////                }
+////            }
+////            signingConfig signingConfigs.release
+//
+//        }
+
+        debug {
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            // 移除无用的resource文件
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    sourceSets {
+        main {
             java.srcDirs = ['src/main/java', 'src/main/java-gen']
+        }
+    }
+
+
+    productFlavors {
+        //debug测试环境
+        develop {
+            buildConfigField "boolean", "IS_PRODUCT_ENV", "false"
+            manifestPlaceholders = [GETUI_APP_ID    : "DHxwBykwf76HduE2K2II42",
+                                    GETUI_APP_KEY   : "17LJk3i9DO8xLvbHfnr1i3",
+                                    GETUI_APP_SECRET: "rFPr975q9J6A1KJlNHhaj3"]
+        }
+
+        //正式环境测试包
+        releaseTest {
+            buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
+            manifestPlaceholders = [GETUI_APP_ID    : "DHxwBykwf76HduE2K2II42",
+                                    GETUI_APP_KEY   : "17LJk3i9DO8xLvbHfnr1i3",
+                                    GETUI_APP_SECRET: "rFPr975q9J6A1KJlNHhaj3"]
         }
     }
 }

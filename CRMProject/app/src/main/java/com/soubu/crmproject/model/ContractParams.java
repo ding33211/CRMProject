@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Created by dingsigang on 16-8-29.
  */
-public class ContractParams extends ObjectToMapInterface implements Serializable {
+public class ContractParams extends ObjectToMapInterface implements Serializable, Cloneable{
 
     String title;
     String manager;

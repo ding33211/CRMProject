@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by dingsigang on 16-9-7.
  */
-public class BackSalesParams extends ObjectToMapInterface {
+public class BackSalesParams extends ObjectToMapInterface implements Cloneable{
 
     String user;
     String title;

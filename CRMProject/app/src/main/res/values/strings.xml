@@ -207,5 +207,21 @@
     <string name="price_of_sales_back">回款金额</string>
     <string name="percent_of_sales_back">回款百分比</string>
     <string name="price_of_bill">开票金额</string>
+    <string name="contact_spec">联系人详情</string>
+
+    <string name="please_input_user_name_or_email">请输入用户名或邮箱</string>
+    <string name="please_input_password">请输入密码</string>
+    <string name="login">登  录</string>
+    <string name="register">注  册</string>
+    <string name="forget_password"><u>忘记密码?</u></string>
+    <string name="no_user_to_register">没有账号?立即注册</string>
+    <string name="please_input_common_email">请输入常用邮箱地址</string>
+    <string name="please_input_user_name">请输入用户名</string>
+    <string name="password_requirement">6~12位数字或字母或特殊符号</string>
+    <string name="password_again">密码确认</string>
+    <string name="please_input_email">请输入邮箱</string>
+    <string name="wrong_email">邮箱格式不正确</string>
+    <string name="two_password_not_same">两次密码不匹配</string>
+    <string name="register_success_message">注册成功,请去邮箱激活</string>
 
 </resources>

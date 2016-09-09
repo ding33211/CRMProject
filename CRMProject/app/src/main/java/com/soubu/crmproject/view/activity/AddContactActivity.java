@@ -46,7 +46,7 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
                         Map<String, String> map = CompileUtil.compile(mContactParams, getNewContactParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
                         if(map.size() > 0) {
-                            RetrofitRequest.getInstance().updateClue(mContactParams.getId(), map);
+                            RetrofitRequest.getInstance().updateContact(mContactParams.getId(), map);
                         }
                     } else {
                         RetrofitRequest.getInstance().addContact(getNewContactParams());
@@ -67,6 +67,9 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
         if (mContactParams != null) {
             mFromEdit = true;
             viewDelegate.setTitle(R.string.edit_clue);
+            mId = mContactParams.getCustomer();
+            //由于之后要传object,此处先这么写
+            mName = mId;
         } else {
             viewDelegate.setTitle(R.string.add_clue);
         }

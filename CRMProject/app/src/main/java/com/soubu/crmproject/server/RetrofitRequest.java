@@ -12,6 +12,7 @@ import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.GetPageResp;
+import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.utils.ConvertUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,6 +45,31 @@ public class RetrofitRequest {
         }
         return mInstance;
     }
+
+
+    /**
+     * 注册
+     * @param params 用户对象
+     */
+    public void register(UserParams params) {
+        Call<GetPageResp<UserParams[]>> call = RetrofitService.getInstance()
+                .createApi()
+                .register(params);
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 注册
+     * @param params 用户对象
+     */
+    public void login(UserParams params) {
+        Call<GetPageResp<UserParams[]>> call = RetrofitService.getInstance()
+                .createApi()
+                .login(params);
+        enqueueClue(call, true);
+    }
+
+
 
     /**
      * 获取线索列表
@@ -310,7 +336,17 @@ public class RetrofitRequest {
         enqueueClue(call, false);
     }
 
-
+    /**
+     * 更新联系人
+     * @param id  线索id
+     * @param map  更新项
+     */
+    public void updateContact(String id, Map<String, String> map) {
+        Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
+                .createApi()
+                .updateContact(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
+        enqueueClue(call, true);
+    }
 
 
 }
