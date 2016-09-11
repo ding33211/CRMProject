@@ -100,7 +100,7 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
-        viewDelegate.setViewPagerData(1, list);
+        viewDelegate.setViewPagerData(0, list);
     }
 
     @Override

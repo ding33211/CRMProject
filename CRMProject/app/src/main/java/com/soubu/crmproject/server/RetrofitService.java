@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.android.gms.common.api.Api;
 import com.soubu.crmproject.MyApplication;
 import com.soubu.crmproject.common.ApiConfig;
 import com.soubu.crmproject.utils.ConvertUtil;
@@ -38,6 +39,8 @@ public class RetrofitService {
 
     private static OkHttpClient mOkHttpClient;
 
+    private static boolean mNeedAuthentication = true;
+
     private RetrofitService() {
     }
 
@@ -56,7 +59,8 @@ public class RetrofitService {
 
     private volatile static RetrofitApi api = null;
 
-    public static RetrofitApi createApi() {
+    public static RetrofitApi createApi(boolean needAuthentication) {
+        mNeedAuthentication = needAuthentication;
         if (api == null) {
             synchronized (RetrofitService.class) {
                 if (api == null) {
@@ -86,23 +90,27 @@ public class RetrofitService {
                 public Response intercept(Chain chain) throws IOException {
                     Request request = chain.request();
                     if (!PhoneUtil.isConnected(MyApplication.getContext())) {
-                        request = request.newBuilder()
-                                .addHeader("uid",
-                                        "57c50934d178e0776c761e28")
-                                .addHeader("sign", "")
-                                .cacheControl(CacheControl.FORCE_CACHE).build();
+                        if (mNeedAuthentication) {
+                            request = request.newBuilder()
+                                    .addHeader("uid",
+                                            ApiConfig.getUid())
+                                    .addHeader("sign", "")
+                                    .cacheControl(CacheControl.FORCE_CACHE).build();
+                        }
                     }
-                    if(TextUtils.equals(request.method(), "GET")){
-                        request = request.newBuilder()
-                                .addHeader("uid",
-                                        "57c50934d178e0776c761e28")
-                                .addHeader("sign", ConvertUtil.hmacsha256(request.url(), ApiConfig.getToken()))
-                                .build();
-                    } else {
-                        request = request.newBuilder()
-                                .addHeader("uid",
-                                        "57c50934d178e0776c761e28")
-                                .build();
+                    if (mNeedAuthentication) {
+                        if (TextUtils.equals(request.method(), "GET")) {
+                            request = request.newBuilder()
+                                    .addHeader("uid",
+                                            ApiConfig.getUid())
+                                    .addHeader("sign", ConvertUtil.hmacsha256(request.url(), ApiConfig.getToken()))
+                                    .build();
+                        } else {
+                            request = request.newBuilder()
+                                    .addHeader("uid",
+                                            ApiConfig.getUid())
+                                    .build();
+                        }
                     }
                     Response originalResponse = chain.proceed(request);
                     if (PhoneUtil.isConnected(MyApplication.getContext())) {

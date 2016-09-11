@@ -56,7 +56,9 @@ public class Big4HomeActivityDelegate extends AppDelegate {
                 ((TextView)get(R.id.tv_left_label)).setText(R.string.sales_back_plan);
                 ((TextView)get(R.id.tv_right_label)).setText(R.string.already_sales_back);
                 ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.related_customer);
-
+                break;
+            case Contants.FROM_CLUE:
+                get(R.id.ll_subtitle_label).setVisibility(View.GONE);
                 break;
         }
         mIndicatorViewPagerAdapter = new FollowInBig4HomeIndicatorViewPagerAdapter();
@@ -70,7 +72,7 @@ public class Big4HomeActivityDelegate extends AppDelegate {
         mIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(selectSize, unSelectSize));
         IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
         indicatorViewPager.setAdapter(mIndicatorViewPagerAdapter);
-        indicatorViewPager.setCurrentItem(1, false);
+        indicatorViewPager.setCurrentItem(0, false);
         get(R.id.ll_fill_follow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

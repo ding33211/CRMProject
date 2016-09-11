@@ -1,6 +1,7 @@
 package com.soubu.crmproject.view.activity;
 
 import android.view.View;
+import android.widget.ImageView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
@@ -26,6 +27,57 @@ public class RegisterActivity extends ActivityPresenter<RegisterActivityDelegate
     protected void bindEvenListener() {
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this, R.id.btn_register);
+        viewDelegate.get(R.id.et_email).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    viewDelegate.get(R.id.ll_email).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_selected));
+                    ((ImageView)viewDelegate.get(R.id.iv_email)).setImageResource(R.drawable.register_email_selected);
+                } else {
+                    viewDelegate.get(R.id.ll_email).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_normal));
+                    ((ImageView)viewDelegate.get(R.id.iv_email)).setImageResource(R.drawable.register_email_normal);
+                }
+            }
+        });
+
+        viewDelegate.get(R.id.et_user_name).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    viewDelegate.get(R.id.ll_user_name).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_selected));
+                    ((ImageView)viewDelegate.get(R.id.iv_user_name)).setImageResource(R.drawable.login_user_selected);
+                } else {
+                    viewDelegate.get(R.id.ll_password).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_normal));
+                    ((ImageView)viewDelegate.get(R.id.iv_user_name)).setImageResource(R.drawable.login_user_normal);
+                }
+            }
+        });
+
+        viewDelegate.get(R.id.et_password).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    viewDelegate.get(R.id.ll_password).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_selected));
+                    ((ImageView)viewDelegate.get(R.id.iv_password)).setImageResource(R.drawable.login_lock_selected);
+                } else {
+                    viewDelegate.get(R.id.ll_password).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_normal));
+                    ((ImageView)viewDelegate.get(R.id.iv_password)).setImageResource(R.drawable.login_lock_normal);
+                }
+            }
+        });
+
+        viewDelegate.get(R.id.et_password_again).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    viewDelegate.get(R.id.ll_password_again).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_selected));
+                    ((ImageView)viewDelegate.get(R.id.iv_password_again)).setImageResource(R.drawable.login_lock_selected);
+                } else {
+                    viewDelegate.get(R.id.ll_password_again).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_normal));
+                    ((ImageView)viewDelegate.get(R.id.iv_password_again)).setImageResource(R.drawable.login_lock_normal);
+                }
+            }
+        });
     }
 
     @Override

@@ -38,7 +38,7 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
      * 监听Clue请求回调
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(ContractParams[] params){
+    public void refreshData(ContractParams[] params) {
         List<ContractParams> list = Arrays.asList(params);
         viewDelegate.setData(list, mIsRefresh);
         if (mIsRefresh) {
@@ -49,10 +49,11 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
 
     /**
      * 请求clue失败
+     *
      * @param t
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t){
+    public void throwError(Throwable t) {
 
     }
 
@@ -100,19 +101,39 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
             String[] strings3 = getResources().getStringArray(R.array.contract_received_pay_method_web);
             String[] strings4 = getResources().getStringArray(R.array.clue_related_web);
             if (map.containsKey(0)) {
-                mType = strings0[map.get(0)];
+                if (map.get(0) == 0) {
+                    mType = null;
+                } else {
+                    mType = strings0[map.get(0) - 1];
+                }
             }
             if (map.containsKey(1)) {
-                mPayMethod = strings1[map.get(1)];
+                if (map.get(1) == 0) {
+                    mPayMethod = null;
+                } else {
+                    mPayMethod = strings1[map.get(1) - 1];
+                }
             }
             if (map.containsKey(2)) {
-                mStatus = strings2[map.get(2)];
+                if (map.get(2) == 0) {
+                    mStatus = null;
+                } else {
+                    mStatus = strings2[map.get(2) - 1];
+                }
             }
-            if(map.containsKey(3)){
-                mReceivedPayType = strings3[map.get(3)];
+            if (map.containsKey(3)) {
+                if (map.get(3) == 0) {
+                    mReceivedPayType = null;
+                } else {
+                    mReceivedPayType = strings3[map.get(3) - 1];
+                }
             }
-            if(map.containsKey(4)){
-                mRelated = strings4[map.get(4)];
+            if (map.containsKey(4)) {
+                if(map.get(4) == 0){
+                    mRelated = null;
+                } else {
+                    mRelated = strings4[map.get(4) - 1];
+                }
             }
         }
         mIsRefresh = true;

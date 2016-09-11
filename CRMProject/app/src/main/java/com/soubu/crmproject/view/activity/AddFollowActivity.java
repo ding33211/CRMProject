@@ -106,6 +106,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_OPPORTUNITY);
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, clueParams.getStatus())].toString());
                 viewDelegate.giveTextViewString(R.id.tv_related_one, clueParams.getCompanyName());
+                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_clue));
                 break;
 
             case Contants.FROM_CUSTOMER:
@@ -113,6 +114,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mFollowParams.setEntity(customerParams.getId());
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_CUSTOMER);
                 viewDelegate.giveTextViewString(R.id.tv_related_one, customerParams.getName());
+                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_customer));
                 viewDelegate.get(R.id.rl_state).setVisibility(View.GONE);
                 return;
 
@@ -126,6 +128,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_DEAL);
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, businessOpportunityParams.getStatus())].toString());
                 viewDelegate.giveTextViewString(R.id.tv_related_one, businessOpportunityParams.getTitle());
+                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_business_opportunity));
                 break;
             case Contants.FROM_CONTRACT:
                 mStateLabelRes = R.string.contract_status;
@@ -138,6 +141,8 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, contractParams.getStatus())].toString());
 //                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.related_contact));
                 viewDelegate.giveTextViewString(R.id.tv_related_one, contractParams.getTitle());
+                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_contract));
+
 //                viewDelegate.giveTextViewString(R.id.tv_related_two, contractParams.getCustomer());
                 break;
         }

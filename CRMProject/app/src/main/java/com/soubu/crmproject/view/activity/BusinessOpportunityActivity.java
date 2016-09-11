@@ -100,16 +100,32 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
             String[] strings2 = getResources().getStringArray(R.array.business_opportunity_status_web);
             String[] strings3 = getResources().getStringArray(R.array.clue_related_web);
             if (map.containsKey(0)) {
-                mType = strings0[map.get(0)];
+                if(map.get(0) == 0){
+                    mType = null;
+                } else {
+                    mType = strings0[map.get(0) - 1];
+                }
             }
             if (map.containsKey(1)) {
-                mSource = strings1[map.get(1)];
+                if(map.get(1) == 0){
+                    mSource = null;
+                } else {
+                    mSource = strings1[map.get(1) - 1];
+                }
             }
             if (map.containsKey(2)) {
-                mStatus = strings2[map.get(2)];
+                if(map.get(2) == 0){
+                    mStatus = null;
+                } else {
+                    mStatus = strings2[map.get(2) - 1];
+                }
             }
             if(map.containsKey(3)){
-                mRelated = strings3[map.get(3)];
+                if(map.get(3) == 0){
+                    mRelated = null;
+                } else {
+                    mRelated = strings3[map.get(3) - 1];
+                }
             }
         }
         mIsRefresh = true;

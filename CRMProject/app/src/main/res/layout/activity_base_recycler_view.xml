@@ -17,8 +17,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/selector_item_white_grey_bg">
+            android:background="@drawable/selector_item_white_grey_bg"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -29,9 +29,9 @@
 
             <ImageView
                 android:id="@+id/iv_filter1"
-                android:layout_marginLeft="10dp"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/arrow_down" />
         </LinearLayout>
 
@@ -46,8 +46,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/selector_item_white_grey_bg">
+            android:background="@drawable/selector_item_white_grey_bg"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,9 +58,9 @@
 
             <ImageView
                 android:id="@+id/iv_filter2"
-                android:layout_marginLeft="10dp"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/arrow_down" />
         </LinearLayout>
     </LinearLayout>
@@ -76,9 +76,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_content"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/empty_data" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/empty_data"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/subtitle_grey"/>
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

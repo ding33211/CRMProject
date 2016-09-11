@@ -101,8 +101,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:gravity="center_vertical"
+                    android:background="@null"
+                    android:textColorHint="@color/line_color"
                     android:hint="@string/please_input_title"
                     android:singleLine="true" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_color" />
 
                 <EditText
                     android:id="@+id/et_content"
@@ -111,6 +117,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@null"
                     android:gravity="top"
+                    android:textColorHint="@color/line_color"
                     android:hint="@string/please_input_content"
                     android:minHeight="50dp" />
 
@@ -133,7 +140,6 @@
                         android:id="@+id/tv_related_one_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/follow_object"
                         android:textColor="@color/title_black"
                         android:textSize="16sp" />
 

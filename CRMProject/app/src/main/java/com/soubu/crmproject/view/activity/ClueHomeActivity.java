@@ -72,6 +72,7 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
         mClueParams = (ClueParams) getIntent().getSerializableExtra(Contants.EXTRA_CLUE);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mClueParams.getCompanyName());
         ((TextView) viewDelegate.get(R.id.tv_subtitle)).setText(mClueParams.getContactName());
+        ((TextView) viewDelegate.get(R.id.tv_follow_state_label)).setText(R.string.clue_status);
         ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mClueParams.getStatus())]);
     }
 
@@ -92,7 +93,7 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
-        viewDelegate.setViewPagerData(1, list);
+        viewDelegate.setViewPagerData(0, list);
     }
 
     @Override

@@ -119,22 +119,46 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
             String[] strings5 = getResources().getStringArray(R.array.clue_related_web);
 
             if (map.containsKey(0)) {
-                mType = strings0[map.get(0)];
+                if(map.get(0) == 0){
+                    mType = null;
+                } else {
+                    mType = strings0[map.get(0) - 1];
+                }
             }
             if (map.containsKey(1)) {
-                mSource = strings1[map.get(1)];
+                if(map.get(1) == 0){
+                    mSource = null;
+                } else {
+                    mSource = strings1[map.get(1) - 1];
+                }
             }
             if (map.containsKey(2)) {
-                mSize = strings2[map.get(2)];
+                if(map.get(2) == 0){
+                    mSize = null;
+                } else {
+                    mSize = strings2[map.get(2) - 1];
+                }
             }
             if (map.containsKey(3)) {
-                mIndustry = strings3[map.get(3)];
+                if(map.get(3) == 0){
+                    mIndustry = null;
+                } else {
+                    mIndustry = strings3[map.get(3) - 1];
+                }
             }
             if (map.containsKey(4)) {
-                mStatus = strings4[map.get(4)];
+                if(map.get(4) == 0){
+                    mStatus = null;
+                } else {
+                    mStatus = strings4[map.get(4) - 1];
+                }
             }
             if(map.containsKey(5)){
-                mRelated = strings5[map.get(5)];
+                if(map.get(5) == 0){
+                    mRelated = null;
+                } else {
+                    mRelated = strings5[map.get(5) - 1];
+                }
             }
         }
         mIsRefresh = true;

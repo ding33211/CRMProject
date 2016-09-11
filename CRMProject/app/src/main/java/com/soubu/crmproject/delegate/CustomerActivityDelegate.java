@@ -30,6 +30,8 @@ public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
     public void setData(List<CustomerParams> list, boolean isRefresh) {
         mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
+        ifDataEmpty(list.isEmpty());
+
     }
 
     public CustomerParams getCustomerParams(int pos){

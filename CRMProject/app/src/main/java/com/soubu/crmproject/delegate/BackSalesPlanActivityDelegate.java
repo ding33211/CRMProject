@@ -29,6 +29,8 @@ public class BackSalesPlanActivityDelegate extends BaseRecyclerViewActivityDeleg
     public void setData(List<ClueParams> list, boolean isRefresh){
 //        mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
+        ifDataEmpty(list.isEmpty());
+
     }
 
     @Override

@@ -118,7 +118,7 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getAddress())) {
             item.setContent(mCustomerParams.getAddress());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_LOCATE);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
         mList.add(item);
         if(!mFromEdit) {
             item = new AddItem();

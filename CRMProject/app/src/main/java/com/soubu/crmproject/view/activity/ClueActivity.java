@@ -98,13 +98,25 @@ public class ClueActivity extends Big4AllActivityPresenter<ClueActivityDelegate>
             String[] strings1 = getResources().getStringArray(R.array.clue_status_web);
             String[] strings2 = getResources().getStringArray(R.array.clue_related_web);
             if (map.containsKey(0)) {
-                mSource = strings0[map.get(0)];
+                if(map.get(0) == 0){
+                    mSource = null;
+                } else {
+                    mSource = strings0[map.get(0) - 1];
+                }
             }
             if (map.containsKey(1)) {
-                mStatus = strings1[map.get(1)];
+                if(map.get(1) == 0){
+                    mStatus = null;
+                } else {
+                    mStatus = strings1[map.get(1) - 1];
+                }
             }
             if (map.containsKey(2)) {
-                mRelated = strings2[map.get(2)];
+                if(map.get(2) == 0){
+                    mRelated = null;
+                } else {
+                    mRelated = strings2[map.get(2) - 1];
+                }
             }
         }
         mIsRefresh = true;

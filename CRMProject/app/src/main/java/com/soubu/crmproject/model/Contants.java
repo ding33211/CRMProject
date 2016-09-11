@@ -65,5 +65,6 @@ public class Contants {
 
 
     public static final String SP_KEY_TOKEN = "TOKEN";
+    public static final String SP_KEY_USER_ID = "USER_ID";
 
 }

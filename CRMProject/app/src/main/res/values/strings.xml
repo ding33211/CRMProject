@@ -188,7 +188,10 @@
     <string name="content_empty_error">内容不能为空</string>
     <string name="follow_time_empty_error">跟进时间不能为空</string>
     <string name="follow_method_empty_error">跟进方式不能为空</string>
-    <string name="follow_object">跟进对象</string>
+    <string name="follow_clue">跟进线索</string>
+    <string name="follow_customer">跟进客户</string>
+    <string name="follow_business_opportunity">跟进商机</string>
+    <string name="follow_contract">跟进合同</string>
     <string name="please_choose_follow_object">请选择跟进对象</string>
     <string name="please_input_clue_name">请输入线索名称</string>
     <string name="please_input_customer_name">请输入客户名称</string>
@@ -217,11 +220,12 @@
     <string name="no_user_to_register">没有账号?立即注册</string>
     <string name="please_input_common_email">请输入常用邮箱地址</string>
     <string name="please_input_user_name">请输入用户名</string>
-    <string name="password_requirement">6~12位数字或字母或特殊符号</string>
+    <string name="password_requirement">8位以上数字或字母</string>
     <string name="password_again">密码确认</string>
     <string name="please_input_email">请输入邮箱</string>
     <string name="wrong_email">邮箱格式不正确</string>
     <string name="two_password_not_same">两次密码不匹配</string>
     <string name="register_success_message">注册成功,请去邮箱激活</string>
+    <string name="empty_data">暂无数据</string>
 
 </resources>

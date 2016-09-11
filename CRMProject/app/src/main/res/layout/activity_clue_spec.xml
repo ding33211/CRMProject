@@ -455,22 +455,22 @@
         android:layout_height="48dp"
         android:background="@android:color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:text="所有跟进"
-            android:textColor="#333333"
-            android:textSize="16sp" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!--android:text="所有跟进"-->
+            <!--android:textColor="#333333"-->
+            <!--android:textSize="16sp" />-->
 
         <com.soubu.crmproject.widget.indicatorviewpager.FixedIndicatorView
             android:id="@+id/fiv_indicator"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp" />
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

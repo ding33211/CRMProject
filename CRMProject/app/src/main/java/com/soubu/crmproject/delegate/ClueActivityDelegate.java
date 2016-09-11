@@ -26,6 +26,7 @@ public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
     public void setData(List<ClueParams> list, boolean isRefresh){
         mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
+        ifDataEmpty(list.isEmpty());
     }
 
     public void setOnRecyclerViewItemClickListener(ClueRvAdapter.OnItemClickListener listener){

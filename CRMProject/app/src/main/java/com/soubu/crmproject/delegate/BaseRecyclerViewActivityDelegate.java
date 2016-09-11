@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +21,11 @@ import com.soubu.crmproject.widget.DividerItemDecoration;
 import com.soubu.crmproject.widget.FilterOrSortPopupWindow;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 带有筛选和排序的嵌套有recyclerView的swipeRefreshLayout
  * Created by dingsigang on 16-8-17.
@@ -33,6 +39,7 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
     private FilterOrSortPopupWindow mSortPopupWindow = null;
 
     RecyclerView mRvContent;
+    View mEmptyView;
 
     @Override
     public int getRootLayoutId() {
@@ -41,6 +48,7 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
 
     private void initRecyclerView(){
         mRvContent = get(R.id.rv_content);
+        mEmptyView = get(R.id.ll_empty);
         mRecycleViewLayoutManager = new LinearLayoutManager(getActivity());
         mRvContent.setLayoutManager(mRecycleViewLayoutManager);
     }
@@ -118,6 +126,14 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
                     ImageView ivArrow = (ImageView)v.findViewById(R.id.iv_filter1);
                     ivArrow.setImageResource(R.drawable.arrow_up);
                     if(mFilterPopupWindow == null){
+                        for(int i = 0; i < childrenStrings.length; i++){
+                            List<String> list = new ArrayList<String>();
+                            list.add( activity.getString(R.string.all));
+                            for(String a : childrenStrings[i]){
+                                list.add(a);
+                            }
+                            childrenStrings[i] = list.toArray(new String[1]);
+                        }
                         mFilterPopupWindow = new FilterOrSortPopupWindow(parentStrings, childrenStrings, null, activity, filterListener);
                     }
                     mFilterPopupWindow.showAsDropDown(v, 0, 0);
@@ -165,5 +181,13 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
 
     public  void setOnRecyclerViewItemClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
         //big4的共有方法
+    }
+
+    public void ifDataEmpty(boolean empty){
+        if(empty){
+            mEmptyView.setVisibility(View.VISIBLE);
+        } else {
+            mEmptyView.setVisibility(View.GONE);
+        }
     }
 }

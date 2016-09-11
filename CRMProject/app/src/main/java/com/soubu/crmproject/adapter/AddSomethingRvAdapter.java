@@ -157,6 +157,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         if (TextUtils.isEmpty(text) || TextUtils.equals(text, "0")) {
             if (viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_REQUIRED_CHOOSE) {
                 holder1.tvAction.setText(viewType == TYPE_ITEM_REQUIRED_FILL ? R.string.required_fill : R.string.required_choose);
+                holder1.tvAction.setTextColor(mActivity.getResources().getColor(R.color.line_color));
                 holder1.tvAction.setVisibility(View.VISIBLE);
             }
             if ((viewType == TYPE_ITEM_CAN_CHOOSE_DATE || viewType == TYPE_ITEM_REQUIRED_CHOOSE_DATE)
@@ -173,6 +174,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 }
             }
             holder1.tvAction.setText(text);
+            holder1.tvAction.setTextColor(mActivity.getResources().getColor(R.color.filter_tab_text_color));
             holder1.tvAction.setVisibility(View.VISIBLE);
         }
         switch (viewType) {
@@ -199,6 +201,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
             TextView tvAction = (TextView) item.findViewById(R.id.tv_action);
             if (!TextUtils.isEmpty(temp)) {
                 tvAction.setText(temp);
+                tvAction.setTextColor(mActivity.getResources().getColor(R.color.filter_tab_text_color));
                 tvAction.setVisibility(View.VISIBLE);
             } else if (viewType == TYPE_ITEM_REQUIRED_FILL) {
                 tvAction.setVisibility(View.VISIBLE);

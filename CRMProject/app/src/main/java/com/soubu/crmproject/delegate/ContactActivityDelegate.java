@@ -28,6 +28,7 @@ public class ContactActivityDelegate extends BaseRecyclerViewActivityDelegate {
     public void setData(List<ContactParams> list, boolean isRefresh){
         mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
+        ifDataEmpty(list.isEmpty());
     }
 
     @Override

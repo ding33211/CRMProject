@@ -66,7 +66,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
         View contentView = LayoutInflater.from(activity).inflate(R.layout.popup_window_filter, null);
         mGlContainer = (GridLayout) contentView.findViewById(R.id.gl_container);
         mHsvContainer = (CustomHorizontalScrollView) contentView.findViewById(R.id.hsv_container);
-        View llAction = contentView.findViewById(R.id.ll_action);
+//        View llAction = contentView.findViewById(R.id.ll_action);
         ListView lvSort = (ListView) contentView.findViewById(R.id.lv_sort);
         mCategoryAdapter = new CategoryAdapter(activity, parentStrings, CategoryAdapter.TYPE_PARENT);
         /* 设置触摸外面时消失 */
@@ -117,7 +117,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             mGlContainer.addView(mLvParentCategory);
             mGlContainer.addView(mLvChildrenCategory);
         } else {
-            llAction.setVisibility(View.GONE);
+//            llAction.setVisibility(View.GONE);
             mHsvContainer.setVisibility(View.GONE);
             lvSort.setVisibility(View.VISIBLE);
             lvSort.setAdapter(mCategoryAdapter);
@@ -133,25 +133,25 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             }
         }
         mMap = new HashMap<Integer, Integer>();
-        View vClear = contentView.findViewById(R.id.ll_filter_clear);
-        View vOk = contentView.findViewById(R.id.rl_filter_ok);
-        vClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMap.clear();
-                mChildrenCategoryAdapter.setSelectedPosition(0);
-                mChildrenCategoryAdapter.notifyDataSetChanged();
-            }
-        });
-        vOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mSelectCategory != null) {
-                    mSelectCategory.selectFilter(mMap);
-                }
-                dismiss();
-            }
-        });
+//        View vClear = contentView.findViewById(R.id.ll_filter_clear);
+//        View vOk = contentView.findViewById(R.id.rl_filter_ok);
+//        vClear.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mMap.clear();
+//                mChildrenCategoryAdapter.setSelectedPosition(0);
+//                mChildrenCategoryAdapter.notifyDataSetChanged();
+//            }
+//        });
+//        vOk.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mSelectCategory != null) {
+//                    mSelectCategory.selectFilter(mMap);
+//                }
+//                dismiss();
+//            }
+//        });
     }
 
     /**
@@ -183,6 +183,10 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             }
             mChildrenCategoryAdapter.notifyDataSetChanged();
             mMap.put(mParentPos, position);
+            if (mSelectCategory != null) {
+                mSelectCategory.selectFilter(mMap);
+            }
+            dismiss();
         }
     };
 
@@ -197,7 +201,9 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             }
             mChildrenCategoryAdapter.setData(mChildrenStrings[position]);
             mChildrenCategoryAdapter.setHaveThreeListVIew(false);
-            mChildrenCategoryAdapter.setSelectedPosition(0);
+            if(!mMap.isEmpty() && mMap.containsKey(position)){
+                mChildrenCategoryAdapter.setSelectedPosition(mMap.get(position));
+            }
             mChildrenCategoryAdapter.notifyDataSetChanged();
             mCategoryAdapter.setSelectedPosition(position);
             mCategoryAdapter.notifyDataSetChanged();

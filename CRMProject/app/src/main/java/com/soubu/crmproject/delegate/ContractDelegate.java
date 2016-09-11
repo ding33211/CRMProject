@@ -28,6 +28,7 @@ public class ContractDelegate extends BaseRecyclerViewActivityDelegate {
     public void setData(List<ContractParams> list, boolean isRefresh) {
         mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
+        ifDataEmpty(list.isEmpty());
     }
 
     public ContractParams getContractParams(int pos){

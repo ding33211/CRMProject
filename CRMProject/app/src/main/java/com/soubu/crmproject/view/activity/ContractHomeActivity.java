@@ -46,7 +46,7 @@ public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     protected void bindEvenListener() {
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this, R.id.rl_content, R.id.ll_left, R.id.ll_right);
-        viewDelegate.setSettingMenuListener(R.menu.clue_home, new PopupMenu.OnMenuItemClickListener() {
+        viewDelegate.setSettingMenuListener(R.menu.contract_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 return false;
@@ -113,7 +113,7 @@ public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
-        viewDelegate.setViewPagerData(1, list);
+        viewDelegate.setViewPagerData(0, list);
     }
 
     @Override

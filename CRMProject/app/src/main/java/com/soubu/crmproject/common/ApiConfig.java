@@ -17,6 +17,21 @@ public class ApiConfig {
     //    private static String token;
     private static String token;
 
+    private static String uid;
+
+    public static String getUid() {
+        if (TextUtils.isEmpty(uid)) {
+            SharedPreferences sp = AppUtil.getDefaultSharedPreference(context);
+            uid = sp.getString(Contants.SP_KEY_USER_ID, null);
+        }
+        return uid;
+    }
+
+    public static void setUid(String uid) {
+        ApiConfig.uid = uid;
+        SharedPreferences sp = AppUtil.getDefaultSharedPreference(context);
+        sp.edit().putString(Contants.SP_KEY_USER_ID, uid).commit();
+    }
 
     private static Context context;
 

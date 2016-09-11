@@ -26,8 +26,8 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
 
 
     public FollowInBig4HomeIndicatorViewPagerAdapter() {
-        mAdapter1 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_RECORD, Contants.IN_4_HOME);
-        mAdapter0 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_PLAN, Contants.IN_4_HOME);
+        mAdapter0 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_RECORD, Contants.IN_4_HOME);
+        mAdapter1 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_PLAN, Contants.IN_4_HOME);
 
     }
 
@@ -43,9 +43,9 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
         }
         TextView textView = (TextView) convertView.findViewById(R.id.tv_tab);
         if (position == 0) {
-            textView.setText(R.string.follow_plan);
-        } else {
             textView.setText(R.string.follow_record);
+        } else {
+            textView.setText(R.string.follow_plan);
         }
         return convertView;
     }

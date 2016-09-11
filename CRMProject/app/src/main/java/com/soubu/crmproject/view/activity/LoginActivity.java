@@ -3,6 +3,7 @@ package com.soubu.crmproject.view.activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
@@ -29,6 +30,31 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     protected void bindEvenListener() {
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this, R.id.btn_register, R.id.btn_login);
+        viewDelegate.get(R.id.et_user).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    viewDelegate.get(R.id.ll_user).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_selected));
+                    ((ImageView)viewDelegate.get(R.id.iv_user)).setImageResource(R.drawable.login_user_selected);
+                } else {
+                    viewDelegate.get(R.id.ll_user).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_normal));
+                    ((ImageView)viewDelegate.get(R.id.iv_user)).setImageResource(R.drawable.login_user_normal);
+                }
+            }
+        });
+
+        viewDelegate.get(R.id.et_password).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    viewDelegate.get(R.id.ll_password).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_selected));
+                    ((ImageView)viewDelegate.get(R.id.iv_password)).setImageResource(R.drawable.login_lock_selected);
+                } else {
+                    viewDelegate.get(R.id.ll_password).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_normal));
+                    ((ImageView)viewDelegate.get(R.id.iv_password)).setImageResource(R.drawable.login_lock_normal);
+                }
+            }
+        });
     }
 
     @Override
@@ -50,8 +76,9 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(UserParams[] userParams) {
         if(userParams != null && userParams.length > 0){
-            if(!TextUtils.isEmpty(userParams[0].getToken())){
+            if(!TextUtils.isEmpty(userParams[0].getToken()) && !TextUtils.isEmpty(userParams[0].getId())){
                 ApiConfig.setToken(userParams[0].getToken());
+                ApiConfig.setUid(userParams[0].getId());
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 finish();

@@ -25,6 +25,7 @@ public class BusinessOpportunityActivityDelegate extends BaseRecyclerViewActivit
     public void setData(List<BusinessOpportunityParams> list, boolean isRefresh) {
         mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
+        ifDataEmpty(list.isEmpty());
     }
 
     public BusinessOpportunityParams getBusinessOpportunityParams(int pos){
