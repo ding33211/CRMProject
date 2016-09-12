@@ -48,6 +48,7 @@
     <string name="all_contract">全部合同</string>
     <string name="sales_management">销售管理</string>
     <string name="contract_management">合同管理</string>
+    <string name="back_sales_management">回款管理</string>
     <string name="product_management">产品管理</string>
     <string name="customer_high_seas">客户公海</string>
     <string name="weekly_and_monthly_report">周报月报</string>

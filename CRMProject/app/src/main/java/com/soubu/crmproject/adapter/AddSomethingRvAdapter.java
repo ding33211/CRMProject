@@ -50,6 +50,9 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     public static final int TYPE_NOT_PASS = 0x10;  //审核状态
 
 
+    public static final int REQUEST_CODE_CHOOSE_CUSTOMER = 1100;
+
+
     private List<AddItem> mList;
     private Activity mActivity;
 
@@ -155,7 +158,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         holder1.tvAction.setText("");
         holder1.tvAction.setVisibility(View.INVISIBLE);
         if (TextUtils.isEmpty(text) || TextUtils.equals(text, "0")) {
-            if (viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_REQUIRED_CHOOSE) {
+            if (viewType == TYPE_ITEM_REQUIRED_FILL || viewType == TYPE_ITEM_REQUIRED_CHOOSE || viewType == TYPE_ITEM_REQUIRED_CHOOSE_DATE) {
                 holder1.tvAction.setText(viewType == TYPE_ITEM_REQUIRED_FILL ? R.string.required_fill : R.string.required_choose);
                 holder1.tvAction.setTextColor(mActivity.getResources().getColor(R.color.line_color));
                 holder1.tvAction.setVisibility(View.VISIBLE);
@@ -276,7 +279,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                     } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.related_customer) {
                         Intent intent = new Intent(mActivity, CustomerActivity.class);
                         intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
-                        mActivity.startActivityForResult(intent, AddBusinessOpportunityActivity.REQUEST_ADD_BUSINESS);
+                        mActivity.startActivityForResult(intent, REQUEST_CODE_CHOOSE_CUSTOMER);
                         mLastClickPosBeforeLeave = getAdapterPosition();
                     } else {
                         final AddItem item = mList.get(getAdapterPosition());

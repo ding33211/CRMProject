@@ -31,7 +31,6 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
     private boolean mFromEdit;
     private BusinessOpportunityParams mBusinessOpportunityParams;
     private String mCustomerId;
-    public static final int REQUEST_ADD_BUSINESS = 1002;
 
     @Override
     protected Class<AddSomethingActivityDelegate> getDelegateClass() {
@@ -317,7 +316,7 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
-            if(requestCode == REQUEST_ADD_BUSINESS){
+            if(requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER){
                 mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
                 String name = data.getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
                 viewDelegate.setCustomerName(name);

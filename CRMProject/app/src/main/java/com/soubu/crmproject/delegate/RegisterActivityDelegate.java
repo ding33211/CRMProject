@@ -18,6 +18,12 @@ public class RegisterActivityDelegate extends AppDelegate {
         return R.layout.activity_register;
     }
 
+    @Override
+    public void initWidget() {
+        super.initWidget();
+        setTitle(R.string.register);
+    }
+
     public boolean verify(UserParams params){
         String email = ((EditText)get(R.id.et_email)).getText().toString();
         if(TextUtils.isEmpty(email)){
@@ -55,8 +61,6 @@ public class RegisterActivityDelegate extends AppDelegate {
         return true;
     }
 
-    @Override
-    public boolean ifNeedHideToolBar() {
-        return true;
-    }
+
+
 }

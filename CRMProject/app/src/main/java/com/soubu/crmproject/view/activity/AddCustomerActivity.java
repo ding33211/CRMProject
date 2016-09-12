@@ -94,7 +94,7 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         }
         item.setArrayRes(R.array.customer_type);
         item.setWebArrayRes(R.array.customer_type_web);
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.customer_property);
@@ -118,7 +118,7 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getAddress())) {
             item.setContent(mCustomerParams.getAddress());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
         if(!mFromEdit) {
             item = new AddItem();
@@ -256,6 +256,10 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
             }
             if (item.getTitleRes() == R.string.customer_type) {
                 customerParams.setType(item.getContent());
+                continue;
+            }
+            if (item.getTitleRes() == R.string.customer_property) {
+                customerParams.setProperty(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.website) {

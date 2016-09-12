@@ -1,5 +1,6 @@
 package com.soubu.crmproject.view.activity;
 
+import android.content.Intent;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,6 +29,8 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
     private List<AddItem> mList;
     private boolean mFromEdit;
     private ContractParams mContractParams;
+    private String mCustomerId;
+
 
     @Override
     protected Class<AddSomethingActivityDelegate> getDelegateClass() {
@@ -80,7 +83,7 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
         if (mFromEdit && !TextUtils.isEmpty(mContractParams.getCustomer())) {
             item.setContent(mContractParams.getCustomer());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.related_business_opportunity);
@@ -251,8 +254,8 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
                 contractParams.setTitle(item.getContent());
                 continue;
             }
-            if (item.getTitleRes() == R.string.related_customer) {
-                contractParams.setCustomer("57c01ad43bd574a612b4df32");
+            if (item.getTitleRes() == R.string.related_customer && !TextUtils.isEmpty(mCustomerId)) {
+                contractParams.setCustomer(mCustomerId);
                 continue;
             }
             if (item.getTitleRes() == R.string.related_business_opportunity) {
@@ -302,10 +305,10 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
                 contractParams.setClosedAt(item.getDate());
                 continue;
             }
-            if (item.getTitleRes() == R.string.contract_attachments) {
-                contractParams.setAttachments(new Object[]{});
-                continue;
-            }
+//            if (item.getTitleRes() == R.string.contract_attachments) {
+//                contractParams.setAttachments(new Object[]{});
+//                continue;
+//            }
             if (item.getTitleRes() == R.string.remark) {
                 contractParams.setNote(item.getContent());
                 continue;
@@ -316,6 +319,18 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
             }
         }
         return contractParams;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER){
+                mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
+                String name = data.getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
+                viewDelegate.setCustomerName(name);
+            }
+        }
     }
 
 }

@@ -153,7 +153,6 @@
                     android:id="@+id/tv_related_two_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="吴超"
                     android:textColor="@color/filter_tab_text_color"
                     android:textSize="14sp" />
             </LinearLayout>

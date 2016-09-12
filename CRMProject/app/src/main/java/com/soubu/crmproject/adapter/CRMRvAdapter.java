@@ -60,9 +60,9 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
         Intent[] intentsOne = new Intent[]{new Intent(activity, ClueActivity.class), new Intent(activity, CustomerActivity.class),
                 new Intent(activity, BusinessOpportunityActivity.class), new Intent(activity, ContractActivity.class)};
 
-        int[] labelsTwo = new int[]{R.string.sales_management, R.string.contract_management, R.string.product_management, R.string.customer_high_seas,
+        int[] labelsTwo = new int[]{R.string.sales_management, R.string.back_sales_management, R.string.product_management, R.string.customer_high_seas,
                 R.string.weekly_and_monthly_report, R.string.approval};
-        int[] iconsTwo = new int[]{R.drawable.sales_management_disable, R.drawable.contract, R.drawable.product_management_disable, R.drawable.customer_high_seas,
+        int[] iconsTwo = new int[]{R.drawable.sales_management_disable, R.drawable.contract_disable, R.drawable.product_management_disable, R.drawable.customer_high_seas_disable,
                 R.drawable.weekly_and_monthly_report_disable, R.drawable.approval_disable};
         Intent[] intentsTwo = new Intent[]{null, null,
                 null, null, null, null};
