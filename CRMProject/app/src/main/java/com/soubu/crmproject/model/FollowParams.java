@@ -21,7 +21,16 @@ public class FollowParams extends ObjectToMapInterface {
     Date updatedAt;
     String id;
     String title;
+    String type;
     String contactor;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getTitle() {
         return title;

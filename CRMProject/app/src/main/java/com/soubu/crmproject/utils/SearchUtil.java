@@ -63,6 +63,14 @@ public class SearchUtil {
         return context.getResources().getStringArray(R.array.customer_type_web);
     }
 
+    public static CharSequence[] searchCustomerPropertyArray(Context context){
+        return context.getResources().getStringArray(R.array.customer_property);
+    }
+
+    public static CharSequence[] searchCustomerPropertyWebArray(Context context){
+        return context.getResources().getStringArray(R.array.customer_property_web);
+    }
+
     public static CharSequence[] searchBusinessOpportunityStateArray(Context context){
         return context.getResources().getStringArray(R.array.business_opportunity_status);
     }
@@ -110,4 +118,6 @@ public class SearchUtil {
     public static CharSequence[] searchContractReviewStateWebArray(Context context){
         return context.getResources().getStringArray(R.array.contract_review_state_web);
     }
+
+
 }

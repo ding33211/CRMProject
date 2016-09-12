@@ -95,6 +95,9 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
         if (mFromAddHome) {
             viewDelegate.get(R.id.iv_related_one).setVisibility(View.VISIBLE);
         }
+        if(mType == TYPE_PLAN){
+            mFollowParams.setType("PLAN");
+        }
         switch (mFrom) {
             case Contants.FROM_CLUE:
                 mStateLabelRes = R.string.clue_status;

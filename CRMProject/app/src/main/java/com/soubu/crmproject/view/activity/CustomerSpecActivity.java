@@ -31,6 +31,9 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
     CharSequence[] mSizeWebArray;
     CharSequence[] mTypeArray;
     CharSequence[] mTypeWebArray;
+    CharSequence[] mPropertyArray;
+    CharSequence[] mPropertyWebArray;
+
 
     @Override
     protected Class<SpecActivityDelegate> getDelegateClass() {
@@ -45,6 +48,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         mSizeWebArray = SearchUtil.searchCustomerSizeWebArray(getApplicationContext());
         mTypeArray = SearchUtil.searchCustomerTypeArray(getApplicationContext());
         mTypeWebArray = SearchUtil.searchCustomerTypeWebArray(getApplicationContext());
+        mPropertyArray = SearchUtil.searchCustomerPropertyArray(getApplicationContext());
+        mPropertyWebArray = SearchUtil.searchCustomerPropertyWebArray(getApplicationContext());
         initClueParams(mCustomerParams);
     }
 
@@ -57,7 +62,7 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         mList.add(addItem);
         initItem(customerParams.getName(), R.string.customer_name, true);
         initItem(TextUtils.isEmpty(customerParams.getType()) ? "" : mTypeArray[SearchUtil.searchInArray(mTypeWebArray, customerParams.getType())].toString(), R.string.customer_type, hasTop ? false : true);
-
+        initItem(TextUtils.isEmpty(customerParams.getProperty()) ? "" : mPropertyArray[SearchUtil.searchInArray(mPropertyWebArray, customerParams.getProperty())].toString(), R.string.customer_property, hasTop ? false : true);
         initItem(customerParams.getWebsite(), R.string.website, hasTop ? false : true);
         initItem(customerParams.getAddress(), R.string.address, hasTop ? false : true);
         hasTop = false;
@@ -77,17 +82,17 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         addItem.setTitleRes(R.string.other_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(customerParams.getStatus(), R.string.follow_state, true);
+//        initItem(customerParams.getStatus(), R.string.follow_state, true);
         if (customerParams.getProducts() != null && customerParams.getProducts().length != 0) {
             initItem(customerParams.getProducts()[0], R.string.operating_products, hasTop ? false : true);
         }
         initItem(TextUtils.isEmpty(customerParams.getSize()) ? "" : mSizeArray[SearchUtil.searchInArray(mSizeWebArray, customerParams.getSize())].toString(), R.string.personal_size, hasTop ? false : true);
-        hasTop = false;
-        addItem = new AddItem();
-        addItem.setTitleRes(R.string.founder_information);
-        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
-        mList.add(addItem);
-        initItem(customerParams.getManager(), R.string.manager, true);
+//        hasTop = false;
+//        addItem = new AddItem();
+//        addItem.setTitleRes(R.string.founder_information);
+//        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
+//        mList.add(addItem);
+//        initItem(customerParams.getManager(), R.string.manager, true);
         viewDelegate.setData(mList);
     }
 
