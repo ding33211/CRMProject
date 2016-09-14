@@ -14,6 +14,8 @@ import com.soubu.crmproject.model.Contants;
  * Created by dingsigang on 16-8-29.
  */
 public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
+    //是否是公海
+    boolean mIfHighSeas = false;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -29,6 +31,10 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
             }
             if(viewType == TYPE_LAST_ONE){
                 v.findViewById(R.id.v_line).setVisibility(View.GONE);
+            }
+            if(mIfHighSeas){
+                v.findViewById(R.id.rl_rush_in).setVisibility(View.VISIBLE);
+                v.findViewById(R.id.tv_state).setVisibility(View.GONE);
             }
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
@@ -57,10 +63,15 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
             state = (TextView) itemView.findViewById(R.id.tv_state);
             subRight = (TextView) itemView.findViewById(R.id.tv_sub_right);
             ivState = (ImageView) itemView.findViewById(R.id.iv_approval_state);
+            itemView.findViewById(R.id.rl_rush_in).setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            if(v.getId() == R.id.rl_rush_in){
+                mRushListener.onItemClick(v, getLayoutPosition());
+                return;
+            }
             if (mListener != null) {
                 mListener.onItemClick(v, getLayoutPosition());
             }

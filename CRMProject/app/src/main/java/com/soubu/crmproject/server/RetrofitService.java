@@ -93,7 +93,7 @@ public class RetrofitService {
                         if (mNeedAuthentication) {
                             request = request.newBuilder()
                                     .addHeader("uid",
-                                            ApiConfig.getUid())
+                                            MyApplication.getContext().getUid())
                                     .addHeader("sign", "")
                                     .cacheControl(CacheControl.FORCE_CACHE).build();
                         }
@@ -102,13 +102,13 @@ public class RetrofitService {
                         if (TextUtils.equals(request.method(), "GET")) {
                             request = request.newBuilder()
                                     .addHeader("uid",
-                                            ApiConfig.getUid())
-                                    .addHeader("sign", ConvertUtil.hmacsha256(request.url(), ApiConfig.getToken()))
+                                            MyApplication.getContext().getUid())
+                                    .addHeader("sign", ConvertUtil.hmacsha256(request.url(), MyApplication.getContext().getToken()))
                                     .build();
                         } else {
                             request = request.newBuilder()
                                     .addHeader("uid",
-                                            ApiConfig.getUid())
+                                            MyApplication.getContext().getUid())
                                     .build();
                         }
                     }

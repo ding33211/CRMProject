@@ -46,12 +46,13 @@ public interface RetrofitApi {
     //获取线索
     @GET("opportunities")
     Call<GetPageResp<ClueParams[]>> getClue(@Query("source") String source,//线索来源
-                                                @Query("status") String status,//线索状态
-                                                @Query("page") Integer page,//页数
-                                                @Query("sort") String sort,//排序项
-                                                @Query("order") String order,//顺序
-                                                @Query("related") String related,//数据相关
-                                                @Query("count") Integer count);//每页条数,默认10
+                                            @Query("status") String status,//线索状态
+                                            @Query("page") Integer page,//页数
+                                            @Query("sort") String sort,//排序项
+                                            @Query("order") String order,//顺序
+                                            @Query("related") String related,//数据相关
+                                            @Query("count") Integer count, //每页条数,默认10
+                                            @Query("q") String search);//搜索
 
     //添加线索
     @Headers({"Content-type:application/json"})
@@ -67,15 +68,20 @@ public interface RetrofitApi {
     //获取客户
     @GET("customers")
     Call<GetPageResp<CustomerParams[]>> getCustomer(@Query("type") String type,//客户类型
-                                                        @Query("source") String source,//线索来源
-                                                        @Query("size") String size,//规模
-                                                        @Query("industry") String industry,//行业
-                                                        @Query("status") String status,//客户状态
-                                                        @Query("page") Integer page,//页数
-                                                        @Query("sort") String sort,//排序项
-                                                        @Query("order") String order,//顺序
-                                                        @Query("related") String related,//数据相关
-                                                        @Query("count") Integer count);//每页条数,默认10
+                                                    @Query("source") String source,//线索来源
+                                                    @Query("size") String size,//规模
+                                                    @Query("industry") String industry,//行业
+                                                    @Query("status") String status,//客户状态
+                                                    @Query("page") Integer page,//页数
+                                                    @Query("sort") String sort,//排序项
+                                                    @Query("order") String order,//顺序
+                                                    @Query("related") String related,//数据相关
+                                                    @Query("count") Integer count,//每页条数,默认10
+                                                    @Query("q") String search);//搜索
+
+    //获取客户
+    @GET("customers/{id}")
+    Call<GetPageResp<CustomerParams[]>> getCustomerSpec(@Path("id") String id);//搜索
 
     //添加客户
     @Headers({"Content-type:application/json"})
@@ -91,13 +97,15 @@ public interface RetrofitApi {
     //获取商机
     @GET("deals")
     Call<GetPageResp<BusinessOpportunityParams[]>> getBusinessOpportunity(@Query("type") String type,//商机类型
-                                                                              @Query("source") String source,//商机来源
-                                                                              @Query("status") String status,//商机状态
-                                                                              @Query("page") Integer page,//页数
-                                                                              @Query("sort") String sort,//排序项
-                                                                              @Query("order") String order,//顺序
-                                                                              @Query("related") String related,//数据相关
-                                                                              @Query("count") Integer count);//每页条数,默认10
+                                                                          @Query("source") String source,//商机来源
+                                                                          @Query("status") String status,//商机状态
+                                                                          @Query("page") Integer page,//页数
+                                                                          @Query("sort") String sort,//排序项
+                                                                          @Query("order") String order,//顺序
+                                                                          @Query("related") String related,//数据相关
+                                                                          @Query("count") Integer count,//每页条数,默认10
+                                                                          @Query("customer") String customer,//客户id
+                                                                          @Query("q") String search);//搜索
 
 
     //添加商机
@@ -109,20 +117,21 @@ public interface RetrofitApi {
     @FormUrlEncoded
     @PUT("deals/{id}")
     Call<GetPageResp<BusinessOpportunityParams[]>> updateBusinessOpportunity(@Path("id") String id, @FieldMap Map<String, String> names,
-                                                                                 @Header("sign") String sign);
+                                                                             @Header("sign") String sign);
 
 
     //获取合同
     @GET("contracts")
     Call<GetPageResp<ContractParams[]>> getContract(@Query("type") String type,//合同类型
-                                                        @Query("payMethod") String payMethod,//付款方式
-                                                        @Query("status") String status,//合同状态
-                                                        @Query("receivedPayType") String receivedPayType,//汇款方式
-                                                        @Query("page") Integer page,//页数
-                                                        @Query("sort") String sort,//排序项
-                                                        @Query("order") String order,//顺序
-                                                        @Query("related") String related,//数据相关
-                                                        @Query("count") Integer count);//每页条数,默认10
+                                                    @Query("payMethod") String payMethod,//付款方式
+                                                    @Query("status") String status,//合同状态
+                                                    @Query("receivedPayType") String receivedPayType,//汇款方式
+                                                    @Query("page") Integer page,//页数
+                                                    @Query("sort") String sort,//排序项
+                                                    @Query("order") String order,//顺序
+                                                    @Query("related") String related,//数据相关
+                                                    @Query("count") Integer count,
+                                                    @Query("q") String seach);//每页条数,默认10
 
     //添加合同
     @Headers({"Content-type:application/json"})
@@ -144,6 +153,15 @@ public interface RetrofitApi {
     //获取线索相关的跟进
     @GET("opportunities/{id}/records")
     Call<GetPageResp<FollowParams[]>> getClueFollow(@Path("id") String id,
+                                                    @Query("status") String status,//线索状态
+                                                    @Query("sort") String sort,//排序项
+                                                    @Query("order") String order,//顺序
+                                                    @Query("page") Integer page,//页数
+                                                    @Query("count") Integer count);//每页条数,默认10
+
+    //获取线索相关的跟进
+    @GET("customers/{id}/records")
+    Call<GetPageResp<FollowParams[]>> getCustomerFollow(@Path("id") String id,
                                                         @Query("status") String status,//线索状态
                                                         @Query("sort") String sort,//排序项
                                                         @Query("order") String order,//顺序
@@ -151,31 +169,22 @@ public interface RetrofitApi {
                                                         @Query("count") Integer count);//每页条数,默认10
 
     //获取线索相关的跟进
-    @GET("customers/{id}/records")
-    Call<GetPageResp<FollowParams[]>> getCustomerFollow(@Path("id") String id,
-                                                    @Query("status") String status,//线索状态
-                                                    @Query("sort") String sort,//排序项
-                                                    @Query("order") String order,//顺序
-                                                    @Query("page") Integer page,//页数
-                                                    @Query("count") Integer count);//每页条数,默认10
-
-    //获取线索相关的跟进
     @GET("deals/{id}/records")
     Call<GetPageResp<FollowParams[]>> getBusinessOpportunityFollow(@Path("id") String id,
-                                                    @Query("status") String status,//线索状态
-                                                    @Query("sort") String sort,//排序项
-                                                    @Query("order") String order,//顺序
-                                                    @Query("page") Integer page,//页数
-                                                    @Query("count") Integer count);//每页条数,默认10
+                                                                   @Query("status") String status,//线索状态
+                                                                   @Query("sort") String sort,//排序项
+                                                                   @Query("order") String order,//顺序
+                                                                   @Query("page") Integer page,//页数
+                                                                   @Query("count") Integer count);//每页条数,默认10
 
     //获取线索相关的跟进
     @GET("contracts/{id}/records")
     Call<GetPageResp<FollowParams[]>> getContractFollow(@Path("id") String id,
-                                                    @Query("status") String status,//线索状态
-                                                    @Query("sort") String sort,//排序项
-                                                    @Query("order") String order,//顺序
-                                                    @Query("page") Integer page,//页数
-                                                    @Query("count") Integer count);//每页条数,默认10
+                                                        @Query("status") String status,//线索状态
+                                                        @Query("sort") String sort,//排序项
+                                                        @Query("order") String order,//顺序
+                                                        @Query("page") Integer page,//页数
+                                                        @Query("count") Integer count);//每页条数,默认10
 
     //添加已回款
     @Headers({"Content-type:application/json"})
@@ -186,11 +195,11 @@ public interface RetrofitApi {
     //获取客户下联系人
     @GET("contacts")
     Call<GetPageResp<ContactParams[]>> getContact(@Query("customer") String customerId,//客户id
-                                            @Query("page") Integer page,//页数
-                                            @Query("sort") String sort,//排序项
-                                            @Query("order") String order,//顺序
-                                            @Query("related") String related,//数据相关
-                                            @Query("count") Integer count);//每页条数,默认10
+                                                  @Query("page") Integer page,//页数
+                                                  @Query("sort") String sort,//排序项
+                                                  @Query("order") String order,//顺序
+                                                  @Query("related") String related,//数据相关
+                                                  @Query("count") Integer count);//每页条数,默认10
 
     //添加联系人
     @Headers({"Content-type:application/json"})
@@ -203,7 +212,6 @@ public interface RetrofitApi {
     Call<GetPageResp<ContactParams[]>> updateContact(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
 
-
     //注册
     @Headers({"Content-type:application/json"})
     @POST("users/signup")
@@ -213,4 +221,20 @@ public interface RetrofitApi {
     @Headers({"Content-type:application/json"})
     @POST("users/signin")
     Call<GetPageResp<UserParams[]>> login(@Body UserParams params);
+
+
+    //获取线索公海
+    @GET("opportunities/public")
+    Call<GetPageResp<ClueParams[]>> getClueHighSeas(@Query("source") String source,//线索来源
+                                            @Query("status") String status,//线索状态
+                                            @Query("page") Integer page,//页数
+                                            @Query("sort") String sort,//排序项
+                                            @Query("order") String order,//顺序
+                                            @Query("count") Integer count, //每页条数,默认10
+                                            @Query("q") String search);//搜索
+
+
+    //抢线索公海
+    @PUT("opportunities/{id}/grab")
+    Call<GetPageResp<ClueParams[]>> rushClueHighSeas(@Path("id") String id, @Header("sign") String sign);
 }

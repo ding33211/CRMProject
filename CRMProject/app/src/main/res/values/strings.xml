@@ -226,7 +226,18 @@
     <string name="please_input_email">请输入邮箱</string>
     <string name="wrong_email">邮箱格式不正确</string>
     <string name="two_password_not_same">两次密码不匹配</string>
+    <string name="please_input_password_again">请再次输入密码</string>
     <string name="register_success_message">注册成功,请去邮箱激活</string>
     <string name="empty_data">暂无数据</string>
+    <string name="cancel">取消</string>
+    <string name="rush_in">抢入</string>
+    <string name="plus_symbol">+</string>
+    <string name="clue_high_seas">线索公海</string>
+    <string name="transfer_customer_now">同步转为客户</string>
+    <string name="transfer_contract_now">同步转为合同</string>
+    <string name="succeed_rush_clue_message">您已成功抢到客户: %s</string>
+    <string name="look_clue_spec">查看客户详情</string>
+    <string name="continue_rush">继续抢</string>
+
 
 </resources>

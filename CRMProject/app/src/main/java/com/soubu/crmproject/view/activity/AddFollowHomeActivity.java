@@ -197,16 +197,16 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
         RetrofitRequest request = RetrofitRequest.getInstance();
         switch (type) {
             case Contants.TYPE_CLUE:
-                request.getClueList(pageNum, null, null, null, null, null, null);
+                request.getClueList(pageNum, null, null, null, null, null, null, null);
                 break;
             case Contants.TYPE_CUSTOMER:
-                request.getCustomerList(pageNum, null, null, null, null, null, null, null, null, null);
+                request.getCustomerList(pageNum, null, null, null, null, null, null, null, null, null, null);
                 break;
             case Contants.TYPE_BUSINESS_OPPORTUNITY:
-                request.getBusinessOpportunityList(pageNum, null, null, null, null, null, null, null);
+                request.getBusinessOpportunityList(pageNum, null, null, null, null, null, null, null, null, null);
                 break;
             case Contants.TYPE_CONTRACT:
-                request.getContractList(pageNum, null, null, null, null, null, null, null, null);
+                request.getContractList(pageNum, null, null, null, null, null, null, null, null, null);
                 break;
         }
     }

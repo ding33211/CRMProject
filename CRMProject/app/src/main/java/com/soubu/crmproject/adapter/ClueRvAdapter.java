@@ -14,8 +14,9 @@ import com.soubu.crmproject.utils.SearchUtil;
 public class ClueRvAdapter extends BaseBig4RvAdapter<ClueParams> {
     private Context mContext;
 
-    public ClueRvAdapter(Context context) {
+    public ClueRvAdapter(Context context, Boolean ifHighSeas) {
         mContext = context;
+        mIfHighSeas = ifHighSeas;
     }
 
     @Override

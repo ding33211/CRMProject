@@ -21,7 +21,7 @@ public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
     /**
      * 是否显示加载更多视图
      */
-    boolean mShowFooter = true;
+    boolean mShowFooter = false;
 
     public void setShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
@@ -33,6 +33,7 @@ public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
 
     List<T> mList;
     OnItemClickListener mListener;
+    OnItemClickListener mRushListener;
 
     public BaseWithFooterRvAdapter(){
         mList = new ArrayList<T>();
@@ -67,6 +68,10 @@ public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
         mListener = listener;
     }
 
+    public void setOnRushClickListener(OnItemClickListener listener){
+        mRushListener = listener;
+    }
+
     public T getParams(int pos){
         return mList.get(pos);
     }
@@ -85,8 +90,13 @@ public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
         mList.addAll(list);
     }
 
+//    public void clear(){
+//        mList.clear();
+//    }
+
     @Override
     public int getItemCount() {
         return isShowFooter() ? mList.size() + 1 : mList.size();
     }
+
 }

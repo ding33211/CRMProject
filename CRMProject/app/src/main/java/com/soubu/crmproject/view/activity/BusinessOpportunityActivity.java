@@ -30,10 +30,17 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
     String mSort = null;
     String mOrder = null;
     String mRelated = null;
+    String mCustomerId = null;
 
     @Override
     protected Class<BusinessOpportunityActivityDelegate> getDelegateClass() {
         return BusinessOpportunityActivityDelegate.class;
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        mCustomerId = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_ID);
     }
 
     /**
@@ -77,7 +84,7 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
 
     @Override
     protected void doRequest(int pageNum) {
-        RetrofitRequest.getInstance().getBusinessOpportunityList(pageNum, mType, mSource, mStatus, mSort, mOrder, mRelated, null);
+        RetrofitRequest.getInstance().getBusinessOpportunityList(pageNum, mType, mSource, mStatus, mSort, mOrder, mRelated, null, mCustomerId, null);
     }
 
     @Override
@@ -164,6 +171,8 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
 
     @Override
     protected void onClickSearch(View v) {
-
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_BUSINESS_OPPORTUNITY);
+        startActivity(intent);
     }
 }

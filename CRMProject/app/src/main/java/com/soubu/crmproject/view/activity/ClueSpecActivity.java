@@ -32,6 +32,7 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
     CharSequence[] mStateWebArray;
     CharSequence[] mSourceArray;
     CharSequence[] mSourceWebArray;
+    boolean ifHighSeas = false;
 
     @Override
     protected Class<SpecActivityDelegate> getDelegateClass() {
@@ -109,20 +110,23 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setSettingText(R.string.edit, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ClueSpecActivity.this, AddClueActivity.class);
-                intent.putExtra(Contants.EXTRA_CLUE, mClueParams);
-                startActivity(intent);
-            }
-        });
+        if (!ifHighSeas) {
+            viewDelegate.setSettingText(R.string.edit, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ClueSpecActivity.this, AddClueActivity.class);
+                    intent.putExtra(Contants.EXTRA_CLUE, mClueParams);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
     protected void initToolbar() {
         super.initToolbar();
         viewDelegate.setTitle(R.string.clue_spec);
+        ifHighSeas = getIntent().getIntExtra(Contants.EXTRA_FROM, -1) == Contants.FROM_CLUE_HIGH_SEAS;
     }
 
     /**

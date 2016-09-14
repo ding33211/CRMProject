@@ -55,6 +55,11 @@
         <item>线索数据</item>
     </string-array>
 
+    <string-array name="clue_high_seas_filter">
+        <item>线索来源</item>
+        <item>线索状态</item>
+    </string-array>
+
     <string-array name="clue_sort">
         <item>创建时间升序</item>
         <item>创建时间降序</item>

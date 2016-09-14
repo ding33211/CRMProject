@@ -2,6 +2,7 @@ package com.soubu.crmproject.view.activity;
 
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.SearchUtil;
@@ -19,6 +21,7 @@ import com.soubu.crmproject.utils.SearchUtil;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +30,7 @@ import java.util.List;
  */
 public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener{
     BusinessOpportunityParams mBusinessOpportunityParams;
+    CustomerParams mCustomerParams;
     CharSequence[] mStateArray;
     CharSequence[] mStateArrayWeb;
 
@@ -39,13 +43,12 @@ public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeA
     protected void initData() {
         super.initData();
         viewDelegate.setEntity(mBusinessOpportunityParams);
-        Log.e("xxx","xxxx");
     }
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.rl_content);
+        viewDelegate.setOnClickListener(this, R.id.ll_go_left, R.id.ll_go_right);
         viewDelegate.setSettingMenuListener(R.menu.business_opportunity_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -57,24 +60,28 @@ public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeA
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.rl_content) {
+        if (id == R.id.ll_go_left) {
             Intent intent = new Intent(this, BusinessOpportunitySpecActivity.class);
             intent.putExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY, mBusinessOpportunityParams);
             startActivity(intent);
+        } else if(id == R.id.ll_go_right){
+            Intent intent3 = new Intent(this, CustomerHomeActivity.class);
+            intent3.putExtra(Contants.EXTRA_CUSTOMER, mCustomerParams);
+            startActivity(intent3);
         }
     }
 
     @Override
     protected void initView() {
         super.initView();
-        viewDelegate.setTitle(R.string.business_opportunity);
+        viewDelegate.setTitle(R.string.business_opportunity_home);
         viewDelegate.setFrom(Contants.FROM_BUSINESS_OPPORTUNITY);
         mStateArray = getResources().getStringArray(R.array.business_opportunity_status);
         mStateArrayWeb = getResources().getStringArray(R.array.business_opportunity_status_web);
         mBusinessOpportunityParams = (BusinessOpportunityParams) getIntent().getSerializableExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mBusinessOpportunityParams.getTitle());
-        ((TextView) viewDelegate.get(R.id.tv_subtitle)).setText(mBusinessOpportunityParams.getCustomer());
-        ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mBusinessOpportunityParams.getStatus())]);
+        ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(mBusinessOpportunityParams.getCustomer());
+        ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mBusinessOpportunityParams.getStatus())]);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -85,6 +92,11 @@ public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeA
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(CustomerParams[] params) {
+        mCustomerParams = params[0];
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void throwError(Throwable t) {
 
     }
@@ -92,12 +104,24 @@ public class BusinessOpportunityHomeActivity extends ActivityPresenter<Big4HomeA
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
-        viewDelegate.setViewPagerData(0, list);
+        List<FollowParams> records = new ArrayList<>();
+        List<FollowParams> plans = new ArrayList<>();
+        for(FollowParams param : list){
+            if(TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)){
+                plans.add(param);
+            } else {
+                records.add(param);
+            }
+        }
+        viewDelegate.setViewPagerData(0, records);
+        viewDelegate.setViewPagerData(1, plans);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         RetrofitRequest.getInstance().getBusinessOpportunityFollow(mBusinessOpportunityParams.getId(), null, null, null, null, null);
+        RetrofitRequest.getInstance().getCustomerSpec(mBusinessOpportunityParams.getCustomer());
+
     }
 }

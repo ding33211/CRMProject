@@ -1,10 +1,13 @@
 package com.soubu.crmproject.utils;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.lang.reflect.Method;
 import java.math.BigInteger;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -119,8 +122,10 @@ public class ConvertUtil {
             } else {
                 macData = url.encodedQuery() == null ? "" : url.encodedQuery();
             }
-            byte[] dataBytes = macData.getBytes("UTF-8");
-            Log.e("xxxxxxxxxxxxxxx", "data   :   " + macData + "      key   :   " + macKey);
+            //此处需要将中文解码之后进行加密
+            String newData = URLDecoder.decode(macData);
+            byte[] dataBytes = newData.getBytes("UTF-8");
+            Log.e("xxxxxxxxxxxxxxx", "newData   :   " + newData + "      key   :   " + macKey);
             SecretKey secret = new SecretKeySpec(secretByte, "HMACSHA256");
             mac.init(secret);
             byte[] doFinal = mac.doFinal(dataBytes);

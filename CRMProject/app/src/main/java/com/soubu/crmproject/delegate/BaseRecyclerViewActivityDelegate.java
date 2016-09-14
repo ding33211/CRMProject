@@ -183,6 +183,11 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
         //big4的共有方法
     }
 
+
+    public  void setOnRushClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+        //只有拥有公海才有的方法
+    }
+
     public void ifDataEmpty(boolean empty){
         if(empty){
             mEmptyView.setVisibility(View.VISIBLE);

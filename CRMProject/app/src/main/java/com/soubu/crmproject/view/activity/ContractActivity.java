@@ -76,7 +76,7 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
 
     @Override
     protected void doRequest(int pageNum) {
-        RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, mSort, mOrder, mRelated, null);
+        RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, mSort, mOrder, mRelated, null, null);
     }
 
     @Override
@@ -172,6 +172,8 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
 
     @Override
     protected void onClickSearch(View v) {
-
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CONTRACT);
+        startActivity(intent);
     }
 }

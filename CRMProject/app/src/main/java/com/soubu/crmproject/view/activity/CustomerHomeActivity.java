@@ -19,6 +19,7 @@ import com.soubu.crmproject.utils.SearchUtil;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
 //        mStateArrayWeb = getResources().getStringArray(R.array.customer_status_web);
         mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mCustomerParams.getName());
-        ((TextView) viewDelegate.get(R.id.tv_subtitle)).setText(SearchUtil.searchCustomerPropertyArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerPropertyWebArray(this), mCustomerParams.getProperty())]);
+        ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(SearchUtil.searchCustomerPropertyArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerPropertyWebArray(this), mCustomerParams.getProperty())]);
+        ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(SearchUtil.searchCustomerTypeArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerTypeWebArray(this), mCustomerParams.getType())]);
         ((TextView) viewDelegate.get(R.id.tv_left_number)).setText(mCustomerParams.getDealsCount());
         ((TextView) viewDelegate.get(R.id.tv_right_number)).setText(mCustomerParams.getContractsCount());
     }
@@ -53,7 +55,6 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     protected void initData() {
         super.initData();
         viewDelegate.setEntity(mCustomerParams);
-
     }
 
     @Override
@@ -65,7 +66,7 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
                 return false;
             }
         });
-        viewDelegate.setOnClickListener(this, R.id.rl_content, R.id.iv_horizontal_more);
+        viewDelegate.setOnClickListener(this, R.id.rl_content, R.id.ll_go_right, R.id.ll_left, R.id.ll_right);
 
     }
 
@@ -78,11 +79,21 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
                 intent.putExtra(Contants.EXTRA_CUSTOMER, mCustomerParams);
                 startActivity(intent);
                 break;
-            case R.id.iv_horizontal_more:
+            case R.id.ll_go_right:
                 Intent intent1 = new Intent(this, ContactActivity.class);
                 intent1.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerParams.getId());
                 intent1.putExtra(Contants.EXTRA_CUSTOMER_NAME, mCustomerParams.getName());
                 startActivity(intent1);
+                break;
+            case R.id.ll_left:
+                Intent intent2 = new Intent(this, BusinessOpportunityActivity.class);
+                intent2.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerParams.getId());
+                startActivity(intent2);
+                break;
+            case R.id.ll_right:
+                Intent intent3 = new Intent(this, ContractActivity.class);
+                intent3.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerParams.getId());
+                startActivity(intent3);
                 break;
         }
     }
@@ -102,7 +113,17 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
-        viewDelegate.setViewPagerData(0, list);
+        List<FollowParams> records = new ArrayList<>();
+        List<FollowParams> plans = new ArrayList<>();
+        for(FollowParams param : list){
+            if(TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)){
+                plans.add(param);
+            } else {
+                records.add(param);
+            }
+        }
+        viewDelegate.setViewPagerData(0, records);
+        viewDelegate.setViewPagerData(1, plans);
     }
 
     @Override

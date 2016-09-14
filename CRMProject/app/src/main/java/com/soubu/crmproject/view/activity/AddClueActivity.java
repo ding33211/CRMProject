@@ -17,7 +17,11 @@ import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +54,6 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
                     } else {
                         RetrofitRequest.getInstance().addClue(getNewClueParams());
                     }
-                    finish();
                 }
             }
         });
@@ -146,7 +149,7 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getAddress())) {
             item.setContent(mClueParams.getAddress());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_LOCATE);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
         mList.add(item);
 //        item = new AddItem();
 //        item.setTitleRes(R.string.add_contact);
@@ -293,4 +296,26 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(ClueParams[] params) {
+        if(params != null && params[0] != null){
+            finish();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void throwError(Throwable t) {
+
+    }
+
+
+    /**
+     * 错误信息
+     *
+     * @param errorMsg
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void throwError(String errorMsg) {
+        ShowWidgetUtil.showLong(errorMsg);
+    }
 }

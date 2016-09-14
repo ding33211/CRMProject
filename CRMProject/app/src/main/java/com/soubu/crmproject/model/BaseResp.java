@@ -44,14 +44,6 @@ public class BaseResp {
         this.sign = sign;
     }
 
-    public Object getErrors() {
-        return errors;
-    }
-
-    public void setErrors(Object errors) {
-        this.errors = errors;
-    }
-
     public String getMsg() {
         return msg;
     }

@@ -20,6 +20,8 @@ public class Contants {
     public static final int TYPE_CUSTOMER = 0x01;
     public static final int TYPE_BUSINESS_OPPORTUNITY = 0x02;
     public static final int TYPE_CONTRACT = 0x03;
+    public static final int TYPE_HIGH_SEAS = 0x04;
+
 
 
     public static final int FROM_CLUE = 0x00;
@@ -27,6 +29,7 @@ public class Contants {
     public static final int FROM_BUSINESS_OPPORTUNITY = 0x02;
     public static final int FROM_CONTRACT = 0x03;
     public static final int FROM_ADD_SOMETHING_ACTIVITY = 0x04;
+    public static final int FROM_CLUE_HIGH_SEAS = 0x05;
 
 
     //在跟进总表
@@ -42,6 +45,9 @@ public class Contants {
 
     public static final String BACK_SALES_TYPE_PLAN = "PLAN";
     public static final String BACK_SALES_TYPE_DETAIL = "DETAIL";
+
+    public static final String FOLLOW_TYPE_PLAN = "PLAN";
+    public static final String FOLLOW_TYPE_RECORD = "RECORD";
 
 
     public static final String SHARED_PREFERENCE_DEFAULT = "DEFAULT";

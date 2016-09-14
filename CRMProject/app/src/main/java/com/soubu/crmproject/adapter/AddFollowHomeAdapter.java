@@ -42,7 +42,7 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
         this.mContext = context;
         mTabs = new String[]{mContext.getString(R.string.clue), mContext.getString(R.string.customer), mContext.getString(R.string.business_opportunity)
                 , mContext.getString(R.string.contract)};
-        mClueAdapter = new ClueRvAdapter(context);
+        mClueAdapter = new ClueRvAdapter(context, false);
         mCustomerAdapter = new CustomerRvAdapter(context);
         mBusinessOpportunityAdapter = new BusinessOpportunityRvAdapter(context);
         mContractAdapter = new ContractRvAdapter(context);

@@ -35,4 +35,8 @@ public class AddSomethingActivityDelegate extends BaseRecyclerViewActivityDelega
         return mAdapter.verifyRequired();
     }
 
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

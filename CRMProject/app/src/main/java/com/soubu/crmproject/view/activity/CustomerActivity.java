@@ -81,7 +81,7 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
 
     @Override
     protected void doRequest(int pageNum) {
-        RetrofitRequest.getInstance().getCustomerList(pageNum, mType, mSource, mSize, mIndustry, mStatus, mSort, mOrder, mRelated, null);
+        RetrofitRequest.getInstance().getCustomerList(pageNum, mType, mSource, mSize, mIndustry, mStatus, mSort, mOrder, mRelated, null, null);
 
     }
 
@@ -197,11 +197,9 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
 
     @Override
     protected void onClickSearch(View v) {
-
+        Intent intent = new Intent(this, SearchActivity.class);
+        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
+        startActivity(intent);
     }
 
-    @Override
-    protected int getFrom() {
-        return mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, -1);
-    }
 }

@@ -44,6 +44,10 @@ public class AddFollowActivityDelegate extends AppDelegate {
         get(R.id.sc_remind).performClick();
     }
 
+    public void pressTransfer(){
+        get(R.id.sc_transfer).performClick();
+    }
+
     public void setTypeAndFrom(int type){
         mType = type;
     }

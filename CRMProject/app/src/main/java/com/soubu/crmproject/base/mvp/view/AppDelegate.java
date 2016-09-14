@@ -43,7 +43,7 @@ public abstract class AppDelegate implements IDelegate {
     protected View rootView;
 
     //减去toolbar的内容布局
-    protected View contenetView;
+    protected View contentView;
 
     /**
      * 获取布局id
@@ -53,11 +53,21 @@ public abstract class AppDelegate implements IDelegate {
 
     public void create(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         int rootLayoutId = getRootLayoutId();
-        contenetView = inflater.inflate(rootLayoutId, container, false);
+        contentView = inflater.inflate(rootLayoutId, container, false);
         rootView = inflater.inflate(R.layout.activity_base_with_toolbar, container, false);
-        //如果需要隐藏toolbar或者是要求全屏,就添加toolbar
+        //如果需要隐藏toolbar或者是要求全屏,就不添加toolbar
         if(!ifNeedHideToolBar() && !ifNeedFullScreen()){
-            ((LinearLayout)rootView.findViewById(R.id.ll_content)).addView(contenetView);
+            ((LinearLayout)rootView.findViewById(R.id.ll_content)).addView(contentView);
+            if(ifNeedSearch()){
+                get(R.id.rl_normal).setVisibility(View.GONE);
+                get(R.id.rl_search).setVisibility(View.VISIBLE);
+                get(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().finish();
+                    }
+                });
+            }
         }
     }
 
@@ -78,7 +88,7 @@ public abstract class AppDelegate implements IDelegate {
      */
     public View getRootView() {
         if(ifNeedHideToolBar() || ifNeedFullScreen()){
-            return contenetView;
+            return contentView;
         }
         return rootView;
     }
@@ -89,7 +99,7 @@ public abstract class AppDelegate implements IDelegate {
      */
     public void setRootView(View rootView) {
         if(ifNeedHideToolBar()){
-            this.contenetView = rootView;
+            this.contentView = rootView;
         } else {
             this.rootView = rootView;
         }
@@ -155,6 +165,15 @@ public abstract class AppDelegate implements IDelegate {
         return false;
     }
 
+
+    /**
+     * 是否需要全屏展示
+     * @return
+     */
+    public boolean ifNeedSearch(){
+        return false;
+    }
+
     /**
      * 是否需要隐藏toolbar
      */
@@ -173,7 +192,7 @@ public abstract class AppDelegate implements IDelegate {
      * @param titleRes
      */
     public void setTitle(int titleRes){
-        ((TextView)getToolbar().findViewById(R.id.tv_toorbar_title)).setText(titleRes);
+        ((TextView)getToolbar().findViewById(R.id.tv_toolbar_title)).setText(titleRes);
     }
 
     public void setRightMenuOne(int drawableRes, View.OnClickListener listener){

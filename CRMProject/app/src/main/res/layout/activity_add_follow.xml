@@ -251,6 +251,39 @@
 
 
                 <RelativeLayout
+                    android:id="@+id/rl_transfer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_item_white_grey_bg"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_transfer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/transfer_customer_now"
+                        android:textColor="@color/title_black"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/sc_transfer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tv_transfer"
+                        android:background="@color/line_color" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
                     android:id="@+id/rl_follow_function"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

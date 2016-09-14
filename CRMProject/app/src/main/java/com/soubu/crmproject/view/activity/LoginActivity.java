@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.soubu.crmproject.MyApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.common.ApiConfig;
@@ -77,8 +78,8 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     public void refreshData(UserParams[] userParams) {
         if(userParams != null && userParams.length > 0){
             if(!TextUtils.isEmpty(userParams[0].getToken()) && !TextUtils.isEmpty(userParams[0].getId())){
-                ApiConfig.setToken(userParams[0].getToken());
-                ApiConfig.setUid(userParams[0].getId());
+                MyApplication.getContext().setToken(userParams[0].getToken());
+                MyApplication.getContext().setUid(userParams[0].getId());
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 finish();

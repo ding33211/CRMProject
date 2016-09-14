@@ -10,12 +10,16 @@ import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
+import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -307,5 +311,29 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
             }
         }
         return customerParams;
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(CustomerParams[] params) {
+        if(params != null && params[0] != null){
+            finish();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void throwError(Throwable t) {
+
+    }
+
+
+    /**
+     * 错误信息
+     *
+     * @param errorMsg
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void throwError(String errorMsg) {
+        ShowWidgetUtil.showLong(errorMsg);
     }
 }

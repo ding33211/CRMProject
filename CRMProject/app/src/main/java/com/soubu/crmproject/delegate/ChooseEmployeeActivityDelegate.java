@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-25.
  */
-public class ChooseManagerActivityDelegate extends BaseRecyclerViewActivityDelegate {
+public class ChooseEmployeeActivityDelegate extends BaseRecyclerViewActivityDelegate {
     ChooseManagerRvAdapter mAdapter;
 
     @Override

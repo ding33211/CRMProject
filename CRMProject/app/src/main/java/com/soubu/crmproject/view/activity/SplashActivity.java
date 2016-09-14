@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.igexin.sdk.PushManager;
+import com.soubu.crmproject.MyApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.common.ApiConfig;
@@ -37,7 +38,6 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
         super.onCreate(savedInstanceState);
         //初始化个推
         PushManager.getInstance().initialize(this.getApplicationContext());
-        ApiConfig.initContext(getApplicationContext());
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -54,7 +54,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     //需要验证权限的方法
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     void load() {
-        if(TextUtils.isEmpty(ApiConfig.getToken())){
+        if(TextUtils.isEmpty(MyApplication.getContext().getToken())){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();

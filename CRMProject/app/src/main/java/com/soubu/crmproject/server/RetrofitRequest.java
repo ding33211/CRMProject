@@ -2,12 +2,15 @@ package com.soubu.crmproject.server;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.soubu.crmproject.MyApplication;
 import com.soubu.crmproject.common.ApiConfig;
 import com.soubu.crmproject.model.BackSalesParams;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.ContactParams;
-import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
@@ -17,13 +20,12 @@ import com.soubu.crmproject.utils.ConvertUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Retrofit的网络请求类
@@ -75,12 +77,22 @@ public class RetrofitRequest {
     /**
      * 获取线索列表
      *
-     * @param page
      */
-    public void getClueList(Integer page, String source, String status, String sort, String order, String related, Integer count) {
+    public void getClueList(Integer page, String source, String status, String sort, String order, String related, Integer count, String search) {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getClue(source, status, page, sort, order, related, count);
+                .getClue(source, status, page, sort, order, related, count, search);
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取线索公海列表
+     *
+     */
+    public void getClueHighSeasList(Integer page, String source, String status, String sort, String order, Integer count, String search) {
+        Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .getClueHighSeas(source, status, page, sort, order, count, search);
         enqueueClue(call, true);
     }
 
@@ -92,8 +104,19 @@ public class RetrofitRequest {
     public void addClue(ClueParams clue) {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addClue(clue, ConvertUtil.hmacsha256(clue.getMap(), ApiConfig.getToken()));
+                .addClue(clue, ConvertUtil.hmacsha256(clue.getMap(), MyApplication.getContext().getToken()));
         enqueueClue(call, false);
+    }
+
+    /**
+     * 获取线索列表
+     *
+     */
+    public void rushClue(String id) {
+        Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .rushClueHighSeas(id, ConvertUtil.hmacsha256(new HashMap<String, String>(), MyApplication.getContext().getToken()));
+        enqueueClue(call, true);
     }
 
     /**
@@ -105,7 +128,7 @@ public class RetrofitRequest {
     public void updateClue(String id, Map<String, String> map) {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateClue(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
+                .updateClue(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -127,7 +150,14 @@ public class RetrofitRequest {
                     return;
                 } else {
                     if (response.body().errors != null) {
+                        JsonElement element = new Gson().toJsonTree(response.body().errors);
+//                        JsonArray array = element.getAsJsonArray();
+                        JsonObject object = element.getAsJsonObject();
                         Log.e(TAG, response.body().errors.toString());
+                        for(Map.Entry<String, JsonElement> entry : object.entrySet()){
+                            String msg = entry.getValue().getAsJsonObject().get("msg").getAsString();
+                            EventBus.getDefault().post(msg);
+                        }
                     } else if (response.body().getRawString() != null && response.body().getSign() != null) {
                         Log.e(TAG, response.body().getRawString() + "       " + response.body().getSign());
                     }
@@ -147,10 +177,21 @@ public class RetrofitRequest {
     /**
      * 获取客户列表
      */
-    public void getCustomerList(Integer page, String type, String source, String size, String industry, String status, String sort, String order, String related, Integer count) {
+    public void getCustomerList(Integer page, String type, String source, String size, String industry,
+                                String status, String sort, String order, String related, Integer count, String search) {
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getCustomer(type, source, size, industry, status, page, sort, order, related, count);
+                .getCustomer(type, source, size, industry, status, page, sort, order, related, count, search);
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取客户详情
+     */
+    public void getCustomerSpec(String id) {
+        Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .getCustomerSpec(id);
         enqueueClue(call, true);
     }
 
@@ -162,7 +203,7 @@ public class RetrofitRequest {
     public void addCustomer(CustomerParams customerParams) {
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addCustomer(customerParams, ConvertUtil.hmacsha256(customerParams.getMap(), ApiConfig.getToken()));
+                .addCustomer(customerParams, ConvertUtil.hmacsha256(customerParams.getMap(), MyApplication.getContext().getToken()));
         enqueueClue(call, false);
     }
 
@@ -175,17 +216,18 @@ public class RetrofitRequest {
     public void updateCustomer(String id, Map<String, String> map) {
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateCustomer(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
+                .updateCustomer(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
     /**
      * 获取商机列表
      */
-    public void getBusinessOpportunityList(Integer page, String type, String source, String status, String sort, String order, String related, Integer count) {
+    public void getBusinessOpportunityList(Integer page, String type, String source, String status, String sort,
+                                           String order, String related, Integer count, String customerId, String search) {
         Call<GetPageResp<BusinessOpportunityParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getBusinessOpportunity(type, source, status, page, sort, order, related, count);
+                .getBusinessOpportunity(type, source, status, page, sort, order, related, count, customerId, search);
         enqueueClue(call, true);
     }
 
@@ -198,7 +240,7 @@ public class RetrofitRequest {
     public void addBusinessOpportunity(BusinessOpportunityParams businessOpportunityParams) {
         Call<GetPageResp<BusinessOpportunityParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addBusinessOpportunity(businessOpportunityParams, ConvertUtil.hmacsha256(businessOpportunityParams.getMap(), ApiConfig.getToken()));
+                .addBusinessOpportunity(businessOpportunityParams, ConvertUtil.hmacsha256(businessOpportunityParams.getMap(), MyApplication.getContext().getToken()));
         enqueueClue(call, false);
     }
 
@@ -211,17 +253,17 @@ public class RetrofitRequest {
     public void updateBusinessOpportunity(String id, Map<String, String> map) {
         Call<GetPageResp<BusinessOpportunityParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateBusinessOpportunity(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
+                .updateBusinessOpportunity(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
     /**
      * 获取合同列表
      */
-    public void getContractList(Integer page, String type, String payMethod, String status, String receivedPayMethod, String sort, String order, String related, Integer count) {
+    public void getContractList(Integer page, String type, String payMethod, String status, String receivedPayMethod, String sort, String order, String related, Integer count, String search) {
         Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getContract(type, payMethod, status, receivedPayMethod, page, sort, order, related, count);
+                .getContract(type, payMethod, status, receivedPayMethod, page, sort, order, related, count, search);
         enqueueClue(call, true);
     }
 
@@ -233,7 +275,7 @@ public class RetrofitRequest {
     public void addContract(ContractParams contractParams) {
         Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addContract(contractParams, ConvertUtil.hmacsha256(contractParams.getMap(), ApiConfig.getToken()));
+                .addContract(contractParams, ConvertUtil.hmacsha256(contractParams.getMap(), MyApplication.getContext().getToken()));
         enqueueClue(call, false);
     }
 
@@ -246,7 +288,7 @@ public class RetrofitRequest {
     public void updateContract(String id, Map<String, String> map) {
         Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateContract(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
+                .updateContract(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -259,7 +301,7 @@ public class RetrofitRequest {
     public void addFollow(FollowParams followParams) {
         Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addFollow(followParams, ConvertUtil.hmacsha256(followParams.getMap(), ApiConfig.getToken()));
+                .addFollow(followParams, ConvertUtil.hmacsha256(followParams.getMap(), MyApplication.getContext().getToken()));
         enqueueClue(call, false);
     }
 
@@ -321,7 +363,7 @@ public class RetrofitRequest {
     public void addBackSales(BackSalesParams params, String id) {
         Call<GetPageResp<BackSalesParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addBackSales(params, ConvertUtil.hmacsha256(params.getMap(), ApiConfig.getToken()), id);
+                .addBackSales(params, ConvertUtil.hmacsha256(params.getMap(), MyApplication.getContext().getToken()), id);
         enqueueClue(call, false);
     }
 
@@ -346,7 +388,7 @@ public class RetrofitRequest {
     public void addContact(ContactParams params) {
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addContact(params, ConvertUtil.hmacsha256(params.getMap(), ApiConfig.getToken()));
+                .addContact(params, ConvertUtil.hmacsha256(params.getMap(), MyApplication.getContext().getToken()));
         enqueueClue(call, false);
     }
 
@@ -359,7 +401,7 @@ public class RetrofitRequest {
     public void updateContact(String id, Map<String, String> map) {
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateContact(id, map, ConvertUtil.hmacsha256(map, ApiConfig.getToken()));
+                .updateContact(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 

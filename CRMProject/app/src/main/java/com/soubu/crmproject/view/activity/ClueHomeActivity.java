@@ -2,6 +2,7 @@ package com.soubu.crmproject.view.activity;
 
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.soubu.crmproject.utils.SearchUtil;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.rl_content);
+        viewDelegate.setOnClickListener(this, R.id.ll_go_left);
         viewDelegate.setSettingMenuListener(R.menu.clue_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -55,7 +57,7 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.rl_content) {
+        if (id == R.id.ll_go_left) {
             Intent intent = new Intent(this, ClueSpecActivity.class);
             intent.putExtra(Contants.EXTRA_CLUE, mClueParams);
             startActivity(intent);
@@ -71,9 +73,9 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
         mStateArrayWeb = getResources().getStringArray(R.array.clue_status_web);
         mClueParams = (ClueParams) getIntent().getSerializableExtra(Contants.EXTRA_CLUE);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mClueParams.getCompanyName());
-        ((TextView) viewDelegate.get(R.id.tv_subtitle)).setText(mClueParams.getContactName());
-        ((TextView) viewDelegate.get(R.id.tv_follow_state_label)).setText(R.string.clue_status);
-        ((TextView) viewDelegate.get(R.id.tv_follow_state)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mClueParams.getStatus())]);
+        ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(mClueParams.getContactName());
+//        ((TextView) viewDelegate.get(R.id.tv_follow_state_label)).setText(R.string.clue_status);
+        ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mClueParams.getStatus())]);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -93,7 +95,17 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
-        viewDelegate.setViewPagerData(0, list);
+        List<FollowParams> records = new ArrayList<>();
+        List<FollowParams> plans = new ArrayList<>();
+        for(FollowParams param : list){
+            if(TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)){
+                plans.add(param);
+            } else {
+                records.add(param);
+            }
+        }
+        viewDelegate.setViewPagerData(0, records);
+        viewDelegate.setViewPagerData(1, plans);
     }
 
     @Override

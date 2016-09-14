@@ -19,6 +19,8 @@ import com.soubu.crmproject.widget.indicatorviewpager.OnTransitionTextListener;
 import java.io.Serializable;
 import java.util.List;
 
+import retrofit2.http.GET;
+
 
 /**
  * 大四样主页代理
@@ -44,21 +46,31 @@ public class Big4HomeActivityDelegate extends AppDelegate {
         switch (mFrom){
             case Contants.FROM_CUSTOMER:
                 get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
-                get(R.id.ll_state_content).setVisibility(View.GONE);
-                get(R.id.rl_contact_method).setVisibility(View.GONE);
-                get(R.id.rl_contact).setVisibility(View.VISIBLE);
-                ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.customer_property);
+//                get(R.id.ll_state_content).setVisibility(View.GONE);
+//                get(R.id.rl_contact_method).setVisibility(View.GONE);
+//                get(R.id.rl_contact).setVisibility(View.VISIBLE);
+//                ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.customer_property);
+                ((TextView)get(R.id.tv_go_left)).setText(R.string.customer_spec);
+                ((TextView)get(R.id.tv_go_right)).setText(R.string.contact);
                 break;
             case Contants.FROM_CONTRACT:
-                get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
+//                get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
                 get(R.id.iv_contract_review_state).setVisibility(View.VISIBLE);
-                get(R.id.ll_contract_content).setVisibility(View.VISIBLE);
-                ((TextView)get(R.id.tv_left_label)).setText(R.string.sales_back_plan);
-                ((TextView)get(R.id.tv_right_label)).setText(R.string.already_sales_back);
-                ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.related_customer);
+//                get(R.id.ll_contract_content).setVisibility(View.VISIBLE);
+//                ((TextView)get(R.id.tv_left_label)).setText(R.string.sales_back_plan);
+//                ((TextView)get(R.id.tv_right_label)).setText(R.string.already_sales_back);
+//                ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.related_customer);
+                ((TextView)get(R.id.tv_go_left)).setText(R.string.contract_spec);
+                ((TextView)get(R.id.tv_go_right)).setText(R.string.customer_home);
+                break;
+            case Contants.FROM_BUSINESS_OPPORTUNITY:
+                ((TextView)get(R.id.tv_go_left)).setText(R.string.business_opportunity_spec);
+                ((TextView)get(R.id.tv_go_right)).setText(R.string.customer_home);
                 break;
             case Contants.FROM_CLUE:
-                get(R.id.ll_subtitle_label).setVisibility(View.GONE);
+//                get(R.id.ll_subtitle_label).setVisibility(View.GONE);
+                get(R.id.ll_go_right).setVisibility(View.GONE);
+                ((TextView)get(R.id.tv_go_left)).setText(R.string.clue_spec);
                 break;
         }
         mIndicatorViewPagerAdapter = new FollowInBig4HomeIndicatorViewPagerAdapter();

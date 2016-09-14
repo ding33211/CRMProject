@@ -32,7 +32,7 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
     }
 
     protected int getFrom(){
-        return -1;
+        return mFrom;
     }
 
     protected abstract int getParentArray();
@@ -60,6 +60,14 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
             @Override
             public void onItemClick(View v, int pos) {
                 onRvItemClickListener(v, pos);
+            }
+        });
+
+        viewDelegate.setOnRushClickListener(new ClueRvAdapter.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(View v, int pos) {
+                onRushClickListener(v,pos);
             }
         });
 
@@ -99,7 +107,8 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        if(getFrom() != Contants.FROM_ADD_SOMETHING_ACTIVITY){
+        mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, -1);
+        if(getFrom() == -1){
             viewDelegate.setRightMenuOne(R.drawable.btn_add, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -120,6 +129,8 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
     protected abstract void doRequest(int pageNum);
 
     protected abstract void onRvItemClickListener(View v, int pos);
+
+    public void onRushClickListener(View v, int pos){}
 
     protected abstract void onSelectFilter(Map<Integer, Integer> map);
 

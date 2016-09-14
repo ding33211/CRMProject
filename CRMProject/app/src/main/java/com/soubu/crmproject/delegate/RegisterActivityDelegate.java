@@ -47,6 +47,10 @@ public class RegisterActivityDelegate extends AppDelegate {
             return false;
         }
         String pwdAgain = ((EditText)get(R.id.et_password_again)).getText().toString();
+        if(TextUtils.isEmpty(pwdAgain)){
+            ShowWidgetUtil.showLong(R.string.please_input_password_again);
+            return false;
+        }
         if(!TextUtils.equals(pwd, pwdAgain)){
             ShowWidgetUtil.showLong(R.string.two_password_not_same);
             return false;

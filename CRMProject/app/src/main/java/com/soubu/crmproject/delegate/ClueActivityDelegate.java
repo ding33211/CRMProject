@@ -13,13 +13,18 @@ import java.util.List;
 public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
 
     private ClueRvAdapter mAdapter;
+    private boolean mIfHighSeas = false;
 
 
     @Override
     public void initWidget() {
         super.initWidget();
-        setTitle(R.string.clue);
-        mAdapter = new ClueRvAdapter(getActivity().getApplicationContext());
+        if(mIfHighSeas){
+            setTitle(R.string.clue_high_seas);
+        } else {
+            setTitle(R.string.clue);
+        }
+        mAdapter = new ClueRvAdapter(getActivity().getApplicationContext(), mIfHighSeas);
         setListAdapter(mAdapter);
     }
 
@@ -31,6 +36,10 @@ public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
 
     public void setOnRecyclerViewItemClickListener(ClueRvAdapter.OnItemClickListener listener){
         mAdapter.setOnItemClickListener(listener);
+    }
+
+    public void setOnRushClickListener(ClueRvAdapter.OnItemClickListener listener){
+        mAdapter.setOnRushClickListener(listener);
     }
 
     public ClueParams getClueParams(int pos){
@@ -54,6 +63,10 @@ public class ClueActivityDelegate extends BaseRecyclerViewActivityDelegate {
 
     public void registerSwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack callBack) {
         registerSwipeRefreshCallBack(callBack, mAdapter);
+    }
+
+    public void setHighSeas(boolean flag){
+        mIfHighSeas = flag;
     }
 
 

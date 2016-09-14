@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
@@ -96,7 +97,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
             viewDelegate.get(R.id.iv_related_one).setVisibility(View.VISIBLE);
         }
         if(mType == TYPE_PLAN){
-            mFollowParams.setType("PLAN");
+            mFollowParams.setType(Contants.FOLLOW_TYPE_PLAN);
         }
         switch (mFrom) {
             case Contants.FROM_CLUE:
@@ -108,6 +109,9 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mFollowParams.setEntity(clueParams.getId());
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_OPPORTUNITY);
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, clueParams.getStatus())].toString());
+                if(TextUtils.equals(clueParams.getStatus(), mStateArrayWeb[1])){
+                    viewDelegate.get(R.id.rl_transfer).setVisibility(View.VISIBLE);
+                }
                 viewDelegate.giveTextViewString(R.id.tv_related_one, clueParams.getCompanyName());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_clue));
                 break;
@@ -130,6 +134,10 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mFollowParams.setEntity(businessOpportunityParams.getId());
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_DEAL);
                 viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, businessOpportunityParams.getStatus())].toString());
+                if(TextUtils.equals(businessOpportunityParams.getStatus(), mStateArrayWeb[4])) {
+                    viewDelegate.get(R.id.rl_transfer).setVisibility(View.VISIBLE);
+                    viewDelegate.giveTextViewString(R.id.tv_transfer, getString(R.string.transfer_contract_now));
+                }
                 viewDelegate.giveTextViewString(R.id.tv_related_one, businessOpportunityParams.getTitle());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_business_opportunity));
                 break;
@@ -169,6 +177,14 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 ShowWidgetUtil.showMultiItemDialog(this, mStateLabelRes, mStateArrayRes, false, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if(mFrom == Contants.FROM_CLUE && which == 1){
+                            viewDelegate.get(R.id.rl_transfer).setVisibility(View.VISIBLE);
+                        } else if(mFrom == Contants.FROM_CONTRACT && which == 4){
+                            viewDelegate.get(R.id.rl_transfer).setVisibility(View.VISIBLE);
+                            viewDelegate.giveTextViewString(R.id.tv_transfer, getString(R.string.transfer_contract_now));
+                        } else {
+                            viewDelegate.get(R.id.rl_transfer).setVisibility(View.GONE);
+                        }
                         mFollowParams.setStatus(mStateArrayWeb[which].toString());
                         viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[which].toString());
                         dialog.dismiss();
@@ -238,6 +254,9 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 break;
             case R.id.rl_remind:
                 viewDelegate.pressRemind();
+                break;
+            case R.id.rl_transfer:
+                viewDelegate.pressTransfer();
                 break;
             case R.id.ll_related_one:
                 if (mFromAddHome) {
