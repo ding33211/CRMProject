@@ -126,12 +126,13 @@ public interface RetrofitApi {
                                                     @Query("payMethod") String payMethod,//付款方式
                                                     @Query("status") String status,//合同状态
                                                     @Query("receivedPayType") String receivedPayType,//汇款方式
+                                                    @Query("reviewStatus") String reviewStatus,//汇款方式
                                                     @Query("page") Integer page,//页数
                                                     @Query("sort") String sort,//排序项
                                                     @Query("order") String order,//顺序
                                                     @Query("related") String related,//数据相关
                                                     @Query("count") Integer count,
-                                                    @Query("q") String seach);//每页条数,默认10
+                                                    @Query("q") String search);//每页条数,默认10
 
     //添加合同
     @Headers({"Content-type:application/json"})

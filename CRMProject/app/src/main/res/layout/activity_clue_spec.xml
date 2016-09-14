@@ -455,7 +455,7 @@
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/clue_spec_circle"
-                android:src="@drawable/clue_spec_qq" />
+                android:src="@drawable/clue_spec_email" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -469,7 +469,7 @@
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/clue_spec_circle"
-                    android:src="@drawable/clue_spec_locate" />
+                    android:src="@drawable/clue_spec_wechat" />
             </RelativeLayout>
 
             <ImageView
@@ -478,7 +478,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/clue_spec_circle"
-                android:src="@drawable/clue_spec_email" />
+                android:src="@drawable/clue_spec_qq" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -492,7 +492,7 @@
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/clue_spec_circle"
-                    android:src="@drawable/clue_spec_message" />
+                    android:src="@drawable/clue_spec_locate" />
             </RelativeLayout>
 
         </RelativeLayout>

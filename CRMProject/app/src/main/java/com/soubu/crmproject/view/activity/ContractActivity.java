@@ -24,14 +24,28 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
     String mType = null;
     String mPayMethod = null;
     String mReceivedPayType = null;
+    String mReviewState = null;
     String mSort = null;
     String mOrder = null;
     String mRelated = null;
 
+    //是否是审批
+    boolean mIfApproval = false;
 
     @Override
     protected Class<ContractDelegate> getDelegateClass() {
         return ContractDelegate.class;
+    }
+
+    @Override
+    protected void initToolbar() {
+        super.initToolbar();
+        mIfApproval = getIntent().getIntExtra(Contants.EXTRA_FROM, -1) == Contants.FROM_CONTRACT_APPROVAL;
+        if(mIfApproval){
+            viewDelegate.setTitle(R.string.contract_approval);
+        } else {
+            viewDelegate.setTitle(R.string.all_contract);
+        }
     }
 
     /**
@@ -65,8 +79,8 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
     @Override
     protected String[][] getChildrenArray() {
         return new String[][]{getResources().getStringArray(R.array.contract_type), getResources().getStringArray(R.array.contract_pay_method),
-                getResources().getStringArray(R.array.contract_state), getResources().getStringArray(R.array.contract_received_pay_method),
-                getResources().getStringArray(R.array.clue_related)};
+                getResources().getStringArray(R.array.contract_state), getResources().getStringArray(R.array.contract_review_state),
+                getResources().getStringArray(R.array.contract_received_pay_method), getResources().getStringArray(R.array.clue_related)};
     }
 
     @Override
@@ -76,14 +90,22 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
 
     @Override
     protected void doRequest(int pageNum) {
-        RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, mSort, mOrder, mRelated, null, null);
+        if(mIfApproval){
+            RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, "NOT_STARTED", mSort, mOrder, mRelated, null, null);
+        } else {
+            RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, mReviewState, mSort, mOrder, mRelated, null, null);
+        }
     }
 
     @Override
     protected void onRvItemClickListener(View v, int pos) {
-        Intent intent = new Intent(this, ContractHomeActivity.class);
-        intent.putExtra(Contants.EXTRA_CONTRACT, viewDelegate.getContractParams(pos));
-        startActivity(intent);
+        if(mIfApproval){
+
+        } else {
+            Intent intent = new Intent(this, ContractHomeActivity.class);
+            intent.putExtra(Contants.EXTRA_CONTRACT, viewDelegate.getContractParams(pos));
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -94,12 +116,14 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
             mType = null;
             mPayMethod = null;
             mReceivedPayType = null;
+            mReviewState = null;
         } else {
             String[] strings0 = getResources().getStringArray(R.array.contract_type_web);
             String[] strings1 = getResources().getStringArray(R.array.contract_pay_method_web);
             String[] strings2 = getResources().getStringArray(R.array.contract_state_web);
-            String[] strings3 = getResources().getStringArray(R.array.contract_received_pay_method_web);
-            String[] strings4 = getResources().getStringArray(R.array.clue_related_web);
+            String[] strings3 = getResources().getStringArray(R.array.contract_review_state_web);
+            String[] strings4 = getResources().getStringArray(R.array.contract_received_pay_method_web);
+            String[] strings5 = getResources().getStringArray(R.array.clue_related_web);
             if (map.containsKey(0)) {
                 if (map.get(0) == 0) {
                     mType = null;
@@ -123,16 +147,23 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
             }
             if (map.containsKey(3)) {
                 if (map.get(3) == 0) {
-                    mReceivedPayType = null;
+                    mReviewState = null;
                 } else {
-                    mReceivedPayType = strings3[map.get(3) - 1];
+                    mReviewState = strings3[map.get(3) - 1];
                 }
             }
             if (map.containsKey(4)) {
-                if(map.get(4) == 0){
+                if (map.get(4) == 0) {
+                    mReceivedPayType = null;
+                } else {
+                    mReceivedPayType = strings4[map.get(4) - 1];
+                }
+            }
+            if (map.containsKey(5)) {
+                if(map.get(5) == 0){
                     mRelated = null;
                 } else {
-                    mRelated = strings4[map.get(4) - 1];
+                    mRelated = strings5[map.get(5) - 1];
                 }
             }
         }

@@ -260,10 +260,10 @@ public class RetrofitRequest {
     /**
      * 获取合同列表
      */
-    public void getContractList(Integer page, String type, String payMethod, String status, String receivedPayMethod, String sort, String order, String related, Integer count, String search) {
+    public void getContractList(Integer page, String type, String payMethod, String status, String receivedPayMethod, String reviewState, String sort, String order, String related, Integer count, String search) {
         Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getContract(type, payMethod, status, receivedPayMethod, page, sort, order, related, count, search);
+                .getContract(type, payMethod, status, receivedPayMethod, reviewState, page, sort, order, related, count, search);
         enqueueClue(call, true);
     }
 

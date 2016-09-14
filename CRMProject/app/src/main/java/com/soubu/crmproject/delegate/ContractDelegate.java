@@ -20,7 +20,6 @@ public class ContractDelegate extends BaseRecyclerViewActivityDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        setTitle(R.string.all_contract);
         mAdapter = new ContractRvAdapter(getActivity().getApplicationContext());
         setListAdapter(mAdapter);
     }

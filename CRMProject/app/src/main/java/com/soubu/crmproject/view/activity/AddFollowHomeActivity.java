@@ -206,7 +206,7 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
                 request.getBusinessOpportunityList(pageNum, null, null, null, null, null, null, null, null, null);
                 break;
             case Contants.TYPE_CONTRACT:
-                request.getContractList(pageNum, null, null, null, null, null, null, null, null, null);
+                request.getContractList(pageNum, null, null, null, null, null, null, null, null, null, null);
                 break;
         }
     }

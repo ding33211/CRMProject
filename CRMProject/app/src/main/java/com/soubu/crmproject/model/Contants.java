@@ -30,6 +30,7 @@ public class Contants {
     public static final int FROM_CONTRACT = 0x03;
     public static final int FROM_ADD_SOMETHING_ACTIVITY = 0x04;
     public static final int FROM_CLUE_HIGH_SEAS = 0x05;
+    public static final int FROM_CONTRACT_APPROVAL = 0x06;
 
 
     //在跟进总表
@@ -68,6 +69,7 @@ public class Contants {
     public static final String EXTRA_FROM_ADD_FOLLOW = "FROM_ADD_FOLLOW";
     public static final String EXTRA_CUSTOMER_ID = "CUSTOMER_ID";
     public static final String EXTRA_CUSTOMER_NAME = "CUSTOMER_NAME";
+
 
 
     public static final String SP_KEY_TOKEN = "TOKEN";

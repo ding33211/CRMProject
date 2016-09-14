@@ -66,8 +66,10 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
                 R.drawable.weekly_and_monthly_report_disable, R.drawable.approval};
         Intent intent = new Intent(activity, ClueActivity.class);
         intent.putExtra(Contants.EXTRA_FROM, Contants.TYPE_HIGH_SEAS);
+        Intent intent1 = new Intent(activity, ContractActivity.class);
+        intent1.putExtra(Contants.EXTRA_FROM, Contants.FROM_CONTRACT_APPROVAL);
         Intent[] intentsTwo = new Intent[]{null, null,
-                intent, null, null, null};
+                intent, null, null, intent1};
 
         int[] labelsThree = new int[]{R.string.business_card_scanning, R.string.nearby_customers, R.string.fill_in_follow_up, R.string.new_reminder};
         int[] iconsThree = new int[]{R.drawable.business_card_scanning_disable, R.drawable.nearby_customers_disable, R.drawable.fill_in_follow_up, R.drawable.new_reminder_disable};
