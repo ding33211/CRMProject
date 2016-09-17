@@ -66,8 +66,12 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
         initItem(businessOpportunityParams.getAmountPrice(), R.string.signing_amount, hasTop ? false : true);
         initItem(ConvertUtil.dateToYYYY_MM_DD(businessOpportunityParams.getClosingAt()), R.string.expected_time_to_sign, hasTop ? false : true);
         initItem(businessOpportunityParams.getGotAt(), R.string.actual_signing_time, hasTop ? false : true);
-        hasTop = false;
-//        addItem = new AddItem();
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
+        //        addItem = new AddItem();
 //        addItem.setTitleRes(R.string.contact_information);
 //        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
 //        mList.add(addItem);
@@ -92,7 +96,11 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
         initItem(TextUtils.isEmpty(businessOpportunityParams.getStatus()) ? "" : mStateArray[SearchUtil.searchInArray(mStateWebArray, businessOpportunityParams.getStatus())].toString()
                 , R.string.business_opportunity_status, hasTop ? false : true);
         initItem(businessOpportunityParams.getNote(), R.string.remark, hasTop ? false : true);
-        hasTop = false;
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
         addItem = new AddItem();
         addItem.setTitleRes(R.string.founder_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);

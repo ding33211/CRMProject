@@ -58,7 +58,7 @@
             android:layout_width="1dp"
             android:layout_height="20dp"
             android:layout_marginLeft="9dp"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/line_color" />
 
         <ImageView
             android:id="@+id/iv_complete_state"
@@ -242,6 +242,6 @@
             android:layout_alignBottom="@+id/ll_follow_content"
             android:layout_below="@+id/iv_complete_state"
             android:layout_marginLeft="9dp"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/line_color" />
     </RelativeLayout>
 </LinearLayout>

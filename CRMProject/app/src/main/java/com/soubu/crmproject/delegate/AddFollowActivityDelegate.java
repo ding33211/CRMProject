@@ -27,7 +27,7 @@ public class AddFollowActivityDelegate extends AppDelegate {
     public void initWidget() {
         super.initWidget();
         if(mType == AddFollowActivity.TYPE_RECORD){
-            get(R.id.rl_expected_contract).setVisibility(View.GONE);
+            ((TextView)get(R.id.tv_expected_contract_label)).setText(R.string.related_contact);
         } else {
             get(R.id.rl_state).setVisibility(View.GONE);
             ((TextView)get(R.id.tv_follow_time_label)).setText(R.string.expected_follow_time);

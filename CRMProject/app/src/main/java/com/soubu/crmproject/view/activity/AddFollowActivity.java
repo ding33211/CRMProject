@@ -114,6 +114,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 }
                 viewDelegate.giveTextViewString(R.id.tv_related_one, clueParams.getCompanyName());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_clue));
+                viewDelegate.get(R.id.rl_expected_contract).setVisibility(View.GONE);
                 break;
 
             case Contants.FROM_CUSTOMER:

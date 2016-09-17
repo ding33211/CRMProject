@@ -65,8 +65,12 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         initItem(TextUtils.isEmpty(customerParams.getProperty()) ? "" : mPropertyArray[SearchUtil.searchInArray(mPropertyWebArray, customerParams.getProperty())].toString(), R.string.customer_property, hasTop ? false : true);
         initItem(customerParams.getWebsite(), R.string.website, hasTop ? false : true);
         initItem(customerParams.getAddress(), R.string.address, hasTop ? false : true);
-        hasTop = false;
-//        addItem = new AddItem();
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
+        //        addItem = new AddItem();
 //        addItem.setTitleRes(R.string.contact_information);
 //        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
 //        mList.add(addItem);
@@ -93,6 +97,11 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
 //        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
 //        mList.add(addItem);
 //        initItem(customerParams.getManager(), R.string.manager, true);
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
         viewDelegate.setData(mList);
     }
 

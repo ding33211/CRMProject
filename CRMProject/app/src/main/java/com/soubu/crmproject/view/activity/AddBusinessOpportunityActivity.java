@@ -319,8 +319,8 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            if(requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER) {
                 mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
                 String name = data.getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
                 viewDelegate.setCustomerName(name);
@@ -330,7 +330,12 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(BusinessOpportunityParams[] params) {
-        if(params != null && params[0] != null){
+        if (params != null && params[0] != null) {
+            if (mFromEdit) {
+                ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
+            } else {
+                ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
+            }
             finish();
         }
     }

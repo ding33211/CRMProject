@@ -49,7 +49,11 @@ public class ContactSpecActivity extends ActivityPresenter<SpecActivityDelegate>
         initItem(contactParams.getCustomer(), R.string.related_customer, hasTop ? false : true);
         initItem(contactParams.getPosition(), R.string.post, hasTop ? false : true);
         initItem(contactParams.getDepartment(), R.string.department, hasTop ? false : true);
-        hasTop = false;
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
         addItem = new AddItem();
         addItem.setTitleRes(R.string.contact_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -60,6 +64,11 @@ public class ContactSpecActivity extends ActivityPresenter<SpecActivityDelegate>
         initItem(contactParams.getWechat(), R.string.wechat, hasTop ? false : true);
         initItem(contactParams.getWangwang(), R.string.wangwang, hasTop ? false : true);
         initItem(contactParams.getEmail(), R.string.email, hasTop ? false : true);
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
         viewDelegate.setData(mList);
     }
 

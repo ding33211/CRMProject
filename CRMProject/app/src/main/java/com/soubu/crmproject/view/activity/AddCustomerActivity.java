@@ -124,7 +124,7 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
-        if(!mFromEdit) {
+        if (!mFromEdit) {
             item = new AddItem();
             item.setTitleRes(R.string.contact_information);
             item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -316,7 +316,12 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(CustomerParams[] params) {
-        if(params != null && params[0] != null){
+        if (params != null && params[0] != null) {
+            if (mFromEdit) {
+                ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
+            } else {
+                ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
+            }
             finish();
         }
     }

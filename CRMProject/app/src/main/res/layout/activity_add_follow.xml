@@ -102,6 +102,8 @@
                     android:layout_height="55dp"
                     android:gravity="center_vertical"
                     android:background="@null"
+                    android:textSize="16sp"
+                    android:textColor="@color/filter_tab_text_color"
                     android:textColorHint="@color/line_color"
                     android:hint="@string/please_input_title"
                     android:singleLine="true" />
@@ -117,6 +119,8 @@
                     android:layout_marginTop="20dp"
                     android:background="@null"
                     android:gravity="top"
+                    android:textSize="16sp"
+                    android:textColor="@color/filter_tab_text_color"
                     android:textColorHint="@color/line_color"
                     android:hint="@string/please_input_content"
                     android:minHeight="50dp" />
@@ -246,7 +250,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_below="@+id/tv_state_label"
-                        android:background="@color/line_color" />
+                        android:background="@color/item_line_grey" />
                 </RelativeLayout>
 
 
@@ -279,7 +283,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_below="@+id/tv_transfer"
-                        android:background="@color/line_color" />
+                        android:background="@color/item_line_grey" />
                 </RelativeLayout>
 
 
@@ -332,7 +336,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentTop="true"
-                        android:background="@color/line_color" />
+                        android:background="@color/item_line_grey" />
 
                     <TextView
                         android:id="@+id/tv_follow_time_label"
@@ -403,7 +407,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentTop="true"
-                        android:background="@color/line_color" />
+                        android:background="@color/item_line_grey" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -454,7 +458,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentTop="true"
-                        android:background="@color/line_color" />
+                        android:background="@color/item_line_grey" />
 
                     <TextView
                         android:id="@+id/tv_remind_time_label"
@@ -497,7 +501,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentTop="true"
-                        android:background="@color/line_color" />
+                        android:background="@color/item_line_grey" />
 
                     <TextView
                         android:id="@+id/tv_remind_function_label"

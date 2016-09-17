@@ -63,7 +63,11 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         initItem(contractParams.getCustomer(), R.string.related_customer, hasTop ? false : true);
         initItem(contractParams.getDeal(), R.string.related_business_opportunity, hasTop ? false : true);
         initItem(contractParams.getProduct(), R.string.related_product, hasTop ? false : true);
-        hasTop = false;
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
         addItem = new AddItem();
         addItem.setTitleRes(R.string.contact_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -83,8 +87,12 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         initItem(ConvertUtil.dateToYYYY_MM_DD(contractParams.getClosedAt()), R.string.signed_date, hasTop ? false : true);
 //        initItem(contractParams.getAttachments().toString(), R.string.contract_attachments, hasTop ? false : true);
         initItem(contractParams.getNote(), R.string.remark, hasTop ? false : true);
-        hasTop = false;
-//        addItem = new AddItem();
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
+        //        addItem = new AddItem();
 //        addItem.setTitleRes(R.string.other_information);
 //        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
 //        mList.add(addItem);

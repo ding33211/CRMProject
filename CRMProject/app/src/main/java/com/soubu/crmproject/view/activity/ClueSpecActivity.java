@@ -60,7 +60,11 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         initItem(clueParams.getPosition(), R.string.post, hasTop ? false : true);
         initItem(clueParams.getDepartment(), R.string.department, hasTop ? false : true);
         initItem(clueParams.getCompanyName(), R.string.company_name, hasTop ? false : true);
-        hasTop = false;
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
         addItem = new AddItem();
         addItem.setTitleRes(R.string.contact_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -74,7 +78,11 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         initItem(clueParams.getWebsite(), R.string.website, hasTop ? false : true);
         initItem(clueParams.getAddress(), R.string.address, hasTop ? false : true);
         initItem(clueParams.getPostcode(), R.string.postcode, hasTop ? false : true);
-        hasTop = false;
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
         addItem = new AddItem();
         addItem.setTitleRes(R.string.other_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -82,7 +90,11 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         initItem(TextUtils.isEmpty(clueParams.getStatus()) ? "" : mStateArray[SearchUtil.searchInArray(mStateWebArray, clueParams.getStatus())].toString(), R.string.follow_state, true);
         initItem(TextUtils.isEmpty(clueParams.getSource()) ? "" : mSourceArray[SearchUtil.searchInArray(mSourceWebArray, clueParams.getSource())].toString(), R.string.clue_from, hasTop ? false : true);
         initItem(clueParams.getNote(), R.string.remark, hasTop ? false : true);
-        hasTop = false;
+        if(!hasTop){
+            mList.remove(mList.size() - 1);
+        } else {
+            hasTop = false;
+        }
         addItem = new AddItem();
         addItem.setTitleRes(R.string.founder_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);

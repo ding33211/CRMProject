@@ -20,6 +20,7 @@ import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.utils.ConvertUtil;
+import com.soubu.crmproject.utils.RegularUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 import com.soubu.crmproject.utils.WindowUtil;
@@ -57,6 +58,9 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     private Activity mActivity;
 
     private List<Integer> mRequiredPosList;
+    private int mMobilePos = -1;
+    private int mEmailPos = -1;
+    private int mTelPos = -1;
 
     //防止出现编辑框没有转化成数据,就点击了保存的情况
     private View mVStillFocus;
@@ -133,6 +137,15 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
             if (!mRequiredPosList.contains(position)) {
                 mRequiredPosList.add(position);
             }
+        }
+        if (mList.get(position).getTitleRes() == R.string.mobile) {
+            mMobilePos = position;
+        }
+        if (mList.get(position).getTitleRes() == R.string.email) {
+            mEmailPos = position;
+        }
+        if(mList.get(position).getTitleRes() == R.string.phone){
+            mTelPos = position;
         }
         ItemViewHolder holder1 = (ItemViewHolder) holder;
         holder1.etContent.setInputType(mList.get(holder.getLayoutPosition()).getEditTextType() | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -331,10 +344,31 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 return false;
             }
         }
+        if (mEmailPos != -1) {
+            String email = mList.get(mEmailPos).getContent();
+            if (!TextUtils.isEmpty(email) && !RegularUtil.isEmail(email)) {
+                ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.email_wrong_message));
+                return false;
+            }
+        }
+        if(mMobilePos != -1){
+            String mobile = mList.get(mMobilePos).getContent();
+            if(!TextUtils.isEmpty(mobile) && !RegularUtil.isMobile(mobile)){
+                ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.mobile_wrong_message));
+                return false;
+            }
+        }
+        if(mTelPos != -1){
+            String phone = mList.get(mTelPos).getContent();
+            if(!TextUtils.isEmpty(phone) && !RegularUtil.isTel(phone)){
+                ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.phone_wrong_message));
+                return false;
+            }
+        }
         return true;
     }
 
-    public void setCustomerName(String name){
+    public void setCustomerName(String name) {
         mList.get(mLastClickPosBeforeLeave).setContent(name);
         notifyDataSetChanged();
     }

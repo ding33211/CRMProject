@@ -105,7 +105,7 @@ public class RetrofitRequest {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addClue(clue, ConvertUtil.hmacsha256(clue.getMap(), MyApplication.getContext().getToken()));
-        enqueueClue(call, false);
+        enqueueClue(call, true);
     }
 
     /**
@@ -204,7 +204,7 @@ public class RetrofitRequest {
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addCustomer(customerParams, ConvertUtil.hmacsha256(customerParams.getMap(), MyApplication.getContext().getToken()));
-        enqueueClue(call, false);
+        enqueueClue(call, true);
     }
 
     /**
@@ -241,7 +241,7 @@ public class RetrofitRequest {
         Call<GetPageResp<BusinessOpportunityParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addBusinessOpportunity(businessOpportunityParams, ConvertUtil.hmacsha256(businessOpportunityParams.getMap(), MyApplication.getContext().getToken()));
-        enqueueClue(call, false);
+        enqueueClue(call, true);
     }
 
     /**
@@ -276,7 +276,7 @@ public class RetrofitRequest {
         Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addContract(contractParams, ConvertUtil.hmacsha256(contractParams.getMap(), MyApplication.getContext().getToken()));
-        enqueueClue(call, false);
+        enqueueClue(call, true);
     }
 
     /**
@@ -302,7 +302,7 @@ public class RetrofitRequest {
         Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addFollow(followParams, ConvertUtil.hmacsha256(followParams.getMap(), MyApplication.getContext().getToken()));
-        enqueueClue(call, false);
+        enqueueClue(call, true);
     }
 
     /**
@@ -364,7 +364,7 @@ public class RetrofitRequest {
         Call<GetPageResp<BackSalesParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addBackSales(params, ConvertUtil.hmacsha256(params.getMap(), MyApplication.getContext().getToken()), id);
-        enqueueClue(call, false);
+        enqueueClue(call, true);
     }
 
 
@@ -389,7 +389,7 @@ public class RetrofitRequest {
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addContact(params, ConvertUtil.hmacsha256(params.getMap(), MyApplication.getContext().getToken()));
-        enqueueClue(call, false);
+        enqueueClue(call, true);
     }
 
     /**

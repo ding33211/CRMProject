@@ -240,6 +240,11 @@
     <string name="look_clue_spec">查看客户详情</string>
     <string name="continue_rush">继续抢</string>
     <string name="choose_transfer">选择转移人</string>
+    <string name="email_wrong_message">邮箱格式错误</string>
+    <string name="mobile_wrong_message">手机格式错误</string>
+    <string name="phone_wrong_message">电话格式错误</string>
+    <string name="add_params_succeed_message">已成功新增该条信息</string>
+    <string name="edit_params_succeed_message">已保存您的修改</string>
 
 
 </resources>

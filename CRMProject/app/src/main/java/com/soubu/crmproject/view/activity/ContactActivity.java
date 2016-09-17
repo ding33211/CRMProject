@@ -71,6 +71,7 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
     protected void onResume() {
         super.onResume();
         getList(true);
+        Log.e("xxxxxxxx", "onResume");
     }
 
     private void getList(boolean isRefresh) {
@@ -81,6 +82,8 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
             mPageNum++;
         }
         RetrofitRequest.getInstance().getContactList(mPageNum, getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_ID));
+        Log.e("xxxxxxxx", "getList");
+
     }
 
 
@@ -93,7 +96,9 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
         Log.e("xxxxxxxxxx", "    refreshData     mIsRefresh   " + mIsRefresh);
         viewDelegate.setData(list, mIsRefresh);
         if (mIsRefresh) {
-            mIsRefresh = false;
+            if(list.size() > 1){
+                mIsRefresh = false;
+            }
             viewDelegate.stopSwipeRefresh();
         }
     }

@@ -44,11 +44,11 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         viewDelegate.setSettingText(R.string.save, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(viewDelegate.verifyRequired()){
-                    if(mFromEdit){
+                if (viewDelegate.verifyRequired()) {
+                    if (mFromEdit) {
                         Map<String, String> map = CompileUtil.compile(mClueParams, getNewClueParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
-                        if(map.size() > 0) {
+                        if (map.size() > 0) {
                             RetrofitRequest.getInstance().updateClue(mClueParams.getId(), map);
                         }
                     } else {
@@ -69,6 +69,13 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(item);
         item = new AddItem();
+        item.setTitleRes(R.string.company_name);
+        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getCompanyName())) {
+            item.setContent(mClueParams.getCompanyName());
+        }
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
+        mList.add(item);
+        item = new AddItem();
         item.setTitleRes(R.string.name);
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getContactName())) {
             item.setContent(mClueParams.getContactName());
@@ -79,13 +86,6 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         item.setTitleRes(R.string.department);
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getDepartment())) {
             item.setContent(mClueParams.getDepartment());
-        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
-        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.company_name);
-        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getCompanyName())) {
-            item.setContent(mClueParams.getCompanyName());
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
         mList.add(item);
@@ -165,6 +165,8 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
 //            CharSequence[] array = SearchUtil.searchClueStateArray(getApplicationContext());
 //            CharSequence[] webArray = SearchUtil.searchClueStateWebArray(getApplicationContext());
             item.setContent(mClueParams.getStatus());
+        } else {
+            item.setContent(SearchUtil.searchClueStateWebArray(this)[0].toString());
         }
         item.setArrayRes(R.array.clue_status);
         item.setWebArrayRes(R.array.clue_status_web);
@@ -219,10 +221,10 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         }
     }
 
-    public ClueParams getNewClueParams(){
+    public ClueParams getNewClueParams() {
         List<AddItem> list = viewDelegate.getData();
         ClueParams clueParams;
-        if(mFromEdit) {
+        if (mFromEdit) {
             try {
                 clueParams = mClueParams.clone();
             } catch (Exception e) {
@@ -232,62 +234,62 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
         } else {
             clueParams = new ClueParams();
         }
-        for(AddItem item : list){
-            if(item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || item.getItemType() == AddSomethingRvAdapter.TYPE_OTHER){
+        for (AddItem item : list) {
+            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || item.getItemType() == AddSomethingRvAdapter.TYPE_OTHER) {
                 continue;
             }
-            if(item.getTitleRes() == R.string.name){
+            if (item.getTitleRes() == R.string.name) {
                 clueParams.setContactName(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.department){
+            if (item.getTitleRes() == R.string.department) {
                 clueParams.setDepartment(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.company_name){
+            if (item.getTitleRes() == R.string.company_name) {
                 clueParams.setCompanyName(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.post){
+            if (item.getTitleRes() == R.string.post) {
                 clueParams.setPosition(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.phone){
+            if (item.getTitleRes() == R.string.phone) {
                 clueParams.setPhone(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.mobile){
+            if (item.getTitleRes() == R.string.mobile) {
                 clueParams.setMobile(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.qq){
+            if (item.getTitleRes() == R.string.qq) {
                 clueParams.setQq(item.getContent());
             }
-            if(item.getTitleRes() == R.string.email){
+            if (item.getTitleRes() == R.string.email) {
                 clueParams.setEmail(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.website){
+            if (item.getTitleRes() == R.string.website) {
                 clueParams.setWebsite(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.address){
+            if (item.getTitleRes() == R.string.address) {
                 clueParams.setAddress(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.follow_state){
+            if (item.getTitleRes() == R.string.follow_state) {
                 clueParams.setStatus(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.clue_from){
+            if (item.getTitleRes() == R.string.clue_from) {
                 clueParams.setSource(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.remark){
+            if (item.getTitleRes() == R.string.remark) {
                 clueParams.setNote(item.getContent());
                 continue;
             }
-            if(item.getTitleRes() == R.string.manager){
+            if (item.getTitleRes() == R.string.manager) {
                 clueParams.setManager(item.getContent());
                 continue;
             }
@@ -298,7 +300,12 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ClueParams[] params) {
-        if(params != null && params[0] != null){
+        if (params != null && params[0] != null) {
+            if (mFromEdit) {
+                ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
+            } else {
+                ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
+            }
             finish();
         }
     }

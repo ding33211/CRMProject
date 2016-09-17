@@ -53,7 +53,7 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
                         //附件先不做考虑
                         map.remove("attachments");
-                        if(map.size() > 0) {
+                        if (map.size() > 0) {
                             RetrofitRequest.getInstance().updateContract(mContractParams.getId(), map);
                         }
                     } else {
@@ -328,8 +328,8 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            if(requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER) {
                 mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
                 String name = data.getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
                 viewDelegate.setCustomerName(name);
@@ -339,7 +339,12 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ContractParams[] params) {
-        if(params != null && params[0] != null){
+        if (params != null && params[0] != null) {
+            if (mFromEdit) {
+                ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
+            } else {
+                ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
+            }
             finish();
         }
     }
