@@ -239,6 +239,7 @@
     <string name="succeed_rush_clue_message">您已成功抢到客户: %s</string>
     <string name="look_clue_spec">查看客户详情</string>
     <string name="continue_rush">继续抢</string>
+    <string name="choose_transfer">选择转移人</string>
 
 
 </resources>

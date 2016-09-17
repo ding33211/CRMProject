@@ -1,5 +1,6 @@
 package com.soubu.crmproject.view.activity;
 
+import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.ChooseEmployeeActivityDelegate;
 
@@ -13,4 +14,10 @@ public class ChooseEmployeeActivity extends ActivityPresenter<ChooseEmployeeActi
         return ChooseEmployeeActivityDelegate.class;
     }
 
+
+    @Override
+    protected void initToolbar() {
+        super.initToolbar();
+        viewDelegate.setTitle(R.string.choose_transfer);
+    }
 }

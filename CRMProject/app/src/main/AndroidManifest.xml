@@ -69,6 +69,7 @@
         <activity android:name=".view.activity.LoginActivity"></activity>
         <activity android:name=".view.activity.RegisterActivity"></activity>
         <activity android:name=".view.activity.SearchActivity"></activity>
+        <activity android:name=".view.activity.ChooseEmployeeActivity"></activity>
 
     </application>z
 

@@ -49,6 +49,10 @@ public class ClueHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate
         viewDelegate.setSettingMenuListener(R.menu.clue_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.action_for_other){
+                    Intent intent = new Intent(ClueHomeActivity.this, ChooseEmployeeActivity.class);
+                    startActivity(intent);
+                }
                 return false;
             }
         });
