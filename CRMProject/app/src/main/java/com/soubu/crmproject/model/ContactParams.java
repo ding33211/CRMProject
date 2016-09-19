@@ -1,5 +1,8 @@
 package com.soubu.crmproject.model;
 
+import android.text.TextUtils;
+
+import com.soubu.crmproject.base.greendao.Contact;
 import com.soubu.crmproject.server.ObjectToMapInterface;
 
 import java.io.Serializable;
@@ -23,7 +26,26 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
     String department;
     Date createdAt;
     Date updatedAt;
+    Date touchedAt;
+    int touchedCount;
     String id;
+
+
+    public Date getTouchedAt() {
+        return touchedAt;
+    }
+
+    public void setTouchedAt(Date touchedAt) {
+        this.touchedAt = touchedAt;
+    }
+
+    public int getTouchedCount() {
+        return touchedCount;
+    }
+
+    public void setTouchedCount(int touchedCount) {
+        this.touchedCount = touchedCount;
+    }
 
     public String getQq() {
         return qq;
@@ -139,5 +161,68 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
 
     public ContactParams clone() throws CloneNotSupportedException{
         return (ContactParams)super.clone();
+    }
+
+    public Contact copyToContact(){
+        Contact contact = new Contact();
+        contact.setContact_id(id);
+        contact.setMobile(mobile);
+        contact.setCreatedAt(createdAt);
+        contact.setCustomer(customer);
+        contact.setDepartment(department);
+        contact.setName(name);
+        contact.setPhone(phone);
+        contact.setPosition(position);
+        contact.setQq(qq);
+        contact.setUpdatedAt(updatedAt);
+        contact.setWangwang(wangwang);
+        contact.setWechat(wechat);
+        contact.setTouchedAt(touchedAt);
+        contact.setTouchedCount(touchedCount);
+        return contact;
+    }
+
+    public boolean equals(Contact contact) {
+        //因为联系时间最频繁,所以最先检查
+        if(contact.getTouchedAt().compareTo(touchedAt) != 0){
+            return false;
+        }
+        if(contact.getUpdatedAt().compareTo(updatedAt) != 0){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getContact_id(), id)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getMobile(), mobile)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getCustomer(), customer)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getDepartment(), department)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getName(), name)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getPhone(), phone)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getPosition(), position)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getQq(), qq)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getWangwang(), wangwang)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getWechat(), wechat)){
+            return false;
+        }
+        if(contact.getCreatedAt().compareTo(createdAt) != 0){
+            return false;
+        }
+        return true;
     }
 }

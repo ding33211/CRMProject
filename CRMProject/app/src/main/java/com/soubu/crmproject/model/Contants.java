@@ -69,6 +69,13 @@ public class Contants {
     public static final String EXTRA_FROM_ADD_FOLLOW = "FROM_ADD_FOLLOW";
     public static final String EXTRA_CUSTOMER_ID = "CUSTOMER_ID";
     public static final String EXTRA_CUSTOMER_NAME = "CUSTOMER_NAME";
+    public static final String EXTRA_TRANSFER = "TRANSFER";
+    public static final String EXTRA_TRANSFER_NAME = "TRANSFER_NAME";
+    public static final String EXTRA_PARAM_ID = "PARAM_ID";
+    public static final String EXTRA_EMPLOYER_ID = "EMPLOYER_ID";
+    public static final String EXTRA_EMPLOYER_NAME = "EMPLOYER_NAME";
+
+
 
 
 

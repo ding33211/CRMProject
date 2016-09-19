@@ -14,6 +14,7 @@ import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
@@ -28,24 +29,25 @@ import java.util.Map;
 /**
  * Created by dingsigang on 16-8-26.
  */
-public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityDelegate> {
+public class AddCustomerActivity extends Big4AddActivityPresenter {
     private List<AddItem> mList;
-    private boolean mFromEdit;
     private CustomerParams mCustomerParams;
-
-    @Override
-    protected Class<AddSomethingActivityDelegate> getDelegateClass() {
-        return AddSomethingActivityDelegate.class;
-    }
+    //是否是线索转客户
+    private boolean mTransfer;
 
     @Override
     protected void initToolbar() {
         super.initToolbar();
         mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
+        mTransfer = getIntent().getBooleanExtra(Contants.EXTRA_TRANSFER, false);
         mFromEdit = false;
         if (mCustomerParams != null) {
             mFromEdit = true;
-            viewDelegate.setTitle(R.string.edit_customer);
+            if(mTransfer){
+                viewDelegate.setTitle(R.string.transfer_customer);
+            } else {
+                viewDelegate.setTitle(R.string.edit_customer);
+            }
         } else {
             viewDelegate.setTitle(R.string.add_customer);
         }
@@ -67,7 +69,6 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
                     } else {
                         RetrofitRequest.getInstance().addCustomer(getNewCustomerParams());
                     }
-                    finish();
                 } else {
                     ShowWidgetUtil.showLong(R.string.please_complete_required);
                 }
@@ -306,39 +307,12 @@ public class AddCustomerActivity extends ActivityPresenter<AddSomethingActivityD
                 continue;
             }
             if (item.getTitleRes() == R.string.manager) {
-                customerParams.setManager(item.getContent());
+                if(!TextUtils.isEmpty(mManagerId)){
+                    customerParams.setManager(mManagerId);
+                }
                 continue;
             }
         }
         return customerParams;
-    }
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(CustomerParams[] params) {
-        if (params != null && params[0] != null) {
-            if (mFromEdit) {
-                ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
-            } else {
-                ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
-            }
-            finish();
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
-    }
-
-
-    /**
-     * 错误信息
-     *
-     * @param errorMsg
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(String errorMsg) {
-        ShowWidgetUtil.showLong(errorMsg);
     }
 }

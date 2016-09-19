@@ -11,6 +11,7 @@ import java.util.List;
 public class AddSomethingActivityDelegate extends BaseRecyclerViewActivityDelegate {
     private AddSomethingRvAdapter mAdapter;
 
+
     @Override
     public void initWidget() {
         super.initWidget();
@@ -23,8 +24,12 @@ public class AddSomethingActivityDelegate extends BaseRecyclerViewActivityDelega
         mAdapter.notifyDataSetChanged();
     }
 
+    public void setManagerName(String name){
+        mAdapter.setLastClickedName(name);
+    }
+
     public void setCustomerName(String name){
-        mAdapter.setCustomerName(name);
+        mAdapter.setLastClickedName(name);
     }
 
     public List<AddItem> getData(){

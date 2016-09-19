@@ -8,19 +8,13 @@ import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
-import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
-import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +23,7 @@ import java.util.Map;
 /**
  * Created by dingsigang on 16-8-29.
  */
-public class AddContractActivity extends ActivityPresenter<AddSomethingActivityDelegate> {
+public class AddContractActivity extends Big4AddActivityPresenter {
     private List<AddItem> mList;
     private boolean mFromEdit;
     private ContractParams mContractParams;
@@ -59,7 +53,6 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
                     } else {
                         RetrofitRequest.getInstance().addContract(getNewContractParams());
                     }
-                    finish();
                 } else {
                     ShowWidgetUtil.showLong(R.string.please_complete_required);
                 }
@@ -318,7 +311,9 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
                 continue;
             }
             if (item.getTitleRes() == R.string.manager) {
-                contractParams.setManager(item.getContent());
+                if(!TextUtils.isEmpty(mManagerId)){
+                    contractParams.setManager(mManagerId);
+                }
                 continue;
             }
         }
@@ -335,34 +330,6 @@ public class AddContractActivity extends ActivityPresenter<AddSomethingActivityD
                 viewDelegate.setCustomerName(name);
             }
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(ContractParams[] params) {
-        if (params != null && params[0] != null) {
-            if (mFromEdit) {
-                ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
-            } else {
-                ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
-            }
-            finish();
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
-    }
-
-
-    /**
-     * 错误信息
-     *
-     * @param errorMsg
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(String errorMsg) {
-        ShowWidgetUtil.showLong(errorMsg);
     }
 
 }

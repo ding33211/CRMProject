@@ -12,6 +12,7 @@ import com.soubu.crmproject.common.ApiConfig;
 import com.soubu.crmproject.delegate.LoginActivityDelegate;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -80,16 +81,15 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
             if(!TextUtils.isEmpty(userParams[0].getToken()) && !TextUtils.isEmpty(userParams[0].getId())){
                 MyApplication.getContext().setToken(userParams[0].getToken());
                 MyApplication.getContext().setUid(userParams[0].getId());
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
+                setResult(RESULT_OK, null);
                 finish();
             }
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
     }
 
 

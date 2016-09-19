@@ -7,8 +7,12 @@ import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.BaseRecyclerViewActivityDelegate;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.widget.FilterOrSortPopupWindow;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Map;
 
@@ -31,7 +35,7 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
         super.initData();
     }
 
-    protected int getFrom(){
+    protected int getFrom() {
         return mFrom;
     }
 
@@ -63,11 +67,11 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
             }
         });
 
-        viewDelegate.setOnRushClickListener(new ClueRvAdapter.OnItemClickListener(){
+        viewDelegate.setOnRushClickListener(new ClueRvAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View v, int pos) {
-                onRushClickListener(v,pos);
+                onRushClickListener(v, pos);
             }
         });
 
@@ -108,7 +112,7 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
     protected void initToolbar() {
         super.initToolbar();
         mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, -1);
-        if(getFrom() == -1){
+        if (getFrom() == -1) {
             viewDelegate.setRightMenuOne(R.drawable.btn_add, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -124,13 +128,21 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
         });
     }
 
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
+        if (mIsRefresh) {
+            mIsRefresh = false;
+            viewDelegate.stopSwipeRefresh();
+        }
+    }
 
     protected abstract void doRequest(int pageNum);
 
     protected abstract void onRvItemClickListener(View v, int pos);
 
-    public void onRushClickListener(View v, int pos){}
+    public void onRushClickListener(View v, int pos) {
+    }
 
     protected abstract void onSelectFilter(Map<Integer, Integer> map);
 

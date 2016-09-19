@@ -10,6 +10,7 @@ import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -56,15 +57,7 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
         }
     }
 
-    /**
-     * 请求clue失败
-     *
-     * @param t
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
 
-    }
 
     @Override
     protected int getParentArray() {

@@ -11,6 +11,7 @@ import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 
@@ -151,7 +152,7 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
     }
 }

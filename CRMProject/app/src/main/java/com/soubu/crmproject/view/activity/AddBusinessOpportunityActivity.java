@@ -15,6 +15,7 @@ import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
@@ -30,16 +31,10 @@ import java.util.Map;
 /**
  * Created by dingsigang on 16-8-29.
  */
-public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethingActivityDelegate> {
+public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
     private List<AddItem> mList;
-    private boolean mFromEdit;
     private BusinessOpportunityParams mBusinessOpportunityParams;
     private String mCustomerId;
-
-    @Override
-    protected Class<AddSomethingActivityDelegate> getDelegateClass() {
-        return AddSomethingActivityDelegate.class;
-    }
 
     @Override
     protected void bindEvenListener() {
@@ -57,7 +52,6 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
                     } else {
                         RetrofitRequest.getInstance().addBusinessOpportunity(getNewBusinessOpportunityParams());
                     }
-                    finish();
                 } else {
                     ShowWidgetUtil.showLong(R.string.please_complete_required);
                 }
@@ -129,65 +123,6 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.contact_information);
-//        item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.phone);
-//        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getPhone())) {
-//            item.setContent(mClueParams.getPhone());
-//        }
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
-//        item.setEditTextType(InputType.TYPE_CLASS_PHONE);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.mobile);
-//        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getMobile())) {
-//            item.setContent(mClueParams.getMobile());
-//        }
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-//        item.setEditTextType(InputType.TYPE_CLASS_PHONE);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.qq);
-//        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getQq())) {
-//            item.setContent(mClueParams.getQq());
-//        }
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-//        item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.email);
-//        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getEmail())) {
-//            item.setContent(mClueParams.getEmail());
-//        }
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-//        item.setEditTextType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.website);
-//        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getWebsite())) {
-//            item.setContent(mClueParams.getWebsite());
-//        }
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-//        item.setEditTextType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.area);
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.address);
-//        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getAddress())) {
-//            item.setContent(mClueParams.getAddress());
-//        }
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_LOCATE);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.add_contact);
-//        item.setItemType(AddSomethingRvAdapter.TYPE_OTHER);
-//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.other_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -195,8 +130,6 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_source);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getSource())) {
-//            CharSequence[] array = SearchUtil.searchClueSourceArray(getApplicationContext());
-//            CharSequence[] webArray = SearchUtil.searchClueSourceWebArray(getApplicationContext());
             item.setContent(mBusinessOpportunityParams.getSource());
         }
         item.setArrayRes(R.array.clue_source);
@@ -206,8 +139,6 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_type);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getType())) {
-//            CharSequence[] array = SearchUtil.searchBusinessOpportunityTypeArray(getApplicationContext());
-//            CharSequence[] webArray = SearchUtil.searchBusinessOpportunityTypeWebArray(getApplicationContext());
             item.setContent(mBusinessOpportunityParams.getType());
         }
         item.setArrayRes(R.array.business_opportunity_type);
@@ -217,8 +148,6 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_status);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getStatus())) {
-//            CharSequence[] array = SearchUtil.searchBusinessOpportunityStateArray(getApplicationContext());
-//            CharSequence[] webArray = SearchUtil.searchBusinessOpportunityStateWebArray(getApplicationContext());
             item.setContent(mBusinessOpportunityParams.getStatus());
         }
         item.setArrayRes(R.array.business_opportunity_status);
@@ -244,10 +173,6 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.in_department);
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-//        mList.add(item);
         viewDelegate.setData(mList);
     }
 
@@ -308,7 +233,9 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
                 continue;
             }
             if (item.getTitleRes() == R.string.manager) {
-                businessOpportunityParams.setManager(item.getContent());
+                if(!TextUtils.isEmpty(mManagerId)){
+                    businessOpportunityParams.setManager(mManagerId);
+                }
                 continue;
             }
         }
@@ -326,33 +253,5 @@ public class AddBusinessOpportunityActivity extends ActivityPresenter<AddSomethi
                 viewDelegate.setCustomerName(name);
             }
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(BusinessOpportunityParams[] params) {
-        if (params != null && params[0] != null) {
-            if (mFromEdit) {
-                ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
-            } else {
-                ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
-            }
-            finish();
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
-    }
-
-
-    /**
-     * 错误信息
-     *
-     * @param errorMsg
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(String errorMsg) {
-        ShowWidgetUtil.showLong(errorMsg);
     }
 }

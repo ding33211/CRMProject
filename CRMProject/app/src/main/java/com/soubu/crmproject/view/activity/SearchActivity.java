@@ -18,6 +18,7 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -216,8 +217,8 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
     }
 
 }

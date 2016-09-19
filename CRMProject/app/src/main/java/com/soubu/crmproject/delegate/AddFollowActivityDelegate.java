@@ -1,5 +1,6 @@
 package com.soubu.crmproject.delegate;
 
+import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -50,6 +51,10 @@ public class AddFollowActivityDelegate extends AppDelegate {
 
     public void setTypeAndFrom(int type){
         mType = type;
+    }
+
+    public boolean isTransferChecked(){
+        return ((SwitchCompat)get(R.id.sc_transfer)).isChecked();
     }
 
 

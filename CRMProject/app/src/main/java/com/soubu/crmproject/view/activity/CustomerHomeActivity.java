@@ -3,18 +3,24 @@ package com.soubu.crmproject.view.activity;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
-import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
+import com.soubu.crmproject.base.greendao.Contact;
+import com.soubu.crmproject.base.greendao.ContactDao;
+import com.soubu.crmproject.base.greendao.DBHelper;
 import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
+import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.SearchUtil;
+import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -26,10 +32,9 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-26.
  */
-public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener {
+public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener {
     CustomerParams mCustomerParams;
-//    CharSequence[] mStateArray;
-//    CharSequence[] mStateArrayWeb;
+    private final int REQUEST_CHOOSE_EMPLOYEE = 1001;
 
     @Override
     protected Class<Big4HomeActivityDelegate> getDelegateClass() {
@@ -41,8 +46,6 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
         super.initView();
         viewDelegate.setTitle(R.string.customer_home);
         viewDelegate.setFrom(Contants.FROM_CUSTOMER);
-//        mStateArray = getResources().getStringArray(R.array.customer_status);
-//        mStateArrayWeb = getResources().getStringArray(R.array.customer_status_web);
         mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mCustomerParams.getName());
         ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(SearchUtil.searchCustomerPropertyArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerPropertyWebArray(this), mCustomerParams.getProperty())]);
@@ -63,10 +66,16 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
         viewDelegate.setSettingMenuListener(R.menu.customer_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_for_other) {
+                    Intent intent = new Intent(CustomerHomeActivity.this, ChooseEmployeeActivity.class);
+                    intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
+                    intent.putExtra(Contants.EXTRA_PARAM_ID, mCustomerParams.getId());
+                    startActivityForResult(intent, REQUEST_CHOOSE_EMPLOYEE);
+                }
                 return false;
             }
         });
-        viewDelegate.setOnClickListener(this, R.id.rl_content, R.id.ll_go_right, R.id.ll_left, R.id.ll_right);
+        viewDelegate.setOnClickListener(this, R.id.ll_go_left, R.id.ll_go_right, R.id.ll_left, R.id.ll_right);
 
     }
 
@@ -74,7 +83,7 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.rl_content:
+            case R.id.ll_go_left:
                 Intent intent = new Intent(this, CustomerSpecActivity.class);
                 intent.putExtra(Contants.EXTRA_CUSTOMER, mCustomerParams);
                 startActivity(intent);
@@ -106,8 +115,8 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -115,8 +124,8 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
         List<FollowParams> list = Arrays.asList(params);
         List<FollowParams> records = new ArrayList<>();
         List<FollowParams> plans = new ArrayList<>();
-        for(FollowParams param : list){
-            if(TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)){
+        for (FollowParams param : list) {
+            if (TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)) {
                 plans.add(param);
             } else {
                 records.add(param);
@@ -126,9 +135,46 @@ public class CustomerHomeActivity extends ActivityPresenter<Big4HomeActivityDele
         viewDelegate.setViewPagerData(1, plans);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(ContactParams[] params) {
+        Log.e("xxxxxxx", "    params.length   :  " + params.length);
+        if (params != null && params.length > 0) {
+            mLocation = mCustomerParams.getAddress();
+            ContactDao contactDao = DBHelper.getInstance(this).getContactDao();
+            for(ContactParams param : params){
+                List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Contact_id.eq(param.getId())).list();
+                if (list == null || list.size() == 0){
+                    contactDao.insert(param.copyToContact());
+                } else {
+                    if(!param.equals(contactDao)){
+                        Contact contact = param.copyToContact();
+                        contact.setId(list.get(0).getId());
+                        contactDao.update(contact);
+                    }
+                }
+            }
+            initConnectionView(Arrays.asList(params));
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        //获取跟进记录
         RetrofitRequest.getInstance().getCustomerFollow(mCustomerParams.getId(), null, null, null, null, null);
+        //获取客户名下联系人
+        RetrofitRequest.getInstance().getContactList(null, mCustomerParams.getId());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CHOOSE_EMPLOYEE:
+                    ShowWidgetUtil.showLong(getString(R.string.transfer_success_message, mCustomerParams.getName(), data.getStringExtra(Contants.EXTRA_TRANSFER_NAME)));
+                    finish();
+            }
+        }
     }
 }

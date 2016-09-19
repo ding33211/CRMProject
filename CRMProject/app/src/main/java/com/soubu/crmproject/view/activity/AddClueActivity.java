@@ -1,5 +1,6 @@
 package com.soubu.crmproject.view.activity;
 
+import android.content.Intent;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
@@ -28,15 +30,9 @@ import java.util.Map;
 /**
  * Created by dingsigang on 16-8-19.
  */
-public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDelegate> {
+public class AddClueActivity extends Big4AddActivityPresenter {
     private List<AddItem> mList;
-    private boolean mFromEdit;
     private ClueParams mClueParams;
-
-    @Override
-    protected Class<AddSomethingActivityDelegate> getDelegateClass() {
-        return AddSomethingActivityDelegate.class;
-    }
 
     @Override
     protected void bindEvenListener() {
@@ -58,7 +54,6 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
             }
         });
     }
-
 
     @Override
     protected void initData() {
@@ -290,39 +285,13 @@ public class AddClueActivity extends ActivityPresenter<AddSomethingActivityDeleg
                 continue;
             }
             if (item.getTitleRes() == R.string.manager) {
-                clueParams.setManager(item.getContent());
+                if(!TextUtils.isEmpty(mManagerId)){
+                    clueParams.setManager(mManagerId);
+                }
                 continue;
             }
         }
         return clueParams;
     }
 
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(ClueParams[] params) {
-        if (params != null && params[0] != null) {
-            if (mFromEdit) {
-                ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
-            } else {
-                ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
-            }
-            finish();
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
-    }
-
-
-    /**
-     * 错误信息
-     *
-     * @param errorMsg
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(String errorMsg) {
-        ShowWidgetUtil.showLong(errorMsg);
-    }
 }

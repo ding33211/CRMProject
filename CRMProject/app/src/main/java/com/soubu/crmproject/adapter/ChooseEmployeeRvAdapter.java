@@ -1,5 +1,6 @@
 package com.soubu.crmproject.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.base.greendao.DBHelper;
+import com.soubu.crmproject.base.greendao.Staff;
 import com.soubu.crmproject.model.EmployeeParams;
+import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.utils.CharacterParser;
 import com.soubu.crmproject.utils.PinyinComparator;
 import com.soubu.crmproject.widget.RecyclerViewFastScroller;
@@ -26,179 +30,22 @@ public class ChooseEmployeeRvAdapter extends RecyclerView.Adapter implements Rec
     private final int TYPE_MID = 0x01;
     private final int TYPE_BOT = 0x02;
     private final int TYPE_ONLY = 0x03;
+    private List<Staff> mParams;
 
+    OnItemClickListener mListener;
 
+    public interface OnItemClickListener{
+        void onClick(Staff staff);
+    }
 
-    private List<EmployeeParams> mParams;
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
 
-
-    public ChooseEmployeeRvAdapter() {
+    public ChooseEmployeeRvAdapter(Context context) {
         mParams = new ArrayList<>();
-        EmployeeParams params = new EmployeeParams();
-        params.setName("张老五");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("大大");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("给我个");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("呵呵");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("怕怕的");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("大卖场");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("去");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("怕买跑车");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("草庙村");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("且");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("业务员");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("去去去");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("长毛床");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("老婆出去");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("camouflage");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("大");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("切切");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("服务");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("服务你");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("张老五");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("磨齿机");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("流量卡");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("啊啊啊");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("大大大");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("哈哈哈");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("不不不");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("那你呢");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("抠门");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("以以i");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("哦哦哦");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("我问问");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("切切");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
-        params = new EmployeeParams();
-        params.setName("嘻嘻嘻");
-        params.setDepartment("123");
-        params.setPosition("456");
-        mParams.add(params);
+        DBHelper helper = DBHelper.getInstance(context);
+        mParams.addAll(helper.getStaffDao().loadAll());
         Collections.sort(mParams, new PinyinComparator());
     }
 
@@ -254,7 +101,7 @@ public class ChooseEmployeeRvAdapter extends RecyclerView.Adapter implements Rec
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder holder1 = (ItemViewHolder) holder;
-            holder1.tvName.setText(mParams.get(position).getName());
+            holder1.tvName.setText(mParams.get(position).getNickname());
             holder1.tvDepartment.setText(mParams.get(position).getDepartment());
             holder1.tvPosition.setText(mParams.get(position).getPosition());
             holder1.tvLetter.setText(mParams.get(position).getLetter());
@@ -273,7 +120,7 @@ public class ChooseEmployeeRvAdapter extends RecyclerView.Adapter implements Rec
         return mParams.size();
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvName;
         TextView tvDepartment;
         TextView tvPosition;
@@ -285,17 +132,25 @@ public class ChooseEmployeeRvAdapter extends RecyclerView.Adapter implements Rec
             this.tvDepartment = (TextView) itemView.findViewById(R.id.tv_department);
             this.tvPosition = (TextView) itemView.findViewById(R.id.tv_position);
             this.tvLetter = (TextView) itemView.findViewById(R.id.tv_letter);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(mListener != null){
+                mListener.onClick(mParams.get(getLayoutPosition()));
+            }
         }
     }
 
 
-    public void setData(List<EmployeeParams> list) {
-        if (mParams.size() > 0) {
-            mParams.clear();
-        }
-        mParams.addAll(list);
-        notifyDataSetChanged();
-    }
+//    public void setData(List<Staff> list) {
+//        if (mParams.size() > 0) {
+//            mParams.clear();
+//        }
+//        mParams.addAll(list);
+//        notifyDataSetChanged();
+//    }
 
 
 }

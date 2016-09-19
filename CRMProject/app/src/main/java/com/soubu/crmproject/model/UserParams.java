@@ -1,5 +1,7 @@
 package com.soubu.crmproject.model;
 
+import com.soubu.crmproject.utils.CharacterParser;
+
 import java.util.Date;
 
 /**
@@ -169,4 +171,5 @@ public class UserParams {
     public void setId(String id) {
         this.id = id;
     }
+
 }

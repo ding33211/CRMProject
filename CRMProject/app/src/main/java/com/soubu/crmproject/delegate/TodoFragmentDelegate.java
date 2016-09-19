@@ -3,24 +3,17 @@ package com.soubu.crmproject.delegate;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.TodoEventsAdapter;
-import com.soubu.crmproject.base.greendao.DBHelper;
-import com.soubu.crmproject.base.greendao.Remind;
-import com.soubu.crmproject.base.greendao.RemindDao;
 import com.soubu.crmproject.widget.customcalendar.CompactCalendarView;
 import com.soubu.crmproject.widget.indicatorviewpager.ColorBar;
 import com.soubu.crmproject.widget.indicatorviewpager.Indicator;
 import com.soubu.crmproject.widget.indicatorviewpager.IndicatorViewPager;
 import com.soubu.crmproject.widget.indicatorviewpager.OnTransitionTextListener;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 /**
  * Created by dingsigang on 16-8-9.

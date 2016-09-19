@@ -31,24 +31,16 @@ public class DBHelper {
         asyncSession = daoSession.startAsyncSession();
     }
 
-    public ClientDao getClientDao() {
-        return daoSession.getClientDao();
-    }
-
-    public UserDao getUserDao() {
-        return daoSession.getUserDao();
-    }
-
-    public ProductDao getProductDao() {
-        return daoSession.getProductDao();
-    }
-
-    public ClueDao getClueDao() {
-        return daoSession.getClueDao();
+    public StaffDao getStaffDao() {
+        return daoSession.getStaffDao();
     }
 
     public RemindDao getRemindDao() {
         return daoSession.getRemindDao();
+    }
+
+    public ContactDao getContactDao() {
+        return daoSession.getContactDao();
     }
 
     public AsyncSession getAsyncSession() {

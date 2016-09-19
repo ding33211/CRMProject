@@ -9,13 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.base.greendao.Contact;
+import com.soubu.crmproject.base.greendao.ContactDao;
+import com.soubu.crmproject.base.greendao.DBHelper;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
+import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -28,7 +33,7 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-29.
  */
-public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener {
+public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener {
     ContractParams mContractParams;
     CustomerParams mCustomerParams;
 
@@ -48,12 +53,17 @@ public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     protected void bindEvenListener() {
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this, R.id.ll_go_left, R.id.ll_go_right);
-        viewDelegate.setSettingMenuListener(R.menu.contract_home, new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return false;
-            }
-        });
+//        viewDelegate.setSettingMenuListener(R.menu.contract_home, new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                if(item.getItemId() == R.id.action_for_other){
+//                    Intent intent = new Intent(ContractHomeActivity.this, ChooseEmployeeActivity.class);
+//                    intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CONTRACT);
+//                    startActivity(intent);
+//                }
+//                return false;
+//            }
+//        });
     }
 
     @Override
@@ -115,12 +125,22 @@ public class ContractHomeActivity extends ActivityPresenter<Big4HomeActivityDele
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(CustomerParams[] params) {
         mCustomerParams = params[0];
+        //取本地数据库中的该客户的联系人列表
+        ContactDao contactDao = DBHelper.getInstance(this).getContactDao();
+        List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(mContractParams.getCustomer()))
+                .orderDesc(ContactDao.Properties.TouchedAt).list();
+        List<ContactParams> contactList = new ArrayList<>();
+        for(Contact contact : list){
+            contactList.add(contact.copyToContactParams());
+        }
+        mLocation = mCustomerParams.getAddress();
+        initConnectionView(contactList);
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

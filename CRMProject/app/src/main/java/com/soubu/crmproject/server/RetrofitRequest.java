@@ -20,12 +20,15 @@ import com.soubu.crmproject.utils.ConvertUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.Connection;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.HTTP;
 
 /**
  * Retrofit的网络请求类
@@ -46,6 +49,53 @@ public class RetrofitRequest {
             }
         }
         return mInstance;
+    }
+
+
+
+
+    private <T> void enqueueClue(Call<GetPageResp<T>> call, final boolean needEventPost) {
+        call.enqueue(new Callback<GetPageResp<T>>() {
+            @Override
+            public void onResponse(Call<GetPageResp<T>> call, Response<GetPageResp<T>> response) {
+                Log.e(TAG, "1111111111111");
+//                if (response.body() == null) {
+//                    Log.e(TAG, "empty!!!!!!!!!");
+//                    return;
+//                }
+                if(response.code() != HttpURLConnection.HTTP_OK){
+                    EventBus.getDefault().post(response.code());
+                    return;
+                }
+                int status = response.body().getStatus();
+                if (status == ApiConfig.RELUST_OK) {
+                    if (needEventPost) {
+                        EventBus.getDefault().post(response.body().getResult().data);
+                    }
+                    return;
+                } else {
+                    if (response.body().errors != null) {
+                        JsonElement element = new Gson().toJsonTree(response.body().errors);
+//                        JsonArray array = element.getAsJsonArray();
+                        JsonObject object = element.getAsJsonObject();
+                        Log.e(TAG, response.body().errors.toString());
+                        for(Map.Entry<String, JsonElement> entry : object.entrySet()){
+                            String msg = entry.getValue().getAsJsonObject().get("msg").getAsString();
+                            EventBus.getDefault().post(msg);
+                        }
+                    } else if (response.body().getRawString() != null && response.body().getSign() != null) {
+                        Log.e(TAG, response.body().getRawString() + "       " + response.body().getSign());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetPageResp<T>> call, Throwable t) {
+                Log.e(TAG, "1111111111111" + t.toString());
+                EventBus.getDefault().post(t);
+            }
+
+        });
     }
 
 
@@ -132,45 +182,19 @@ public class RetrofitRequest {
         enqueueClue(call, true);
     }
 
-
-    private <T> void enqueueClue(Call<GetPageResp<T>> call, final boolean needEventPost) {
-        call.enqueue(new Callback<GetPageResp<T>>() {
-            @Override
-            public void onResponse(Call<GetPageResp<T>> call, Response<GetPageResp<T>> response) {
-                Log.e(TAG, "1111111111111");
-                if (response.body() == null) {
-                    Log.e(TAG, "empty!!!!!!!!!");
-                    return;
-                }
-                int status = response.body().getStatus();
-                if (status == ApiConfig.RELUST_OK) {
-                    if (needEventPost) {
-                        EventBus.getDefault().post(response.body().getResult().data);
-                    }
-                    return;
-                } else {
-                    if (response.body().errors != null) {
-                        JsonElement element = new Gson().toJsonTree(response.body().errors);
-//                        JsonArray array = element.getAsJsonArray();
-                        JsonObject object = element.getAsJsonObject();
-                        Log.e(TAG, response.body().errors.toString());
-                        for(Map.Entry<String, JsonElement> entry : object.entrySet()){
-                            String msg = entry.getValue().getAsJsonObject().get("msg").getAsString();
-                            EventBus.getDefault().post(msg);
-                        }
-                    } else if (response.body().getRawString() != null && response.body().getSign() != null) {
-                        Log.e(TAG, response.body().getRawString() + "       " + response.body().getSign());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetPageResp<T>> call, Throwable t) {
-                Log.e(TAG, "1111111111111" + t.toString());
-                EventBus.getDefault().post(t);
-            }
-
-        });
+    /**
+     * 转移线索
+     *
+     * @param id  线索id
+     * @param userId 转移人id
+     */
+    public void transferClue(String id, String userId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("user", userId);
+        Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .transferClue(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+        enqueueClue(call, true);
     }
 
 
@@ -217,6 +241,21 @@ public class RetrofitRequest {
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .updateCustomer(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 转移客户
+     *
+     * @param id  客户id
+     * @param userId 转移人id
+     */
+    public void transferCustomer(String id, String userId) {
+        Map<String, String> map = new HashMap<>();
+        map.put("user", userId);
+        Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .transferCustomer(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -376,7 +415,7 @@ public class RetrofitRequest {
     public void getContactList(Integer page, String customerId) {
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getContact(customerId, page, null, null, null, null);
+                .getContact(customerId, page, "TOUCHED_AT", "DESC", null, null);  //暂时以最近联系时间排序
         enqueueClue(call, true);
     }
 
@@ -386,6 +425,7 @@ public class RetrofitRequest {
      * @param params 联系人对象
      */
     public void addContact(ContactParams params) {
+        Map<String, String> map = params.getMap();
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addContact(params, ConvertUtil.hmacsha256(params.getMap(), MyApplication.getContext().getToken()));
@@ -395,13 +435,36 @@ public class RetrofitRequest {
     /**
      * 更新联系人
      *
-     * @param id  线索id
+     * @param id  联系人id
      * @param map 更新项
      */
     public void updateContact(String id, Map<String, String> map) {
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .updateContact(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 联系联系人
+     *
+     * @param id  联系人id
+     */
+    public void touchContact(String id) {
+        Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .touchContact(id, ConvertUtil.hmacsha256(new HashMap<String, String>(), MyApplication.getContext().getToken()));
+        enqueueClue(call, false);
+    }
+
+
+    /**
+     * 更新联系人
+     */
+    public void getStaffList() {
+        Call<GetPageResp<UserParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .getStaffList();
         enqueueClue(call, true);
     }
 

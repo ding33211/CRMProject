@@ -1,11 +1,7 @@
 package com.soubu.crmproject.delegate;
 
-import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
-import com.soubu.crmproject.adapter.BusinessOpportunityRvAdapter;
 import com.soubu.crmproject.adapter.ContractRvAdapter;
-import com.soubu.crmproject.base.greendao.Clue;
-import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 

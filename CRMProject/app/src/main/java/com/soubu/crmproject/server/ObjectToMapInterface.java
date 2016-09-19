@@ -1,5 +1,7 @@
 package com.soubu.crmproject.server;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,8 +19,8 @@ public abstract class ObjectToMapInterface {
         try{
             JsonElement element = new Gson().toJsonTree(this);
             JsonObject object = element.getAsJsonObject();
-            for(Map.Entry entry : object.entrySet()){
-                map.put(entry.getKey().toString(), String.valueOf(entry.getValue()).substring(1, entry.getValue().toString().length() - 1));
+            for(Map.Entry<String, JsonElement> entry : object.entrySet()){
+                map.put(entry.getKey().toString(), entry.getValue().getAsString());
             }
         } catch (Exception e){
             e.printStackTrace();

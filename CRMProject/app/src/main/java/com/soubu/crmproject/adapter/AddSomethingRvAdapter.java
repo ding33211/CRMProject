@@ -25,6 +25,7 @@ import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 import com.soubu.crmproject.utils.WindowUtil;
 import com.soubu.crmproject.view.activity.AddBusinessOpportunityActivity;
+import com.soubu.crmproject.view.activity.ChooseEmployeeActivity;
 import com.soubu.crmproject.view.activity.CustomerActivity;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
 
 
     public static final int REQUEST_CODE_CHOOSE_CUSTOMER = 1100;
+    public static final int REQUEST_CODE_CHOOSE_MANAGER = 1101;
 
 
     private List<AddItem> mList;
@@ -287,8 +289,10 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 case TYPE_ITEM_CAN_CHOOSE:
                 case TYPE_ITEM_REQUIRED_CHOOSE:
                     if (mList.get(getAdapterPosition()).getTitleRes() == R.string.manager) {
-                        mList.get(getAdapterPosition()).setContent("56f0f862ca3e870a6457156a");
-                        notifyDataSetChanged();
+                        Intent intent = new Intent(mActivity, ChooseEmployeeActivity.class);
+                        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
+                        mActivity.startActivityForResult(intent, REQUEST_CODE_CHOOSE_MANAGER);
+                        mLastClickPosBeforeLeave = getAdapterPosition();
                     } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.related_customer) {
                         Intent intent = new Intent(mActivity, CustomerActivity.class);
                         intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
@@ -368,9 +372,10 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         return true;
     }
 
-    public void setCustomerName(String name) {
+    public void setLastClickedName(String name) {
         mList.get(mLastClickPosBeforeLeave).setContent(name);
         notifyDataSetChanged();
     }
+
 
 }

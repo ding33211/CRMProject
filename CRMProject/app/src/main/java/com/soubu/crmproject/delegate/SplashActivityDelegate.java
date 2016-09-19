@@ -19,7 +19,8 @@ public class SplashActivityDelegate extends AppDelegate {
         return true;
     }
 
-
-
-
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

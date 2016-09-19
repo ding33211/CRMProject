@@ -43,7 +43,7 @@ public class EmployeeParams {
         this.position = position;
     }
 
-    public String getLetter(){
-        return Character.toString(CharacterParser.getInstance().getSelling(name).charAt(0)).toUpperCase();
-    }
+//    public String getLetter(){
+//        return Character.toString(CharacterParser.getInstance().getSelling(name).charAt(0)).toUpperCase();
+//    }
 }

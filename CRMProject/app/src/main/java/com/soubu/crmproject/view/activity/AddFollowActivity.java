@@ -66,6 +66,14 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
             public void onClick(View v) {
                 if(viewDelegate.verify(mFollowParams)){
                     RetrofitRequest.getInstance().addFollow(mFollowParams);
+                    if(viewDelegate.isTransferChecked()){
+                        if(mFrom == Contants.FROM_CLUE){
+                            //此处返回OK,就说明用户选择了同步转换
+                            setResult(RESULT_OK, null);
+                        } else {
+                            setResult(RESULT_OK, null);
+                        }
+                    }
                     finish();
                 }
             }
@@ -180,7 +188,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                     public void onClick(DialogInterface dialog, int which) {
                         if(mFrom == Contants.FROM_CLUE && which == 1){
                             viewDelegate.get(R.id.rl_transfer).setVisibility(View.VISIBLE);
-                        } else if(mFrom == Contants.FROM_CONTRACT && which == 4){
+                        } else if(mFrom == Contants.FROM_BUSINESS_OPPORTUNITY && which == 4){
                             viewDelegate.get(R.id.rl_transfer).setVisibility(View.VISIBLE);
                             viewDelegate.giveTextViewString(R.id.tv_transfer, getString(R.string.transfer_contract_now));
                         } else {

@@ -3,9 +3,6 @@ package com.soubu.crmproject.delegate;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
 import com.soubu.crmproject.adapter.CustomerRvAdapter;
-import com.soubu.crmproject.base.greendao.Clue;
-import com.soubu.crmproject.base.mvp.view.AppDelegate;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 

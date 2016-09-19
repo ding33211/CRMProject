@@ -8,6 +8,7 @@ import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.ChooseEmployeeRvAdapter;
 import com.soubu.crmproject.base.mvp.view.AppDelegate;
 import com.soubu.crmproject.model.EmployeeParams;
+import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.widget.RecyclerViewFastScroller;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class ChooseEmployeeActivityDelegate extends AppDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        mAdapter = new ChooseEmployeeRvAdapter();
+        mAdapter = new ChooseEmployeeRvAdapter(getActivity());
         get(R.id.srl_container).setEnabled(false);
         RecyclerView recyclerView = get(R.id.rv_content);
         recyclerView.setAdapter(mAdapter);
@@ -55,8 +56,17 @@ public class ChooseEmployeeActivityDelegate extends AppDelegate {
 
     }
 
-    public void setData(List<EmployeeParams> list){
-        mAdapter.setData(list);
-        mAdapter.notifyDataSetChanged();
+    public void setOnItemClickListener(ChooseEmployeeRvAdapter.OnItemClickListener listener){
+        mAdapter.setOnItemClickListener(listener);
     }
+
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
+
+    //    public void setData(List<UserParams> list){
+//        mAdapter.setData(list);
+//        mAdapter.notifyDataSetChanged();
+//    }
 }

@@ -12,6 +12,7 @@ import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowParams;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -56,10 +57,10 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         addItem.setTitleRes(R.string.essential_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(clueParams.getContactName(), R.string.name, true);
+        initItem(clueParams.getCompanyName(), R.string.company_name, hasTop ? false : true);
+        initItem(clueParams.getContactName(), R.string.name, hasTop ? false : true);
         initItem(clueParams.getPosition(), R.string.post, hasTop ? false : true);
         initItem(clueParams.getDepartment(), R.string.department, hasTop ? false : true);
-        initItem(clueParams.getCompanyName(), R.string.company_name, hasTop ? false : true);
         if(!hasTop){
             mList.remove(mList.size() - 1);
         } else {
@@ -151,13 +152,8 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         initClueParams(mClueParams);
     }
 
-    /**
-     * 请求clue失败
-     *
-     * @param t
-     */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
     }
 }

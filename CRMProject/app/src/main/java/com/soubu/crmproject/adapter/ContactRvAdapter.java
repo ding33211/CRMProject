@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.base.greendao.Contact;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 
@@ -17,6 +18,8 @@ import java.util.List;
  * Created by dingsigang on 16-9-8.
  */
 public class ContactRvAdapter extends BaseWithFooterRvAdapter<ContactParams> {
+
+    OnItemClickListener mOnPhoneIconClickListener;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -52,23 +55,26 @@ public class ContactRvAdapter extends BaseWithFooterRvAdapter<ContactParams> {
              String mobile = mList.get(position).getMobile();
              if(TextUtils.isEmpty(phone) && TextUtils.isEmpty(mobile)){
                  holder1.vPhone.setVisibility(View.GONE);
-                 holder1.vMessage.setVisibility(View.GONE);
+//                 holder1.vMessage.setVisibility(View.GONE);
              } else if(TextUtils.isEmpty(mobile)){
-                 holder1.vMessage.setVisibility(View.GONE);
+//                 holder1.vMessage.setVisibility(View.GONE);
              } else {
                  holder1.vPhone.setVisibility(View.VISIBLE);
-                 holder1.vMessage.setVisibility(View.VISIBLE);
+//                 holder1.vMessage.setVisibility(View.VISIBLE);
              }
          }
     }
 
+    public void setOnPhoneIconClickListener(OnItemClickListener mOnPhoneIconClickListener) {
+        this.mOnPhoneIconClickListener = mOnPhoneIconClickListener;
+    }
 
     class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView tvName;
         TextView tvPosition;
         View vPhone;
-        View vMessage;
+//        View vMessage;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -76,11 +82,18 @@ public class ContactRvAdapter extends BaseWithFooterRvAdapter<ContactParams> {
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvPosition = (TextView) itemView.findViewById(R.id.tv_position);
             vPhone = itemView.findViewById(R.id.iv_mobile_contact);
-            vMessage = itemView.findViewById(R.id.iv_message_contact);
+            vPhone.setOnClickListener(this);
+//            vMessage = itemView.findViewById(R.id.iv_message_contact);
         }
 
         @Override
         public void onClick(View v) {
+            if(v.getId() == R.id.iv_mobile_contact){
+                if(mOnPhoneIconClickListener != null){
+                    mOnPhoneIconClickListener.onItemClick(v, getLayoutPosition());
+                }
+                return;
+            }
             if (mListener != null) {
                 mListener.onItemClick(v, getLayoutPosition());
             }

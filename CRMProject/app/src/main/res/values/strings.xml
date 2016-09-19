@@ -240,11 +240,23 @@
     <string name="look_clue_spec">查看客户详情</string>
     <string name="continue_rush">继续抢</string>
     <string name="choose_transfer">选择转移人</string>
+    <string name="choose_manager">选择负责人</string>
     <string name="email_wrong_message">邮箱格式错误</string>
     <string name="mobile_wrong_message">手机格式错误</string>
     <string name="phone_wrong_message">电话格式错误</string>
     <string name="add_params_succeed_message">已成功新增该条信息</string>
     <string name="edit_params_succeed_message">已保存您的修改</string>
+    <string name="transfer_confirm_message">您确认要转移给%s么?</string>
+    <string name="choose_manager_confirm_message">您确认选择负责人%s么</string>
+    <string name="transfer_success_message">已成功将%1$s转移给了%2$s</string>
 
+    <string name="error_400_message">客户端请求错误</string>
+    <string name="error_401_message">用户未认证</string>
+    <string name="error_403_message">用户未授权</string>
+    <string name="error_404_message">请求接口不存在</string>
+    <string name="error_422_message">请求参数错误</string>
+    <string name="error_500_message">服务器错误</string>
+
+    <string name="please_choose_phone">请选择需要拨打的电话号码</string>
 
 </resources>

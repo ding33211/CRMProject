@@ -113,4 +113,13 @@ public class ShowWidgetUtil {
         dialog.show();
     }
 
+
+//    public static void showSingleChoiceDialog(Activity activity, int titleRes, String[] items, DialogInterface.OnClickListener singleListener,
+//                                              DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener){
+//        AlertDialog dialog = new AlertDialog.Builder(activity).setTitle(titleRes)
+//                .setSingleChoiceItems(items, -1, singleListener).setPositiveButton(R.string.confirm, confirmListener)
+//                .setNegativeButton(R.string.cancel, cancelListener).create();
+//        dialog.show();
+//    }
+
 }

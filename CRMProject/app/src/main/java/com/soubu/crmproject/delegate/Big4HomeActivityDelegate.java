@@ -33,6 +33,7 @@ public class Big4HomeActivityDelegate extends AppDelegate {
     private int mFrom = 0;
     private Serializable mSerializable;
     private FollowInBig4HomeIndicatorViewPagerAdapter mIndicatorViewPagerAdapter;
+    public static final int REQUEST_ADD_FOLLOW = 1003;
 
 
     @Override
@@ -92,7 +93,7 @@ public class Big4HomeActivityDelegate extends AppDelegate {
                 intent.putExtra(Contants.EXTRA_FROM, mFrom);
                 intent.putExtra(Contants.EXTRA_TYPE, AddFollowActivity.TYPE_RECORD);
                 intent.putExtra(Contants.EXTRA_ENTITY, mSerializable);
-                getActivity().startActivity(intent);
+                getActivity().startActivityForResult(intent, REQUEST_ADD_FOLLOW);
             }
         });
         get(R.id.ll_add_follow).setOnClickListener(new View.OnClickListener() {

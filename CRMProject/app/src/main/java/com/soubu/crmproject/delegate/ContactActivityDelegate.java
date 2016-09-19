@@ -4,6 +4,7 @@ import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
 import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.adapter.ContactRvAdapter;
+import com.soubu.crmproject.base.greendao.Contact;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
@@ -36,22 +37,26 @@ public class ContactActivityDelegate extends BaseRecyclerViewActivityDelegate {
         return true;
     }
 
-    @Override
-    public boolean ifNeedFilterOrSorter() {
-        return false;
-    }
+//    @Override
+//    public boolean ifNeedFilterOrSorter() {
+//        return false;
+//    }
 
-    @Override
-    public boolean ifNeedUseSwipeRefresh() {
-        return true;
-    }
+//    @Override
+//    public boolean ifNeedUseSwipeRefresh() {
+//        return true;
+//    }
 
-    public void registerSwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack callBack) {
-        registerSwipeRefreshCallBack(callBack, mAdapter);
-    }
+//    public void registerSwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack callBack) {
+//        registerSwipeRefreshCallBack(callBack, mAdapter);
+//    }
 
     public void setOnRecyclerViewItemClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
         mAdapter.setOnItemClickListener(listener);
+    }
+
+    public void setOnPhoneIconCLickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+        mAdapter.setOnPhoneIconClickListener(listener);
     }
 
     public ContactParams getContactParams(int pos){

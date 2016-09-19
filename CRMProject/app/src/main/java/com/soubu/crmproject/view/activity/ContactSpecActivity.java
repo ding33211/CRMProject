@@ -6,11 +6,13 @@ import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
+import com.soubu.crmproject.base.greendao.Contact;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.server.ServerErrorUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -104,14 +106,9 @@ public class ContactSpecActivity extends ActivityPresenter<SpecActivityDelegate>
         initContactParams(mContactParams);
     }
 
-    /**
-     * 请求clue失败
-     *
-     * @param t
-     */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
     }
 
     @Override

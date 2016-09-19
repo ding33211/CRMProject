@@ -8,6 +8,7 @@ import com.soubu.crmproject.delegate.ContractDelegate;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -59,16 +60,6 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
             mIsRefresh = false;
             viewDelegate.stopSwipeRefresh();
         }
-    }
-
-    /**
-     * 请求clue失败
-     *
-     * @param t
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
     }
 
     @Override

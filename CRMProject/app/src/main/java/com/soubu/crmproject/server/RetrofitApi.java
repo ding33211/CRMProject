@@ -64,6 +64,15 @@ public interface RetrofitApi {
     @PUT("opportunities/{id}")
     Call<GetPageResp<ClueParams[]>> updateClue(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
+    //抢线索公海
+    @PUT("opportunities/{id}/grab")
+    Call<GetPageResp<ClueParams[]>> rushClueHighSeas(@Path("id") String id, @Header("sign") String sign);
+
+    //转移线索
+    @FormUrlEncoded
+    @PUT("opportunities/{id}/transfer")
+    Call<GetPageResp<ClueParams[]>> transferClue(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
+
 
     //获取客户
     @GET("customers")
@@ -92,6 +101,11 @@ public interface RetrofitApi {
     @FormUrlEncoded
     @PUT("customers/{id}")
     Call<GetPageResp<CustomerParams[]>> updateCustomer(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
+
+    //转移线索
+    @FormUrlEncoded
+    @PUT("customers/{id}/transfer")
+    Call<GetPageResp<CustomerParams[]>> transferCustomer(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
 
     //获取商机
@@ -207,11 +221,14 @@ public interface RetrofitApi {
     @POST("contacts")
     Call<GetPageResp<ContactParams[]>> addContact(@Body ContactParams params, @Header("sign") String sign);
 
-    //修改线索
+    //更新联系人
     @FormUrlEncoded
     @PUT("contacts/{id}")
     Call<GetPageResp<ContactParams[]>> updateContact(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
+    //联系联系人
+    @PUT("contacts/{id}/touch")
+    Call<GetPageResp<ContactParams[]>> touchContact(@Path("id") String id, @Header("sign") String sign);
 
     //注册
     @Headers({"Content-type:application/json"})
@@ -235,7 +252,7 @@ public interface RetrofitApi {
                                             @Query("q") String search);//搜索
 
 
-    //抢线索公海
-    @PUT("opportunities/{id}/grab")
-    Call<GetPageResp<ClueParams[]>> rushClueHighSeas(@Path("id") String id, @Header("sign") String sign);
+    //获取线索公海
+    @GET("users")
+    Call<GetPageResp<UserParams[]>> getStaffList();
 }

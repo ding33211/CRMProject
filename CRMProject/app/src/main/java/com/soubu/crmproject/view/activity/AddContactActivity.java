@@ -14,6 +14,7 @@ import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
@@ -248,8 +249,8 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
     }
 
 

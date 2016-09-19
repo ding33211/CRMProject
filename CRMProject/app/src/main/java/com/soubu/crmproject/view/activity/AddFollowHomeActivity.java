@@ -14,6 +14,7 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -263,8 +264,12 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Throwable t) {
-
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
+        if (mIsRefresh) {
+            mIsRefresh = false;
+            viewDelegate.stopRefresh();
+        }
     }
 
 
