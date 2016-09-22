@@ -15,11 +15,13 @@ import com.soubu.crmproject.delegate.Big4HomeActivityDelegate;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.SearchUtil;
+import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -46,6 +48,7 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
     protected void initData() {
         super.initData();
         viewDelegate.setEntity(mBusinessOpportunityParams);
+        RetrofitRequest.getInstance().getCustomerSpec(mBusinessOpportunityParams.getCustomer().getId());
     }
 
     @Override
@@ -55,9 +58,24 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
         viewDelegate.setSettingMenuListener(R.menu.business_opportunity_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.action_to_contract){
+                    transfer();
+                }
                 return false;
             }
         });
+    }
+
+    private void transfer(){
+        Intent intent = new Intent(BusinessOpportunityHomeActivity.this, AddContractActivity.class);
+        ContractParams params = new ContractParams();
+        params.settDeal(mBusinessOpportunityParams.getId());
+        intent.putExtra(Contants.EXTRA_CONTRACT, params);
+        intent.putExtra(Contants.EXTRA_BUSINESS_ID, mBusinessOpportunityParams.getId());
+        intent.putExtra(Contants.EXTRA_BUSINESS_NAME, mBusinessOpportunityParams.getTitle());
+        intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mBusinessOpportunityParams.getCustomer());
+        intent.putExtra(Contants.EXTRA_TRANSFER, true);
+        startActivity(intent);
     }
 
     @Override
@@ -86,7 +104,7 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
         mStateArrayWeb = getResources().getStringArray(R.array.business_opportunity_status_web);
         mBusinessOpportunityParams = (BusinessOpportunityParams) getIntent().getSerializableExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mBusinessOpportunityParams.getTitle());
-        ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(mBusinessOpportunityParams.getCustomer());
+        ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(mBusinessOpportunityParams.getCustomer().getName());
         ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mBusinessOpportunityParams.getStatus())]);
     }
 
@@ -119,6 +137,11 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         List<FollowParams> list = Arrays.asList(params);
         List<FollowParams> records = new ArrayList<>();
         List<FollowParams> plans = new ArrayList<>();
@@ -136,8 +159,20 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
     @Override
     protected void onResume() {
         super.onResume();
+        mEventBusJustForThis = true;
         RetrofitRequest.getInstance().getBusinessOpportunityFollow(mBusinessOpportunityParams.getId(), null, null, null, null, null);
-        RetrofitRequest.getInstance().getCustomerSpec(mBusinessOpportunityParams.getCustomer());
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                case Big4HomeActivityDelegate.REQUEST_ADD_FOLLOW:
+                    transfer();
+                    break;
+            }
+        }
     }
 }

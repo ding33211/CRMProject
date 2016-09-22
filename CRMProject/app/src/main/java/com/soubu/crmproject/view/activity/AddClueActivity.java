@@ -1,29 +1,21 @@
 package com.soubu.crmproject.view.activity;
 
-import android.content.Intent;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
-import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
-import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.SearchUtil;
-import com.soubu.crmproject.utils.ShowWidgetUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -82,7 +74,7 @@ public class AddClueActivity extends Big4AddActivityPresenter {
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getDepartment())) {
             item.setContent(mClueParams.getDepartment());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.post);
@@ -92,25 +84,26 @@ public class AddClueActivity extends Big4AddActivityPresenter {
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
         item = new AddItem();
-        item.setTitleRes(R.string.contact_information);
+        item.setTitleRes(R.string.connection_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
-        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.phone);
-        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getPhone())) {
-            item.setContent(mClueParams.getPhone());
-        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
-        item.setEditTextType(InputType.TYPE_CLASS_PHONE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.mobile);
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getMobile())) {
             item.setContent(mClueParams.getMobile());
         }
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
+        item.setEditTextType(InputType.TYPE_CLASS_PHONE);
+        mList.add(item);
+        item = new AddItem();
+        item.setTitleRes(R.string.phone);
+        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getPhone())) {
+            item.setContent(mClueParams.getPhone());
+        }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         item.setEditTextType(InputType.TYPE_CLASS_PHONE);
         mList.add(item);
+
         item = new AddItem();
         item.setTitleRes(R.string.qq);
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getQq())) {
@@ -186,15 +179,22 @@ public class AddClueActivity extends Big4AddActivityPresenter {
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
         item = new AddItem();
-        item.setTitleRes(R.string.founder_information);
+        item.setTitleRes(R.string.manager_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.manager);
-        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getManager())) {
-            item.setContent(mClueParams.getManager());
+        if (mFromEdit && mClueParams.getUser() != null && !TextUtils.isEmpty(mClueParams.getUser().getUserName())) {
+            item.setContent(mClueParams.getUser().getUserName());
+            mManagerId = mClueParams.getUser().getId();
+        } else if(mFromEdit && mClueParams.getCreator() != null && !TextUtils.isEmpty(mClueParams.getUser().getUserName())){
+            item.setContent(mClueParams.getCreator().getUserName());
+            mManagerId = mClueParams.getCreator().getId();
+        } else {
+            item.setContent(CrmApplication.getContext().getName());
+            mManagerId = CrmApplication.getContext().getUid();
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
 //        item = new AddItem();
 //        item.setTitleRes(R.string.in_department);
@@ -286,7 +286,7 @@ public class AddClueActivity extends Big4AddActivityPresenter {
             }
             if (item.getTitleRes() == R.string.manager) {
                 if(!TextUtils.isEmpty(mManagerId)){
-                    clueParams.setManager(mManagerId);
+                    clueParams.setUserId(mManagerId);
                 }
                 continue;
             }

@@ -109,6 +109,7 @@ public class ShowWidgetUtil {
     public static void showMultiItemDialog(Activity activity, int titleRes, int arrayRes, boolean multiChoice, DialogInterface.OnClickListener listener){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setItems(arrayRes, listener);
+        builder.setCancelable(true);
         AlertDialog dialog = builder.create();
         dialog.show();
     }

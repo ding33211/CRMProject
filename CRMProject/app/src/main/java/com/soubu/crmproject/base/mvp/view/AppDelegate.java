@@ -195,6 +195,10 @@ public abstract class AppDelegate implements IDelegate {
         ((TextView)getToolbar().findViewById(R.id.tv_toolbar_title)).setText(titleRes);
     }
 
+    public void setTitle(String title){
+        ((TextView)getToolbar().findViewById(R.id.tv_toolbar_title)).setText(title);
+    }
+
     public void setRightMenuOne(int drawableRes, View.OnClickListener listener){
         ImageView imageView = (ImageView)getToolbar().findViewById(R.id.iv_menu_r_1);
         imageView.setImageResource(drawableRes);

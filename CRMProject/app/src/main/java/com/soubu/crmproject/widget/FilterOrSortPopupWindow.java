@@ -69,10 +69,10 @@ public class FilterOrSortPopupWindow extends PopupWindow {
 //        View llAction = contentView.findViewById(R.id.ll_action);
         ListView lvSort = (ListView) contentView.findViewById(R.id.lv_sort);
         mCategoryAdapter = new CategoryAdapter(activity, parentStrings, CategoryAdapter.TYPE_PARENT);
-        /* 设置触摸外面时消失 */
-        setOutsideTouchable(true);
+//        /* 设置触摸外面时消失 */
+//        setOutsideTouchable(true);
         setTouchable(true);
-        setFocusable(true); /*设置点击menu以外其他地方以及返回键退出 */
+//        setFocusable(true); /*设置点击menu以外其他地方以及返回键退出 */
         /**
          * 1.解决再次点击MENU键无反应问题
          */

@@ -23,8 +23,9 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_big_4_recyclerview, parent, false);
             switch (getTypeOf4()){
-                case Contants.TYPE_CONTRACT:
-                    v.findViewById(R.id.iv_approval_state).setVisibility(View.VISIBLE);
+//                case Contants.TYPE_CONTRACT:
+//                    v.findViewById(R.id.iv_approval_yes).setVisibility(View.VISIBLE);
+//                    v.findViewById(R.id.iv_approval_no_or_wait).setVisibility(View.VISIBLE);
                 case Contants.TYPE_BUSINESS_OPPORTUNITY:
                     v.findViewById(R.id.ll_sub_right).setVisibility(View.VISIBLE);
                     break;
@@ -53,7 +54,8 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
         TextView subTitle;
         TextView state;
         TextView subRight;
-        ImageView ivState;
+        ImageView ivStateYes;
+        ImageView ivStateNoOrWait;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -62,7 +64,8 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
             subTitle = (TextView) itemView.findViewById(R.id.tv_desc);
             state = (TextView) itemView.findViewById(R.id.tv_state);
             subRight = (TextView) itemView.findViewById(R.id.tv_sub_right);
-            ivState = (ImageView) itemView.findViewById(R.id.iv_approval_state);
+            ivStateYes = (ImageView) itemView.findViewById(R.id.iv_approval_yes);
+            ivStateNoOrWait = (ImageView) itemView.findViewById(R.id.iv_approval_no_or_wait);
             itemView.findViewById(R.id.rl_rush_in).setOnClickListener(this);
         }
 

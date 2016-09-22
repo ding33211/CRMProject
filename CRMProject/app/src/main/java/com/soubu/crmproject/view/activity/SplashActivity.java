@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.igexin.sdk.PushManager;
-import com.soubu.crmproject.MyApplication;
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.greendao.DBHelper;
 import com.soubu.crmproject.base.greendao.Staff;
@@ -39,6 +39,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     private StaffDao mStaffDao;
     private final int REQUEST_LOGIN = 1002;
 
+
     @Override
     protected Class<SplashActivityDelegate> getDelegateClass() {
         return SplashActivityDelegate.class;
@@ -67,13 +68,14 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     //需要验证权限的方法
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
     void load() {
-        if(TextUtils.isEmpty(MyApplication.getContext().getToken())){
+        if(TextUtils.isEmpty(CrmApplication.getContext().getToken())){
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, REQUEST_LOGIN);
         } else {
-            if(mStaffDao.count() == 0){
-                RetrofitRequest.getInstance().getStaffList();
-            } else {
+//            if(mStaffDao.count() == 0){
+//                RetrofitRequest.getInstance().getStaffList();
+//                mEventBusJustForThis = true;
+//            } else {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -82,18 +84,24 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 }).start();
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
-                finish();
-            }
+
+//            }
         }
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(UserParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         Log.e("mStaffDao.count()", mStaffDao.count() + "");
         if(params != null && params.length > 0){
             //如果有token,实际拿到的是登录成功的回调

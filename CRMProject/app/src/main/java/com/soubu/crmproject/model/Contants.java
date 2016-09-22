@@ -69,6 +69,9 @@ public class Contants {
     public static final String EXTRA_FROM_ADD_FOLLOW = "FROM_ADD_FOLLOW";
     public static final String EXTRA_CUSTOMER_ID = "CUSTOMER_ID";
     public static final String EXTRA_CUSTOMER_NAME = "CUSTOMER_NAME";
+    public static final String EXTRA_BUSINESS_ID = "BUSINESS_ID";
+    public static final String EXTRA_BUSINESS_NAME = "BUSINESS_NAME";
+
     public static final String EXTRA_TRANSFER = "TRANSFER";
     public static final String EXTRA_TRANSFER_NAME = "TRANSFER_NAME";
     public static final String EXTRA_PARAM_ID = "PARAM_ID";
@@ -81,5 +84,7 @@ public class Contants {
 
     public static final String SP_KEY_TOKEN = "TOKEN";
     public static final String SP_KEY_USER_ID = "USER_ID";
+    public static final String SP_KEY_USER_NAME = "USER_NAME";
+
 
 }

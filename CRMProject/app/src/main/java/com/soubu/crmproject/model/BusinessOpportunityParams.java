@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class BusinessOpportunityParams extends ObjectToMapInterface implements Serializable, Cloneable {
     String title;
-    String customer;
+    CustomerParams customer;
     String product;
     String amountPrice;
     Date closingAt;
@@ -23,6 +23,50 @@ public class BusinessOpportunityParams extends ObjectToMapInterface implements S
     Date createdAt;
     Date updatedAt;
     String id;
+    String customerId;
+    UserParams user;
+    UserParams creator;
+    String userId;
+
+    public UserParams getUser() {
+        return user;
+    }
+
+    public void setUser(UserParams user) {
+        this.user = user;
+    }
+
+    public UserParams getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserParams creator) {
+        this.creator = creator;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public CustomerParams getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerParams customer) {
+        this.customer = customer;
+    }
 
     public String getTitle() {
         return title;
@@ -32,13 +76,6 @@ public class BusinessOpportunityParams extends ObjectToMapInterface implements S
         this.title = title;
     }
 
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
 
     public String getProduct() {
         return product;

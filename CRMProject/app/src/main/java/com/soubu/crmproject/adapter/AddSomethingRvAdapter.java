@@ -146,7 +146,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         if (mList.get(position).getTitleRes() == R.string.email) {
             mEmailPos = position;
         }
-        if(mList.get(position).getTitleRes() == R.string.phone){
+        if (mList.get(position).getTitleRes() == R.string.phone) {
             mTelPos = position;
         }
         ItemViewHolder holder1 = (ItemViewHolder) holder;
@@ -181,6 +181,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
             if ((viewType == TYPE_ITEM_CAN_CHOOSE_DATE || viewType == TYPE_ITEM_REQUIRED_CHOOSE_DATE)
                     && mList.get(position).getDate() != null) {
                 holder1.tvAction.setText(ConvertUtil.dateToYYYY_MM_DD(mList.get(position).getDate()));
+                holder1.tvAction.setTextColor(mActivity.getResources().getColor(R.color.filter_tab_text_color));
                 holder1.tvAction.setVisibility(View.VISIBLE);
             }
         } else {
@@ -213,7 +214,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         if (editText != null && editText instanceof EditText) {
             String temp = ((EditText) editText).getText().toString();
             editText.setVisibility(View.GONE);
-            mList.get(pos).setContent(((EditText) editText).getText().toString());
+            mList.get(pos).setContent(temp);
             View item = (View) editText.getTag();
             int viewType = (int) item.getTag();
             TextView tvAction = (TextView) item.findViewById(R.id.tv_action);
@@ -222,6 +223,8 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 tvAction.setTextColor(mActivity.getResources().getColor(R.color.filter_tab_text_color));
                 tvAction.setVisibility(View.VISIBLE);
             } else if (viewType == TYPE_ITEM_REQUIRED_FILL) {
+                tvAction.setText(viewType == TYPE_ITEM_REQUIRED_FILL ? R.string.required_fill : R.string.required_choose);
+                tvAction.setTextColor(mActivity.getResources().getColor(R.color.line_color));
                 tvAction.setVisibility(View.VISIBLE);
             }
             WindowUtil.hideSoftInput(mActivity);
@@ -265,7 +268,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                     break;
                 case TYPE_ITEM_CAN_CHOOSE_DATE:
                 case TYPE_ITEM_REQUIRED_CHOOSE_DATE:
-                    Calendar c = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
+                    final Calendar c = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
                     if (mList.get(getAdapterPosition()).getDate() != null) {
                         c.setTime(mList.get(getAdapterPosition()).getDate());
                     }
@@ -276,9 +279,15 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                                 @Override
                                 public void onDateSet(DatePicker view, int year,
                                                       int monthOfYear, int dayOfMonth) {
-                                    Calendar c = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
-                                    c.set(year, monthOfYear, dayOfMonth);
-                                    mList.get(getAdapterPosition()).setDate(c.getTime());
+                                    Calendar chooseC = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
+                                    chooseC.set(year, monthOfYear, dayOfMonth);
+                                    if (mList.get(getAdapterPosition()).getTitleRes() == R.string.signed_date){
+                                        if(chooseC.getTimeInMillis() > c.getTimeInMillis()){
+                                            ShowWidgetUtil.showShort(R.string.signed_date_choose_error_message);
+                                            return;
+                                        }
+                                    }
+                                    mList.get(getAdapterPosition()).setDate(chooseC.getTime());
                                     notifyDataSetChanged();
                                 }
                             }
@@ -355,16 +364,16 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 return false;
             }
         }
-        if(mMobilePos != -1){
+        if (mMobilePos != -1) {
             String mobile = mList.get(mMobilePos).getContent();
-            if(!TextUtils.isEmpty(mobile) && !RegularUtil.isMobile(mobile)){
+            if (!TextUtils.isEmpty(mobile) && !RegularUtil.isMobile(mobile)) {
                 ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.mobile_wrong_message));
                 return false;
             }
         }
-        if(mTelPos != -1){
+        if (mTelPos != -1) {
             String phone = mList.get(mTelPos).getContent();
-            if(!TextUtils.isEmpty(phone) && !RegularUtil.isTel(phone)){
+            if (!TextUtils.isEmpty(phone) && !RegularUtil.isTel(phone)) {
                 ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.phone_wrong_message));
                 return false;
             }

@@ -3,6 +3,7 @@ package com.soubu.crmproject.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.Contants;
@@ -28,14 +29,19 @@ public class ContractRvAdapter extends BaseBig4RvAdapter<ContractParams> {
             ((ItemViewHolder) holder).title.setText(mList.get(position).getTitle());
             ((ItemViewHolder) holder).subTitle.setText(mList.get(position).getAmountPrice());
             ((ItemViewHolder) holder).state.setText(getStatusArray()[SearchUtil.searchInArray(getStatusWebArray(), mList.get(position).getStatus())]);
-            ((ItemViewHolder) holder).subRight.setText(mList.get(position).getCustomer());
+            ((ItemViewHolder) holder).subRight.setText(mList.get(position).getCustomer().getName());
             String state = mList.get(position).getReviewStatus();
+            ((ItemViewHolder) holder).ivStateNoOrWait.setVisibility(View.GONE);
+            ((ItemViewHolder) holder).ivStateYes.setVisibility(View.GONE);
             if(TextUtils.equals(state, mReviewStates[0])){
-                ((ItemViewHolder) holder).ivState.setImageResource(R.drawable.wait_approval);
+                ((ItemViewHolder) holder).ivStateNoOrWait.setImageResource(R.drawable.wait_approval);
+                ((ItemViewHolder) holder).ivStateNoOrWait.setVisibility(View.VISIBLE);
             } else if(TextUtils.equals(state, mReviewStates[1])){
-                ((ItemViewHolder) holder).ivState.setImageResource(R.drawable.pass);
+                ((ItemViewHolder) holder).ivStateYes.setImageResource(R.drawable.pass);
+                ((ItemViewHolder) holder).ivStateYes.setVisibility(View.VISIBLE);
             } else {
-                ((ItemViewHolder) holder).ivState.setImageResource(R.drawable.not_pass);
+                ((ItemViewHolder) holder).ivStateNoOrWait.setImageResource(R.drawable.not_pass);
+                ((ItemViewHolder) holder).ivStateNoOrWait.setVisibility(View.VISIBLE);
             }
         }
     }

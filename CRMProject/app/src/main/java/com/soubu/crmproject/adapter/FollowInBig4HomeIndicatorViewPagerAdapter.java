@@ -25,9 +25,9 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
     private FollowInBig4HomeViewPagerRvAdapter mAdapter1;
 
 
-    public FollowInBig4HomeIndicatorViewPagerAdapter() {
-        mAdapter0 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_RECORD, Contants.IN_4_HOME);
-        mAdapter1 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_PLAN, Contants.IN_4_HOME);
+    public FollowInBig4HomeIndicatorViewPagerAdapter(int which) {
+        mAdapter0 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_RECORD, Contants.IN_4_HOME, which);
+        mAdapter1 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_PLAN, Contants.IN_4_HOME, which);
 
     }
 

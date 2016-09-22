@@ -85,15 +85,15 @@
     <string name="edit_clue">编辑线索</string>
 
     <string name="essential_information">基本信息</string>
-    <string name="contact_information">联系信息</string>
+    <string name="connection_information">联系信息</string>
+    <string name="contact_information">联系人信息</string>
     <string name="other_information">其他信息</string>
-    <string name="founder_information">创建人信息</string>
     <string name="manager_information">负责人信息</string>
 
     <string name="name">姓名</string>
     <string name="department">部门</string>
     <string name="company_name">公司名称</string>
-    <string name="post">职务</string>
+    <string name="post">职位</string>
     <string name="phone">电话</string>
     <string name="mobile">手机</string>
     <string name="qq">QQ号</string>
@@ -258,5 +258,14 @@
     <string name="error_500_message">服务器错误</string>
 
     <string name="please_choose_phone">请选择需要拨打的电话号码</string>
+    <string name="customer_has_no_contact">该客户名下暂时没有联系人</string>
+    <string name="someone_business_opportunity">%s的商机</string>
+    <string name="someone_contract">%s的合同</string>
+    <string name="no_pass_approval">不同过审核</string>
+    <string name="pass_approval">通过审核</string>
+    <string name="login_error_message">登录名或密码错误</string>
+    <string name="register_error_message">您使用的邮箱已被注册过</string>
+    <string name="add_follow_success">添加跟进成功</string>
+    <string name="signed_date_choose_error_message">签约日期不能选择现在以后的时间</string>
 
 </resources>

@@ -38,7 +38,8 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_margin="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:background="@color/line_color" />
 
         <LinearLayout
@@ -76,37 +77,146 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/ll_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/empty_data" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/empty_data"
+                        android:textColor="@color/subtitle_grey"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/ll_empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true"
+                android:id="@+id/ll_approval"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="0"
                 android:visibility="gone">
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/empty_data" />
-
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/empty_data"
-                    android:layout_marginTop="10dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/subtitle_grey"/>
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/no_pass_approval"
+                    android:background="@drawable/bg_grey_stroke_top_bottom"
+                    android:textColor="@color/title_black" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/item_line_grey"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/pass_approval"
+                    android:background="@drawable/bg_grey_stroke_top_bottom"
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_content"
+
+            <RelativeLayout
+                android:id="@+id/rl_contact_method"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
+                android:layout_height="55dp"
+                android:background="@color/orange_1"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:layout_weight="0"
+                android:visibility="gone">
+
+
+                <ImageView
+                    android:id="@+id/iv_sns1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/clue_spec_circle"
+                    android:src="@drawable/clue_spec_phone" />
+
+                <ImageView
+                    android:id="@+id/iv_sns3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/clue_spec_circle"
+                    android:src="@drawable/clue_spec_email" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/iv_sns3"
+                    android:layout_toRightOf="@+id/iv_sns1">
+
+                    <ImageView
+                        android:id="@+id/iv_sns2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/clue_spec_circle"
+                        android:src="@drawable/clue_spec_wechat" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/iv_sns5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/clue_spec_circle"
+                    android:src="@drawable/clue_spec_qq" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/iv_sns5"
+                    android:layout_toRightOf="@+id/iv_sns3">
+
+                    <ImageView
+                        android:id="@+id/iv_sns4"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/clue_spec_circle"
+                        android:src="@drawable/clue_spec_locate" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
 
 
     </android.support.v4.widget.SwipeRefreshLayout>

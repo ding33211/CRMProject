@@ -17,7 +17,6 @@ public class BusinessOpportunityActivityDelegate extends BaseRecyclerViewActivit
     @Override
     public void initWidget() {
         super.initWidget();
-        setTitle(R.string.all_business_opportunity);
         mAdapter = new BusinessOpportunityRvAdapter(getActivity().getApplicationContext());
         setListAdapter(mAdapter);
     }

@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivity {
     protected T viewDelegate;
+    public boolean mEventBusJustForThis = false;
 
     public ActivityPresenter() {
         try {

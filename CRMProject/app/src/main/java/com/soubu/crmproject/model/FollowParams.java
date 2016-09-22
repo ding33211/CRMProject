@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by dingsigang on 16-8-31.
  */
 public class FollowParams extends ObjectToMapInterface {
-    String user;
+    UserParams user;
     String username;
     String entity;
     String entityType;
@@ -22,7 +22,32 @@ public class FollowParams extends ObjectToMapInterface {
     String id;
     String title;
     String type;
-    String contactor;
+    ContactParams contact;
+    String contactId;
+
+    public String getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(String contactId) {
+        this.contactId = contactId;
+    }
+
+    public ContactParams getContact() {
+        return contact;
+    }
+
+    public void setContact(ContactParams contact) {
+        this.contact = contact;
+    }
+
+    public UserParams getUser() {
+        return user;
+    }
+
+    public void setUser(UserParams user) {
+        this.user = user;
+    }
 
     public String getType() {
         return type;
@@ -38,22 +63,6 @@ public class FollowParams extends ObjectToMapInterface {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getContactor() {
-        return contactor;
-    }
-
-    public void setContactor(String contactor) {
-        this.contactor = contactor;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     public String getUsername() {

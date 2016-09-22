@@ -97,6 +97,7 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
             case R.id.ll_left:
                 Intent intent2 = new Intent(this, BusinessOpportunityActivity.class);
                 intent2.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerParams.getId());
+                intent2.putExtra(Contants.EXTRA_CUSTOMER_NAME, mCustomerParams.getName());
                 startActivity(intent2);
                 break;
             case R.id.ll_right:
@@ -146,7 +147,7 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
                 if (list == null || list.size() == 0){
                     contactDao.insert(param.copyToContact());
                 } else {
-                    if(!param.equals(contactDao)){
+                    if(!param.equalsContact(list.get(0))){
                         Contact contact = param.copyToContact();
                         contact.setId(list.get(0).getId());
                         contactDao.update(contact);

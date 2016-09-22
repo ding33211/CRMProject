@@ -54,14 +54,14 @@ public class ChooseEmployeeActivity extends ActivityPresenter<ChooseEmployeeActi
         viewDelegate.setOnItemClickListener(new ChooseEmployeeRvAdapter.OnItemClickListener() {
             @Override
             public void onClick(final Staff staff) {
-                String message = getString(R.string.transfer_confirm_message, staff.getNickname());
-                if(mFrom == Contants.FROM_ADD_SOMETHING_ACTIVITY){
-                    message = getString(R.string.choose_manager_confirm_message, staff.getNickname());
-                }
-                new AlertDialog.Builder(ChooseEmployeeActivity.this).
-                        setMessage(message).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+//                String message = getString(R.string.transfer_confirm_message, staff.getNickname());
+//                if(mFrom == Contants.FROM_ADD_SOMETHING_ACTIVITY){
+//                    message = getString(R.string.choose_manager_confirm_message, staff.getNickname());
+//                }
+//                new AlertDialog.Builder(ChooseEmployeeActivity.this).
+//                        setMessage(message).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
                         mName = staff.getNickname();
                         if(mFrom == Contants.FROM_CLUE) {
                             RetrofitRequest.getInstance().transferClue(mParamId, staff.getStaff_id());
@@ -74,13 +74,13 @@ public class ChooseEmployeeActivity extends ActivityPresenter<ChooseEmployeeActi
                             setResult(RESULT_OK, intent);
                             finish();
                         }
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
+//                    }
+//                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                }).setCancelable(false).show();
             }
         });
     }

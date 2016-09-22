@@ -36,6 +36,30 @@ public class MyDaoGenerator {
         staff.addDateProperty("updatedAt");
         staff.addStringProperty("staff_id");
 
+
+        //用户列表
+        Entity user = schema.addEntity("User");
+        user.setTableName("User");
+        //id主键自增长
+        user.addIdProperty().primaryKey().autoincrement();
+        user.addStringProperty("nickname");
+        user.addStringProperty("username");
+        user.addStringProperty("loginname");
+        user.addStringProperty("department");
+        user.addStringProperty("position");
+        user.addStringProperty("mobile");
+        user.addStringProperty("email");
+        user.addStringProperty("token");
+        user.addStringProperty("employeeNumber");
+        user.addStringProperty("officeAddress");
+        user.addStringProperty("note");
+        user.addStringProperty("pwd");
+        user.addBooleanProperty("activated");
+        user.addDateProperty("activatedAt");
+        user.addDateProperty("createdAt");
+        user.addDateProperty("updatedAt");
+        user.addStringProperty("user_id");
+
         //联系人列表
         Entity contact = schema.addEntity("Contact");
         contact.setTableName("Contact");

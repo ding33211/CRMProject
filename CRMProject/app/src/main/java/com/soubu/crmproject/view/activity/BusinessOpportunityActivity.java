@@ -1,6 +1,7 @@
 package com.soubu.crmproject.view.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.soubu.crmproject.R;
@@ -32,16 +33,24 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
     String mOrder = null;
     String mRelated = null;
     String mCustomerId = null;
+    String mCustomerName = null;
 
     @Override
     protected Class<BusinessOpportunityActivityDelegate> getDelegateClass() {
         return BusinessOpportunityActivityDelegate.class;
     }
 
+
     @Override
-    protected void initData() {
-        super.initData();
+    protected void initToolbar() {
+        super.initToolbar();
         mCustomerId = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_ID);
+        mCustomerName = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
+        if(!TextUtils.isEmpty(mCustomerName)){
+            viewDelegate.setTitle(R.string.business_opportunity);
+        } else {
+            viewDelegate.setTitle(R.string.all_business_opportunity);
+        }
     }
 
     /**
@@ -159,6 +168,12 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
     @Override
     protected void onClickAdd(View v) {
         Intent intent = new Intent(this, AddBusinessOpportunityActivity.class);
+        if(!TextUtils.isEmpty(mCustomerId)){
+            intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerId);
+        }
+        if(!TextUtils.isEmpty(mCustomerName)){
+            intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, mCustomerName);
+        }
         startActivity(intent);
     }
 

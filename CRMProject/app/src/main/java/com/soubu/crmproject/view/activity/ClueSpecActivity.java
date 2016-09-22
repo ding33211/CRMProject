@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
@@ -11,7 +12,6 @@ import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
-import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 
@@ -67,11 +67,11 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
             hasTop = false;
         }
         addItem = new AddItem();
-        addItem.setTitleRes(R.string.contact_information);
+        addItem.setTitleRes(R.string.connection_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(clueParams.getPhone(), R.string.phone, true);
         initItem(clueParams.getMobile(), R.string.mobile, hasTop ? false : true);
+        initItem(clueParams.getPhone(), R.string.phone, hasTop ? false : true);
         initItem(clueParams.getQq(), R.string.qq, hasTop ? false : true);
         initItem(clueParams.getWechat(), R.string.wechat, hasTop ? false : true);
         initItem(clueParams.getWangwang(), R.string.wangwang, hasTop ? false : true);
@@ -97,10 +97,16 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
             hasTop = false;
         }
         addItem = new AddItem();
-        addItem.setTitleRes(R.string.founder_information);
+        addItem.setTitleRes(R.string.manager_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(clueParams.getManager(), R.string.manager, true);
+        if(clueParams.getUser() != null && !TextUtils.isEmpty(clueParams.getUser().getUserName())){
+            initItem(clueParams.getUser().getUserName(), R.string.manager, true);
+        } else if(clueParams.getCreator() != null && !TextUtils.isEmpty(clueParams.getCreator().getUserName())){
+            initItem(clueParams.getCreator().getUserName(), R.string.manager, true);
+        } else {
+            initItem(CrmApplication.getContext().getName(), R.string.manager, true);
+        }
         viewDelegate.setData(mList);
     }
 

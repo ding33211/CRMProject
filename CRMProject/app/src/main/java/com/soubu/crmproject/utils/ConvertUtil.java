@@ -159,7 +159,6 @@ public class ConvertUtil {
             byte[] doFinal = mac.doFinal(dataBytes);
 //            byte[] hexB = new Hex().encode(doFinal);
             Log.e("xxxxxxxxxxxxxxx", "result   :   " + bytes2Hex(doFinal));
-
             return bytes2Hex(doFinal);
         } catch (Exception e) {
             e.printStackTrace();

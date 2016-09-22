@@ -12,6 +12,7 @@ import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.base.mvp.view.AppDelegate;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,12 +64,15 @@ public abstract class Big4HomeActivityPresenter<T extends AppDelegate> extends A
                                 .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        mIndex = 0;
                                         mIndex = which;
                                     }
                                 }).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        if(mIndex == -1){
+                                            ShowWidgetUtil.showShort(R.string.please_choose_phone);
+                                            return;
+                                        }
                                         if (!TextUtils.isEmpty(mPhoneList.get(0).id)) {
                                             RetrofitRequest.getInstance().touchContact(mPhoneList.get(mIndex).id);
                                         }
@@ -80,7 +84,7 @@ public abstract class Big4HomeActivityPresenter<T extends AppDelegate> extends A
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                     }
-                                }).create();
+                                }).setCancelable(false).create();
                         dialog.show();
                     } else if (mPhoneList.size() == 1) {
                         if (!TextUtils.isEmpty(mPhoneList.get(0).id)) {
@@ -145,7 +149,8 @@ public abstract class Big4HomeActivityPresenter<T extends AppDelegate> extends A
                 item.id = contact.getId();
                 mEmailList.add(item);
             }
-            if(!TextUtils.isEmpty(contact.getQq())){
+            //qq服务器字段存的是int类型,每次拉下来即使没有也是0
+            if(!TextUtils.isEmpty(contact.getQq()) && !TextUtils.equals(contact.getQq(), "0")){
                 DialogItem item = new DialogItem();
                 item.name = contact.getName();
                 item.value = contact.getMobile();

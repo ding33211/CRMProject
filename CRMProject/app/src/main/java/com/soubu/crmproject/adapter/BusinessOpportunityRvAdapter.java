@@ -33,7 +33,7 @@ public class BusinessOpportunityRvAdapter extends BaseBig4RvAdapter<BusinessOppo
             ((ItemViewHolder) holder).title.setText(mList.get(position).getTitle());
             ((ItemViewHolder) holder).subTitle.setText(mList.get(position).getAmountPrice());
             ((ItemViewHolder) holder).state.setText(getStatusArray()[SearchUtil.searchInArray(getStatusWebArray(), mList.get(position).getStatus())]);
-            ((ItemViewHolder) holder).subRight.setText(mList.get(position).getCustomer());
+            ((ItemViewHolder) holder).subRight.setText(mList.get(position).getCustomer().getName());
         }
     }
 

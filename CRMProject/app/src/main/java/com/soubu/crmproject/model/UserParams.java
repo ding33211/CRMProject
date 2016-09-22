@@ -1,13 +1,14 @@
 package com.soubu.crmproject.model;
 
-import com.soubu.crmproject.utils.CharacterParser;
+import com.soubu.crmproject.base.greendao.User;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by dingsigang on 16-9-9.
  */
-public class UserParams {
+public class UserParams implements Serializable{
 
     String nickname;
     String username;
@@ -170,6 +171,28 @@ public class UserParams {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public User copyToUser(){
+        User user = new User();
+        user.setNickname(nickname);
+        user.setActivated(activated);
+        user.setUpdatedAt(updatedAt);
+        user.setActivatedAt(activatedAt);
+        user.setCreatedAt(createdAt);
+        user.setDepartment(department);
+        user.setEmail(email);
+        user.setEmployeeNumber(employeeNumber);
+        user.setLoginname(loginname);
+        user.setMobile(mobile);
+        user.setUsername(username);
+        user.setNote(note);
+        user.setOfficeAddress(officeAddress);
+        user.setPosition(position);
+        user.setPwd(pwd);
+        user.setToken(token);
+        user.setUser_id(id);
+        return user;
     }
 
 }

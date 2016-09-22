@@ -1,5 +1,6 @@
 package com.soubu.crmproject.view.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -96,8 +97,13 @@ public class RegisterActivity extends ActivityPresenter<RegisterActivityDelegate
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(UserParams[] userParams) {
         if(userParams != null && userParams.length > 0){
-            ShowWidgetUtil.showLong(R.string.register_success_message);
-            finish();
+            if(TextUtils.isEmpty(userParams[0].getId())){
+                ShowWidgetUtil.showShort(R.string.register_error_message);
+            } else {
+                ShowWidgetUtil.showLong(R.string.register_success_message);
+                finish();
+            }
+
         }
     }
 

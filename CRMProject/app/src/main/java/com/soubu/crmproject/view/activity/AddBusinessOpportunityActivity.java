@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
@@ -14,6 +15,7 @@ import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
@@ -35,6 +37,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
     private List<AddItem> mList;
     private BusinessOpportunityParams mBusinessOpportunityParams;
     private String mCustomerId;
+    private String mCustomerName;
 
     @Override
     protected void bindEvenListener() {
@@ -75,6 +78,8 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
     @Override
     protected void initData() {
         super.initData();
+        mCustomerId = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_ID);
+        mCustomerName = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
         mList = new ArrayList<>();
         AddItem item = new AddItem();
         item.setTitleRes(R.string.essential_information);
@@ -89,10 +94,15 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.related_customer);
-        if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getCustomer())) {
-            item.setContent(mBusinessOpportunityParams.getCustomer());
+        if(!TextUtils.isEmpty(mCustomerName)){
+            item.setContent(mCustomerName);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_UNABLE);
+        } else {
+            if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getCustomer().getName())) {
+                item.setContent(mBusinessOpportunityParams.getCustomer().getName());
+            }
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.related_product);
@@ -163,13 +173,20 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
         item = new AddItem();
-        item.setTitleRes(R.string.founder_information);
+        item.setTitleRes(R.string.manager_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.manager);
-        if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getManager())) {
-            item.setContent(mBusinessOpportunityParams.getManager());
+        if (mFromEdit && mBusinessOpportunityParams.getUser() != null && !TextUtils.isEmpty(mBusinessOpportunityParams.getUser().getUserName())) {
+            item.setContent(mBusinessOpportunityParams.getUser().getUserName());
+            mManagerId = mBusinessOpportunityParams.getUser().getId();
+        } else if(mFromEdit && mBusinessOpportunityParams.getCreator() != null && !TextUtils.isEmpty(mBusinessOpportunityParams.getUser().getUserName())){
+            item.setContent(mBusinessOpportunityParams.getCreator().getUserName());
+            mManagerId = mBusinessOpportunityParams.getCreator().getId();
+        } else {
+            item.setContent(CrmApplication.getContext().getName());
+            mManagerId = CrmApplication.getContext().getUid();
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
@@ -198,7 +215,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
                 continue;
             }
             if (item.getTitleRes() == R.string.related_customer && !TextUtils.isEmpty(mCustomerId)) {
-                businessOpportunityParams.setCustomer(mCustomerId);
+                businessOpportunityParams.setCustomerId(mCustomerId);
                 continue;
             }
             if (item.getTitleRes() == R.string.related_product) {
@@ -234,7 +251,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
             }
             if (item.getTitleRes() == R.string.manager) {
                 if(!TextUtils.isEmpty(mManagerId)){
-                    businessOpportunityParams.setManager(mManagerId);
+                    businessOpportunityParams.setUserId(mManagerId);
                 }
                 continue;
             }

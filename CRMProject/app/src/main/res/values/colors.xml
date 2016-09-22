@@ -36,5 +36,6 @@
     <color name="five_translucent_white">#88ffffff</color>
     <color name="three_translucent_white">#4dffffff</color>
     <color name="two_translucent_black">#33000000</color>
+    <color name="orange_1">#fe8a36</color>
 
 </resources>

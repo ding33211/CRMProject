@@ -123,29 +123,44 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
             public void onClick(View v) {
                 int id = v.getId();
                 if(id == R.id.ll_filter){
-                    ImageView ivArrow = (ImageView)v.findViewById(R.id.iv_filter1);
-                    ivArrow.setImageResource(R.drawable.arrow_up);
-                    if(mFilterPopupWindow == null){
-                        for(int i = 0; i < childrenStrings.length; i++){
-                            List<String> list = new ArrayList<String>();
-                            list.add( activity.getString(R.string.all));
-                            for(String a : childrenStrings[i]){
-                                list.add(a);
-                            }
-                            childrenStrings[i] = list.toArray(new String[1]);
+                    if(mFilterPopupWindow != null && mFilterPopupWindow.isShowing()){
+                        mFilterPopupWindow.dismiss();
+                    } else {
+                        if(mSortPopupWindow != null && mSortPopupWindow.isShowing()){
+                            mSortPopupWindow.dismiss();
                         }
-                        mFilterPopupWindow = new FilterOrSortPopupWindow(parentStrings, childrenStrings, null, activity, filterListener);
+                        ImageView ivArrow = (ImageView)v.findViewById(R.id.iv_filter1);
+                        ivArrow.setImageResource(R.drawable.arrow_up);
+                        if(mFilterPopupWindow == null){
+                            for(int i = 0; i < childrenStrings.length; i++){
+                                List<String> list = new ArrayList<String>();
+                                list.add( activity.getString(R.string.all));
+                                for(String a : childrenStrings[i]){
+                                    list.add(a);
+                                }
+                                childrenStrings[i] = list.toArray(new String[1]);
+                            }
+                            mFilterPopupWindow = new FilterOrSortPopupWindow(parentStrings, childrenStrings, null, activity, filterListener);
+                        }
+                        mFilterPopupWindow.showAsDropDown(v, 0, 0);
+                        bindOnDismissListener(mFilterPopupWindow, ivArrow);
                     }
-                    mFilterPopupWindow.showAsDropDown(v, 0, 0);
-                    bindOnDismissListener(mFilterPopupWindow, ivArrow);
                 } else {
-                    ImageView ivArrow = (ImageView)v.findViewById(R.id.iv_filter2);
-                    ivArrow.setImageResource(R.drawable.arrow_up);
-                    if(mSortPopupWindow == null){
-                        mSortPopupWindow = new FilterOrSortPopupWindow(sortStrings, null, null, activity, filterListener);
+                    if(mSortPopupWindow != null && mSortPopupWindow.isShowing()){
+                        mSortPopupWindow.dismiss();
+                    } else {
+                        if(mFilterPopupWindow != null && mFilterPopupWindow.isShowing()){
+                            mFilterPopupWindow.dismiss();
+                        }
+                        ImageView ivArrow = (ImageView)v.findViewById(R.id.iv_filter2);
+                        ivArrow.setImageResource(R.drawable.arrow_up);
+                        if(mSortPopupWindow == null){
+                            mSortPopupWindow = new FilterOrSortPopupWindow(sortStrings, null, null, activity, filterListener);
+                        }
+                        mSortPopupWindow.showAsDropDown(v, 0, 0);
+                        bindOnDismissListener(mSortPopupWindow, ivArrow);
                     }
-                    mSortPopupWindow.showAsDropDown(v, 0, 0);
-                    bindOnDismissListener(mSortPopupWindow, ivArrow);
+
                 }
             }
         }, R.id.ll_filter, R.id.ll_sort);
@@ -194,5 +209,14 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
         } else {
             mEmptyView.setVisibility(View.GONE);
         }
+    }
+    //让底部的审批栏可见
+    public void setApprovalVisible(){
+        get(R.id.ll_approval).setVisibility(View.VISIBLE);
+    }
+
+    //让底部的联系栏可见
+    public void setContactVisible(){
+        get(R.id.rl_contact_method).setVisibility(View.VISIBLE);
     }
 }

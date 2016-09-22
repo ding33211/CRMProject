@@ -1,40 +1,62 @@
 package com.soubu.crmproject.model;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
 import com.soubu.crmproject.server.ObjectToMapInterface;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by dingsigang on 16-8-17.
  */
-public class ClueParams extends ObjectToMapInterface implements Serializable, Cloneable{
+public class ClueParams extends ObjectToMapInterface implements Serializable, Cloneable {
 
-    private String companyName;
-    private String manager;
-    private String contactName;
-    private String department;
-    private String position;
-    private String phone;
-    private String mobile;
-    private String qq;
-    private String wechat;
-    private String wangwang;
-    private String email;
-    private String website;
-    private String address;
-    private String postcode;
-    private String note;
-    private String source;
-    private String status;
-    private Date createdAt;
-    private Date updatedAt;
-    private String id;
+    String companyName;
+    String manager;
+    String contactName;
+    String department;
+    String position;
+    String phone;
+    String mobile;
+    String qq;
+    String wechat;
+    String wangwang;
+    String email;
+    String website;
+    String address;
+    String postcode;
+    String note;
+    String source;
+    String status;
+    Date createdAt;
+    Date updatedAt;
+    String id;
+    UserParams user;
+    UserParams creator;
+    String userId;
+
+    public UserParams getUser() {
+        return user;
+    }
+
+    public void setUser(UserParams user) {
+        this.user = user;
+    }
+
+    public UserParams getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserParams creator) {
+        this.creator = creator;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -196,8 +218,8 @@ public class ClueParams extends ObjectToMapInterface implements Serializable, Cl
         this.id = id;
     }
 
-    public ClueParams clone() throws CloneNotSupportedException{
-        return (ClueParams)super.clone();
+    public ClueParams clone() throws CloneNotSupportedException {
+        return (ClueParams) super.clone();
     }
 
 }

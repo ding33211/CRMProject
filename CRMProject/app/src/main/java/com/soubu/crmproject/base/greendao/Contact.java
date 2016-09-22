@@ -181,7 +181,7 @@ public class Contact implements Serializable{
         ContactParams params = new ContactParams();
         params.setMobile(mobile);
         params.setCreatedAt(createdAt);
-        params.setCustomer(customer);
+        params.setCustomerId(customer);
         params.setDepartment(department);
         params.setName(name);
         params.setPhone(phone);

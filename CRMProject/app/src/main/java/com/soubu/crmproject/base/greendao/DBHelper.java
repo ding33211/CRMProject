@@ -43,6 +43,10 @@ public class DBHelper {
         return daoSession.getContactDao();
     }
 
+    public UserDao getUserDao() {
+        return daoSession.getUserDao();
+    }
+
     public AsyncSession getAsyncSession() {
         return asyncSession;
     }

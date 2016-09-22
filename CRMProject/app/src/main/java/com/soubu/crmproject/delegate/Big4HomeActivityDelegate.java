@@ -56,7 +56,7 @@ public class Big4HomeActivityDelegate extends AppDelegate {
                 break;
             case Contants.FROM_CONTRACT:
 //                get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
-                get(R.id.iv_contract_review_state).setVisibility(View.VISIBLE);
+//                get(R.id.iv_contract_review_state).setVisibility(View.VISIBLE);
 //                get(R.id.ll_contract_content).setVisibility(View.VISIBLE);
 //                ((TextView)get(R.id.tv_left_label)).setText(R.string.sales_back_plan);
 //                ((TextView)get(R.id.tv_right_label)).setText(R.string.already_sales_back);
@@ -74,7 +74,7 @@ public class Big4HomeActivityDelegate extends AppDelegate {
                 ((TextView)get(R.id.tv_go_left)).setText(R.string.clue_spec);
                 break;
         }
-        mIndicatorViewPagerAdapter = new FollowInBig4HomeIndicatorViewPagerAdapter();
+        mIndicatorViewPagerAdapter = new FollowInBig4HomeIndicatorViewPagerAdapter(mFrom);
         mViewPager = get(R.id.vp_content);
         mIndicator = get(R.id.fiv_indicator);
         mIndicator.setScrollBar(new ColorBar(getActivity(), getActivity().getResources().getColor(R.color.colorPrimary), 5));

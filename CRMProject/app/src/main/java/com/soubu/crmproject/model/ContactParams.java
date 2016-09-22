@@ -7,6 +7,7 @@ import com.soubu.crmproject.server.ObjectToMapInterface;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by dingsigang on 16-9-8.
@@ -14,7 +15,8 @@ import java.util.Date;
 public class ContactParams extends ObjectToMapInterface implements Serializable, Cloneable{
 
     String name;
-    String customer;
+    CustomerParams customer;
+    String customerId;
     String position;
     String phone;
     String mobile;
@@ -30,6 +32,21 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
     int touchedCount;
     String id;
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public CustomerParams getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerParams customer) {
+        this.customer = customer;
+    }
 
     public Date getTouchedAt() {
         return touchedAt;
@@ -77,14 +94,6 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
     }
 
     public String getPosition() {
@@ -168,7 +177,7 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
         contact.setContact_id(id);
         contact.setMobile(mobile);
         contact.setCreatedAt(createdAt);
-        contact.setCustomer(customer);
+        contact.setCustomer(customer.id);
         contact.setDepartment(department);
         contact.setName(name);
         contact.setPhone(phone);
@@ -182,12 +191,12 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
         return contact;
     }
 
-    public boolean equals(Contact contact) {
+    public boolean equalsContact(Contact contact) {
         //因为联系时间最频繁,所以最先检查
-        if(contact.getTouchedAt().compareTo(touchedAt) != 0){
+        if(contact.getTouchedAt() != null && contact.getTouchedAt().compareTo(touchedAt) != 0){
             return false;
         }
-        if(contact.getUpdatedAt().compareTo(updatedAt) != 0){
+        if(contact.getUpdatedAt() != null && contact.getUpdatedAt().compareTo(updatedAt) != 0){
             return false;
         }
         if(!TextUtils.equals(contact.getContact_id(), id)){
@@ -196,7 +205,7 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
         if(!TextUtils.equals(contact.getMobile(), mobile)){
             return false;
         }
-        if(!TextUtils.equals(contact.getCustomer(), customer)){
+        if(!TextUtils.equals(contact.getCustomer(), customer.id)){
             return false;
         }
         if(!TextUtils.equals(contact.getDepartment(), department)){
@@ -220,9 +229,16 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
         if(!TextUtils.equals(contact.getWechat(), wechat)){
             return false;
         }
-        if(contact.getCreatedAt().compareTo(createdAt) != 0){
+        if(contact.getCreatedAt() != null && contact.getCreatedAt().compareTo(createdAt) != 0){
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Map<String, String> getMap() {
+        Map<String, String> map = super.getMap();
+        map.remove("touchedCount");
+        return map;
     }
 }

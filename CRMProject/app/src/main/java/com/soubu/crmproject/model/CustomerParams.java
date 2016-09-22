@@ -26,6 +26,42 @@ public class CustomerParams extends ObjectToMapInterface implements Serializable
     String revenue;
     String dealsCount;
     String contractsCount;
+    String tOpportunity;
+    UserParams user;
+    UserParams creator;
+    String userId;
+
+    public UserParams getUser() {
+        return user;
+    }
+
+    public void setUser(UserParams user) {
+        this.user = user;
+    }
+
+    public UserParams getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserParams creator) {
+        this.creator = creator;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String gettOpportunity() {
+        return tOpportunity;
+    }
+
+    public void settOpportunity(String opportunity) {
+        this.tOpportunity = opportunity;
+    }
 
     public String getProperty() {
         return property;

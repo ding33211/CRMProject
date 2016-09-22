@@ -88,5 +88,8 @@ public class AddFollowActivityDelegate extends AppDelegate {
         return true;
     }
 
-
+    @Override
+    public boolean ifNeedEventBus() {
+        return true;
+    }
 }

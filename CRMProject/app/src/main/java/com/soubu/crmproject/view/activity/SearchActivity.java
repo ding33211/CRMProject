@@ -177,7 +177,7 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                         RetrofitRequest.getInstance().getClueHighSeasList(null, null, null, null, null, null, ((EditText)viewDelegate.get(R.id.et_search)).getText().toString());
                         dialog.dismiss();
                     }
-                }).show();
+                }).setCancelable(false).show();
             }
             mRushAction = false;
         } else {

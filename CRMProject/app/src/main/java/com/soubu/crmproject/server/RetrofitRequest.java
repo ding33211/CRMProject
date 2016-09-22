@@ -1,11 +1,12 @@
 package com.soubu.crmproject.server;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.soubu.crmproject.MyApplication;
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.common.ApiConfig;
 import com.soubu.crmproject.model.BackSalesParams;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
@@ -24,11 +25,9 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.Connection;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.HTTP;
 
 /**
  * Retrofit的网络请求类
@@ -67,26 +66,27 @@ public class RetrofitRequest {
                     EventBus.getDefault().post(response.code());
                     return;
                 }
-                int status = response.body().getStatus();
-                if (status == ApiConfig.RELUST_OK) {
+                //由于存在errorCode, 暂时不适用status去判断成功与失败
+//                int status = response.body().getStatus();
+//                if (status == ApiConfig.RELUST_OK) {
                     if (needEventPost) {
                         EventBus.getDefault().post(response.body().getResult().data);
                     }
-                    return;
-                } else {
-                    if (response.body().errors != null) {
-                        JsonElement element = new Gson().toJsonTree(response.body().errors);
-//                        JsonArray array = element.getAsJsonArray();
-                        JsonObject object = element.getAsJsonObject();
-                        Log.e(TAG, response.body().errors.toString());
-                        for(Map.Entry<String, JsonElement> entry : object.entrySet()){
-                            String msg = entry.getValue().getAsJsonObject().get("msg").getAsString();
-                            EventBus.getDefault().post(msg);
-                        }
-                    } else if (response.body().getRawString() != null && response.body().getSign() != null) {
-                        Log.e(TAG, response.body().getRawString() + "       " + response.body().getSign());
-                    }
-                }
+//                    return;
+//                } else {
+//                    if (response.body().errors != null) {
+//                        JsonElement element = new Gson().toJsonTree(response.body().errors);
+////                        JsonArray array = element.getAsJsonArray();
+//                        JsonObject object = element.getAsJsonObject();
+//                        Log.e(TAG, response.body().errors.toString());
+//                        for(Map.Entry<String, JsonElement> entry : object.entrySet()){
+//                            String msg = entry.getValue().getAsJsonObject().get("msg").getAsString();
+//                            EventBus.getDefault().post(msg);
+//                        }
+//                    } else if (response.body().getRawString() != null && response.body().getSign() != null) {
+//                        Log.e(TAG, response.body().getRawString() + "       " + response.body().getSign());
+//                    }
+//                }
             }
 
             @Override
@@ -152,9 +152,11 @@ public class RetrofitRequest {
      * @param clue 线索对象
      */
     public void addClue(ClueParams clue) {
+//        ClueParams params = clue.transferForPost();
+        String sign = ConvertUtil.hmacsha256(clue.getMap(), CrmApplication.getContext().getToken());
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addClue(clue, ConvertUtil.hmacsha256(clue.getMap(), MyApplication.getContext().getToken()));
+                .addClue(clue, sign);
         enqueueClue(call, true);
     }
 
@@ -165,7 +167,7 @@ public class RetrofitRequest {
     public void rushClue(String id) {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .rushClueHighSeas(id, ConvertUtil.hmacsha256(new HashMap<String, String>(), MyApplication.getContext().getToken()));
+                .rushClueHighSeas(id, ConvertUtil.hmacsha256(new HashMap<String, String>(), CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -178,7 +180,7 @@ public class RetrofitRequest {
     public void updateClue(String id, Map<String, String> map) {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateClue(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+                .updateClue(id, map, ConvertUtil.hmacsha256(map, CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -193,7 +195,7 @@ public class RetrofitRequest {
         map.put("user", userId);
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .transferClue(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+                .transferClue(id, map, ConvertUtil.hmacsha256(map, CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -225,9 +227,13 @@ public class RetrofitRequest {
      * @param customerParams 客户对象
      */
     public void addCustomer(CustomerParams customerParams) {
+        String sign = ConvertUtil.hmacsha256(customerParams.getMap(), CrmApplication.getContext().getToken());
+        if(!TextUtils.isEmpty(customerParams.getUserId())){
+            customerParams.setUserId("");
+        }
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addCustomer(customerParams, ConvertUtil.hmacsha256(customerParams.getMap(), MyApplication.getContext().getToken()));
+                .addCustomer(customerParams, sign);
         enqueueClue(call, true);
     }
 
@@ -240,7 +246,7 @@ public class RetrofitRequest {
     public void updateCustomer(String id, Map<String, String> map) {
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateCustomer(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+                .updateCustomer(id, map, ConvertUtil.hmacsha256(map, CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -255,7 +261,7 @@ public class RetrofitRequest {
         map.put("user", userId);
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .transferCustomer(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+                .transferCustomer(id, map, ConvertUtil.hmacsha256(map, CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -277,9 +283,10 @@ public class RetrofitRequest {
      * @param businessOpportunityParams 商机对象
      */
     public void addBusinessOpportunity(BusinessOpportunityParams businessOpportunityParams) {
+        String sign = ConvertUtil.hmacsha256(businessOpportunityParams.getMap(), CrmApplication.getContext().getToken());
         Call<GetPageResp<BusinessOpportunityParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addBusinessOpportunity(businessOpportunityParams, ConvertUtil.hmacsha256(businessOpportunityParams.getMap(), MyApplication.getContext().getToken()));
+                .addBusinessOpportunity(businessOpportunityParams, sign);
         enqueueClue(call, true);
     }
 
@@ -292,7 +299,7 @@ public class RetrofitRequest {
     public void updateBusinessOpportunity(String id, Map<String, String> map) {
         Call<GetPageResp<BusinessOpportunityParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateBusinessOpportunity(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+                .updateBusinessOpportunity(id, map, ConvertUtil.hmacsha256(map, CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -312,9 +319,13 @@ public class RetrofitRequest {
      * @param contractParams 合同对象
      */
     public void addContract(ContractParams contractParams) {
+        String sign = ConvertUtil.hmacsha256(contractParams.getMap(), CrmApplication.getContext().getToken());
+        if(!TextUtils.isEmpty(contractParams.getUserId())){
+            contractParams.setUserId("");
+        }
         Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addContract(contractParams, ConvertUtil.hmacsha256(contractParams.getMap(), MyApplication.getContext().getToken()));
+                .addContract(contractParams, sign);
         enqueueClue(call, true);
     }
 
@@ -327,7 +338,7 @@ public class RetrofitRequest {
     public void updateContract(String id, Map<String, String> map) {
         Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateContract(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+                .updateContract(id, map, ConvertUtil.hmacsha256(map, CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -340,7 +351,7 @@ public class RetrofitRequest {
     public void addFollow(FollowParams followParams) {
         Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addFollow(followParams, ConvertUtil.hmacsha256(followParams.getMap(), MyApplication.getContext().getToken()));
+                .addFollow(followParams, ConvertUtil.hmacsha256(followParams.getMap(), CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -402,7 +413,7 @@ public class RetrofitRequest {
     public void addBackSales(BackSalesParams params, String id) {
         Call<GetPageResp<BackSalesParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addBackSales(params, ConvertUtil.hmacsha256(params.getMap(), MyApplication.getContext().getToken()), id);
+                .addBackSales(params, ConvertUtil.hmacsha256(params.getMap(), CrmApplication.getContext().getToken()), id);
         enqueueClue(call, true);
     }
 
@@ -428,7 +439,7 @@ public class RetrofitRequest {
         Map<String, String> map = params.getMap();
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .addContact(params, ConvertUtil.hmacsha256(params.getMap(), MyApplication.getContext().getToken()));
+                .addContact(params, ConvertUtil.hmacsha256(params.getMap(), CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -441,7 +452,7 @@ public class RetrofitRequest {
     public void updateContact(String id, Map<String, String> map) {
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .updateContact(id, map, ConvertUtil.hmacsha256(map, MyApplication.getContext().getToken()));
+                .updateContact(id, map, ConvertUtil.hmacsha256(map, CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 
@@ -453,7 +464,7 @@ public class RetrofitRequest {
     public void touchContact(String id) {
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .touchContact(id, ConvertUtil.hmacsha256(new HashMap<String, String>(), MyApplication.getContext().getToken()));
+                .touchContact(id, ConvertUtil.hmacsha256(new HashMap<String, String>(), CrmApplication.getContext().getToken()));
         enqueueClue(call, false);
     }
 

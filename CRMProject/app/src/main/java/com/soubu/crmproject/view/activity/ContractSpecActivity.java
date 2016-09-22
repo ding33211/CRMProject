@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
@@ -35,6 +36,7 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
     CharSequence[] mPayMethodWebArray;
     CharSequence[] mTypeArray;
     CharSequence[] mTypeWebArray;
+    boolean mIfApproval = false;
 
     @Override
     protected Class<SpecActivityDelegate> getDelegateClass() {
@@ -45,6 +47,10 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
     protected void initData() {
         super.initData();
         mContractParams = (ContractParams) getIntent().getSerializableExtra(Contants.EXTRA_CONTRACT);
+        mIfApproval = getIntent().getIntExtra(Contants.EXTRA_FROM, -1) == Contants.FROM_CONTRACT_APPROVAL;
+        if(mIfApproval){
+            viewDelegate.setApprovalVisible();
+        }
         mStateArray = SearchUtil.searchContractStateArray(getApplicationContext());
         mStateWebArray = SearchUtil.searchContractStateWebArray(getApplicationContext());
         mPayMethodArray = SearchUtil.searchContractPayMethodArray(getApplicationContext());
@@ -60,9 +66,13 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         addItem.setTitleRes(R.string.essential_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(contractParams.getTitle(), R.string.business_opportunity_title, true);
-        initItem(contractParams.getCustomer(), R.string.related_customer, hasTop ? false : true);
-        initItem(contractParams.getDeal(), R.string.related_business_opportunity, hasTop ? false : true);
+        initItem(contractParams.getTitle(), R.string.contract_title, true);
+        if(contractParams.getCustomer() != null){
+            initItem(contractParams.getCustomer().getName(), R.string.related_customer, hasTop ? false : true);
+        }
+        if(contractParams.getDeal() != null){
+            initItem(contractParams.getDeal().getTitle(), R.string.related_business_opportunity, hasTop ? false : true);
+        }
         initItem(contractParams.getProduct(), R.string.related_product, hasTop ? false : true);
         if(!hasTop){
             mList.remove(mList.size() - 1);
@@ -70,7 +80,7 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
             hasTop = false;
         }
         addItem = new AddItem();
-        addItem.setTitleRes(R.string.contact_information);
+        addItem.setTitleRes(R.string.connection_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
         initItem(TextUtils.isEmpty(contractParams.getType()) ? "" : mTypeArray[SearchUtil.searchInArray(mTypeWebArray, contractParams.getType())].toString(),
@@ -103,10 +113,16 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
 //        initItem(contractParams.getNote(), R.string.remark, hasTop ? false : true);
 //        hasTop = false;
         addItem = new AddItem();
-        addItem.setTitleRes(R.string.founder_information);
+        addItem.setTitleRes(R.string.manager_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(contractParams.getManager(), R.string.manager, true);
+        if(contractParams.getUser() != null && !TextUtils.isEmpty(contractParams.getUser().getUserName())){
+            initItem(contractParams.getUser().getUserName(), R.string.manager, true);
+        } else if(contractParams.getCreator() != null && !TextUtils.isEmpty(contractParams.getCreator().getUserName())){
+            initItem(contractParams.getCreator().getUserName(), R.string.manager, true);
+        } else {
+            initItem(CrmApplication.getContext().getName(), R.string.manager, true);
+        }
         viewDelegate.setData(mList);
     }
 

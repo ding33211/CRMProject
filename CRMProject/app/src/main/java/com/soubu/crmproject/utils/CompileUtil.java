@@ -34,9 +34,6 @@ public class CompileUtil {
                     }
                     if (!valOld.equals(valNew)) {
                         String newString = String.valueOf(valNew);
-//                        if(newString.equals("null") || TextUtils.isEmpty(newString)){
-//                            newString  = "";
-//                        }
                         changedMap.put(field.getName(), newString);
                     }
                 } else {
@@ -48,6 +45,19 @@ public class CompileUtil {
                 e.printStackTrace();
             }
         }
+//        //customer,deal,user获得object类型,上传需要字符传类型
+//        if(changedMap.containsKey("customerId")){
+//            changedMap.put("customer", changedMap.get("customerId"));
+//            changedMap.remove("customerId");
+//        }
+//        if(changedMap.containsKey("dealId")){
+//            changedMap.put("deal", changedMap.get("dealId"));
+//            changedMap.remove("dealId");
+//        }
+//        if(changedMap.containsKey("userId")){
+//            changedMap.put("user", changedMap.get("userId"));
+//            changedMap.remove("userId");
+//        }
         return changedMap;
     }
 }

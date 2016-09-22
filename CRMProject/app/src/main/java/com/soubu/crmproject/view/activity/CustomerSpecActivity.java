@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
@@ -34,6 +35,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
     CharSequence[] mTypeWebArray;
     CharSequence[] mPropertyArray;
     CharSequence[] mPropertyWebArray;
+    CharSequence[] mSourceArray;
+    CharSequence[] mSourceWebArray;
 
 
     @Override
@@ -51,6 +54,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         mTypeWebArray = SearchUtil.searchCustomerTypeWebArray(getApplicationContext());
         mPropertyArray = SearchUtil.searchCustomerPropertyArray(getApplicationContext());
         mPropertyWebArray = SearchUtil.searchCustomerPropertyWebArray(getApplicationContext());
+        mSourceArray = SearchUtil.searchClueSourceArray(getApplicationContext());
+        mSourceWebArray = SearchUtil.searchClueSourceWebArray(getApplicationContext());
         initClueParams(mCustomerParams);
     }
 
@@ -91,6 +96,8 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         if (customerParams.getProducts() != null && customerParams.getProducts().length != 0) {
             initItem(customerParams.getProducts()[0], R.string.operating_products, hasTop ? false : true);
         }
+        initItem(TextUtils.isEmpty(customerParams.getSource()) ? "" : mSourceArray[SearchUtil.searchInArray(mSourceWebArray, customerParams.getSource())].toString(), R.string.customer_source, hasTop ? false : true);
+
         initItem(TextUtils.isEmpty(customerParams.getSize()) ? "" : mSizeArray[SearchUtil.searchInArray(mSizeWebArray, customerParams.getSize())].toString(), R.string.personal_size, hasTop ? false : true);
 //        hasTop = false;
 //        addItem = new AddItem();
@@ -98,10 +105,16 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
 //        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
 //        mList.add(addItem);
 //        initItem(customerParams.getManager(), R.string.manager, true);
-        if(!hasTop){
-            mList.remove(mList.size() - 1);
+        addItem = new AddItem();
+        addItem.setTitleRes(R.string.manager_information);
+        addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
+        mList.add(addItem);
+        if(customerParams.getUser() != null && !TextUtils.isEmpty(customerParams.getUser().getUserName())){
+            initItem(customerParams.getUser().getUserName(), R.string.manager, true);
+        } else if(customerParams.getCreator() != null && !TextUtils.isEmpty(customerParams.getCreator().getUserName())){
+            initItem(customerParams.getCreator().getUserName(), R.string.manager, true);
         } else {
-            hasTop = false;
+            initItem(CrmApplication.getContext().getName(), R.string.manager, true);
         }
         viewDelegate.setData(mList);
     }

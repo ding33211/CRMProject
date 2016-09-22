@@ -1,6 +1,7 @@
 package com.soubu.crmproject.view.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.soubu.crmproject.R;
@@ -29,6 +30,8 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
     String mSort = null;
     String mOrder = null;
     String mRelated = null;
+    String mCustomerId = null;
+    String mCustomerName = null;
 
     //是否是审批
     boolean mIfApproval = false;
@@ -42,7 +45,11 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
     protected void initToolbar() {
         super.initToolbar();
         mIfApproval = getIntent().getIntExtra(Contants.EXTRA_FROM, -1) == Contants.FROM_CONTRACT_APPROVAL;
-        if(mIfApproval){
+        mCustomerId = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_ID);
+        mCustomerName = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
+        if (!TextUtils.isEmpty(mCustomerName)) {
+            viewDelegate.setTitle(R.string.contract);
+        } else if (mIfApproval) {
             viewDelegate.setTitle(R.string.contract_approval);
         } else {
             viewDelegate.setTitle(R.string.all_contract);
@@ -81,7 +88,7 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
 
     @Override
     protected void doRequest(int pageNum) {
-        if(mIfApproval){
+        if (mIfApproval) {
             RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, "NOT_STARTED", mSort, mOrder, mRelated, null, null);
         } else {
             RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, mReviewState, mSort, mOrder, mRelated, null, null);
@@ -90,8 +97,11 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
 
     @Override
     protected void onRvItemClickListener(View v, int pos) {
-        if(mIfApproval){
-
+        if (mIfApproval) {
+            Intent intent = new Intent(this, ContractSpecActivity.class);
+            intent.putExtra(Contants.EXTRA_CONTRACT, viewDelegate.getContractParams(pos));
+            intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CONTRACT_APPROVAL);
+            startActivity(intent);
         } else {
             Intent intent = new Intent(this, ContractHomeActivity.class);
             intent.putExtra(Contants.EXTRA_CONTRACT, viewDelegate.getContractParams(pos));
@@ -151,7 +161,7 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
                 }
             }
             if (map.containsKey(5)) {
-                if(map.get(5) == 0){
+                if (map.get(5) == 0) {
                     mRelated = null;
                 } else {
                     mRelated = strings5[map.get(5) - 1];
@@ -189,6 +199,12 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
     @Override
     protected void onClickAdd(View v) {
         Intent intent = new Intent(this, AddContractActivity.class);
+        if(!TextUtils.isEmpty(mCustomerId)){
+            intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerId);
+        }
+        if(!TextUtils.isEmpty(mCustomerName)){
+            intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, mCustomerName);
+        }
         startActivity(intent);
     }
 

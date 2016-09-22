@@ -6,8 +6,11 @@ import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
+import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.model.ContractParams;
+import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
@@ -28,17 +31,43 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ClueParams[] params) {
-        if (params != null && params[0] != null) {
-            if(isFinishing()){
-                return;
-            }
-            if (mFromEdit) {
-                ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
-            } else {
-                ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
-            }
-            finish();
+        //每次修改或者是添加只会有一条
+        if (params != null && params.length == 1) {
+            success();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(CustomerParams[] params) {
+        if (params != null && params.length == 1) {
+            success();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(BusinessOpportunityParams[] params) {
+        if (params != null && params.length == 1) {
+            success();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(ContractParams[] params) {
+        if (params != null && params.length == 1) {
+            success();
+        }
+    }
+
+    private void success(){
+        if(isFinishing()){
+            return;
+        }
+        if (mFromEdit) {
+            ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
+        } else {
+            ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
+        }
+        finish();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

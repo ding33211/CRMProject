@@ -47,6 +47,7 @@ public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
     protected void initData() {
         super.initData();
         viewDelegate.setEntity(mContractParams);
+        RetrofitRequest.getInstance().getCustomerSpec(mContractParams.getCustomer().getId());
     }
 
     @Override
@@ -103,15 +104,18 @@ public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         CharSequence[] reviewStateWebArray = getResources().getStringArray(R.array.contract_review_state_web);
         mContractParams = (ContractParams) getIntent().getSerializableExtra(Contants.EXTRA_CONTRACT);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mContractParams.getTitle());
-        ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(mContractParams.getCustomer());
+        ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(mContractParams.getCustomer().getName());
         ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(stateArray[SearchUtil.searchInArray(stateArrayWeb, mContractParams.getStatus())]);
 //        ((TextView) viewDelegate.get(R.id.tv_contract_price)).setText(mContractParams.getAmountPrice());
         if (TextUtils.equals(mContractParams.getReviewStatus(), reviewStateWebArray[0])) {
-            ((ImageView) viewDelegate.get(R.id.iv_contract_review_state)).setImageResource(R.drawable.contract_home_wait_approval);
+            ((ImageView) viewDelegate.get(R.id.iv_contract_review_state_no_or_wait)).setImageResource(R.drawable.contract_home_wait_approval);
+            viewDelegate.get(R.id.iv_contract_review_state_no_or_wait).setVisibility(View.VISIBLE);
         } else if (TextUtils.equals(mContractParams.getReviewStatus(), reviewStateWebArray[1])) {
-            ((ImageView) viewDelegate.get(R.id.iv_contract_review_state)).setImageResource(R.drawable.contract_home_pass);
+            ((ImageView) viewDelegate.get(R.id.iv_contract_review_state_yes)).setImageResource(R.drawable.contract_home_pass);
+            viewDelegate.get(R.id.iv_contract_review_state_yes).setVisibility(View.VISIBLE);
         } else {
-            ((ImageView) viewDelegate.get(R.id.iv_contract_review_state)).setImageResource(R.drawable.contract_home_not_pass);
+            ((ImageView) viewDelegate.get(R.id.iv_contract_review_state_no_or_wait)).setImageResource(R.drawable.contract_home_not_pass);
+            viewDelegate.get(R.id.iv_contract_review_state_no_or_wait).setVisibility(View.VISIBLE);
         }
     }
 
@@ -163,6 +167,5 @@ public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
     protected void onResume() {
         super.onResume();
         RetrofitRequest.getInstance().getContractFollow(mContractParams.getId(), null, null, null, null, null);
-        RetrofitRequest.getInstance().getCustomerSpec(mContractParams.getCustomer());
     }
 }

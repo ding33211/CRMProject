@@ -53,13 +53,13 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
         viewDelegate.setSettingMenuListener(R.menu.clue_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.action_for_other){
+                if (item.getItemId() == R.id.action_for_other) {
                     Intent intent = new Intent(ClueHomeActivity.this, ChooseEmployeeActivity.class);
                     intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CLUE);
                     intent.putExtra(Contants.EXTRA_PARAM_ID, mClueParams.getId());
                     startActivityForResult(intent, REQUEST_CHOOSE_EMPLOYEE);
                 }
-                if(item.getItemId() == R.id.action_to_customer){
+                if (item.getItemId() == R.id.action_to_customer) {
                     transfer();
                 }
                 return false;
@@ -67,7 +67,7 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
         });
     }
 
-    private void transfer(){
+    private void transfer() {
         Intent intent = new Intent(ClueHomeActivity.this, AddCustomerActivity.class);
         CustomerParams params = new CustomerParams();
         params.setName(mClueParams.getCompanyName());
@@ -75,6 +75,7 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
         params.setWebsite(mClueParams.getWebsite());
         params.setSource(mClueParams.getSource());
         params.setManager(mClueParams.getManager());
+        params.settOpportunity(mClueParams.getId());
         intent.putExtra(Contants.EXTRA_CUSTOMER, params);
         intent.putExtra(Contants.EXTRA_TRANSFER, true);
         startActivity(intent);
@@ -83,7 +84,7 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id){
+        switch (id) {
             case R.id.ll_go_left:
                 Intent intent = new Intent(this, ClueSpecActivity.class);
                 intent.putExtra(Contants.EXTRA_CLUE, mClueParams);
@@ -106,7 +107,7 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
     }
 
 
-    private void initView(ClueParams clueParams){
+    private void initView(ClueParams clueParams) {
         mClueParams = clueParams;
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(clueParams.getCompanyName());
         ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(clueParams.getContactName());
@@ -116,30 +117,30 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
         mWechatList.clear();
         mQqList.clear();
         mLocation = clueParams.getAddress();
-        if(!TextUtils.isEmpty(clueParams.getMobile())){
+        if (!TextUtils.isEmpty(clueParams.getMobile())) {
             DialogItem item = new DialogItem();
             item.value = clueParams.getMobile();
             mPhoneList.add(item);
         }
-        if(!TextUtils.isEmpty(clueParams.getPhone())){
+        if (!TextUtils.isEmpty(clueParams.getPhone())) {
             DialogItem item = new DialogItem();
             item.value = clueParams.getPhone();
             mPhoneList.add(item);
         }
-        if(!TextUtils.isEmpty(clueParams.getWechat())){
+        if (!TextUtils.isEmpty(clueParams.getWechat())) {
             DialogItem item = new DialogItem();
             item.value = clueParams.getWechat();
             mWechatList.add(item);
         }
-        if(!TextUtils.isEmpty(clueParams.getEmail())){
+        if (!TextUtils.isEmpty(clueParams.getEmail())) {
             DialogItem item = new DialogItem();
             item.value = clueParams.getEmail();
             mEmailList.add(item);
         }
-        if(!TextUtils.isEmpty(clueParams.getAddress())){
+        if (!TextUtils.isEmpty(clueParams.getAddress())) {
             mLocation = clueParams.getAddress();
         }
-        if(!TextUtils.isEmpty(clueParams.getQq())){
+        if (!TextUtils.isEmpty(clueParams.getQq()) && !TextUtils.equals(clueParams.getQq(), "0")) {
             DialogItem item = new DialogItem();
             item.value = clueParams.getQq();
             mQqList.add(item);
@@ -162,11 +163,16 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
+        if (!mEventBusJustForThis) {
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         List<FollowParams> list = Arrays.asList(params);
         List<FollowParams> records = new ArrayList<>();
         List<FollowParams> plans = new ArrayList<>();
-        for(FollowParams param : list){
-            if(TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)){
+        for (FollowParams param : list) {
+            if (TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)) {
                 plans.add(param);
             } else {
                 records.add(param);
@@ -179,19 +185,22 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
     @Override
     protected void onResume() {
         super.onResume();
+        mEventBusJustForThis = true;
         RetrofitRequest.getInstance().getClueFollow(mClueParams.getId(), null, null, null, null, null);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            switch (requestCode){
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
                 case Big4HomeActivityDelegate.REQUEST_ADD_FOLLOW:
                     transfer();
+                    break;
                 case REQUEST_CHOOSE_EMPLOYEE:
                     ShowWidgetUtil.showLong(getString(R.string.transfer_success_message, mClueParams.getCompanyName(), data.getStringExtra(Contants.EXTRA_TRANSFER_NAME)));
                     finish();
+                    break;
             }
         }
     }

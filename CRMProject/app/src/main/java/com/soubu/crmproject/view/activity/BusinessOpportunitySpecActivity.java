@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
@@ -62,7 +63,9 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
         initItem(businessOpportunityParams.getTitle(), R.string.business_opportunity_title, true);
-        initItem(businessOpportunityParams.getCustomer(), R.string.related_customer, hasTop ? false : true);
+        if(businessOpportunityParams.getCustomer() != null){
+            initItem(businessOpportunityParams.getCustomer().getName(), R.string.related_customer, hasTop ? false : true);
+        }
         initItem(businessOpportunityParams.getProduct(), R.string.related_product, hasTop ? false : true);
         initItem(businessOpportunityParams.getAmountPrice(), R.string.signing_amount, hasTop ? false : true);
         initItem(ConvertUtil.dateToYYYY_MM_DD(businessOpportunityParams.getClosingAt()), R.string.expected_time_to_sign, hasTop ? false : true);
@@ -103,10 +106,16 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
             hasTop = false;
         }
         addItem = new AddItem();
-        addItem.setTitleRes(R.string.founder_information);
+        addItem.setTitleRes(R.string.manager_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(businessOpportunityParams.getManager(), R.string.manager, true);
+        if(businessOpportunityParams.getUser() != null && !TextUtils.isEmpty(businessOpportunityParams.getUser().getUserName())){
+            initItem(businessOpportunityParams.getUser().getUserName(), R.string.manager, true);
+        } else if(businessOpportunityParams.getCreator() != null && !TextUtils.isEmpty(businessOpportunityParams.getCreator().getUserName())){
+            initItem(businessOpportunityParams.getCreator().getUserName(), R.string.manager, true);
+        } else {
+            initItem(CrmApplication.getContext().getName(), R.string.manager, true);
+        }
         viewDelegate.setData(mList);
     }
 

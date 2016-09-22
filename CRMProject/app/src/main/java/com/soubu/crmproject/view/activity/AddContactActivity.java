@@ -10,7 +10,6 @@ import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
@@ -73,7 +72,7 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
         if (mContactParams != null) {
             mFromEdit = true;
             viewDelegate.setTitle(R.string.edit_clue);
-            mId = mContactParams.getCustomer();
+            mId = mContactParams.getCustomerId();
             //由于之后要传object,此处先这么写
             mName = mId;
         } else {
@@ -119,8 +118,16 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
         item = new AddItem();
-        item.setTitleRes(R.string.contact_information);
+        item.setTitleRes(R.string.connection_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
+        mList.add(item);
+        item = new AddItem();
+        item.setTitleRes(R.string.mobile);
+        if (mFromEdit && !TextUtils.isEmpty(mContactParams.getMobile())) {
+            item.setContent(mContactParams.getMobile());
+        }
+        item.setEditTextType(InputType.TYPE_CLASS_PHONE);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.phone);
@@ -130,14 +137,7 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
         item.setEditTextType(InputType.TYPE_CLASS_PHONE);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.mobile);
-        if (mFromEdit && !TextUtils.isEmpty(mContactParams.getMobile())) {
-            item.setContent(mContactParams.getMobile());
-        }
-        item.setEditTextType(InputType.TYPE_CLASS_PHONE);
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-        mList.add(item);
+
         item = new AddItem();
         item.setTitleRes(R.string.wechat);
         if (mFromEdit && !TextUtils.isEmpty(mContactParams.getWechat())) {
@@ -196,7 +196,7 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
                 continue;
             }
             if(item.getTitleRes() == R.string.related_customer){
-                contactParams.setCustomer(mId);
+                contactParams.setCustomerId(mId);
                 continue;
             }
             if(item.getTitleRes() == R.string.department){

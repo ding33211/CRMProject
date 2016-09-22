@@ -1,11 +1,12 @@
 package com.soubu.crmproject;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.text.TextUtils;
 
+import com.soubu.crmproject.base.greendao.DBHelper;
+import com.soubu.crmproject.base.greendao.UserDao;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.sdk.eventbus.MyEventBusIndex;
 import com.soubu.crmproject.utils.AppUtil;
@@ -22,8 +23,8 @@ import static android.os.Build.VERSION_CODES.GINGERBREAD;
 /**
  * Created by dingsigang on 16-8-1.
  */
-public class MyApplication extends Application {
-    private static MyApplication instance;
+public class CrmApplication extends Application {
+    private static CrmApplication instance;
 
     public static String cacheDir = "";
 //    private RefWatcher refWatcher;
@@ -31,20 +32,23 @@ public class MyApplication extends Application {
     //token以及uid做成全局参数
     private static String mToken;
     private static String mUid;
+    private static String mName;
+//    private UserDao mUserDao;
 
     @Override
     public void onCreate() {
         super.onCreate();
         //Log机制
-        instance = (MyApplication) getApplicationContext();
+        instance = (CrmApplication) getApplicationContext();
         cacheDir = PhoneUtil.getCacheDir(instance);
-
+//        mUserDao = DBHelper.getInstance(instance).getUserDao();
         //初始化crash输出工具
         //具体决策需要商议
         CrashHandler.getInstance().init(instance);
         EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
         ShowWidgetUtil.register(this);
     }
+
 
     private void enabledStrictMode() {
         if (SDK_INT >= GINGERBREAD) {
@@ -57,7 +61,7 @@ public class MyApplication extends Application {
     }
 
     // 获取ApplicationContext
-    public static MyApplication getContext() {
+    public static CrmApplication getContext() {
         return instance;
     }
 
@@ -88,4 +92,19 @@ public class MyApplication extends Application {
         SharedPreferences sp = AppUtil.getDefaultSharedPreference(instance);
         sp.edit().putString(Contants.SP_KEY_USER_ID, uid).commit();
     }
+
+    public void setName(String name){
+        mName = name;
+        SharedPreferences sp = AppUtil.getDefaultSharedPreference(instance);
+        sp.edit().putString(Contants.SP_KEY_USER_NAME, name).commit();
+    }
+
+    public String getName(){
+        if (TextUtils.isEmpty(mName)) {
+            SharedPreferences sp = AppUtil.getDefaultSharedPreference(instance);
+            mName = sp.getString(Contants.SP_KEY_USER_NAME, null);
+        }
+        return mName;
+    }
+
 }

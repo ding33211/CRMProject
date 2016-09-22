@@ -4,15 +4,17 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.base.greendao.Contact;
+import com.soubu.crmproject.base.greendao.ContactDao;
+import com.soubu.crmproject.base.greendao.DBHelper;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddFollowActivityDelegate;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
@@ -22,13 +24,19 @@ import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.utils.AppUtil;
+import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -52,11 +60,14 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
     private Serializable mEntity;
     private FollowParams mFollowParams;
     private Calendar mFollowTime;
+    private List<Contact> mContactsList;
 
     @Override
     protected Class<AddFollowActivityDelegate> getDelegateClass() {
         return AddFollowActivityDelegate.class;
     }
+
+
 
     @Override
     protected void bindEvenListener() {
@@ -66,20 +77,11 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
             public void onClick(View v) {
                 if(viewDelegate.verify(mFollowParams)){
                     RetrofitRequest.getInstance().addFollow(mFollowParams);
-                    if(viewDelegate.isTransferChecked()){
-                        if(mFrom == Contants.FROM_CLUE){
-                            //此处返回OK,就说明用户选择了同步转换
-                            setResult(RESULT_OK, null);
-                        } else {
-                            setResult(RESULT_OK, null);
-                        }
-                    }
-                    finish();
                 }
             }
         });
-        viewDelegate.setOnClickListener(this, R.id.rl_state, R.id.rl_follow_function, R.id.rl_follow_time, R.id.rl_remind_time,
-                R.id.rl_remind, R.id.ll_related_one);
+        viewDelegate.setOnClickListener(this, R.id.rl_state, R.id.rl_follow_function, R.id.rl_follow_time, R.id.rl_remind_time, R.id.rl_transfer,
+                R.id.rl_remind, R.id.ll_related_one, R.id.rl_expected_contract);
     }
 
     @Override
@@ -107,6 +109,8 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
         if(mType == TYPE_PLAN){
             mFollowParams.setType(Contants.FOLLOW_TYPE_PLAN);
         }
+        ContactDao contactDao = DBHelper.getInstance(getApplicationContext()).getContactDao();
+        mContactsList = new ArrayList<>();
         switch (mFrom) {
             case Contants.FROM_CLUE:
                 mStateLabelRes = R.string.clue_status;
@@ -132,6 +136,8 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 viewDelegate.giveTextViewString(R.id.tv_related_one, customerParams.getName());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_customer));
                 viewDelegate.get(R.id.rl_state).setVisibility(View.GONE);
+                mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(customerParams.getId()))
+                        .orderDesc(ContactDao.Properties.TouchedAt).list();
                 return;
 
             case Contants.FROM_BUSINESS_OPPORTUNITY:
@@ -149,6 +155,8 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 }
                 viewDelegate.giveTextViewString(R.id.tv_related_one, businessOpportunityParams.getTitle());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_business_opportunity));
+                mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(businessOpportunityParams.getCustomer()))
+                        .orderDesc(ContactDao.Properties.TouchedAt).list();
                 break;
             case Contants.FROM_CONTRACT:
                 mStateLabelRes = R.string.contract_status;
@@ -162,7 +170,8 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
 //                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.related_contact));
                 viewDelegate.giveTextViewString(R.id.tv_related_one, contractParams.getTitle());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_contract));
-
+                mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(contractParams.getCustomer()))
+                        .orderDesc(ContactDao.Properties.TouchedAt).list();
 //                viewDelegate.giveTextViewString(R.id.tv_related_two, contractParams.getCustomer());
                 break;
         }
@@ -274,6 +283,24 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                     startActivityForResult(intent, REQUEST_CODE_CHANGE_OBJECT);
                 }
                 break;
+            case R.id.rl_expected_contract:
+                if(mContactsList.size() > 0){
+                    String[] items = new String[mContactsList.size()];
+                    for(int i = 0; i < mContactsList.size(); i ++){
+                        items[i] = mContactsList.get(i).getName();
+                    }
+                    new AlertDialog.Builder(this).setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mFollowParams.setContactId(mContactsList.get(which).getContact_id());
+                            ((TextView)viewDelegate.get(R.id.tv_expected_contract)).setText(mContactsList.get(which).getName());
+                        }
+                    }).setCancelable(true).show();
+
+                } else {
+                    ShowWidgetUtil.showLong(R.string.customer_has_no_contact);
+                }
+                break;
         }
     }
 
@@ -286,6 +313,19 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mEntity = data.getSerializableExtra(Contants.EXTRA_ENTITY);
                 initView();
             }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void throwError(Integer errorCode) {
+        ServerErrorUtil.handleServerError(errorCode);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshFollow(FollowParams[] params) {
+        if(params != null && params.length > 0){
+            ShowWidgetUtil.showShort(R.string.add_follow_success);
+            finish();
         }
     }
 }

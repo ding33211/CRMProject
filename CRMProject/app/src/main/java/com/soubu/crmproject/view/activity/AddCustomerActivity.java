@@ -5,22 +5,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
-import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
-import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
-import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +53,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
             @Override
             public void onClick(View v) {
                 if (viewDelegate.verifyRequired()) {
-                    if (mFromEdit) {
+                    if (mFromEdit && !mTransfer) {
                         Map<String, String> map = CompileUtil.compile(mCustomerParams, getNewCustomerParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
                         if (map.size() > 0) {
@@ -123,7 +116,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
         if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getAddress())) {
             item.setContent(mCustomerParams.getAddress());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
         mList.add(item);
         if (!mFromEdit) {
             item = new AddItem();
@@ -139,52 +132,22 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
             mList.add(item);
             item = new AddItem();
-            item.setTitleRes(R.string.phone);
-            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-            item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
-            mList.add(item);
-            item = new AddItem();
             item.setTitleRes(R.string.mobile);
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
             item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
             mList.add(item);
+            item = new AddItem();
+            item.setTitleRes(R.string.phone);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+            item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
+            mList.add(item);
+
             item = new AddItem();
             item.setTitleRes(R.string.qq);
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
             item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
             mList.add(item);
         }
-//        item = new AddItem();
-//        item.setTitleRes(R.string.email);
-//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getEmail())) {
-//            item.setContent(mCustomerParams.getEmail());
-//        }
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-//        item.setEditTextType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.website);
-//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getWebsite())) {
-//            item.setContent(mCustomerParams.getWebsite());
-//        }
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-//        item.setEditTextType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.area);
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.address);
-//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getAddress())) {
-//            item.setContent(mCustomerParams.getAddress());
-//        }
-//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_LOCATE);
-//        mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.add_contact);
-//        item.setItemType(AddSomethingRvAdapter.TYPE_OTHER);
-//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.other_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -225,8 +188,15 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.manager);
-        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getManager())) {
-            item.setContent(mCustomerParams.getManager());
+        if (mFromEdit && mCustomerParams.getUser() != null && !TextUtils.isEmpty(mCustomerParams.getUser().getUserName())) {
+            item.setContent(mCustomerParams.getUser().getUserName());
+            mManagerId = mCustomerParams.getUser().getId();
+        } else if(mFromEdit && mCustomerParams.getCreator() != null && !TextUtils.isEmpty(mCustomerParams.getUser().getUserName())){
+            item.setContent(mCustomerParams.getCreator().getUserName());
+            mManagerId = mCustomerParams.getCreator().getId();
+        } else {
+            item.setContent(CrmApplication.getContext().getName());
+            mManagerId = CrmApplication.getContext().getUid();
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
@@ -308,7 +278,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
             }
             if (item.getTitleRes() == R.string.manager) {
                 if(!TextUtils.isEmpty(mManagerId)){
-                    customerParams.setManager(mManagerId);
+                    customerParams.setUserId(mManagerId);
                 }
                 continue;
             }

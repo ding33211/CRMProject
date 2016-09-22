@@ -98,7 +98,7 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
-                            }).create();
+                            }).setCancelable(false).create();
                     dialog.show();
                 } else if(!TextUtils.isEmpty(param.getMobile())){
                     RetrofitRequest.getInstance().touchContact(param.getId());

@@ -93,7 +93,7 @@ public class ClueActivity extends Big4AllActivityPresenter<ClueActivityDelegate>
                         doRequest(1);
                         dialog.dismiss();
                     }
-                }).show();
+                }).setCancelable(false).show();
             }
             mRushAction = false;
         } else {

@@ -1,13 +1,7 @@
 package com.soubu.crmproject.common;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.text.TextUtils;
-
 import com.soubu.crmproject.BuildConfig;
-import com.soubu.crmproject.model.Contants;
-import com.soubu.crmproject.utils.AppUtil;
 
 public class ApiConfig {
 

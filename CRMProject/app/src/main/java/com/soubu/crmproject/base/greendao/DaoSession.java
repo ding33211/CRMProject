@@ -9,10 +9,12 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.soubu.crmproject.base.greendao.Staff;
+import com.soubu.crmproject.base.greendao.User;
 import com.soubu.crmproject.base.greendao.Contact;
 import com.soubu.crmproject.base.greendao.Remind;
 
 import com.soubu.crmproject.base.greendao.StaffDao;
+import com.soubu.crmproject.base.greendao.UserDao;
 import com.soubu.crmproject.base.greendao.ContactDao;
 import com.soubu.crmproject.base.greendao.RemindDao;
 
@@ -26,10 +28,12 @@ import com.soubu.crmproject.base.greendao.RemindDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig staffDaoConfig;
+    private final DaoConfig userDaoConfig;
     private final DaoConfig contactDaoConfig;
     private final DaoConfig remindDaoConfig;
 
     private final StaffDao staffDao;
+    private final UserDao userDao;
     private final ContactDao contactDao;
     private final RemindDao remindDao;
 
@@ -40,6 +44,9 @@ public class DaoSession extends AbstractDaoSession {
         staffDaoConfig = daoConfigMap.get(StaffDao.class).clone();
         staffDaoConfig.initIdentityScope(type);
 
+        userDaoConfig = daoConfigMap.get(UserDao.class).clone();
+        userDaoConfig.initIdentityScope(type);
+
         contactDaoConfig = daoConfigMap.get(ContactDao.class).clone();
         contactDaoConfig.initIdentityScope(type);
 
@@ -47,22 +54,29 @@ public class DaoSession extends AbstractDaoSession {
         remindDaoConfig.initIdentityScope(type);
 
         staffDao = new StaffDao(staffDaoConfig, this);
+        userDao = new UserDao(userDaoConfig, this);
         contactDao = new ContactDao(contactDaoConfig, this);
         remindDao = new RemindDao(remindDaoConfig, this);
 
         registerDao(Staff.class, staffDao);
+        registerDao(User.class, userDao);
         registerDao(Contact.class, contactDao);
         registerDao(Remind.class, remindDao);
     }
     
     public void clear() {
         staffDaoConfig.getIdentityScope().clear();
+        userDaoConfig.getIdentityScope().clear();
         contactDaoConfig.getIdentityScope().clear();
         remindDaoConfig.getIdentityScope().clear();
     }
 
     public StaffDao getStaffDao() {
         return staffDao;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
     }
 
     public ContactDao getContactDao() {
