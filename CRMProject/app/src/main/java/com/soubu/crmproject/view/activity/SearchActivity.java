@@ -20,6 +20,7 @@ import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.server.ServerErrorUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -34,6 +35,8 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
     private boolean mIsRefresh = false;
     private int mType = Contants.TYPE_CLUE;
     boolean mRushAction = false;
+    //是否来自于添加跟进的搜索
+    boolean mFromAddFollowHome = false;
 
 
     @Override
@@ -45,13 +48,14 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
     protected void initToolbar() {
         super.initToolbar();
         mType = getIntent().getIntExtra(Contants.EXTRA_FROM, Contants.TYPE_CLUE);
+        mFromAddFollowHome = getIntent().getBooleanExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, false);
         viewDelegate.setType(mType);
     }
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        ((EditText)viewDelegate.get(R.id.et_search)).addTextChangedListener(new TextWatcher() {
+        ((EditText) viewDelegate.get(R.id.et_search)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -68,7 +72,7 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
 //                    viewDelegate.clear();
 //                }
                 RetrofitRequest request = RetrofitRequest.getInstance();
-                switch (mType){
+                switch (mType) {
                     case Contants.FROM_CLUE:
                         request.getClueList(null, null, null, null, null, null, null, s.toString());
                         mIsRefresh = true;
@@ -83,7 +87,7 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                         break;
                     case Contants.FROM_CONTRACT:
                         request.getContractList(null, null, null, null, null, null, null, null, null, null, s.toString());
-                        mIsRefresh= true;
+                        mIsRefresh = true;
                         break;
                     case Contants.FROM_CLUE_HIGH_SEAS:
                         request.getClueHighSeasList(null, null, null, null, null, null, s.toString());
@@ -93,14 +97,20 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
             }
         });
 
-        switch (mType){
+        switch (mType) {
             case Contants.FROM_CLUE:
                 viewDelegate.setOnClueClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int pos) {
-                        Intent intent = new Intent(SearchActivity.this, ClueHomeActivity.class);
-                        intent.putExtra(Contants.EXTRA_CLUE, viewDelegate.getClueParams(pos));
-                        startActivity(intent);
+                        if (mFromAddFollowHome) {
+                            EventBus.getDefault().post(viewDelegate.getClueParams(pos));
+                            finish();
+                        } else {
+                            Intent intent = new Intent(SearchActivity.this, ClueHomeActivity.class);
+                            intent.putExtra(Contants.EXTRA_CLUE, viewDelegate.getClueParams(pos));
+                            startActivity(intent);
+                        }
+
                     }
                 });
                 break;
@@ -108,9 +118,14 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                 viewDelegate.setOnCustomerClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int pos) {
-                        Intent intent = new Intent(SearchActivity.this, CustomerHomeActivity.class);
-                        intent.putExtra(Contants.EXTRA_CUSTOMER, viewDelegate.getCustomerParams(pos));
-                        startActivity(intent);
+                        if (mFromAddFollowHome) {
+                            EventBus.getDefault().post(viewDelegate.getCustomerParams(pos));
+                            finish();
+                        } else {
+                            Intent intent = new Intent(SearchActivity.this, CustomerHomeActivity.class);
+                            intent.putExtra(Contants.EXTRA_CUSTOMER, viewDelegate.getCustomerParams(pos));
+                            startActivity(intent);
+                        }
                     }
                 });
                 break;
@@ -118,9 +133,14 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                 viewDelegate.setOnBusinessOpportunityClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int pos) {
-                        Intent intent = new Intent(SearchActivity.this, BusinessOpportunityHomeActivity.class);
-                        intent.putExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY, viewDelegate.getBusinessOpportunityParams(pos));
-                        startActivity(intent);
+                        if (mFromAddFollowHome) {
+                            EventBus.getDefault().post(viewDelegate.getBusinessOpportunityParams(pos));
+                            finish();
+                        } else {
+                            Intent intent = new Intent(SearchActivity.this, BusinessOpportunityHomeActivity.class);
+                            intent.putExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY, viewDelegate.getBusinessOpportunityParams(pos));
+                            startActivity(intent);
+                        }
                     }
                 });
                 break;
@@ -128,9 +148,14 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                 viewDelegate.setOnContractClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int pos) {
-                        Intent intent = new Intent(SearchActivity.this, ContractHomeActivity.class);
-                        intent.putExtra(Contants.EXTRA_CONTRACT, viewDelegate.getContractParams(pos));
-                        startActivity(intent);
+                        if (mFromAddFollowHome) {
+                            EventBus.getDefault().post(viewDelegate.getContractParams(pos));
+                            finish();
+                        } else {
+                            Intent intent = new Intent(SearchActivity.this, ContractHomeActivity.class);
+                            intent.putExtra(Contants.EXTRA_CONTRACT, viewDelegate.getContractParams(pos));
+                            startActivity(intent);
+                        }
                     }
                 });
                 break;
@@ -174,7 +199,7 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                         }).setNegativeButton(R.string.continue_rush, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        RetrofitRequest.getInstance().getClueHighSeasList(null, null, null, null, null, null, ((EditText)viewDelegate.get(R.id.et_search)).getText().toString());
+                        RetrofitRequest.getInstance().getClueHighSeasList(null, null, null, null, null, null, ((EditText) viewDelegate.get(R.id.et_search)).getText().toString());
                         dialog.dismiss();
                     }
                 }).setCancelable(false).show();
@@ -215,10 +240,4 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
             mIsRefresh = false;
         }
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
 }

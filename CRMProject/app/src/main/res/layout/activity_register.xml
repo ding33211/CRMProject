@@ -28,10 +28,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:layout_weight="1"
             android:hint="@string/please_input_common_email"
             android:textColor="@color/title_black"
             android:textColorHint="@color/line_color"
             android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/iv_clear_email"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/et_clear"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,10 +66,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:layout_weight="1"
             android:hint="@string/please_input_user_name"
             android:textColor="@color/title_black"
             android:textColorHint="@color/line_color"
             android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/iv_clear_user"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/et_clear"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -90,11 +104,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:layout_weight="1"
             android:hint="@string/password_requirement"
             android:inputType="textPassword"
             android:textColor="@color/title_black"
             android:textColorHint="@color/line_color"
             android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/iv_clear_password"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/et_clear"
+            android:layout_marginRight="20dp"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/iv_transfer_pwd"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/hide_pwd" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,11 +149,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:layout_weight="1"
             android:hint="@string/password_again"
             android:inputType="textPassword"
             android:textColor="@color/title_black"
             android:textColorHint="@color/line_color"
             android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/iv_clear_password_again"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/et_clear"
+            android:layout_marginRight="20dp"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/iv_transfer_pwd_again"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/hide_pwd" />
     </LinearLayout>
 
     <Button

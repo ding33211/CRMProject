@@ -27,7 +27,7 @@ public class Contact implements Serializable{
     private java.util.Date createdAt;
     private java.util.Date updatedAt;
     private java.util.Date touchedAt;
-    private Integer touchedCount;
+    private String touchedCount;
     private String contact_id;
 
     @Generated
@@ -39,7 +39,7 @@ public class Contact implements Serializable{
     }
 
     @Generated
-    public Contact(Long id, String name, String customer, String position, String phone, String mobile, String qq, String wechat, String wangwang, String department, java.util.Date createdAt, java.util.Date updatedAt, java.util.Date touchedAt, Integer touchedCount, String contact_id) {
+    public Contact(Long id, String name, String customer, String position, String phone, String mobile, String qq, String wechat, String wangwang, String department, java.util.Date createdAt, java.util.Date updatedAt, java.util.Date touchedAt, String touchedCount, String contact_id) {
         this.id = id;
         this.name = name;
         this.customer = customer;
@@ -161,11 +161,11 @@ public class Contact implements Serializable{
         this.touchedAt = touchedAt;
     }
 
-    public Integer getTouchedCount() {
+    public String getTouchedCount() {
         return touchedCount;
     }
 
-    public void setTouchedCount(Integer touchedCount) {
+    public void setTouchedCount(String touchedCount) {
         this.touchedCount = touchedCount;
     }
 
@@ -192,6 +192,7 @@ public class Contact implements Serializable{
         params.setWechat(wechat);
         params.setTouchedAt(touchedAt);
         params.setTouchedCount(touchedCount);
+        params.setId(contact_id);
         return params;
     }
 

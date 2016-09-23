@@ -66,7 +66,7 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
         if(businessOpportunityParams.getCustomer() != null){
             initItem(businessOpportunityParams.getCustomer().getName(), R.string.related_customer, hasTop ? false : true);
         }
-        initItem(businessOpportunityParams.getProduct(), R.string.related_product, hasTop ? false : true);
+//        initItem(businessOpportunityParams.getProduct(), R.string.related_product, hasTop ? false : true);
         initItem(businessOpportunityParams.getAmountPrice(), R.string.signing_amount, hasTop ? false : true);
         initItem(ConvertUtil.dateToYYYY_MM_DD(businessOpportunityParams.getClosingAt()), R.string.expected_time_to_sign, hasTop ? false : true);
         initItem(businessOpportunityParams.getGotAt(), R.string.actual_signing_time, hasTop ? false : true);
@@ -161,9 +161,5 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
         initBusinessOpportunityParams(mBusinessOpportunityParams);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
 
 }

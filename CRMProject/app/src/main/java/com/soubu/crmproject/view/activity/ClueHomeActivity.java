@@ -156,12 +156,6 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         if (!mEventBusJustForThis) {
             return;
@@ -178,9 +172,16 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
                 records.add(param);
             }
         }
+        if(records.size() > 0){
+            mClueParams.setStatus(records.get(0).getStatus());
+            ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mClueParams.getStatus())]);
+        }
         viewDelegate.setViewPagerData(0, records);
         viewDelegate.setViewPagerData(1, plans);
     }
+
+
+
 
     @Override
     protected void onResume() {

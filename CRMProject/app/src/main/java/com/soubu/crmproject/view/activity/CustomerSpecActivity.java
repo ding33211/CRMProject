@@ -94,7 +94,7 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         mList.add(addItem);
 //        initItem(customerParams.getStatus(), R.string.follow_state, true);
         if (customerParams.getProducts() != null && customerParams.getProducts().length != 0) {
-            initItem(customerParams.getProducts()[0], R.string.operating_products, hasTop ? false : true);
+            initItem(customerParams.getProducts()[0], R.string.operating_products, true);
         }
         initItem(TextUtils.isEmpty(customerParams.getSource()) ? "" : mSourceArray[SearchUtil.searchInArray(mSourceWebArray, customerParams.getSource())].toString(), R.string.customer_source, hasTop ? false : true);
 
@@ -161,8 +161,4 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         initClueParams(mCustomerParams);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
 }

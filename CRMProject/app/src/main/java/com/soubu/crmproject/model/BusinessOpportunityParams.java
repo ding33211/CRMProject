@@ -11,7 +11,7 @@ import java.util.Date;
 public class BusinessOpportunityParams extends ObjectToMapInterface implements Serializable, Cloneable {
     String title;
     CustomerParams customer;
-    String product;
+    Object product;
     String amountPrice;
     Date closingAt;
     String manager;
@@ -77,7 +77,7 @@ public class BusinessOpportunityParams extends ObjectToMapInterface implements S
     }
 
 
-    public String getProduct() {
+    public Object getProduct() {
         return product;
     }
 

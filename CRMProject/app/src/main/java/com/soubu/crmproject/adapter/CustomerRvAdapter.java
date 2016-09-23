@@ -22,15 +22,24 @@ import java.util.List;
 public class CustomerRvAdapter extends BaseBig4RvAdapter<CustomerParams> {
 
     private Context mContext;
+    private CharSequence[] mTypeArray;
+    private CharSequence[] mTypeWebArray;
+    private CharSequence[] mPropertyArray;
+    private CharSequence[] mPropertyWebArray;
 
     public CustomerRvAdapter(Context context) {
         mContext = context;
+        mTypeArray = SearchUtil.searchCustomerTypeArray(context);
+        mTypeWebArray = SearchUtil.searchCustomerTypeWebArray(context);
+        mPropertyArray = SearchUtil.searchCustomerPropertyArray(context);
+        mPropertyWebArray = SearchUtil.searchCustomerPropertyWebArray(context);
     }
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof BaseBig4RvAdapter.ItemViewHolder) {
             ((ItemViewHolder) holder).title.setText(mList.get(position).getName());
-            ((ItemViewHolder) holder).subTitle.setText(mList.get(position).getManager());
+            ((ItemViewHolder) holder).subTitle.setText(mPropertyArray[SearchUtil.searchInArray(mPropertyWebArray, mList.get(position).getProperty())]);
+            ((ItemViewHolder) holder).subRight.setText(mTypeArray[SearchUtil.searchInArray(mTypeWebArray, mList.get(position).getType())]);
             ((ItemViewHolder) holder).state.setText(getStatusArray()[SearchUtil.searchInArray(getStatusWebArray(), mList.get(position).getStatus())]);
         }
     }

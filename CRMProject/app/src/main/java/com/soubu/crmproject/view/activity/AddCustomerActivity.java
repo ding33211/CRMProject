@@ -57,13 +57,13 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
                         Map<String, String> map = CompileUtil.compile(mCustomerParams, getNewCustomerParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
                         if (map.size() > 0) {
+                            mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().updateCustomer(mCustomerParams.getId(), map);
                         }
                     } else {
+                        mEventBusJustForThis = true;
                         RetrofitRequest.getInstance().addCustomer(getNewCustomerParams());
                     }
-                } else {
-                    ShowWidgetUtil.showLong(R.string.please_complete_required);
                 }
             }
         });
@@ -125,15 +125,11 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
             mList.add(item);
             item = new AddItem();
             item.setTitleRes(R.string.name);
-            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-            mList.add(item);
-            item = new AddItem();
-            item.setTitleRes(R.string.level);
-            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
             mList.add(item);
             item = new AddItem();
             item.setTitleRes(R.string.mobile);
-            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
             item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
             mList.add(item);
             item = new AddItem();
@@ -141,9 +137,23 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
             item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
             mList.add(item);
-
+            item = new AddItem();
+            item.setTitleRes(R.string.email);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+            item.setEditTextType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
+            mList.add(item);
             item = new AddItem();
             item.setTitleRes(R.string.qq);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+            item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
+            mList.add(item);
+            item = new AddItem();
+            item.setTitleRes(R.string.wechat);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+            item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
+            mList.add(item);
+            item = new AddItem();
+            item.setTitleRes(R.string.wangwang);
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
             item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
             mList.add(item);
@@ -246,22 +256,27 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
                 continue;
             }
             if (item.getTitleRes() == R.string.name) {
-//                customerParams.setPhone(item.getContent());
+                customerParams.setCname(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.mobile) {
-//                customerParams.setMobile(item.getContent());
+                customerParams.setCmobile(item.getContent());
+                continue;
+            }
+            if (item.getTitleRes() == R.string.phone) {
+                customerParams.setCphone(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.qq) {
-//                customerParams.setQq(item.getContent());
-            }
-            if (item.getTitleRes() == R.string.email) {
-//                customerParams.setEmail(item.getContent());
+                customerParams.setCqq(item.getContent());
                 continue;
             }
-            if (item.getTitleRes() == R.string.website) {
-//                customerParams.setWebsite(item.getContent());
+            if (item.getTitleRes() == R.string.email) {
+                customerParams.setCemail(item.getContent());
+                continue;
+            }
+            if (item.getTitleRes() == R.string.wechat) {
+                customerParams.setCwechat(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.customer_source) {

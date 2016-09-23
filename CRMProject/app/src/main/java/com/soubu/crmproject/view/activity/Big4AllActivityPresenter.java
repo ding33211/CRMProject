@@ -130,6 +130,11 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void throwError(Integer errorCode) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         ServerErrorUtil.handleServerError(errorCode);
         if (mIsRefresh) {
             mIsRefresh = false;

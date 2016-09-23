@@ -187,6 +187,7 @@
         <item>NEGOTIATION</item>
         <item>SUCCEEDED</item>
         <item>FAILED</item>
+        <item>TRANSITIONED</item>
     </string-array>
 
     <string-array name="business_opportunity_status">
@@ -196,6 +197,7 @@
         <item>谈判/合同</item>
         <item>赢单</item>
         <item>输单</item>
+        <item>已转合同</item>
     </string-array>
 
     <string-array name="business_opportunity_filter">

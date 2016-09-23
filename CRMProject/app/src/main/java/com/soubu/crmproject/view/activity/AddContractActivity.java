@@ -15,6 +15,7 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import java.util.ArrayList;
@@ -32,7 +33,14 @@ public class AddContractActivity extends Big4AddActivityPresenter {
     private String mCustomerName;
     private String mBusinessId;
     private String mBusinessName;
+    private String mContactId;
+    private String mContactName;
+    private String mSignedId;
+    private String mSignedName;
     private boolean mTransfer = false;
+    public static final int REQUEST_CODE_CHOOSE_BUSINESS = 1110;
+    public static final int REQUEST_CODE_CHOOSE_CLIENT_SIGNED = 1111;
+    public static final int REQUEST_CODE_CHOOSE_SIGNED = 1112;
 
 
     @Override
@@ -53,14 +61,50 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                         //附件先不做考虑
                         map.remove("attachments");
                         if (map.size() > 0) {
+                            mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().updateContract(mContractParams.getId(), map);
                         }
                     } else {
+                        mEventBusJustForThis = true;
                         RetrofitRequest.getInstance().addContract(getNewContractParams());
                     }
-                } else {
-                    ShowWidgetUtil.showLong(R.string.please_complete_required);
                 }
+            }
+        });
+        viewDelegate.setOnRelatedBusinessClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddContractActivity.this, BusinessOpportunityActivity.class);
+                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
+                intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerId);
+                startActivityForResult(intent, REQUEST_CODE_CHOOSE_BUSINESS);
+            }
+        });
+        viewDelegate.setOnSignedClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        viewDelegate.setOnClientSignedClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(mCustomerId)) {
+                    ShowWidgetUtil.showShort(R.string.please_choose_related_business_first);
+                    return;
+                }
+                Intent intent = new Intent(AddContractActivity.this, ContactActivity.class);
+                intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerId);
+                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
+                startActivityForResult(intent, REQUEST_CODE_CHOOSE_CLIENT_SIGNED);
+            }
+        });
+        viewDelegate.setOnSignedClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddContractActivity.this, ChooseEmployeeActivity.class);
+                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_CONTRACT);
+                startActivityForResult(intent, REQUEST_CODE_CHOOSE_SIGNED);
             }
         });
     }
@@ -77,7 +121,7 @@ public class AddContractActivity extends Big4AddActivityPresenter {
         mFromEdit = false;
         if (mContractParams != null) {
             mFromEdit = true;
-            if(mTransfer){
+            if (mTransfer) {
                 viewDelegate.setTitle(R.string.transfer_contract);
             } else {
                 viewDelegate.setTitle(R.string.edit_contract);
@@ -102,37 +146,37 @@ public class AddContractActivity extends Big4AddActivityPresenter {
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.related_customer);
-        if(!TextUtils.isEmpty(mCustomerName)){
-            item.setContent(mCustomerName);
-            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_UNABLE);
-        } else {
-            if (mFromEdit && mContractParams.getCustomer() != null && !TextUtils.isEmpty(mContractParams.getCustomer().getName())) {
-                item.setContent(mContractParams.getCustomer().getName());
-            }
-            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-        }
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.related_customer);
+//        if(!TextUtils.isEmpty(mCustomerName)){
+//            item.setContent(mCustomerName);
+//            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_UNABLE);
+//        } else {
+//            if (mFromEdit && mContractParams.getCustomer() != null && !TextUtils.isEmpty(mContractParams.getCustomer().getName())) {
+//                item.setContent(mContractParams.getCustomer().getName());
+//            }
+//            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+//        }
+//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.related_business_opportunity);
-        if(!TextUtils.isEmpty(mBusinessName)){
+        if (!TextUtils.isEmpty(mBusinessName)) {
             item.setContent(mBusinessName);
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_UNABLE);
         } else {
             if (mFromEdit && mContractParams.getDeal() != null && !TextUtils.isEmpty(mContractParams.getDeal().getTitle())) {
                 item.setContent(mContractParams.getDeal().getTitle());
             }
-            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         }
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.related_product);
-        if (mFromEdit && !TextUtils.isEmpty(mContractParams.getProduct())) {
-            item.setContent(mContractParams.getProduct());
-        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.related_product);
+//        if (mFromEdit && !TextUtils.isEmpty(mContractParams.getProduct().toString())) {
+//            item.setContent(mContractParams.getProduct().toString());
+//        }
+//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.connection_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -158,10 +202,10 @@ public class AddContractActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.contract_amount_price);
-        if (mFromEdit && !TextUtils.isEmpty(mContractParams.getAmountPrice())) {
+        if (mFromEdit && !TextUtils.isEmpty(mContractParams.getAmountPrice()) && TextUtils.equals(mContractParams.getAmountPrice(), "0")) {
             item.setContent(mContractParams.getAmountPrice());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
         mList.add(item);
         item = new AddItem();
@@ -170,6 +214,8 @@ public class AddContractActivity extends Big4AddActivityPresenter {
 //            CharSequence[] array = SearchUtil.searchContractStateArray(getApplicationContext());
 //            CharSequence[] webArray = SearchUtil.searchContractStateWebArray(getApplicationContext());
             item.setContent(mContractParams.getStatus());
+        } else {
+            item.setContent(SearchUtil.searchContractStateWebArray(this)[0].toString());
         }
         item.setArrayRes(R.array.contract_state);
         item.setWebArrayRes(R.array.contract_state_web);
@@ -202,17 +248,17 @@ public class AddContractActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.client_signed_person);
-        if (mFromEdit && !TextUtils.isEmpty(mContractParams.getClientSignedPerson())) {
-            item.setContent(mContractParams.getClientSignedPerson());
+        if (mFromEdit && mContractParams.getClientSignedPerson() != null && !TextUtils.isEmpty(mContractParams.getClientSignedPerson().getName())) {
+            item.setContent(mContractParams.getClientSignedPerson().getName());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.signed_person);
-        if (mFromEdit && !TextUtils.isEmpty(mContractParams.getSignedPerson())) {
-            item.setContent(mContractParams.getSignedPerson());
+        if (mFromEdit && mContractParams.getSignedPerson() != null && !TextUtils.isEmpty(mContractParams.getSignedPerson().getUserName())) {
+            item.setContent(mContractParams.getSignedPerson().getUserName());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.signed_date);
@@ -244,7 +290,7 @@ public class AddContractActivity extends Big4AddActivityPresenter {
         if (mFromEdit && mContractParams.getUser() != null && !TextUtils.isEmpty(mContractParams.getUser().getUserName())) {
             item.setContent(mContractParams.getUser().getUserName());
             mManagerId = mContractParams.getUser().getId();
-        } else if(mFromEdit && mContractParams.getCreator() != null && !TextUtils.isEmpty(mContractParams.getUser().getUserName())){
+        } else if (mFromEdit && mContractParams.getCreator() != null && !TextUtils.isEmpty(mContractParams.getUser().getUserName())) {
             item.setContent(mContractParams.getCreator().getUserName());
             mManagerId = mContractParams.getCreator().getId();
         } else {
@@ -289,10 +335,10 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                 contractParams.setDealId(mBusinessId);
                 continue;
             }
-            if (item.getTitleRes() == R.string.related_product) {
-                contractParams.setProduct(item.getContent());
-                continue;
-            }
+//            if (item.getTitleRes() == R.string.related_product) {
+//                contractParams.setProduct(item.getContent());
+//                continue;
+//            }
             if (item.getTitleRes() == R.string.contract_type) {
                 contractParams.setType(item.getContent());
                 continue;
@@ -320,12 +366,12 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                 contractParams.setPayMethod(item.getContent());
                 continue;
             }
-            if (item.getTitleRes() == R.string.client_signed_person) {
-                contractParams.setClientSignedPerson(item.getContent());
+            if (item.getTitleRes() == R.string.client_signed_person && !TextUtils.isEmpty(mContactId)) {
+                contractParams.setClientSignedPersonId(mContactId);
                 continue;
             }
-            if (item.getTitleRes() == R.string.signed_person) {
-                contractParams.setSignedPerson(item.getContent());
+            if (item.getTitleRes() == R.string.signed_person && !TextUtils.isEmpty(mSignedId)) {
+                contractParams.setSignedPersonId(mSignedId);
                 continue;
             }
             if (item.getTitleRes() == R.string.signed_date) {
@@ -341,7 +387,7 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                 continue;
             }
             if (item.getTitleRes() == R.string.manager) {
-                if(!TextUtils.isEmpty(mManagerId)){
+                if (!TextUtils.isEmpty(mManagerId)) {
                     contractParams.setUserId(mManagerId);
                 }
                 continue;
@@ -354,10 +400,25 @@ public class AddContractActivity extends Big4AddActivityPresenter {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER) {
-                mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
-                String name = data.getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
-                viewDelegate.setCustomerName(name);
+
+            switch (requestCode) {
+                case AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER:
+                    mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
+                    viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_CUSTOMER_NAME));
+                    break;
+                case REQUEST_CODE_CHOOSE_BUSINESS:
+                    mBusinessId = data.getStringExtra(Contants.EXTRA_BUSINESS_ID);
+                    mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
+                    viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_BUSINESS_NAME));
+                    break;
+                case REQUEST_CODE_CHOOSE_CLIENT_SIGNED:
+                    mContactId = data.getStringExtra(Contants.EXTRA_CONTACT_ID);
+                    viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_CONTACT_NAME));
+                    break;
+                case REQUEST_CODE_CHOOSE_SIGNED:
+                    mSignedId = data.getStringExtra(Contants.EXTRA_EMPLOYER_ID);
+                    viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_EMPLOYER_NAME));
+                    break;
             }
         }
     }

@@ -188,4 +188,5 @@ public abstract class Big4HomeActivityPresenter<T extends AppDelegate> extends A
             viewDelegate.get(R.id.iv_sns5).setAlpha(1);
         }
     }
+
 }

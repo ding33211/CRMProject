@@ -1,5 +1,8 @@
 package com.soubu.crmproject.server;
 
+import android.content.Intent;
+
+import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
@@ -16,6 +19,9 @@ public class ServerErrorUtil {
                 break;
             case HttpURLConnection.HTTP_UNAUTHORIZED:
                 ShowWidgetUtil.showLong(R.string.error_401_message);
+//                Intent intent = new Intent();
+//                intent.setComponent()
+//                CrmApplication.getContext().startActivity();
                 break;
             case HttpURLConnection.HTTP_FORBIDDEN:
                 ShowWidgetUtil.showLong(R.string.error_403_message);

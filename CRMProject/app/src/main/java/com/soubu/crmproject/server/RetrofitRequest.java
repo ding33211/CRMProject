@@ -1,13 +1,8 @@
 package com.soubu.crmproject.server;
 
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.soubu.crmproject.CrmApplication;
-import com.soubu.crmproject.common.ApiConfig;
 import com.soubu.crmproject.model.BackSalesParams;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
@@ -192,7 +187,7 @@ public class RetrofitRequest {
      */
     public void transferClue(String id, String userId) {
         Map<String, String> map = new HashMap<>();
-        map.put("user", userId);
+        map.put("userId", userId);
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .transferClue(id, map, ConvertUtil.hmacsha256(map, CrmApplication.getContext().getToken()));
@@ -228,9 +223,6 @@ public class RetrofitRequest {
      */
     public void addCustomer(CustomerParams customerParams) {
         String sign = ConvertUtil.hmacsha256(customerParams.getMap(), CrmApplication.getContext().getToken());
-        if(!TextUtils.isEmpty(customerParams.getUserId())){
-            customerParams.setUserId("");
-        }
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addCustomer(customerParams, sign);
@@ -258,7 +250,7 @@ public class RetrofitRequest {
      */
     public void transferCustomer(String id, String userId) {
         Map<String, String> map = new HashMap<>();
-        map.put("user", userId);
+        map.put("userId", userId);
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .transferCustomer(id, map, ConvertUtil.hmacsha256(map, CrmApplication.getContext().getToken()));
@@ -320,9 +312,6 @@ public class RetrofitRequest {
      */
     public void addContract(ContractParams contractParams) {
         String sign = ConvertUtil.hmacsha256(contractParams.getMap(), CrmApplication.getContext().getToken());
-        if(!TextUtils.isEmpty(contractParams.getUserId())){
-            contractParams.setUserId("");
-        }
         Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .addContract(contractParams, sign);

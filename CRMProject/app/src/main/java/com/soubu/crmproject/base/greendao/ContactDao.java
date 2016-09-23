@@ -143,10 +143,10 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         if (touchedAt != null) {
             stmt.bindLong(13, touchedAt.getTime());
         }
- 
-        Integer touchedCount = entity.getTouchedCount();
+
+        String touchedCount = entity.getTouchedCount();
         if (touchedCount != null) {
-            stmt.bindLong(14, touchedCount);
+            stmt.bindString(14, touchedCount);
         }
  
         String contact_id = entity.getContact_id();
@@ -224,9 +224,9 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             stmt.bindLong(13, touchedAt.getTime());
         }
  
-        Integer touchedCount = entity.getTouchedCount();
+        String touchedCount = entity.getTouchedCount();
         if (touchedCount != null) {
-            stmt.bindLong(14, touchedCount);
+            stmt.bindString(14, touchedCount);
         }
  
         String contact_id = entity.getContact_id();
@@ -256,7 +256,7 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)), // createdAt
             cursor.isNull(offset + 11) ? null : new java.util.Date(cursor.getLong(offset + 11)), // updatedAt
             cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)), // touchedAt
-            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13), // touchedCount
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // touchedCount
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // contact_id
         );
         return entity;
@@ -277,7 +277,7 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         entity.setCreatedAt(cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)));
         entity.setUpdatedAt(cursor.isNull(offset + 11) ? null : new java.util.Date(cursor.getLong(offset + 11)));
         entity.setTouchedAt(cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)));
-        entity.setTouchedCount(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
+        entity.setTouchedCount(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setContact_id(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     

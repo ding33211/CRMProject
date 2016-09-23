@@ -130,10 +130,6 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
         initConnectionView(contactList);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
@@ -152,6 +148,8 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
                 records.add(param);
             }
         }
+        mBusinessOpportunityParams.setStatus(records.get(0).getStatus());
+        ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mBusinessOpportunityParams.getStatus())]);
         viewDelegate.setViewPagerData(0, records);
         viewDelegate.setViewPagerData(1, plans);
     }

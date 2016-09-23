@@ -29,7 +29,7 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
     Date createdAt;
     Date updatedAt;
     Date touchedAt;
-    int touchedCount;
+    String touchedCount;
     String id;
 
     public String getCustomerId() {
@@ -56,11 +56,11 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
         this.touchedAt = touchedAt;
     }
 
-    public int getTouchedCount() {
+    public String getTouchedCount() {
         return touchedCount;
     }
 
-    public void setTouchedCount(int touchedCount) {
+    public void setTouchedCount(String touchedCount) {
         this.touchedCount = touchedCount;
     }
 
@@ -233,12 +233,5 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
             return false;
         }
         return true;
-    }
-
-    @Override
-    public Map<String, String> getMap() {
-        Map<String, String> map = super.getMap();
-        map.remove("touchedCount");
-        return map;
     }
 }

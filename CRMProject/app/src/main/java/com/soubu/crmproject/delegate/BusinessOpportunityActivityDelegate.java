@@ -1,6 +1,5 @@
 package com.soubu.crmproject.delegate;
 
-import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
 import com.soubu.crmproject.adapter.BusinessOpportunityRvAdapter;
 import com.soubu.crmproject.model.BusinessOpportunityParams;

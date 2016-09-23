@@ -10,7 +10,8 @@ import java.util.Date;
 public class FollowParams extends ObjectToMapInterface {
     UserParams user;
     String username;
-    String entity;
+    Object entity;
+    String entityId;
     String entityType;
     String entityName;
     String status;
@@ -24,6 +25,18 @@ public class FollowParams extends ObjectToMapInterface {
     String type;
     ContactParams contact;
     String contactId;
+
+    public String getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(String entityId) {
+        this.entityId = entityId;
+    }
+
+    public void setEntity(Object entity) {
+        this.entity = entity;
+    }
 
     public String getContactId() {
         return contactId;
@@ -73,7 +86,7 @@ public class FollowParams extends ObjectToMapInterface {
         this.username = username;
     }
 
-    public String getEntity() {
+    public Object getEntity() {
         return entity;
     }
 

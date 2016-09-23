@@ -72,10 +72,10 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, REQUEST_LOGIN);
         } else {
-//            if(mStaffDao.count() == 0){
-//                RetrofitRequest.getInstance().getStaffList();
-//                mEventBusJustForThis = true;
-//            } else {
+            if(mStaffDao.count() == 0){
+                RetrofitRequest.getInstance().getStaffList();
+                mEventBusJustForThis = true;
+            } else {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -90,7 +90,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
                     }
                 }).start();
 
-//            }
+            }
         }
     }
 
@@ -130,12 +130,6 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
         startActivity(intent);
         finish();
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
     //之前拒绝过这个请求,当再次请求这个权限的时候调起的方法
     //建议是对话框的方式,告知用户请求这个权限的原因
     //注意由于是在build中生成的类文件,因此每次对注释方法有有修改需要clean,rebuild.
@@ -173,6 +167,8 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
                 default:
                     break;
             }
+        } else {
+            finish();
         }
     }
 }

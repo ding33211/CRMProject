@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
+import com.soubu.crmproject.base.greendao.Contact;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
@@ -51,12 +52,13 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
                         Map<String, String> map = CompileUtil.compile(mContactParams, getNewContactParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
                         if(map.size() > 0) {
-                            RetrofitRequest.getInstance().updateContact(mContactParams.getId(), map);
+                            mEventBusJustForThis = true;
+                            RetrofitRequest.getInstance().updateContact(mContactParams.getCustomerId(), map);
                         }
                     } else {
+                        mEventBusJustForThis = true;
                         RetrofitRequest.getInstance().addContact(getNewContactParams());
                     }
-                    finish();
                 }
             }
         });
@@ -71,14 +73,11 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
         mFromEdit = false;
         if (mContactParams != null) {
             mFromEdit = true;
-            viewDelegate.setTitle(R.string.edit_clue);
+            viewDelegate.setTitle(R.string.edit_contact);
             mId = mContactParams.getCustomerId();
-            //由于之后要传object,此处先这么写
-            mName = mId;
         } else {
-            viewDelegate.setTitle(R.string.add_clue);
+            viewDelegate.setTitle(R.string.add_contact);
         }
-        viewDelegate.setTitle(R.string.add_contact);
     }
 
     @Override
@@ -248,19 +247,4 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
-
-    /**
-     * 错误信息
-     *
-     * @param errorMsg
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(String errorMsg) {
-        ShowWidgetUtil.showLong(errorMsg);
-    }
 }

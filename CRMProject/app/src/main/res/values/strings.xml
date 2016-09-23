@@ -105,6 +105,7 @@
     <string name="address">地址</string>
     <string name="postcode">邮编</string>
     <string name="add_contact">添加联系人</string>
+    <string name="edit_contact">编辑联系人</string>
     <string name="follow_state">跟进状态</string>
     <string name="clue_from">线索来源</string>
     <string name="remark">备注</string>
@@ -188,8 +189,8 @@
     <string name="related_clue">关联线索</string>
     <string name="title_empty_error">标题不能为空</string>
     <string name="content_empty_error">内容不能为空</string>
-    <string name="follow_time_empty_error">跟进时间不能为空</string>
-    <string name="follow_method_empty_error">跟进方式不能为空</string>
+    <string name="follow_time_empty_error">请选择跟进时间</string>
+    <string name="follow_method_empty_error">请选择跟进方式</string>
     <string name="follow_clue">跟进线索</string>
     <string name="follow_customer">跟进客户</string>
     <string name="follow_business_opportunity">跟进商机</string>
@@ -241,6 +242,7 @@
     <string name="continue_rush">继续抢</string>
     <string name="choose_transfer">选择转移人</string>
     <string name="choose_manager">选择负责人</string>
+    <string name="choose_signed_person">选择签约人</string>
     <string name="email_wrong_message">邮箱格式错误</string>
     <string name="mobile_wrong_message">手机格式错误</string>
     <string name="phone_wrong_message">电话格式错误</string>
@@ -267,5 +269,6 @@
     <string name="register_error_message">您使用的邮箱已被注册过</string>
     <string name="add_follow_success">添加跟进成功</string>
     <string name="signed_date_choose_error_message">签约日期不能选择现在以后的时间</string>
+    <string name="please_choose_related_business_first">请先选择关联商机</string>
 
 </resources>

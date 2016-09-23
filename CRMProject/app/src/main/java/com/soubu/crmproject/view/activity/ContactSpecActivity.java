@@ -152,11 +152,6 @@ public class ContactSpecActivity extends ActivityPresenter<SpecActivityDelegate>
         initContactParams(mContactParams);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
@@ -165,6 +160,7 @@ public class ContactSpecActivity extends ActivityPresenter<SpecActivityDelegate>
             public void onClick(View v) {
                 Intent intent = new Intent(ContactSpecActivity.this, AddContactActivity.class);
                 intent.putExtra(Contants.EXTRA_CONTACT, mContactParams);
+                intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_NAME));
                 startActivity(intent);
             }
         });

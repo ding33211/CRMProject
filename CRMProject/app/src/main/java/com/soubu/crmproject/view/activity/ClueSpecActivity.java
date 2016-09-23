@@ -57,7 +57,7 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         addItem.setTitleRes(R.string.essential_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(clueParams.getCompanyName(), R.string.company_name, hasTop ? false : true);
+        initItem(clueParams.getCompanyName(), R.string.company_name, true);
         initItem(clueParams.getContactName(), R.string.name, hasTop ? false : true);
         initItem(clueParams.getPosition(), R.string.post, hasTop ? false : true);
         initItem(clueParams.getDepartment(), R.string.department, hasTop ? false : true);
@@ -70,7 +70,7 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         addItem.setTitleRes(R.string.connection_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        initItem(clueParams.getMobile(), R.string.mobile, hasTop ? false : true);
+        initItem(clueParams.getMobile(), R.string.mobile, true);
         initItem(clueParams.getPhone(), R.string.phone, hasTop ? false : true);
         initItem(clueParams.getQq(), R.string.qq, hasTop ? false : true);
         initItem(clueParams.getWechat(), R.string.wechat, hasTop ? false : true);
@@ -158,8 +158,4 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         initClueParams(mClueParams);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
 }

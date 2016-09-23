@@ -37,9 +37,11 @@ public class AddClueActivity extends Big4AddActivityPresenter {
                         Map<String, String> map = CompileUtil.compile(mClueParams, getNewClueParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
                         if (map.size() > 0) {
+                            mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().updateClue(mClueParams.getId(), map);
                         }
                     } else {
+                        mEventBusJustForThis = true;
                         RetrofitRequest.getInstance().addClue(getNewClueParams());
                     }
                 }
@@ -63,6 +65,25 @@ public class AddClueActivity extends Big4AddActivityPresenter {
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
         mList.add(item);
         item = new AddItem();
+        item.setTitleRes(R.string.website);
+        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getWebsite())) {
+            item.setContent(mClueParams.getWebsite());
+        }
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+        item.setEditTextType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
+        mList.add(item);
+        item = new AddItem();
+        item.setTitleRes(R.string.address);
+        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getAddress())) {
+            item.setContent(mClueParams.getAddress());
+        }
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
+        mList.add(item);
+        item = new AddItem();
+        item.setTitleRes(R.string.connection_information);
+        item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
+        mList.add(item);
+        item = new AddItem();
         item.setTitleRes(R.string.name);
         if (mFromEdit && !TextUtils.isEmpty(mClueParams.getContactName())) {
             item.setContent(mClueParams.getContactName());
@@ -82,10 +103,6 @@ public class AddClueActivity extends Big4AddActivityPresenter {
             item.setContent(mClueParams.getPosition());
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.connection_information);
-        item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.mobile);
@@ -120,25 +137,11 @@ public class AddClueActivity extends Big4AddActivityPresenter {
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         item.setEditTextType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.website);
-        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getWebsite())) {
-            item.setContent(mClueParams.getWebsite());
-        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-        item.setEditTextType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
-        mList.add(item);
+
 //        item = new AddItem();
 //        item.setTitleRes(R.string.area);
 //        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
 //        mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.address);
-        if (mFromEdit && !TextUtils.isEmpty(mClueParams.getAddress())) {
-            item.setContent(mClueParams.getAddress());
-        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
-        mList.add(item);
 //        item = new AddItem();
 //        item.setTitleRes(R.string.add_contact);
 //        item.setItemType(AddSomethingRvAdapter.TYPE_OTHER);

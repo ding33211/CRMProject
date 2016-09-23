@@ -213,7 +213,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     private void onEditTextLostFocus(View editText, int pos) {
         if (editText != null && editText instanceof EditText) {
             String temp = ((EditText) editText).getText().toString();
-            editText.setVisibility(View.GONE);
+            editText.setVisibility(View.INVISIBLE);
             mList.get(pos).setContent(temp);
             View item = (View) editText.getTag();
             int viewType = (int) item.getTag();
@@ -281,8 +281,8 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                                                       int monthOfYear, int dayOfMonth) {
                                     Calendar chooseC = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
                                     chooseC.set(year, monthOfYear, dayOfMonth);
-                                    if (mList.get(getAdapterPosition()).getTitleRes() == R.string.signed_date){
-                                        if(chooseC.getTimeInMillis() > c.getTimeInMillis()){
+                                    if (mList.get(getAdapterPosition()).getTitleRes() == R.string.signed_date) {
+                                        if (chooseC.getTimeInMillis() - c.getTimeInMillis() > 24 * 3600 * 1000) {
                                             ShowWidgetUtil.showShort(R.string.signed_date_choose_error_message);
                                             return;
                                         }
@@ -307,6 +307,21 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                         intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
                         mActivity.startActivityForResult(intent, REQUEST_CODE_CHOOSE_CUSTOMER);
                         mLastClickPosBeforeLeave = getAdapterPosition();
+                    } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.related_business_opportunity) {
+                        if (mRelatedBusinessClickListener != null) {
+                            mRelatedBusinessClickListener.onClick(v);
+                            mLastClickPosBeforeLeave = getAdapterPosition();
+                        }
+                    } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.client_signed_person) {
+                        if (mClientSignedClickListener != null) {
+                            mClientSignedClickListener.onClick(v);
+                            mLastClickPosBeforeLeave = getAdapterPosition();
+                        }
+                    } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.signed_person) {
+                        if (mSignedClickListener != null) {
+                            mSignedClickListener.onClick(v);
+                            mLastClickPosBeforeLeave = getAdapterPosition();
+                        }
                     } else {
                         final AddItem item = mList.get(getAdapterPosition());
                         if (item.getArrayRes() != 0 && item.getWebArrayRes() != 0) {
@@ -353,28 +368,28 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         }
         for (int pos : mRequiredPosList) {
             if (TextUtils.isEmpty(mList.get(pos).getContent())) {
-                ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.please_complete_required, mActivity.getResources().getString(mList.get(pos).getTitleRes())));
+                ShowWidgetUtil.showShort(mActivity.getResources().getString(R.string.please_complete_required, mActivity.getResources().getString(mList.get(pos).getTitleRes())));
                 return false;
             }
         }
         if (mEmailPos != -1) {
             String email = mList.get(mEmailPos).getContent();
             if (!TextUtils.isEmpty(email) && !RegularUtil.isEmail(email)) {
-                ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.email_wrong_message));
+                ShowWidgetUtil.showShort(mActivity.getResources().getString(R.string.email_wrong_message));
                 return false;
             }
         }
         if (mMobilePos != -1) {
             String mobile = mList.get(mMobilePos).getContent();
             if (!TextUtils.isEmpty(mobile) && !RegularUtil.isMobile(mobile)) {
-                ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.mobile_wrong_message));
+                ShowWidgetUtil.showShort(mActivity.getResources().getString(R.string.mobile_wrong_message));
                 return false;
             }
         }
         if (mTelPos != -1) {
             String phone = mList.get(mTelPos).getContent();
             if (!TextUtils.isEmpty(phone) && !RegularUtil.isTel(phone)) {
-                ShowWidgetUtil.showLong(mActivity.getResources().getString(R.string.phone_wrong_message));
+                ShowWidgetUtil.showShort(mActivity.getResources().getString(R.string.phone_wrong_message));
                 return false;
             }
         }
@@ -384,6 +399,25 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     public void setLastClickedName(String name) {
         mList.get(mLastClickPosBeforeLeave).setContent(name);
         notifyDataSetChanged();
+    }
+
+    //点击关联商机
+    View.OnClickListener mRelatedBusinessClickListener;
+    //点击客户方签约人
+    View.OnClickListener mClientSignedClickListener;
+    //点击我方签约人
+    View.OnClickListener mSignedClickListener;
+
+    public void setOnRelatedBusinessClickListener(View.OnClickListener listener) {
+        mRelatedBusinessClickListener = listener;
+    }
+
+    public void setOnClientSignedClickListener(View.OnClickListener listener) {
+        mClientSignedClickListener = listener;
+    }
+
+    public void setOnSignedClickListener(View.OnClickListener listener) {
+        mSignedClickListener = listener;
     }
 
 

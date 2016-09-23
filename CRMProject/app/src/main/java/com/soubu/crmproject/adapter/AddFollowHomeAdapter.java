@@ -37,6 +37,12 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
     SwipeRefreshAndLoadMoreCallBack mBusinessOpportunityCallBack;
     SwipeRefreshAndLoadMoreCallBack mContractCallBack;
 
+    View.OnClickListener mClueSearchListener;
+    View.OnClickListener mCustomerSearchListener;
+    View.OnClickListener mBusinessOpportunitySearchListener;
+    View.OnClickListener mContractSearchListener;
+
+
 
     public AddFollowHomeAdapter(Context context) {
         this.mContext = context;
@@ -72,6 +78,7 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.viewpager_add_follow_home, container, false);
         }
+        View vSearch = convertView.findViewById(R.id.rl_search);
         RecyclerView rvContent = (RecyclerView) convertView.findViewById(R.id.rv_content);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         rvContent.setLayoutManager(layoutManager);
@@ -81,21 +88,33 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
         switch (position) {
             case 0:
                 tvSearchHint.setText(R.string.please_input_clue_name);
+                if(mClueSearchListener != null){
+                    vSearch.setOnClickListener(mClueSearchListener);
+                }
                 registerSwipeRefreshCallBack(layoutManager, srlContainer, rvContent, mClueCallBack, mClueAdapter);
                 rvContent.setAdapter(mClueAdapter);
                 break;
             case 1:
                 tvSearchHint.setText(R.string.please_input_customer_name);
+                if(mCustomerSearchListener != null){
+                    vSearch.setOnClickListener(mCustomerSearchListener);
+                }
                 registerSwipeRefreshCallBack(layoutManager, srlContainer, rvContent, mCustomerCallBack, mCustomerAdapter);
                 rvContent.setAdapter(mCustomerAdapter);
                 break;
             case 2:
                 tvSearchHint.setText(R.string.please_input_business_opportunity_name);
+                if(mBusinessOpportunitySearchListener != null){
+                    vSearch.setOnClickListener(mBusinessOpportunitySearchListener);
+                }
                 registerSwipeRefreshCallBack(layoutManager, srlContainer, rvContent, mBusinessOpportunityCallBack, mBusinessOpportunityAdapter);
                 rvContent.setAdapter(mBusinessOpportunityAdapter);
                 break;
             case 3:
                 tvSearchHint.setText(R.string.please_input_contract_name);
+                if(mContractSearchListener != null){
+                    vSearch.setOnClickListener(mContractSearchListener);
+                }
                 registerSwipeRefreshCallBack(layoutManager, srlContainer, rvContent, mContractCallBack, mContractAdapter);
                 rvContent.setAdapter(mContractAdapter);
                 break;
@@ -132,6 +151,14 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
                 }
             }
         });
+    }
+
+    public void set4OnSearchClickListener(View.OnClickListener clueSearchListener, View.OnClickListener customeSearchListener,
+                                          View.OnClickListener businessOpportunitySearchListner,View.OnClickListener contractSearchListener){
+        mClueSearchListener = clueSearchListener;
+        mCustomerSearchListener = customeSearchListener;
+        mBusinessOpportunitySearchListener = businessOpportunitySearchListner;
+        mContractSearchListener = contractSearchListener;
     }
 
     public void set4CallBack(SwipeRefreshAndLoadMoreCallBack clue, SwipeRefreshAndLoadMoreCallBack customer,

@@ -34,7 +34,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -76,6 +75,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
             @Override
             public void onClick(View v) {
                 if(viewDelegate.verify(mFollowParams)){
+                    mEventBusJustForThis = true;
                     RetrofitRequest.getInstance().addFollow(mFollowParams);
                 }
             }
@@ -111,6 +111,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
         }
         ContactDao contactDao = DBHelper.getInstance(getApplicationContext()).getContactDao();
         mContactsList = new ArrayList<>();
+        String state;
         switch (mFrom) {
             case Contants.FROM_CLUE:
                 mStateLabelRes = R.string.clue_status;
@@ -118,12 +119,14 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mStateArray = getResources().getTextArray(mStateArrayRes);
                 mStateArrayWeb = getResources().getTextArray(R.array.clue_status_web);
                 ClueParams clueParams = (ClueParams) mEntity;
-                mFollowParams.setEntity(clueParams.getId());
+                mFollowParams.setEntityId(clueParams.getId());
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_OPPORTUNITY);
-                viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, clueParams.getStatus())].toString());
+                state = mStateArray[SearchUtil.searchInArray(mStateArrayWeb, clueParams.getStatus())].toString();
+                viewDelegate.giveTextViewString(R.id.tv_state, state);
                 if(TextUtils.equals(clueParams.getStatus(), mStateArrayWeb[1])){
                     viewDelegate.get(R.id.rl_transfer).setVisibility(View.VISIBLE);
                 }
+                mFollowParams.setStatus(clueParams.getStatus());
                 viewDelegate.giveTextViewString(R.id.tv_related_one, clueParams.getCompanyName());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_clue));
                 viewDelegate.get(R.id.rl_expected_contract).setVisibility(View.GONE);
@@ -131,7 +134,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
 
             case Contants.FROM_CUSTOMER:
                 CustomerParams customerParams = (CustomerParams) mEntity;
-                mFollowParams.setEntity(customerParams.getId());
+                mFollowParams.setEntityId(customerParams.getId());
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_CUSTOMER);
                 viewDelegate.giveTextViewString(R.id.tv_related_one, customerParams.getName());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_customer));
@@ -146,16 +149,18 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mStateArray = getResources().getTextArray(mStateArrayRes);
                 mStateArrayWeb = getResources().getTextArray(R.array.business_opportunity_status_web);
                 BusinessOpportunityParams businessOpportunityParams = (BusinessOpportunityParams) mEntity;
-                mFollowParams.setEntity(businessOpportunityParams.getId());
+                mFollowParams.setEntityId(businessOpportunityParams.getId());
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_DEAL);
-                viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, businessOpportunityParams.getStatus())].toString());
+                state = mStateArray[SearchUtil.searchInArray(mStateArrayWeb, businessOpportunityParams.getStatus())].toString();
+                viewDelegate.giveTextViewString(R.id.tv_state, state);
                 if(TextUtils.equals(businessOpportunityParams.getStatus(), mStateArrayWeb[4])) {
                     viewDelegate.get(R.id.rl_transfer).setVisibility(View.VISIBLE);
                     viewDelegate.giveTextViewString(R.id.tv_transfer, getString(R.string.transfer_contract_now));
                 }
+                mFollowParams.setStatus(state);
                 viewDelegate.giveTextViewString(R.id.tv_related_one, businessOpportunityParams.getTitle());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_business_opportunity));
-                mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(businessOpportunityParams.getCustomer()))
+                mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(businessOpportunityParams.getCustomer().getId()))
                         .orderDesc(ContactDao.Properties.TouchedAt).list();
                 break;
             case Contants.FROM_CONTRACT:
@@ -164,13 +169,15 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mStateArray = getResources().getTextArray(mStateArrayRes);
                 mStateArrayWeb = getResources().getTextArray(R.array.contract_state_web);
                 ContractParams contractParams = (ContractParams) mEntity;
-                mFollowParams.setEntity(contractParams.getId());
+                mFollowParams.setEntityId(contractParams.getId());
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_CONTRACT);
-                viewDelegate.giveTextViewString(R.id.tv_state, mStateArray[SearchUtil.searchInArray(mStateArrayWeb, contractParams.getStatus())].toString());
+                state = mStateArray[SearchUtil.searchInArray(mStateArrayWeb, contractParams.getStatus())].toString();
+                viewDelegate.giveTextViewString(R.id.tv_state, state);
+                mFollowParams.setStatus(state);
 //                viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.related_contact));
                 viewDelegate.giveTextViewString(R.id.tv_related_one, contractParams.getTitle());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_contract));
-                mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(contractParams.getCustomer()))
+                mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(contractParams.getCustomer().getId()))
                         .orderDesc(ContactDao.Properties.TouchedAt).list();
 //                viewDelegate.giveTextViewString(R.id.tv_related_two, contractParams.getCustomer());
                 break;
@@ -215,6 +222,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                     public void onClick(DialogInterface dialog, int which) {
                         mFollowParams.setMethod(mFollowMethodArrayWeb[which].toString());
                         viewDelegate.giveTextViewString(R.id.tv_follow_method, mFollowMethodArray[which].toString());
+                        ((TextView)viewDelegate.get(R.id.tv_follow_method)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
                         dialog.dismiss();
                     }
                 });
@@ -242,6 +250,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                         }
                         mFollowParams.setFollowupAt(mFollowTime.getTime());
                         viewDelegate.giveTextViewString(R.id.tv_follow_time, ConvertUtil.dateToYYYY_MM_DD_HH_mm(mFollowTime.getTime()));
+                        ((TextView)viewDelegate.get(R.id.tv_follow_method)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
                     }
                 }, mFollowTime.get(Calendar.HOUR_OF_DAY), mFollowTime.get(Calendar.MINUTE), true);
                 new DatePickerDialog(this,
@@ -294,6 +303,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                         public void onClick(DialogInterface dialog, int which) {
                             mFollowParams.setContactId(mContactsList.get(which).getContact_id());
                             ((TextView)viewDelegate.get(R.id.tv_expected_contract)).setText(mContactsList.get(which).getName());
+                            ((TextView)viewDelegate.get(R.id.tv_follow_method)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
                         }
                     }).setCancelable(true).show();
 
@@ -316,14 +326,15 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         if(params != null && params.length > 0){
+            if(!mEventBusJustForThis){
+                return;
+            } else {
+                mEventBusJustForThis = false;
+            }
             ShowWidgetUtil.showShort(R.string.add_follow_success);
             finish();
         }

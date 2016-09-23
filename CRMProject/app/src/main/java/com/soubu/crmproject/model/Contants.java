@@ -31,6 +31,7 @@ public class Contants {
     public static final int FROM_ADD_SOMETHING_ACTIVITY = 0x04;
     public static final int FROM_CLUE_HIGH_SEAS = 0x05;
     public static final int FROM_CONTRACT_APPROVAL = 0x06;
+    public static final int FROM_ADD_CONTRACT = 0x07;
 
 
     //在跟进总表
@@ -60,6 +61,8 @@ public class Contants {
     public static final String EXTRA_CONTRACT = "CONTRACT";
     public static final String EXTRA_CONTRACT_ID = "CONTRACT_ID";
     public static final String EXTRA_CONTACT = "CONTACT";
+    public static final String EXTRA_CONTACT_ID = "CONTACT_ID";
+    public static final String EXTRA_CONTACT_NAME = "CONTACT_NAME";
 
 
     public static final String EXTRA_FROM = "FROM";

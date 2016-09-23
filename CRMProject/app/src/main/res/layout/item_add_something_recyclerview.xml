@@ -52,7 +52,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="top"
                 android:textColor="@color/title_black"
-                android:visibility="gone" />
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:id="@+id/ll_right"

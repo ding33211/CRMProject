@@ -50,13 +50,13 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
                         Map<String, String> map = CompileUtil.compile(mBusinessOpportunityParams, getNewBusinessOpportunityParams());
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
                         if (map.size() > 0) {
+                            mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().updateBusinessOpportunity(mBusinessOpportunityParams.getId(), map);
                         }
                     } else {
+                        mEventBusJustForThis = true;
                         RetrofitRequest.getInstance().addBusinessOpportunity(getNewBusinessOpportunityParams());
                     }
-                } else {
-                    ShowWidgetUtil.showLong(R.string.please_complete_required);
                 }
             }
         });
@@ -94,7 +94,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.related_customer);
-        if(!TextUtils.isEmpty(mCustomerName)){
+        if (!TextUtils.isEmpty(mCustomerName)) {
             item.setContent(mCustomerName);
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_UNABLE);
         } else {
@@ -104,35 +104,35 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         }
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.related_product);
-        if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getProduct())) {
-            item.setContent(mBusinessOpportunityParams.getProduct());
-        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.related_product);
+//        if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getProduct())) {
+//            item.setContent(mBusinessOpportunityParams.getProduct());
+//        }
+//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.signing_amount);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getAmountPrice())) {
             item.setContent(mBusinessOpportunityParams.getAmountPrice());
         }
         item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.expected_time_to_sign);
         if (mFromEdit && mBusinessOpportunityParams.getClosingAt() != null) {
             item.setDate(mBusinessOpportunityParams.getClosingAt());
         }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE_DATE);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE_DATE);
         mList.add(item);
-        item = new AddItem();
-        item.setTitleRes(R.string.actual_signing_time);
-        if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getGotAt())) {
-            item.setContent(mBusinessOpportunityParams.getGotAt());
-        }
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-        mList.add(item);
+//        item = new AddItem();
+//        item.setTitleRes(R.string.actual_signing_time);
+//        if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getGotAt())) {
+//            item.setContent(mBusinessOpportunityParams.getGotAt());
+//        }
+//        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
+//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.other_information);
         item.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
@@ -159,6 +159,8 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
         item.setTitleRes(R.string.business_opportunity_status);
         if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getStatus())) {
             item.setContent(mBusinessOpportunityParams.getStatus());
+        } else {
+            item.setContent(SearchUtil.searchBusinessOpportunityStateWebArray(this)[0].toString());
         }
         item.setArrayRes(R.array.business_opportunity_status);
         item.setWebArrayRes(R.array.business_opportunity_status_web);
@@ -181,7 +183,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
         if (mFromEdit && mBusinessOpportunityParams.getUser() != null && !TextUtils.isEmpty(mBusinessOpportunityParams.getUser().getUserName())) {
             item.setContent(mBusinessOpportunityParams.getUser().getUserName());
             mManagerId = mBusinessOpportunityParams.getUser().getId();
-        } else if(mFromEdit && mBusinessOpportunityParams.getCreator() != null && !TextUtils.isEmpty(mBusinessOpportunityParams.getUser().getUserName())){
+        } else if (mFromEdit && mBusinessOpportunityParams.getCreator() != null && !TextUtils.isEmpty(mBusinessOpportunityParams.getUser().getUserName())) {
             item.setContent(mBusinessOpportunityParams.getCreator().getUserName());
             mManagerId = mBusinessOpportunityParams.getCreator().getId();
         } else {
@@ -218,10 +220,10 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
                 businessOpportunityParams.setCustomerId(mCustomerId);
                 continue;
             }
-            if (item.getTitleRes() == R.string.related_product) {
-                businessOpportunityParams.setProduct(item.getContent());
-                continue;
-            }
+//            if (item.getTitleRes() == R.string.related_product) {
+//                businessOpportunityParams.setProduct(item.getContent());
+//                continue;
+//            }
             if (item.getTitleRes() == R.string.signing_amount) {
                 businessOpportunityParams.setAmountPrice(item.getContent());
                 continue;
@@ -250,7 +252,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
                 continue;
             }
             if (item.getTitleRes() == R.string.manager) {
-                if(!TextUtils.isEmpty(mManagerId)){
+                if (!TextUtils.isEmpty(mManagerId)) {
                     businessOpportunityParams.setUserId(mManagerId);
                 }
                 continue;
@@ -267,7 +269,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
             if (requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER) {
                 mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
                 String name = data.getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
-                viewDelegate.setCustomerName(name);
+                viewDelegate.setLastClickName(name);
             }
         }
     }

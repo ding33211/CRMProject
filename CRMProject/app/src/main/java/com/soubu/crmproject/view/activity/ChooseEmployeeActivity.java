@@ -1,10 +1,6 @@
 package com.soubu.crmproject.view.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.ChooseEmployeeRvAdapter;
@@ -18,9 +14,6 @@ import com.soubu.crmproject.server.RetrofitRequest;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by dingsigang on 16-8-25.
@@ -42,6 +35,8 @@ public class ChooseEmployeeActivity extends ActivityPresenter<ChooseEmployeeActi
         mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, Contants.FROM_CLUE);
         if(mFrom == Contants.FROM_ADD_SOMETHING_ACTIVITY){
             viewDelegate.setTitle(R.string.choose_manager);
+        } else if(mFrom == Contants.FROM_ADD_CONTRACT){
+            viewDelegate.setTitle(R.string.choose_signed_person);
         } else {
             viewDelegate.setTitle(R.string.choose_transfer);
         }
@@ -64,10 +59,18 @@ public class ChooseEmployeeActivity extends ActivityPresenter<ChooseEmployeeActi
 //                    public void onClick(DialogInterface dialog, int which) {
                         mName = staff.getNickname();
                         if(mFrom == Contants.FROM_CLUE) {
+                            mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().transferClue(mParamId, staff.getStaff_id());
                         } else if(mFrom == Contants.FROM_CUSTOMER){
+                            mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().transferCustomer(mParamId, staff.getStaff_id());
                         } else if(mFrom == Contants.FROM_ADD_SOMETHING_ACTIVITY){
+                            Intent intent = new Intent();
+                            intent.putExtra(Contants.EXTRA_EMPLOYER_ID, staff.getStaff_id());
+                            intent.putExtra(Contants.EXTRA_EMPLOYER_NAME, mName);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        } else if(mFrom == Contants.FROM_ADD_CONTRACT){
                             Intent intent = new Intent();
                             intent.putExtra(Contants.EXTRA_EMPLOYER_ID, staff.getStaff_id());
                             intent.putExtra(Contants.EXTRA_EMPLOYER_NAME, mName);

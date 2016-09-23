@@ -27,6 +27,7 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
 //                    v.findViewById(R.id.iv_approval_yes).setVisibility(View.VISIBLE);
 //                    v.findViewById(R.id.iv_approval_no_or_wait).setVisibility(View.VISIBLE);
                 case Contants.TYPE_BUSINESS_OPPORTUNITY:
+                case Contants.TYPE_CUSTOMER:
                     v.findViewById(R.id.ll_sub_right).setVisibility(View.VISIBLE);
                     break;
             }
@@ -54,6 +55,7 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
         TextView subTitle;
         TextView state;
         TextView subRight;
+        View subLine;
         ImageView ivStateYes;
         ImageView ivStateNoOrWait;
 
@@ -66,6 +68,7 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
             subRight = (TextView) itemView.findViewById(R.id.tv_sub_right);
             ivStateYes = (ImageView) itemView.findViewById(R.id.iv_approval_yes);
             ivStateNoOrWait = (ImageView) itemView.findViewById(R.id.iv_approval_no_or_wait);
+            subLine = itemView.findViewById(R.id.v_sub_line);
             itemView.findViewById(R.id.rl_rush_in).setOnClickListener(this);
         }
 

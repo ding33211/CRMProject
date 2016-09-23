@@ -116,11 +116,6 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
         List<FollowParams> records = new ArrayList<>();

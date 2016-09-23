@@ -73,7 +73,7 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         if(contractParams.getDeal() != null){
             initItem(contractParams.getDeal().getTitle(), R.string.related_business_opportunity, hasTop ? false : true);
         }
-        initItem(contractParams.getProduct(), R.string.related_product, hasTop ? false : true);
+//        initItem(contractParams.getProduct(), R.string.related_product, hasTop ? false : true);
         if(!hasTop){
             mList.remove(mList.size() - 1);
         } else {
@@ -93,8 +93,8 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         initItem(ConvertUtil.dateToYYYY_MM_DD(contractParams.getFinishedAt()), R.string.finish_date, hasTop ? false : true);
         initItem(TextUtils.isEmpty(contractParams.getPayMethod()) ? "" : mPayMethodArray[SearchUtil.searchInArray(mPayMethodWebArray, contractParams.getPayMethod())].toString(),
                 R.string.pay_method, hasTop ? false : true);
-        initItem(contractParams.getClientSignedPerson(), R.string.client_signed_person, hasTop ? false : true);
-        initItem(contractParams.getSignedPerson(), R.string.signed_person, hasTop ? false : true);
+//        initItem(contractParams.getClientSignedPerson(), R.string.client_signed_person, hasTop ? false : true);
+//        initItem(contractParams.getSignedPerson(), R.string.signed_person, hasTop ? false : true);
         initItem(ConvertUtil.dateToYYYY_MM_DD(contractParams.getClosedAt()), R.string.signed_date, hasTop ? false : true);
 //        initItem(contractParams.getAttachments().toString(), R.string.contract_attachments, hasTop ? false : true);
         initItem(contractParams.getNote(), R.string.remark, hasTop ? false : true);
@@ -165,10 +165,5 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         List<ContractParams> list = Arrays.asList(params);
         mContractParams = list.get(0);
         initContractParams(mContractParams);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
     }
 }

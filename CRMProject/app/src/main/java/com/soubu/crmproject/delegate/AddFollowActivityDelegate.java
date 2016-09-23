@@ -77,11 +77,11 @@ public class AddFollowActivityDelegate extends AppDelegate {
             ShowWidgetUtil.showLong(R.string.title_empty_error);
             return false;
         }
-        if(TextUtils.isEmpty(((TextView)get(R.id.tv_follow_method)).getText())){
+        if(TextUtils.equals(((TextView)get(R.id.tv_follow_method)).getText(), getActivity().getResources().getString(R.string.required_choose))){
             ShowWidgetUtil.showLong(R.string.follow_method_empty_error);
             return false;
         }
-        if(TextUtils.isEmpty(((TextView)get(R.id.tv_follow_time)).getText())){
+        if(TextUtils.equals(((TextView)get(R.id.tv_follow_time)).getText(), getActivity().getResources().getString(R.string.required_choose))){
             ShowWidgetUtil.showLong(R.string.follow_time_empty_error);
             return false;
         }

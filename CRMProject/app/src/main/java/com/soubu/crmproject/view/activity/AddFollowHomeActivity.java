@@ -20,6 +20,7 @@ import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +39,6 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
     boolean mFromAddFollow = false;
     //是否有加载过
     Boolean[] haveInit = new Boolean[]{false, false, false, false};
-
 
     @Override
     protected Class<AddFollowHomeActivityDelegate> getDelegateClass() {
@@ -123,64 +123,67 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
         viewDelegate.setOnRecyclerViewItemClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                Intent intent = new Intent(AddFollowHomeActivity.this, AddFollowActivity.class);
-                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CLUE);
-                intent.putExtra(Contants.EXTRA_TYPE, AddFollowActivity.TYPE_RECORD);
-                intent.putExtra(Contants.EXTRA_ENTITY, viewDelegate.getClueParams(pos));
-                intent.putExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, true);
-                if (mFromAddFollow) {
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
-                    startActivity(intent);
-                }
+                onRecyclerItemClick(Contants.FROM_CLUE, viewDelegate.getClueParams(pos));
             }
         }, new BaseWithFooterRvAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                Intent intent = new Intent(AddFollowHomeActivity.this, AddFollowActivity.class);
-                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
-                intent.putExtra(Contants.EXTRA_TYPE, AddFollowActivity.TYPE_RECORD);
-                intent.putExtra(Contants.EXTRA_ENTITY, viewDelegate.getCustomerParams(pos));
-                intent.putExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, true);
-                if (mFromAddFollow) {
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
-                    startActivity(intent);
-                }
+                onRecyclerItemClick(Contants.FROM_CUSTOMER, viewDelegate.getCustomerParams(pos));
             }
         }, new BaseWithFooterRvAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                Intent intent = new Intent(AddFollowHomeActivity.this, AddFollowActivity.class);
-                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_BUSINESS_OPPORTUNITY);
-                intent.putExtra(Contants.EXTRA_TYPE, AddFollowActivity.TYPE_RECORD);
-                intent.putExtra(Contants.EXTRA_ENTITY, viewDelegate.getBusinessOpportunityParams(pos));
-                intent.putExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, true);
-                if (mFromAddFollow) {
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
-                    startActivity(intent);
-                }
+                onRecyclerItemClick(Contants.FROM_BUSINESS_OPPORTUNITY, viewDelegate.getBusinessOpportunityParams(pos));
             }
         }, new BaseWithFooterRvAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
-                Intent intent = new Intent(AddFollowHomeActivity.this, AddFollowActivity.class);
-                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CONTRACT);
-                intent.putExtra(Contants.EXTRA_TYPE, AddFollowActivity.TYPE_RECORD);
-                intent.putExtra(Contants.EXTRA_ENTITY, viewDelegate.getContractParams(pos));
-                intent.putExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, true);
-                if (mFromAddFollow) {
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
-                    startActivity(intent);
-                }
+                onRecyclerItemClick(Contants.FROM_CONTRACT, viewDelegate.getContractParams(pos));
             }
         });
+
+        viewDelegate.set4OnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchItemClick(Contants.FROM_CLUE);
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchItemClick(Contants.FROM_CUSTOMER);
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchItemClick(Contants.FROM_BUSINESS_OPPORTUNITY);
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchItemClick(Contants.FROM_CONTRACT);
+            }
+        });
+    }
+
+    private void onRecyclerItemClick(int from, Serializable entity){
+        Intent intent = new Intent(AddFollowHomeActivity.this, AddFollowActivity.class);
+        intent.putExtra(Contants.EXTRA_FROM, from);
+        intent.putExtra(Contants.EXTRA_TYPE, AddFollowActivity.TYPE_RECORD);
+        intent.putExtra(Contants.EXTRA_ENTITY, entity);
+        intent.putExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, true);
+        if (mFromAddFollow) {
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            startActivity(intent);
+        }
+    }
+
+    private void onSearchItemClick(int from){
+        Intent intent = new Intent(AddFollowHomeActivity.this, SearchActivity.class);
+        intent.putExtra(Contants.EXTRA_FROM, from);
+        intent.putExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, true);
+        startActivity(intent);
     }
 
     private void getList(boolean isRefresh, int type, int pageNum) {
@@ -199,15 +202,19 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
         switch (type) {
             case Contants.TYPE_CLUE:
                 request.getClueList(pageNum, null, null, null, null, null, null, null);
+                mEventBusJustForThis = true;
                 break;
             case Contants.TYPE_CUSTOMER:
                 request.getCustomerList(pageNum, null, null, null, null, null, null, null, null, null, null);
+                mEventBusJustForThis = true;
                 break;
             case Contants.TYPE_BUSINESS_OPPORTUNITY:
                 request.getBusinessOpportunityList(pageNum, null, null, null, null, null, null, null, null, null);
+                mEventBusJustForThis = true;
                 break;
             case Contants.TYPE_CONTRACT:
                 request.getContractList(pageNum, null, null, null, null, null, null, null, null, null, null);
+                mEventBusJustForThis = true;
                 break;
         }
     }
@@ -221,6 +228,11 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshClueData(ClueParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         List<ClueParams> list = Arrays.asList(params);
         Log.e("xxxxxxxxxx", "    refreshData     mIsRefresh   " + mIsRefresh);
         viewDelegate.setData(list, mIsRefresh, Contants.TYPE_CLUE);
@@ -231,7 +243,17 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getClueDataFromSearch(ClueParams param) {
+        onRecyclerItemClick(Contants.FROM_CLUE, param);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshCustomerData(CustomerParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         List<CustomerParams> list = Arrays.asList(params);
         Log.e("xxxxxxxxxx", "    CustomerParams    refreshData     mIsRefresh   " + mIsRefresh);
         viewDelegate.setData(list, mIsRefresh, Contants.TYPE_CUSTOMER);
@@ -242,7 +264,17 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getCustomerDataFromSearch(CustomerParams param) {
+        onRecyclerItemClick(Contants.FROM_CUSTOMER, param);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshBusinessData(BusinessOpportunityParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         List<BusinessOpportunityParams> list = Arrays.asList(params);
         Log.e("xxxxxxxxxx", "    BusinessOpportunityParams     refreshData     mIsRefresh   " + mIsRefresh);
         viewDelegate.setData(list, mIsRefresh, Contants.TYPE_BUSINESS_OPPORTUNITY);
@@ -253,7 +285,17 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getBusinessDataFromSearch(BusinessOpportunityParams param) {
+        onRecyclerItemClick(Contants.FROM_BUSINESS_OPPORTUNITY, param);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshContractData(ContractParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         List<ContractParams> list = Arrays.asList(params);
         Log.e("xxxxxxxxxx", "    ContractParams     refreshData     mIsRefresh   " + mIsRefresh);
         viewDelegate.setData(list, mIsRefresh, Contants.TYPE_CONTRACT);
@@ -264,7 +306,17 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getContractDataFromSearch(ContractParams param) {
+        onRecyclerItemClick(Contants.FROM_CONTRACT, param);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void throwError(Integer errorCode) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         ServerErrorUtil.handleServerError(errorCode);
         if (mIsRefresh) {
             mIsRefresh = false;

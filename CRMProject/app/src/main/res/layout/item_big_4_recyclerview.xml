@@ -114,13 +114,14 @@
             android:id="@+id/ll_sub_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:visibility="gone">
 
             <View
+                android:id="@+id/v_sub_line"
                 android:layout_width="1dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@color/subtitle_grey" />
 

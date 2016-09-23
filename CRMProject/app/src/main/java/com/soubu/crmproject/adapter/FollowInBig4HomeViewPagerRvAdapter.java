@@ -116,10 +116,15 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
                 arrays = SearchUtil.searchContractStateArray(context);
                 arrayWebs = SearchUtil.searchContractStateWebArray(context);
             }
-            holder1.vContact.setVisibility(View.VISIBLE);
-            if (TextUtils.equals(entityType, Contants.FOLLOW_TYPE_CUSTOMER)) {
-                holder1.vContact.setVisibility(View.GONE);
-            } else {
+            if(!TextUtils.equals(entityType, Contants.FOLLOW_TYPE_OPPORTUNITY)){
+                holder1.vContact.setVisibility(View.VISIBLE);
+                if(mList.get(position).getContact() != null){
+                    holder1.tvContact.setText(mList.get(position).getContact().getName());
+                } else {
+                    holder1.vContact.setVisibility(View.GONE);
+                }
+            }
+            if (!TextUtils.equals(entityType, Contants.FOLLOW_TYPE_CUSTOMER)) {
                 if (position == getItemCount() - 1) {
                     holder1.vLast.setVisibility(View.GONE);
                     if (arrays != null && arrayWebs != null) {
@@ -142,14 +147,6 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
             }
             holder1.tvDate.setText(ConvertUtil.dateToYYYY_MM_DD_EEEE(mList.get(position).getFollowupAt()));
             holder1.tvTime.setText(ConvertUtil.dateToHH_mm(mList.get(position).getFollowupAt()));
-            if(mList.get(position).getContact() != null){
-                holder1.tvContact.setText(mList.get(position).getContact().getName());
-            } else {
-                holder1.vContact.setVisibility(View.GONE);
-            }
-
-        } else {
-            return;
         }
         if (mPos == POS_PLAN) {
 //            mCalendar.setTime(new Date(mList.get(position).getTime()));

@@ -1,8 +1,5 @@
 package com.soubu.crmproject.delegate;
 
-import android.content.Intent;
-import android.view.View;
-
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
 import com.soubu.crmproject.adapter.BusinessOpportunityRvAdapter;
 import com.soubu.crmproject.adapter.ClueRvAdapter;
@@ -10,16 +7,9 @@ import com.soubu.crmproject.adapter.ContractRvAdapter;
 import com.soubu.crmproject.adapter.CustomerRvAdapter;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
-import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
-import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.view.activity.BusinessOpportunityHomeActivity;
-import com.soubu.crmproject.view.activity.ClueHomeActivity;
-import com.soubu.crmproject.view.activity.ClueSpecActivity;
-import com.soubu.crmproject.view.activity.ContractHomeActivity;
-import com.soubu.crmproject.view.activity.CustomerHomeActivity;
 
 import java.util.List;
 

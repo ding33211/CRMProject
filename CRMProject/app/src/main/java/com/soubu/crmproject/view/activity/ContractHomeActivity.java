@@ -36,6 +36,8 @@ import java.util.List;
 public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener {
     ContractParams mContractParams;
     CustomerParams mCustomerParams;
+    CharSequence[] mStateArray;
+    CharSequence[] mStateArrayWeb;
 
     @Override
     protected Class<Big4HomeActivityDelegate> getDelegateClass() {
@@ -99,13 +101,13 @@ public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         super.initView();
         viewDelegate.setTitle(R.string.contract_home);
         viewDelegate.setFrom(Contants.FROM_CONTRACT);
-        CharSequence[] stateArray = getResources().getStringArray(R.array.contract_state);
-        CharSequence[] stateArrayWeb = getResources().getStringArray(R.array.contract_state_web);
+        mStateArray = getResources().getStringArray(R.array.contract_state);
+        mStateArrayWeb = getResources().getStringArray(R.array.contract_state_web);
         CharSequence[] reviewStateWebArray = getResources().getStringArray(R.array.contract_review_state_web);
         mContractParams = (ContractParams) getIntent().getSerializableExtra(Contants.EXTRA_CONTRACT);
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mContractParams.getTitle());
         ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(mContractParams.getCustomer().getName());
-        ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(stateArray[SearchUtil.searchInArray(stateArrayWeb, mContractParams.getStatus())]);
+        ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mContractParams.getStatus())]);
 //        ((TextView) viewDelegate.get(R.id.tv_contract_price)).setText(mContractParams.getAmountPrice());
         if (TextUtils.equals(mContractParams.getReviewStatus(), reviewStateWebArray[0])) {
             ((ImageView) viewDelegate.get(R.id.iv_contract_review_state_no_or_wait)).setImageResource(R.drawable.contract_home_wait_approval);
@@ -141,12 +143,6 @@ public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         initConnectionView(contactList);
     }
 
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
@@ -159,6 +155,8 @@ public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
                 records.add(param);
             }
         }
+        mContractParams.setStatus(records.get(0).getStatus());
+        ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mContractParams.getStatus())]);
         viewDelegate.setViewPagerData(0, records);
         viewDelegate.setViewPagerData(1, plans);
     }

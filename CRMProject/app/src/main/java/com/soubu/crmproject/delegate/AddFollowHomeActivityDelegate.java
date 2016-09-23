@@ -1,6 +1,7 @@
 package com.soubu.crmproject.delegate;
 
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddFollowHomeAdapter;
@@ -55,6 +56,11 @@ public class AddFollowHomeActivityDelegate extends AppDelegate {
                 }
             }
         });
+    }
+
+    public void set4OnSearchClickListener(View.OnClickListener clueSearchListener, View.OnClickListener customeSearchListener,
+                                          View.OnClickListener businessOpportunitySearchListner, View.OnClickListener contractSearchListener){
+        mAdapter.set4OnSearchClickListener(clueSearchListener, customeSearchListener, businessOpportunitySearchListner, contractSearchListener);
     }
 
     public void set4SwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack clueCallBack, SwipeRefreshAndLoadMoreCallBack customerCallBack,

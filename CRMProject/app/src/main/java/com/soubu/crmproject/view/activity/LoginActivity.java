@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -33,7 +34,7 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-9-9.
  */
-public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> implements View.OnClickListener{
+public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> implements View.OnClickListener {
     private boolean mDisplayPwd = false;
 
     @Override
@@ -44,16 +45,16 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.btn_register, R.id.btn_login, R.id.iv_clear, R.id.iv_transfer_pwd);
+        viewDelegate.setOnClickListener(this, R.id.btn_register, R.id.btn_login, R.id.iv_clear, R.id.iv_clear_user, R.id.iv_transfer_pwd);
         viewDelegate.get(R.id.et_user).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     viewDelegate.get(R.id.ll_user).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_selected));
-                    ((ImageView)viewDelegate.get(R.id.iv_user)).setImageResource(R.drawable.login_user_selected);
+                    ((ImageView) viewDelegate.get(R.id.iv_user)).setImageResource(R.drawable.login_user_selected);
                 } else {
                     viewDelegate.get(R.id.ll_user).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_normal));
-                    ((ImageView)viewDelegate.get(R.id.iv_user)).setImageResource(R.drawable.login_user_normal);
+                    ((ImageView) viewDelegate.get(R.id.iv_user)).setImageResource(R.drawable.login_user_normal);
                 }
             }
         });
@@ -61,17 +62,47 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
         viewDelegate.get(R.id.et_password).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     viewDelegate.get(R.id.ll_password).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_selected));
-                    ((ImageView)viewDelegate.get(R.id.iv_password)).setImageResource(R.drawable.login_lock_selected);
+                    ((ImageView) viewDelegate.get(R.id.iv_password)).setImageResource(R.drawable.login_lock_selected);
                 } else {
                     viewDelegate.get(R.id.ll_password).setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_login_normal));
-                    ((ImageView)viewDelegate.get(R.id.iv_password)).setImageResource(R.drawable.login_lock_normal);
+                    ((ImageView) viewDelegate.get(R.id.iv_password)).setImageResource(R.drawable.login_lock_normal);
                 }
             }
         });
 
-        ((EditText)viewDelegate.get(R.id.et_password)).addTextChangedListener(new TextWatcher() {
+        ((EditText) viewDelegate.get(R.id.et_password)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s.toString())) {
+                    viewDelegate.get(R.id.iv_clear).setVisibility(View.GONE);
+                } else {
+                    viewDelegate.get(R.id.iv_clear).setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        viewDelegate.get(R.id.et_password).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    viewDelegate.get(R.id.iv_clear).setVisibility(View.GONE);
+                } else {
+                    if(!TextUtils.isEmpty(((EditText)v).getText().toString())){
+                        viewDelegate.get(R.id.iv_clear).setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+        ((EditText) viewDelegate.get(R.id.et_user)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -84,10 +115,22 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(TextUtils.isEmpty(s.toString())){
-                    viewDelegate.get(R.id.ll_password_transfer).setVisibility(View.GONE);
+                if (TextUtils.isEmpty(s.toString())) {
+                    viewDelegate.get(R.id.iv_clear_user).setVisibility(View.GONE);
                 } else {
-                    viewDelegate.get(R.id.ll_password_transfer).setVisibility(View.VISIBLE);
+                    viewDelegate.get(R.id.iv_clear_user).setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        viewDelegate.get(R.id.et_user).setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    viewDelegate.get(R.id.iv_clear_user).setVisibility(View.GONE);
+                } else {
+                    if(!TextUtils.isEmpty(((EditText)v).getText().toString())){
+                        viewDelegate.get(R.id.iv_clear_user).setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
@@ -96,32 +139,35 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id){
+        switch (id) {
             case R.id.btn_register:
                 Intent intent = new Intent(this, RegisterActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_login:
                 UserParams params = new UserParams();
-                if(viewDelegate.verify(params)){
+                if (viewDelegate.verify(params)) {
                     RetrofitRequest.getInstance().login(params);
                     mEventBusJustForThis = true;
                 }
                 break;
             case R.id.iv_clear:
-                ((EditText)viewDelegate.get(R.id.et_password)).setText("");
+                ((EditText) viewDelegate.get(R.id.et_password)).setText("");
                 break;
             case R.id.iv_transfer_pwd:
-                if(!mDisplayPwd){
-                    ((EditText)viewDelegate.get(R.id.et_password)).setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    ((ImageView)viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.show_pwd);
+                if (!mDisplayPwd) {
+                    ((EditText) viewDelegate.get(R.id.et_password)).setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    ((ImageView) viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.show_pwd);
                     mDisplayPwd = true;
                 } else {
-                    ((EditText)viewDelegate.get(R.id.et_password)).setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    ((ImageView)viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.hide_pwd);
+                    ((EditText) viewDelegate.get(R.id.et_password)).setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    ((ImageView) viewDelegate.get(R.id.iv_transfer_pwd)).setImageResource(R.drawable.hide_pwd);
                     mDisplayPwd = false;
                 }
-
+                break;
+            case R.id.iv_clear_user:
+                ((EditText) viewDelegate.get(R.id.et_user)).setText("");
+                break;
 
         }
     }
@@ -147,7 +193,6 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 mHandler.sendEmptyMessageDelayed(0, 2000);
             } else {
                 finish();
-                System.exit(0);
             }
         }
         return false;
@@ -155,13 +200,13 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(UserParams[] userParams) {
-        if(!mEventBusJustForThis){
+        if (!mEventBusJustForThis) {
             return;
         } else {
             mEventBusJustForThis = false;
         }
-        if(userParams != null && userParams.length > 0){
-            if(!TextUtils.isEmpty(userParams[0].getToken()) && !TextUtils.isEmpty(userParams[0].getId())){
+        if (userParams != null && userParams.length > 0) {
+            if (!TextUtils.isEmpty(userParams[0].getToken()) && !TextUtils.isEmpty(userParams[0].getId())) {
 //                User user = userParams[0].copyToUser();
 //                UserDao userDao = DBHelper.getInstance(getApplicationContext()).getUserDao();
 //                List<User> list = userDao.queryBuilder().where(UserDao.Properties.User_id.eq(user.getId())).list();
@@ -179,11 +224,5 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
             }
         }
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
 
 }

@@ -14,7 +14,7 @@ public class ContractParams extends ObjectToMapInterface implements Serializable
     String manager;
     CustomerParams customer;
     BusinessOpportunityParams deal;
-    String product;
+    Object product;
     String amountPrice;
     Date startedAt;
     Date finishedAt;
@@ -22,8 +22,8 @@ public class ContractParams extends ObjectToMapInterface implements Serializable
     String payMethod;
     String status;
     String reviewStatus;
-    String clientSignedPerson;
-    String signedPerson;
+    ContactParams clientSignedPerson;
+    UserParams signedPerson;
     Date closedAt;
     Object[] attachments;
     String note;
@@ -31,12 +31,50 @@ public class ContractParams extends ObjectToMapInterface implements Serializable
     Date updatedAt;
     String type;
     String id;
-    String tDeal;
+    String tDealId;
     String customerId;
     String dealId;
     UserParams user;
     UserParams creator;
     String userId;
+    String clientSignedPersonId;
+    String signedPersonId;
+
+    public String getClientSignedPersonId() {
+        return clientSignedPersonId;
+    }
+
+    public void setClientSignedPersonId(String clientSignedPersonId) {
+        this.clientSignedPersonId = clientSignedPersonId;
+    }
+
+    public String getSignedPersonId() {
+        return signedPersonId;
+    }
+
+    public void setSignedPersonId(String signedPersonId) {
+        this.signedPersonId = signedPersonId;
+    }
+
+    public void setProduct(Object product) {
+        this.product = product;
+    }
+
+    public ContactParams getClientSignedPerson() {
+        return clientSignedPerson;
+    }
+
+    public void setClientSignedPerson(ContactParams clientSignedPerson) {
+        this.clientSignedPerson = clientSignedPerson;
+    }
+
+    public UserParams getSignedPerson() {
+        return signedPerson;
+    }
+
+    public void setSignedPerson(UserParams signedPerson) {
+        this.signedPerson = signedPerson;
+    }
 
     public UserParams getUser() {
         return user;
@@ -95,11 +133,11 @@ public class ContractParams extends ObjectToMapInterface implements Serializable
     }
 
     public String gettDeal() {
-        return tDeal;
+        return tDealId;
     }
 
     public void settDeal(String tDeal) {
-        this.tDeal = tDeal;
+        this.tDealId = tDeal;
     }
 
     public String getReviewStatus() {
@@ -126,22 +164,6 @@ public class ContractParams extends ObjectToMapInterface implements Serializable
         this.type = type;
     }
 
-    public String getClientSignedPerson() {
-        return clientSignedPerson;
-    }
-
-    public void setClientSignedPerson(String clientSignedPerson) {
-        this.clientSignedPerson = clientSignedPerson;
-    }
-
-    public String getSignedPerson() {
-        return signedPerson;
-    }
-
-    public void setSignedPerson(String signedPerson) {
-        this.signedPerson = signedPerson;
-    }
-
     public Date getClosedAt() {
         return closedAt;
     }
@@ -166,7 +188,7 @@ public class ContractParams extends ObjectToMapInterface implements Serializable
         this.manager = manager;
     }
 
-    public String getProduct() {
+    public Object getProduct() {
         return product;
     }
 

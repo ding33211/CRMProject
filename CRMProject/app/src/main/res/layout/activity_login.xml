@@ -41,11 +41,19 @@
             android:id="@+id/et_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@null"
             android:hint="@string/please_input_user_name"
             android:textColor="@color/title_black"
             android:textColorHint="@color/line_color"
             android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_clear_user"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/et_clear"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,25 +86,20 @@
             android:textColorHint="@color/line_color"
             android:textSize="16sp" />
 
-        <LinearLayout
-            android:id="@+id/ll_password_transfer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/iv_clear"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/et_clear"
-                android:layout_marginRight="20dp"/>
-            <ImageView
-                android:id="@+id/iv_transfer_pwd"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/hide_pwd"/>
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/et_clear"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_transfer_pwd"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/hide_pwd" />
     </LinearLayout>
 
     <Button

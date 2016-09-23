@@ -15,7 +15,12 @@ public class CustomerParams extends ObjectToMapInterface implements Serializable
     String source;
     String phone;
     String fax;
-    String email;
+    String cemail;
+    String cname;
+    String cmobile;
+    String cphone;
+    String cqq;
+    String cwechat;
     String address;
     String postcode;
     String website;
@@ -26,10 +31,58 @@ public class CustomerParams extends ObjectToMapInterface implements Serializable
     String revenue;
     String dealsCount;
     String contractsCount;
-    String tOpportunity;
+    String tOpportunityId;
     UserParams user;
     UserParams creator;
     String userId;
+
+    public String getCemail() {
+        return cemail;
+    }
+
+    public void setCemail(String cemail) {
+        this.cemail = cemail;
+    }
+
+    public String getCname() {
+        return cname;
+    }
+
+    public void setCname(String cname) {
+        this.cname = cname;
+    }
+
+    public String getCmobile() {
+        return cmobile;
+    }
+
+    public void setCmobile(String cmobile) {
+        this.cmobile = cmobile;
+    }
+
+    public String getCphone() {
+        return cphone;
+    }
+
+    public void setCphone(String cphone) {
+        this.cphone = cphone;
+    }
+
+    public String getCqq() {
+        return cqq;
+    }
+
+    public void setCqq(String cqq) {
+        this.cqq = cqq;
+    }
+
+    public String getCwechat() {
+        return cwechat;
+    }
+
+    public void setCwechat(String cwechat) {
+        this.cwechat = cwechat;
+    }
 
     public UserParams getUser() {
         return user;
@@ -56,11 +109,11 @@ public class CustomerParams extends ObjectToMapInterface implements Serializable
     }
 
     public String gettOpportunity() {
-        return tOpportunity;
+        return tOpportunityId;
     }
 
     public void settOpportunity(String opportunity) {
-        this.tOpportunity = opportunity;
+        this.tOpportunityId = opportunity;
     }
 
     public String getProperty() {
@@ -140,14 +193,6 @@ public class CustomerParams extends ObjectToMapInterface implements Serializable
 
     public void setFax(String fax) {
         this.fax = fax;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getAddress() {

@@ -32,6 +32,11 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ClueParams[] params) {
         //每次修改或者是添加只会有一条
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         if (params != null && params.length == 1) {
             success();
         }
@@ -39,6 +44,11 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(CustomerParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         if (params != null && params.length == 1) {
             success();
         }
@@ -46,6 +56,11 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(BusinessOpportunityParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         if (params != null && params.length == 1) {
             success();
         }
@@ -53,6 +68,11 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ContractParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         if (params != null && params.length == 1) {
             success();
         }
@@ -70,27 +90,11 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
         finish();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(Integer errorCode) {
-        ServerErrorUtil.handleServerError(errorCode);
-    }
-
-
-    /**
-     * 错误信息
-     *
-     * @param errorMsg
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void throwError(String errorMsg) {
-        ShowWidgetUtil.showLong(errorMsg);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_MANAGER){
-            viewDelegate.setManagerName(data.getStringExtra(Contants.EXTRA_EMPLOYER_NAME));
+            viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_EMPLOYER_NAME));
             mManagerId = data.getStringExtra(Contants.EXTRA_EMPLOYER_ID);
         }
     }

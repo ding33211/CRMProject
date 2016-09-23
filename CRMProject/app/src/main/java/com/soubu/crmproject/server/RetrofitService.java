@@ -3,6 +3,14 @@ package com.soubu.crmproject.server;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.common.ApiConfig;
 import com.soubu.crmproject.utils.ConvertUtil;
@@ -10,6 +18,12 @@ import com.soubu.crmproject.utils.PhoneUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -63,10 +77,40 @@ public class RetrofitService {
             synchronized (RetrofitService.class) {
                 if (api == null) {
                     initOkHttpClient();
+                    //特地对date做解析,防止出现date返回空字符串,无法解析的情况
+                    GsonBuilder gBuilder = new GsonBuilder();
+                    final DateFormat enUsFormat
+                            = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.US);
+                    final DateFormat localFormat
+                            = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT);
+                    gBuilder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+
+                        @Override
+                        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                            if(TextUtils.isEmpty(json.getAsString())){
+                                return null;
+                            }
+                            try {
+                                return localFormat.parse(json.getAsString());
+                            } catch (ParseException ignored) {
+                            }
+                            try {
+                                return enUsFormat.parse(json.getAsString());
+                            } catch (ParseException ignored) {
+                            }
+                            try {
+                                return ISO8601Utils.parse(json.getAsString(), new ParsePosition(0));
+                            } catch (ParseException e) {
+                                throw new JsonSyntaxException(json.getAsString(), e);
+                            }
+                        }
+                    });
+                    Gson gSon = gBuilder.create();
+
                     api = new Retrofit.Builder()
                             .client(mOkHttpClient)
                             .baseUrl(ApiConfig.API_HOST)
-                            .addConverterFactory(GsonConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create(gSon))
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                             .build().create(RetrofitApi.class);
                 }

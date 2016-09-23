@@ -1,5 +1,7 @@
 package com.soubu.crmproject.delegate;
 
+import android.view.View;
+
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.model.AddItem;
 
@@ -24,11 +26,19 @@ public class AddSomethingActivityDelegate extends BaseRecyclerViewActivityDelega
         mAdapter.notifyDataSetChanged();
     }
 
-    public void setManagerName(String name){
-        mAdapter.setLastClickedName(name);
+    public void setOnRelatedBusinessClickListener(View.OnClickListener listener){
+        mAdapter.setOnRelatedBusinessClickListener(listener);
     }
 
-    public void setCustomerName(String name){
+    public void setOnClientSignedClickListener(View.OnClickListener listener){
+        mAdapter.setOnClientSignedClickListener(listener);
+    }
+
+    public void setOnSignedClickListener(View.OnClickListener listener){
+        mAdapter.setOnSignedClickListener(listener);
+    }
+
+    public void setLastClickName(String name){
         mAdapter.setLastClickedName(name);
     }
 

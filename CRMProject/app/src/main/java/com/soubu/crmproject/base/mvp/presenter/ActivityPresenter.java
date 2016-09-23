@@ -24,8 +24,11 @@ import android.view.WindowManager;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.BaseActivity;
 import com.soubu.crmproject.base.mvp.view.IDelegate;
+import com.soubu.crmproject.server.ServerErrorUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 /**
@@ -132,4 +135,15 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
     }
 
     protected abstract Class<T> getDelegateClass();
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void throwError(Integer errorCode) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
+        ServerErrorUtil.handleServerError(errorCode);
+    }
+
 }

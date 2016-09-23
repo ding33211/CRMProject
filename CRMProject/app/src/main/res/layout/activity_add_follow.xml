@@ -320,6 +320,7 @@
                         android:layout_marginRight="8dp"
                         android:layout_toLeftOf="@+id/iv_follow_method"
                         android:textColor="@color/line_color"
+                        android:text="@string/required_choose"
                         android:textSize="16sp" />
                 </RelativeLayout>
 
@@ -363,6 +364,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="8dp"
                         android:layout_toLeftOf="@+id/iv_follow_time"
+                        android:text="@string/required_choose"
                         android:textColor="@color/line_color"
                         android:textSize="16sp" />
                 </RelativeLayout>
