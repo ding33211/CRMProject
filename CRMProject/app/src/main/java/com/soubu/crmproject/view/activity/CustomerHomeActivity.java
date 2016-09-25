@@ -18,7 +18,6 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
@@ -35,6 +34,8 @@ import java.util.List;
 public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener {
     CustomerParams mCustomerParams;
     private final int REQUEST_CHOOSE_EMPLOYEE = 1001;
+    private int mDealsCount = -1;
+    private int mContractCount = -1;
 
     @Override
     protected Class<Big4HomeActivityDelegate> getDelegateClass() {
@@ -47,11 +48,16 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         viewDelegate.setTitle(R.string.customer_home);
         viewDelegate.setFrom(Contants.FROM_CUSTOMER);
         mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
+        mDealsCount = Integer.valueOf(mCustomerParams.getDealsCount());
+        mContractCount = Integer.valueOf(mCustomerParams.getContractsCount());
         ((TextView) viewDelegate.get(R.id.tv_title)).setText(mCustomerParams.getName());
         ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(SearchUtil.searchCustomerPropertyArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerPropertyWebArray(this), mCustomerParams.getProperty())]);
         ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(SearchUtil.searchCustomerTypeArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerTypeWebArray(this), mCustomerParams.getType())]);
-        ((TextView) viewDelegate.get(R.id.tv_left_number)).setText(mCustomerParams.getDealsCount());
-        ((TextView) viewDelegate.get(R.id.tv_right_number)).setText(mCustomerParams.getContractsCount());
+    }
+
+    private void initCountView(){
+        ((TextView) viewDelegate.get(R.id.tv_left_number)).setText(mDealsCount + "");
+        ((TextView) viewDelegate.get(R.id.tv_right_number)).setText(mContractCount + "");
     }
 
     @Override
@@ -138,6 +144,9 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
             mLocation = mCustomerParams.getAddress();
             ContactDao contactDao = DBHelper.getInstance(this).getContactDao();
             for(ContactParams param : params){
+                if(TextUtils.isEmpty(param.getId())){
+                    continue;
+                }
                 List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Contact_id.eq(param.getId())).list();
                 if (list == null || list.size() == 0){
                     contactDao.insert(param.copyToContact());
@@ -153,6 +162,15 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshData(Integer key) {
+        if(key == Contants.EVENT_BUS_KEY_ADD_BUSINESS){
+            mDealsCount++;
+        } else if(key == Contants.EVENT_BUS_KEY_ADD_CONTRACT){
+            mContractCount++;
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -160,6 +178,7 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         RetrofitRequest.getInstance().getCustomerFollow(mCustomerParams.getId(), null, null, null, null, null);
         //获取客户名下联系人
         RetrofitRequest.getInstance().getContactList(null, mCustomerParams.getId());
+        initCountView();
     }
 
     @Override

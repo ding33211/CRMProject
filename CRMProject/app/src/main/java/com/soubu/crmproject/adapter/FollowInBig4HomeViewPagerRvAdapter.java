@@ -44,6 +44,8 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
     private int mYear;
     private int mMonth;
     private int mDay;
+    private CharSequence[] mFollowMethod;
+    private CharSequence[] mFollowMethodWeb;
 
 
     public FollowInBig4HomeViewPagerRvAdapter(int pos, int where, int which) {
@@ -60,6 +62,8 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        mFollowMethod = parent.getContext().getResources().getStringArray(R.array.follow_method);
+        mFollowMethodWeb = parent.getContext().getResources().getStringArray(R.array.follow_method_web);
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_clue_spec_viewpager_recyclerview, parent, false);
         View llDate = v.findViewById(R.id.ll_date);
         View bottomLine = v.findViewById(R.id.v_bottom_line);
@@ -84,7 +88,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
         if (mPos == POS_PLAN) {
             tvFollowState.setText(R.string.follow_function_with_colon);
         }
-        switch (mWhich){
+        switch (mWhich) {
             case Contants.FROM_CLUE:
                 v.findViewById(R.id.ll_related_two).setVisibility(View.GONE);
                 break;
@@ -102,6 +106,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
             holder1 = (ItemViewHolder) holder;
             holder1.tvTitle.setText(mList.get(position).getTitle());
             holder1.tvContent.setText(mList.get(position).getContent());
+            holder1.tvFollowMethod.setText(mFollowMethod[SearchUtil.searchInArray(mFollowMethodWeb, mList.get(position).getMethod())]);
             CharSequence[] arrays = null;
             CharSequence[] arrayWebs = null;
             String entityType = mList.get(position).getEntityType();
@@ -116,9 +121,9 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
                 arrays = SearchUtil.searchContractStateArray(context);
                 arrayWebs = SearchUtil.searchContractStateWebArray(context);
             }
-            if(!TextUtils.equals(entityType, Contants.FOLLOW_TYPE_OPPORTUNITY)){
+            if (!TextUtils.equals(entityType, Contants.FOLLOW_TYPE_OPPORTUNITY)) {
                 holder1.vContact.setVisibility(View.VISIBLE);
-                if(mList.get(position).getContact() != null){
+                if (mList.get(position).getContact() != null) {
                     holder1.tvContact.setText(mList.get(position).getContact().getName());
                 } else {
                     holder1.vContact.setVisibility(View.GONE);
@@ -221,6 +226,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
         TextView tvTime;
         TextView tvDate;
         TextView tvContact;
+        TextView tvFollowMethod;
         View vLast;
         View vContact;
         TextView tvLastState;
@@ -239,6 +245,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
             tvLastState = (TextView) itemView.findViewById(R.id.tv_follow_state_before);
             tvNowState = (TextView) itemView.findViewById(R.id.tv_follow_state_next);
             vContact = itemView.findViewById(R.id.ll_related_two);
+            tvFollowMethod = (TextView) itemView.findViewById(R.id.tv_follow_method);
         }
     }
 

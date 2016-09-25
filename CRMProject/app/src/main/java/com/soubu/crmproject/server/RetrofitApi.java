@@ -118,7 +118,7 @@ public interface RetrofitApi {
                                                                           @Query("order") String order,//顺序
                                                                           @Query("related") String related,//数据相关
                                                                           @Query("count") Integer count,//每页条数,默认10
-                                                                          @Query("customer") String customer,//客户id
+                                                                          @Query("customerId") String customer,//客户id
                                                                           @Query("q") String search);//搜索
 
 
@@ -146,7 +146,8 @@ public interface RetrofitApi {
                                                     @Query("order") String order,//顺序
                                                     @Query("related") String related,//数据相关
                                                     @Query("count") Integer count,
-                                                    @Query("q") String search);//每页条数,默认10
+                                                    @Query("q") String search,
+                                                    @Query("customerId") String customerId);//每页条数,默认10
 
     //添加合同
     @Headers({"Content-type:application/json"})

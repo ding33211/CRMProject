@@ -89,9 +89,9 @@ public class ContractActivity extends Big4AllActivityPresenter<ContractDelegate>
     @Override
     protected void doRequest(int pageNum) {
         if (mIfApproval) {
-            RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, "NOT_STARTED", mSort, mOrder, mRelated, null, null);
+            RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, "NOT_STARTED", mSort, mOrder, mRelated, null, null, mCustomerId);
         } else {
-            RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, mReviewState, mSort, mOrder, mRelated, null, null);
+            RetrofitRequest.getInstance().getContractList(pageNum, mType, mPayMethod, mStatus, mReceivedPayType, mReviewState, mSort, mOrder, mRelated, null, null, mCustomerId);
         }
     }
 

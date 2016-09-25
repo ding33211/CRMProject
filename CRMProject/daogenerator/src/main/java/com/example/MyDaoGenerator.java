@@ -77,7 +77,7 @@ public class MyDaoGenerator {
         contact.addDateProperty("createdAt");
         contact.addDateProperty("updatedAt");
         contact.addDateProperty("touchedAt");
-        contact.addIntProperty("touchedCount");
+        contact.addStringProperty("touchedCount");
         contact.addStringProperty("contact_id");
 
 //        //产品表

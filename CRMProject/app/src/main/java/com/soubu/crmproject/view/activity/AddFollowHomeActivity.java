@@ -213,7 +213,7 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
                 mEventBusJustForThis = true;
                 break;
             case Contants.TYPE_CONTRACT:
-                request.getContractList(pageNum, null, null, null, null, null, null, null, null, null, null);
+                request.getContractList(pageNum, null, null, null, null, null, null, null, null, null, null, null);
                 mEventBusJustForThis = true;
                 break;
         }

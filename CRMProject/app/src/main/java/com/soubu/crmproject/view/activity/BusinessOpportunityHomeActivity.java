@@ -38,6 +38,8 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
     CustomerParams mCustomerParams;
     CharSequence[] mStateArray;
     CharSequence[] mStateArrayWeb;
+    private final int REQUEST_TRANSFER = 1002;
+
 
     @Override
     protected Class<Big4HomeActivityDelegate> getDelegateClass() {
@@ -73,9 +75,9 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
         intent.putExtra(Contants.EXTRA_CONTRACT, params);
         intent.putExtra(Contants.EXTRA_BUSINESS_ID, mBusinessOpportunityParams.getId());
         intent.putExtra(Contants.EXTRA_BUSINESS_NAME, mBusinessOpportunityParams.getTitle());
-        intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mBusinessOpportunityParams.getCustomer());
+        intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mBusinessOpportunityParams.getCustomer().getId());
         intent.putExtra(Contants.EXTRA_TRANSFER, true);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_TRANSFER);
     }
 
     @Override
@@ -169,6 +171,12 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
             switch (requestCode){
                 case Big4HomeActivityDelegate.REQUEST_ADD_FOLLOW:
                     transfer();
+                    break;
+                case REQUEST_TRANSFER:
+                    Intent intent = new Intent(this, ContractHomeActivity.class);
+                    intent.putExtra(Contants.EXTRA_CONTRACT, data.getSerializableExtra(Contants.EXTRA_CONTRACT));
+                    startActivity(intent);
+                    finish();
                     break;
             }
         }

@@ -53,7 +53,7 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
                         Log.e("xxxxxxxxxxxxxx", "xxxxxxxxxxx " + map);
                         if(map.size() > 0) {
                             mEventBusJustForThis = true;
-                            RetrofitRequest.getInstance().updateContact(mContactParams.getCustomerId(), map);
+                            RetrofitRequest.getInstance().updateContact(mContactParams.getId(), map);
                         }
                     } else {
                         mEventBusJustForThis = true;

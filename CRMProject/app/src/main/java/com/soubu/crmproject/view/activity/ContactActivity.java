@@ -37,6 +37,11 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
     List<ContactParams> mList;
     private int mIndex = -1;
     private int mFrom = -1;
+    private int mGoto = -1;
+    private static final int GO_TO_ADD = 0x00;
+    private static final int GO_TO_EDIT = 0x01;
+    private ContactDao mContactDao;
+    private String mCustomerId;
 
     @Override
     protected Class<ContactActivityDelegate> getDelegateClass() {
@@ -47,6 +52,8 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
     protected void initToolbar() {
         super.initToolbar();
         mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, -1);
+        mCustomerId = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_ID);
+        mContactDao = DBHelper.getInstance(this).getContactDao();
     }
 
     @Override
@@ -56,6 +63,7 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
             viewDelegate.setRightMenuOne(R.drawable.btn_add, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mGoto = GO_TO_ADD;
                     Intent intent = new Intent(ContactActivity.this, AddContactActivity.class);
                     intent.putExtra(Contants.EXTRA_CUSTOMER_ID, getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_ID));
                     intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_NAME));
@@ -86,6 +94,7 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
                     setResult(RESULT_OK, intent);
                     finish();
                 } else {
+                    mGoto = GO_TO_EDIT;
                     Intent intent = new Intent(ContactActivity.this, ContactSpecActivity.class);
                     intent.putExtra(Contants.EXTRA_CONTACT, param);
                     intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_NAME));
@@ -138,8 +147,7 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
     @Override
     protected void initData() {
         super.initData();
-        ContactDao contactDao = DBHelper.getInstance(this).getContactDao();
-        List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_ID)))
+        List<Contact> list = mContactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(mCustomerId))
                 .orderDesc(ContactDao.Properties.TouchedAt).list();
         mList = new ArrayList<>();
         for (Contact contact : list) {
@@ -152,6 +160,9 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
     protected void onResume() {
         super.onResume();
 //        getList(true);
+        if(mGoto == GO_TO_EDIT){
+            initData();
+        }
         Log.e("xxxxxxxx", "onResume");
     }
 
@@ -170,6 +181,9 @@ public class ContactActivity extends ActivityPresenter<ContactActivityDelegate> 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ContactParams[] params) {
+        if(mGoto != GO_TO_ADD){
+            return;
+        }
 //        List<ContactParams> list = Arrays.asList(params);
         Log.e("xxxxxxxxxx", "    params[0]   " + params[0]);
         mList.add(params[0]);

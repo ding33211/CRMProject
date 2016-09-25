@@ -13,7 +13,9 @@ import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
+import com.soubu.crmproject.widget.customcalendar.Event;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -23,6 +25,8 @@ import org.greenrobot.eventbus.ThreadMode;
 public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSomethingActivityDelegate>{
     String mManagerId;
     boolean mFromEdit;
+    //是否是线索转客户,商机转合同
+    boolean mTransfer;
 
     @Override
     protected Class<AddSomethingActivityDelegate> getDelegateClass() {
@@ -50,6 +54,11 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
             mEventBusJustForThis = false;
         }
         if (params != null && params.length == 1) {
+            if(mTransfer){
+                Intent intent = new Intent();
+                intent.putExtra(Contants.EXTRA_CUSTOMER, params[0]);
+                setResult(RESULT_OK, intent);
+            }
             success();
         }
     }
@@ -62,6 +71,9 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
             mEventBusJustForThis = false;
         }
         if (params != null && params.length == 1) {
+            if(!mFromEdit && !mTransfer){
+                EventBus.getDefault().post(Contants.EVENT_BUS_KEY_ADD_BUSINESS);
+            }
             success();
         }
     }
@@ -74,6 +86,13 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
             mEventBusJustForThis = false;
         }
         if (params != null && params.length == 1) {
+            if(!mFromEdit && !mTransfer){
+                EventBus.getDefault().post(Contants.EVENT_BUS_KEY_ADD_CONTRACT);
+            } else if(mTransfer){
+                Intent intent = new Intent();
+                intent.putExtra(Contants.EXTRA_CONTRACT, params[0]);
+                setResult(RESULT_OK, intent);
+            }
             success();
         }
     }

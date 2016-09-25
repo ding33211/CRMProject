@@ -35,7 +35,7 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         public final static Property CreatedAt = new Property(10, java.util.Date.class, "createdAt", false, "CREATED_AT");
         public final static Property UpdatedAt = new Property(11, java.util.Date.class, "updatedAt", false, "UPDATED_AT");
         public final static Property TouchedAt = new Property(12, java.util.Date.class, "touchedAt", false, "TOUCHED_AT");
-        public final static Property TouchedCount = new Property(13, Integer.class, "touchedCount", false, "TOUCHED_COUNT");
+        public final static Property TouchedCount = new Property(13, String.class, "touchedCount", false, "TOUCHED_COUNT");
         public final static Property Contact_id = new Property(14, String.class, "contact_id", false, "CONTACT_ID");
     };
 
@@ -65,7 +65,7 @@ public class ContactDao extends AbstractDao<Contact, Long> {
                 "\"CREATED_AT\" INTEGER," + // 10: createdAt
                 "\"UPDATED_AT\" INTEGER," + // 11: updatedAt
                 "\"TOUCHED_AT\" INTEGER," + // 12: touchedAt
-                "\"TOUCHED_COUNT\" INTEGER," + // 13: touchedCount
+                "\"TOUCHED_COUNT\" TEXT," + // 13: touchedCount
                 "\"CONTACT_ID\" TEXT);"); // 14: contact_id
     }
 
@@ -143,7 +143,7 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         if (touchedAt != null) {
             stmt.bindLong(13, touchedAt.getTime());
         }
-
+ 
         String touchedCount = entity.getTouchedCount();
         if (touchedCount != null) {
             stmt.bindString(14, touchedCount);

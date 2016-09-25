@@ -2,6 +2,8 @@ package com.soubu.crmproject.server;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.model.BackSalesParams;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
@@ -16,6 +18,9 @@ import com.soubu.crmproject.utils.ConvertUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,8 +51,6 @@ public class RetrofitRequest {
     }
 
 
-
-
     private <T> void enqueueClue(Call<GetPageResp<T>> call, final boolean needEventPost) {
         call.enqueue(new Callback<GetPageResp<T>>() {
             @Override
@@ -57,16 +60,34 @@ public class RetrofitRequest {
 //                    Log.e(TAG, "empty!!!!!!!!!");
 //                    return;
 //                }
-                if(response.code() != HttpURLConnection.HTTP_OK){
+                if (response.code() != HttpURLConnection.HTTP_OK) {
+                    BufferedReader reader = null;
+                    StringBuilder sb = new StringBuilder();
+                    try {
+                        reader = new BufferedReader(new InputStreamReader(response.errorBody().byteStream()));
+                        String line;
+                        try {
+                            while ((line = reader.readLine()) != null) {
+                                sb.append(line);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    String finallyError = sb.toString();
+                    Log.e(TAG, "errorbody  :   " + finallyError);
                     EventBus.getDefault().post(response.code());
                     return;
                 }
                 //由于存在errorCode, 暂时不适用status去判断成功与失败
 //                int status = response.body().getStatus();
 //                if (status == ApiConfig.RELUST_OK) {
-                    if (needEventPost) {
-                        EventBus.getDefault().post(response.body().getResult().data);
-                    }
+                if (needEventPost) {
+                    EventBus.getDefault().post(response.body().getResult().data);
+                }
 //                    return;
 //                } else {
 //                    if (response.body().errors != null) {
@@ -121,7 +142,6 @@ public class RetrofitRequest {
 
     /**
      * 获取线索列表
-     *
      */
     public void getClueList(Integer page, String source, String status, String sort, String order, String related, Integer count, String search) {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
@@ -132,7 +152,6 @@ public class RetrofitRequest {
 
     /**
      * 获取线索公海列表
-     *
      */
     public void getClueHighSeasList(Integer page, String source, String status, String sort, String order, Integer count, String search) {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
@@ -157,7 +176,6 @@ public class RetrofitRequest {
 
     /**
      * 获取线索列表
-     *
      */
     public void rushClue(String id) {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
@@ -182,7 +200,7 @@ public class RetrofitRequest {
     /**
      * 转移线索
      *
-     * @param id  线索id
+     * @param id     线索id
      * @param userId 转移人id
      */
     public void transferClue(String id, String userId) {
@@ -245,7 +263,7 @@ public class RetrofitRequest {
     /**
      * 转移客户
      *
-     * @param id  客户id
+     * @param id     客户id
      * @param userId 转移人id
      */
     public void transferCustomer(String id, String userId) {
@@ -298,10 +316,10 @@ public class RetrofitRequest {
     /**
      * 获取合同列表
      */
-    public void getContractList(Integer page, String type, String payMethod, String status, String receivedPayMethod, String reviewState, String sort, String order, String related, Integer count, String search) {
+    public void getContractList(Integer page, String type, String payMethod, String status, String receivedPayMethod, String reviewState, String sort, String order, String related, Integer count, String search, String customerId) {
         Call<GetPageResp<ContractParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getContract(type, payMethod, status, receivedPayMethod, reviewState, page, sort, order, related, count, search);
+                .getContract(type, payMethod, status, receivedPayMethod, reviewState, page, sort, order, related, count, search, customerId);
         enqueueClue(call, true);
     }
 
@@ -448,7 +466,7 @@ public class RetrofitRequest {
     /**
      * 联系联系人
      *
-     * @param id  联系人id
+     * @param id 联系人id
      */
     public void touchContact(String id) {
         Call<GetPageResp<ContactParams[]>> call = RetrofitService.getInstance()

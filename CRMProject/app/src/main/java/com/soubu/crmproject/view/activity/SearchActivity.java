@@ -86,7 +86,7 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                         mIsRefresh = true;
                         break;
                     case Contants.FROM_CONTRACT:
-                        request.getContractList(null, null, null, null, null, null, null, null, null, null, s.toString());
+                        request.getContractList(null, null, null, null, null, null, null, null, null, null, s.toString(), null);
                         mIsRefresh = true;
                         break;
                     case Contants.FROM_CLUE_HIGH_SEAS:

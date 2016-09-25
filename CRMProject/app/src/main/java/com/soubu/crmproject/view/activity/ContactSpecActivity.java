@@ -10,6 +10,8 @@ import android.view.View;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.base.greendao.Contact;
+import com.soubu.crmproject.base.greendao.ContactDao;
+import com.soubu.crmproject.base.greendao.DBHelper;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
@@ -142,14 +144,26 @@ public class ContactSpecActivity extends ActivityPresenter<SpecActivityDelegate>
         viewDelegate.setTitle(R.string.contact_spec);
     }
 
-    /**
-     * 监听Clue请求回调
-     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(ContactParams[] params) {
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
         List<ContactParams> list = Arrays.asList(params);
         mContactParams = list.get(0);
         initContactParams(mContactParams);
+        ContactDao contactDao =  DBHelper.getInstance(getApplicationContext()).getContactDao();
+        List<Contact> contactList = contactDao.queryBuilder().where(ContactDao.Properties.Contact_id.eq(mContactParams.getId())).list();
+        if(contactList != null && contactList.size() > 0){
+            Contact contact = mContactParams.copyToContact();
+            contact.setId(contactList.get(0).getId());
+            contactDao.update(contact);
+        } else {
+            Contact contact = mContactParams.copyToContact();
+            contactDao.insert(contact);
+        }
     }
 
     @Override
@@ -158,6 +172,7 @@ public class ContactSpecActivity extends ActivityPresenter<SpecActivityDelegate>
         viewDelegate.setSettingText(R.string.edit, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mEventBusJustForThis = true;
                 Intent intent = new Intent(ContactSpecActivity.this, AddContactActivity.class);
                 intent.putExtra(Contants.EXTRA_CONTACT, mContactParams);
                 intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_NAME));

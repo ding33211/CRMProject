@@ -37,7 +37,6 @@ public class AddContractActivity extends Big4AddActivityPresenter {
     private String mContactName;
     private String mSignedId;
     private String mSignedName;
-    private boolean mTransfer = false;
     public static final int REQUEST_CODE_CHOOSE_BUSINESS = 1110;
     public static final int REQUEST_CODE_CHOOSE_CLIENT_SIGNED = 1111;
     public static final int REQUEST_CODE_CHOOSE_SIGNED = 1112;
@@ -400,7 +399,6 @@ public class AddContractActivity extends Big4AddActivityPresenter {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-
             switch (requestCode) {
                 case AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_CUSTOMER:
                     mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);

@@ -188,6 +188,7 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
         contact.setWechat(wechat);
         contact.setTouchedAt(touchedAt);
         contact.setTouchedCount(touchedCount);
+        contact.setCustomer_name(customer.name);
         return contact;
     }
 
@@ -206,6 +207,9 @@ public class ContactParams extends ObjectToMapInterface implements Serializable,
             return false;
         }
         if(!TextUtils.equals(contact.getCustomer(), customer.id)){
+            return false;
+        }
+        if(!TextUtils.equals(contact.getCustomer_name(), customer.name)){
             return false;
         }
         if(!TextUtils.equals(contact.getDepartment(), department)){

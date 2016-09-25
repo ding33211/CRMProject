@@ -81,6 +81,10 @@ public class Contants {
     public static final String EXTRA_EMPLOYER_ID = "EMPLOYER_ID";
     public static final String EXTRA_EMPLOYER_NAME = "EMPLOYER_NAME";
 
+    public static final int EVENT_BUS_KEY_ADD_BUSINESS = 0x00;
+    public static final int EVENT_BUS_KEY_ADD_CONTRACT = 0x01;
+
+
 
 
 

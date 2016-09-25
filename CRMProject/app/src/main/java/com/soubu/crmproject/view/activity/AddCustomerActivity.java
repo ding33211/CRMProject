@@ -25,8 +25,7 @@ import java.util.Map;
 public class AddCustomerActivity extends Big4AddActivityPresenter {
     private List<AddItem> mList;
     private CustomerParams mCustomerParams;
-    //是否是线索转客户
-    private boolean mTransfer;
+
 
     @Override
     protected void initToolbar() {

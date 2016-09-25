@@ -34,6 +34,7 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
     CharSequence[] mStateArrayWeb;
 
     private final int REQUEST_CHOOSE_EMPLOYEE = 1001;
+    private final int REQUEST_TRANSFER = 1002;
 
     @Override
     protected Class<Big4HomeActivityDelegate> getDelegateClass() {
@@ -78,7 +79,7 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
         params.settOpportunity(mClueParams.getId());
         intent.putExtra(Contants.EXTRA_CUSTOMER, params);
         intent.putExtra(Contants.EXTRA_TRANSFER, true);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_TRANSFER);
     }
 
     @Override
@@ -197,6 +198,12 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
             switch (requestCode) {
                 case Big4HomeActivityDelegate.REQUEST_ADD_FOLLOW:
                     transfer();
+                    break;
+                case REQUEST_TRANSFER:
+                    Intent intent = new Intent(this, CustomerHomeActivity.class);
+                    intent.putExtra(Contants.EXTRA_CUSTOMER, data.getSerializableExtra(Contants.EXTRA_CUSTOMER));
+                    startActivity(intent);
+                    finish();
                     break;
                 case REQUEST_CHOOSE_EMPLOYEE:
                     ShowWidgetUtil.showLong(getString(R.string.transfer_success_message, mClueParams.getCompanyName(), data.getStringExtra(Contants.EXTRA_TRANSFER_NAME)));

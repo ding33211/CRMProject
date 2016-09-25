@@ -24,7 +24,6 @@ import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
@@ -250,7 +249,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                         }
                         mFollowParams.setFollowupAt(mFollowTime.getTime());
                         viewDelegate.giveTextViewString(R.id.tv_follow_time, ConvertUtil.dateToYYYY_MM_DD_HH_mm(mFollowTime.getTime()));
-                        ((TextView)viewDelegate.get(R.id.tv_follow_method)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
+                        ((TextView)viewDelegate.get(R.id.tv_follow_time)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
                     }
                 }, mFollowTime.get(Calendar.HOUR_OF_DAY), mFollowTime.get(Calendar.MINUTE), true);
                 new DatePickerDialog(this,
@@ -303,7 +302,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                         public void onClick(DialogInterface dialog, int which) {
                             mFollowParams.setContactId(mContactsList.get(which).getContact_id());
                             ((TextView)viewDelegate.get(R.id.tv_expected_contract)).setText(mContactsList.get(which).getName());
-                            ((TextView)viewDelegate.get(R.id.tv_follow_method)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
+                            ((TextView)viewDelegate.get(R.id.tv_expected_contract)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
                         }
                     }).setCancelable(true).show();
 
@@ -336,6 +335,14 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mEventBusJustForThis = false;
             }
             ShowWidgetUtil.showShort(R.string.add_follow_success);
+            if(viewDelegate.isTransferChecked()){
+                if(mFrom == Contants.FROM_CLUE){
+                    //此处返回OK,就说明用户选择了同步转换
+                    setResult(RESULT_OK, null);
+                } else {
+                    setResult(RESULT_OK, null);
+                }
+            }
             finish();
         }
     }
