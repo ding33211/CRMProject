@@ -42,6 +42,10 @@ public class AddSomethingActivityDelegate extends BaseRecyclerViewActivityDelega
         mAdapter.setLastClickedName(name);
     }
 
+    public void setCustomerName(String name){
+        mAdapter.setCustomerName(name);
+    }
+
     public List<AddItem> getData(){
         return mAdapter.getData();
     }

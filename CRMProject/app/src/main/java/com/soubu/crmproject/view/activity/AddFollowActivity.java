@@ -137,7 +137,13 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_CUSTOMER);
                 viewDelegate.giveTextViewString(R.id.tv_related_one, customerParams.getName());
                 viewDelegate.giveTextViewString(R.id.tv_related_one_label, getString(R.string.follow_customer));
-                viewDelegate.get(R.id.rl_state).setVisibility(View.GONE);
+//                viewDelegate.get(R.id.rl_state).setVisibility(View.GONE);
+                mStateArrayRes = R.array.customer_status;
+                mStateArray = getResources().getTextArray(mStateArrayRes);
+                mStateArrayWeb = getResources().getTextArray(R.array.customer_status_web);
+                state = mStateArray[SearchUtil.searchInArray(mStateArrayWeb, customerParams.getStatus())].toString();
+                viewDelegate.giveTextViewString(R.id.tv_state, state);
+                mFollowParams.setStatus(customerParams.getStatus());
                 mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(customerParams.getId()))
                         .orderDesc(ContactDao.Properties.TouchedAt).list();
                 return;

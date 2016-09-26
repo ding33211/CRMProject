@@ -19,6 +19,7 @@ import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
+import com.soubu.crmproject.utils.RegularUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
@@ -153,7 +154,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
         }
         item.setArrayRes(R.array.business_opportunity_type);
         item.setWebArrayRes(R.array.business_opportunity_type_web);
-        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.business_opportunity_status);
@@ -224,7 +225,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
 //                businessOpportunityParams.setProduct(item.getContent());
 //                continue;
 //            }
-            if (item.getTitleRes() == R.string.signing_amount) {
+            if (item.getTitleRes() == R.string.signing_amount && RegularUtil.isInteger(item.getContent())) {
                 businessOpportunityParams.setAmountPrice(item.getContent());
                 continue;
             }

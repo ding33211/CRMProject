@@ -19,8 +19,8 @@ android {
         applicationId "com.soubu.crmproject"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 1000
+        versionName "1.0.0"
         buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
 
         //参数说明
@@ -45,23 +45,23 @@ android {
     }
 
     buildTypes {
-//        release {
-//            buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
-//            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-////            applicationVariants.all { variant ->
-////                variant.outputs.each { output ->
-////                    def outputFile = output.outputFile
-////                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-////                        // 输出apk名称为crm_v1.0_2015-01-15.apk
-////                        def fileName = "crm_v${defaultConfig.versionName}_${releaseTime()}.apk"
-////                        output.outputFile = new File(outputFile.parent, fileName)
-////                    }
-////                }
-////            }
-////            signingConfig signingConfigs.release
-//
-//        }
+        release {
+            buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为crm_v1.0_2015-01-15.apk
+                        def fileName = "crm_v${defaultConfig.versionName}_${releaseTime()}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+            signingConfig signingConfigs.release
+
+        }
 
         debug {
             versionNameSuffix "-debug"

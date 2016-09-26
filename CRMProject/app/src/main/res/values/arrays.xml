@@ -153,6 +153,7 @@
     </string-array>
 
     <string-array name="customer_status">
+        <item>未接洽</item>
         <item>初访</item>
         <item>意向</item>
         <item>报价</item>
@@ -161,6 +162,7 @@
     </string-array>
 
     <string-array name="customer_status_web">
+        <item>NOT_CONTACTED</item>
         <item>CONTACTED</item>
         <item>INTENTION</item>
         <item>OFFER</item>
@@ -198,6 +200,15 @@
         <item>赢单</item>
         <item>输单</item>
         <item>已转合同</item>
+    </string-array>
+
+    <string-array name="business_opportunity_status_without_transfer">
+        <item>初步接洽</item>
+        <item>需求确定</item>
+        <item>方案/报价</item>
+        <item>谈判/合同</item>
+        <item>赢单</item>
+        <item>输单</item>
     </string-array>
 
     <string-array name="business_opportunity_filter">

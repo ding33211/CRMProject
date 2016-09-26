@@ -63,6 +63,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     private int mMobilePos = -1;
     private int mEmailPos = -1;
     private int mTelPos = -1;
+    private int mRelatedCustomer = -1;
 
     //防止出现编辑框没有转化成数据,就点击了保存的情况
     private View mVStillFocus;
@@ -148,6 +149,9 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         }
         if (mList.get(position).getTitleRes() == R.string.phone) {
             mTelPos = position;
+        }
+        if(mList.get(position).getTitleRes() == R.string.related_customer){
+            mRelatedCustomer = position;
         }
         ItemViewHolder holder1 = (ItemViewHolder) holder;
         holder1.etContent.setInputType(mList.get(holder.getLayoutPosition()).getEditTextType() | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
@@ -253,7 +257,6 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
         @Override
         public void onClick(View v) {
             int viewType = getItemViewType();
-            View ivAction = v.findViewById(R.id.iv_action);
             switch (viewType) {
                 case TYPE_ITEM_REQUIRED_FILL:
                 case TYPE_ITEM_CAN_FILL:
@@ -261,7 +264,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                     tvAction.setVisibility(View.INVISIBLE);
                     etContent.setVisibility(View.VISIBLE);
                     WindowUtil.showSoftInput(v.getContext(), etContent);
-                    etContent.setTag(getAdapterPosition());
+                    etContent.setTag(getLayoutPosition());
                     etContent.setSelection(etContent.getText().length());
                     v.setTag(viewType);
                     etContent.setTag(v);
@@ -269,8 +272,8 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 case TYPE_ITEM_CAN_CHOOSE_DATE:
                 case TYPE_ITEM_REQUIRED_CHOOSE_DATE:
                     final Calendar c = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
-                    if (mList.get(getAdapterPosition()).getDate() != null) {
-                        c.setTime(mList.get(getAdapterPosition()).getDate());
+                    if (mList.get(getLayoutPosition()).getDate() != null) {
+                        c.setTime(mList.get(getLayoutPosition()).getDate());
                     }
                     new DatePickerDialog(mActivity,
                             // 绑定监听器
@@ -281,13 +284,13 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                                                       int monthOfYear, int dayOfMonth) {
                                     Calendar chooseC = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
                                     chooseC.set(year, monthOfYear, dayOfMonth);
-                                    if (mList.get(getAdapterPosition()).getTitleRes() == R.string.signed_date) {
+                                    if (mList.get(getLayoutPosition()).getTitleRes() == R.string.signed_date) {
                                         if (chooseC.getTimeInMillis() - c.getTimeInMillis() > 24 * 3600 * 1000) {
                                             ShowWidgetUtil.showShort(R.string.signed_date_choose_error_message);
                                             return;
                                         }
                                     }
-                                    mList.get(getAdapterPosition()).setDate(chooseC.getTime());
+                                    mList.get(getLayoutPosition()).setDate(chooseC.getTime());
                                     notifyDataSetChanged();
                                 }
                             }
@@ -297,39 +300,39 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                     break;
                 case TYPE_ITEM_CAN_CHOOSE:
                 case TYPE_ITEM_REQUIRED_CHOOSE:
-                    if (mList.get(getAdapterPosition()).getTitleRes() == R.string.manager) {
+                    if (mList.get(getLayoutPosition()).getTitleRes() == R.string.manager) {
                         Intent intent = new Intent(mActivity, ChooseEmployeeActivity.class);
                         intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
                         mActivity.startActivityForResult(intent, REQUEST_CODE_CHOOSE_MANAGER);
-                        mLastClickPosBeforeLeave = getAdapterPosition();
-                    } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.related_customer) {
+                        mLastClickPosBeforeLeave = getLayoutPosition();
+                    } else if (mList.get(getLayoutPosition()).getTitleRes() == R.string.related_customer) {
                         Intent intent = new Intent(mActivity, CustomerActivity.class);
                         intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
                         mActivity.startActivityForResult(intent, REQUEST_CODE_CHOOSE_CUSTOMER);
-                        mLastClickPosBeforeLeave = getAdapterPosition();
-                    } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.related_business_opportunity) {
+                        mLastClickPosBeforeLeave = getLayoutPosition();
+                    } else if (mList.get(getLayoutPosition()).getTitleRes() == R.string.related_business_opportunity) {
                         if (mRelatedBusinessClickListener != null) {
                             mRelatedBusinessClickListener.onClick(v);
-                            mLastClickPosBeforeLeave = getAdapterPosition();
+                            mLastClickPosBeforeLeave = getLayoutPosition();
                         }
-                    } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.client_signed_person) {
+                    } else if (mList.get(getLayoutPosition()).getTitleRes() == R.string.client_signed_person) {
                         if (mClientSignedClickListener != null) {
                             mClientSignedClickListener.onClick(v);
-                            mLastClickPosBeforeLeave = getAdapterPosition();
+                            mLastClickPosBeforeLeave = getLayoutPosition();
                         }
-                    } else if (mList.get(getAdapterPosition()).getTitleRes() == R.string.signed_person) {
+                    } else if (mList.get(getLayoutPosition()).getTitleRes() == R.string.signed_person) {
                         if (mSignedClickListener != null) {
                             mSignedClickListener.onClick(v);
-                            mLastClickPosBeforeLeave = getAdapterPosition();
+                            mLastClickPosBeforeLeave = getLayoutPosition();
                         }
                     } else {
-                        final AddItem item = mList.get(getAdapterPosition());
+                        final AddItem item = mList.get(getLayoutPosition());
                         if (item.getArrayRes() != 0 && item.getWebArrayRes() != 0) {
                             ShowWidgetUtil.showMultiItemDialog(mActivity, item.getTitleRes(), item.getArrayRes(), false, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     CharSequence[] webArray = mActivity.getResources().getTextArray(item.getWebArrayRes());
-                                    mList.get(getAdapterPosition()).setContent(webArray[which].toString());
+                                    mList.get(getLayoutPosition()).setContent(webArray[which].toString());
                                     notifyDataSetChanged();
                                     dialog.dismiss();
                                 }
@@ -398,6 +401,12 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
 
     public void setLastClickedName(String name) {
         mList.get(mLastClickPosBeforeLeave).setContent(name);
+        notifyDataSetChanged();
+    }
+
+    //用户新建合同，选择完商机，客户自动填上名字
+    public void setCustomerName(String name){
+        mList.get(mRelatedCustomer).setContent(name);
         notifyDataSetChanged();
     }
 

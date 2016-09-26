@@ -133,7 +133,7 @@ public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         mCustomerParams = params[0];
         //取本地数据库中的该客户的联系人列表
         ContactDao contactDao = DBHelper.getInstance(this).getContactDao();
-        List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(mContractParams.getCustomer()))
+        List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(mCustomerParams.getId()))
                 .orderDesc(ContactDao.Properties.TouchedAt).list();
         List<ContactParams> contactList = new ArrayList<>();
         for(Contact contact : list){

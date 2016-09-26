@@ -57,15 +57,18 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
     protected void bindEvenListener() {
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this, R.id.ll_go_left, R.id.ll_go_right);
-        viewDelegate.setSettingMenuListener(R.menu.business_opportunity_home, new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.action_to_contract){
-                    transfer();
+        if(!TextUtils.equals(mBusinessOpportunityParams.getStatus(), SearchUtil.searchBusinessOpportunityStateWebArray(getApplicationContext())[6])){
+            viewDelegate.setSettingMenuListener(R.menu.business_opportunity_home, new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if(item.getItemId() == R.id.action_to_contract){
+                        transfer();
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
+
     }
 
     private void transfer(){
@@ -122,7 +125,7 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
         mCustomerParams = params[0];
         //取本地数据库中的该客户的联系人列表
         ContactDao contactDao = DBHelper.getInstance(this).getContactDao();
-        List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(mBusinessOpportunityParams.getCustomer()))
+        List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(mCustomerParams.getId()))
                 .orderDesc(ContactDao.Properties.TouchedAt).list();
         List<ContactParams> contactList = new ArrayList<>();
         for(Contact contact : list){

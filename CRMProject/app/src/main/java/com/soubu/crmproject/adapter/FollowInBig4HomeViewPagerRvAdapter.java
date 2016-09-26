@@ -93,7 +93,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
                 v.findViewById(R.id.ll_related_two).setVisibility(View.GONE);
                 break;
             case Contants.FROM_CUSTOMER:
-                v.findViewById(R.id.ll_follow_state).setVisibility(View.GONE);
+//                v.findViewById(R.id.ll_follow_state).setVisibility(View.GONE);
                 break;
         }
         return new ItemViewHolder(v);
@@ -120,6 +120,9 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
             } else if (TextUtils.equals(entityType, Contants.FOLLOW_TYPE_CONTRACT)) {
                 arrays = SearchUtil.searchContractStateArray(context);
                 arrayWebs = SearchUtil.searchContractStateWebArray(context);
+            } else if(TextUtils.equals(entityType, Contants.FOLLOW_TYPE_CUSTOMER)){
+                arrays = SearchUtil.searchCustomerStateArray(context);
+                arrayWebs = SearchUtil.searchCustomerStateWebArray(context);
             }
             if (!TextUtils.equals(entityType, Contants.FOLLOW_TYPE_OPPORTUNITY)) {
                 holder1.vContact.setVisibility(View.VISIBLE);
@@ -129,26 +132,26 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
                     holder1.vContact.setVisibility(View.GONE);
                 }
             }
-            if (!TextUtils.equals(entityType, Contants.FOLLOW_TYPE_CUSTOMER)) {
-                if (position == getItemCount() - 1) {
+//            if (!TextUtils.equals(entityType, Contants.FOLLOW_TYPE_CUSTOMER)) {
+            if (position == getItemCount() - 1) {
+                holder1.vLast.setVisibility(View.GONE);
+                if (arrays != null && arrayWebs != null) {
+                    holder1.tvNowState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position).getStatus())]);
+                }
+            } else {
+                if (TextUtils.equals(mList.get(position).getStatus(), mList.get(position + 1).getStatus())) {
                     holder1.vLast.setVisibility(View.GONE);
                     if (arrays != null && arrayWebs != null) {
                         holder1.tvNowState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position).getStatus())]);
                     }
                 } else {
-                    if (TextUtils.equals(mList.get(position).getStatus(), mList.get(position + 1).getStatus())) {
-                        holder1.vLast.setVisibility(View.GONE);
-                        if (arrays != null && arrayWebs != null) {
-                            holder1.tvNowState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position).getStatus())]);
-                        }
-                    } else {
-                        holder1.vLast.setVisibility(View.VISIBLE);
-                        if (arrays != null && arrayWebs != null) {
-                            holder1.tvNowState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position).getStatus())]);
-                            holder1.tvLastState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position + 1).getStatus())]);
-                        }
+                    holder1.vLast.setVisibility(View.VISIBLE);
+                    if (arrays != null && arrayWebs != null) {
+                        holder1.tvNowState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position).getStatus())]);
+                        holder1.tvLastState.setText(arrays[SearchUtil.searchInArray(arrayWebs, mList.get(position + 1).getStatus())]);
                     }
                 }
+//                }
             }
             holder1.tvDate.setText(ConvertUtil.dateToYYYY_MM_DD_EEEE(mList.get(position).getFollowupAt()));
             holder1.tvTime.setText(ConvertUtil.dateToHH_mm(mList.get(position).getFollowupAt()));

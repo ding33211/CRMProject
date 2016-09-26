@@ -237,8 +237,8 @@
     <string name="clue_high_seas">线索公海</string>
     <string name="transfer_customer_now">同步转为客户</string>
     <string name="transfer_contract_now">同步转为合同</string>
-    <string name="succeed_rush_clue_message">您已成功抢到客户: %s</string>
-    <string name="look_clue_spec">查看客户详情</string>
+    <string name="succeed_rush_clue_message">您已成功抢到线索: %s</string>
+    <string name="look_clue_spec">查看线索详情</string>
     <string name="continue_rush">继续抢</string>
     <string name="choose_transfer">选择转移人</string>
     <string name="choose_manager">选择负责人</string>

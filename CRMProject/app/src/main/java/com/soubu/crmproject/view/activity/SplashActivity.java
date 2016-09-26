@@ -76,11 +76,12 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
                 RetrofitRequest.getInstance().getStaffList();
                 mEventBusJustForThis = true;
             } else {
+                //欢迎界面停两秒用以处理后期加载
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(3000);
+                            Thread.sleep(2000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

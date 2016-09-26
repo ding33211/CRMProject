@@ -27,9 +27,9 @@ public class ContractRvAdapter extends BaseBig4RvAdapter<ContractParams> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof BaseBig4RvAdapter.ItemViewHolder){
             ((ItemViewHolder) holder).title.setText(mList.get(position).getTitle());
-            ((ItemViewHolder) holder).subTitle.setText(mList.get(position).getAmountPrice());
+            ((ItemViewHolder) holder).subTitle.setText(mList.get(position).getCustomer().getName());
             ((ItemViewHolder) holder).state.setText(getStatusArray()[SearchUtil.searchInArray(getStatusWebArray(), mList.get(position).getStatus())]);
-            ((ItemViewHolder) holder).subRight.setText(mList.get(position).getCustomer().getName());
+//            ((ItemViewHolder) holder).subRight.setText(mList.get(position).getCustomer().getName());
             String state = mList.get(position).getReviewStatus();
             ((ItemViewHolder) holder).ivStateNoOrWait.setVisibility(View.GONE);
             ((ItemViewHolder) holder).ivStateYes.setVisibility(View.GONE);

@@ -136,6 +136,7 @@ public class RegisterActivity extends ActivityPresenter<RegisterActivityDelegate
             case R.id.btn_register:
                 UserParams params = new UserParams();
                 if (viewDelegate.verify(params)) {
+                    mEventBusJustForThis = true;
                     RetrofitRequest.getInstance().register(params);
                 }
                 break;

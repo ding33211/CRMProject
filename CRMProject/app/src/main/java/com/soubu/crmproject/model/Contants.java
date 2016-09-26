@@ -21,6 +21,8 @@ public class Contants {
     public static final int TYPE_BUSINESS_OPPORTUNITY = 0x02;
     public static final int TYPE_CONTRACT = 0x03;
     public static final int TYPE_HIGH_SEAS = 0x04;
+    //还没有转成合同的商机
+    public static final int TYPE_NO_TRANSFER_BUSINESS = 0x05;
 
 
 

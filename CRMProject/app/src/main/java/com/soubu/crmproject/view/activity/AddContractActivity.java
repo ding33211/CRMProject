@@ -1,6 +1,8 @@
 package com.soubu.crmproject.view.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,6 +11,9 @@ import android.view.View;
 import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
+import com.soubu.crmproject.base.greendao.Contact;
+import com.soubu.crmproject.base.greendao.ContactDao;
+import com.soubu.crmproject.base.greendao.DBHelper;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.Contants;
@@ -70,19 +75,15 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                 }
             }
         });
+        //一开始有就有，没有就一直没有
+        final String customerIdForChooseBusiness = mCustomerId;
         viewDelegate.setOnRelatedBusinessClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddContractActivity.this, BusinessOpportunityActivity.class);
                 intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
-                intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerId);
+                intent.putExtra(Contants.EXTRA_CUSTOMER_ID, customerIdForChooseBusiness);
                 startActivityForResult(intent, REQUEST_CODE_CHOOSE_BUSINESS);
-            }
-        });
-        viewDelegate.setOnSignedClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
         viewDelegate.setOnClientSignedClickListener(new View.OnClickListener() {
@@ -91,11 +92,30 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                 if (TextUtils.isEmpty(mCustomerId)) {
                     ShowWidgetUtil.showShort(R.string.please_choose_related_business_first);
                     return;
+                } else {
+                    final List<Contact> contactsList = DBHelper.getInstance(getApplicationContext()).getContactDao().queryBuilder().where(ContactDao.Properties.Customer.eq(mCustomerId))
+                            .orderDesc(ContactDao.Properties.TouchedAt).list();
+                    if (contactsList.size() > 0) {
+                        String[] items = new String[contactsList.size()];
+                        for (int i = 0; i < contactsList.size(); i++) {
+                            items[i] = contactsList.get(i).getName();
+                        }
+                        new AlertDialog.Builder(AddContractActivity.this).setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mContactId = contactsList.get(which).getContact_id();
+                                viewDelegate.setLastClickName(contactsList.get(which).getName());
+                            }
+                        }).setCancelable(true).show();
+                    } else {
+                        ShowWidgetUtil.showLong(R.string.customer_has_no_contact);
+                    }
                 }
-                Intent intent = new Intent(AddContractActivity.this, ContactActivity.class);
-                intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerId);
-                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
-                startActivityForResult(intent, REQUEST_CODE_CHOOSE_CLIENT_SIGNED);
+
+//                Intent intent = new Intent(AddContractActivity.this, ContactActivity.class);
+//                intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerId);
+//                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_ADD_SOMETHING_ACTIVITY);
+//                startActivityForResult(intent, REQUEST_CODE_CHOOSE_CLIENT_SIGNED);
             }
         });
         viewDelegate.setOnSignedClickListener(new View.OnClickListener() {
@@ -145,18 +165,6 @@ public class AddContractActivity extends Big4AddActivityPresenter {
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_FILL);
         mList.add(item);
-//        item = new AddItem();
-//        item.setTitleRes(R.string.related_customer);
-//        if(!TextUtils.isEmpty(mCustomerName)){
-//            item.setContent(mCustomerName);
-//            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_UNABLE);
-//        } else {
-//            if (mFromEdit && mContractParams.getCustomer() != null && !TextUtils.isEmpty(mContractParams.getCustomer().getName())) {
-//                item.setContent(mContractParams.getCustomer().getName());
-//            }
-//            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
-//        }
-//        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.related_business_opportunity);
         if (!TextUtils.isEmpty(mBusinessName)) {
@@ -168,6 +176,19 @@ public class AddContractActivity extends Big4AddActivityPresenter {
             }
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         }
+        mList.add(item);
+        item = new AddItem();
+        item.setTitleRes(R.string.related_customer);
+        if(!TextUtils.isEmpty(mCustomerName)) {
+            item.setContent(mCustomerName);
+        }
+        item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_UNABLE);
+//        } else {
+//            if (mFromEdit && mContractParams.getCustomer() != null && !TextUtils.isEmpty(mContractParams.getCustomer().getName())) {
+//                item.setContent(mContractParams.getCustomer().getName());
+//            }
+//            item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
+//        }
         mList.add(item);
 //        item = new AddItem();
 //        item.setTitleRes(R.string.related_product);
@@ -407,12 +428,13 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                 case REQUEST_CODE_CHOOSE_BUSINESS:
                     mBusinessId = data.getStringExtra(Contants.EXTRA_BUSINESS_ID);
                     mCustomerId = data.getStringExtra(Contants.EXTRA_CUSTOMER_ID);
+                    viewDelegate.setCustomerName(data.getStringExtra(Contants.EXTRA_CUSTOMER_NAME));
                     viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_BUSINESS_NAME));
                     break;
-                case REQUEST_CODE_CHOOSE_CLIENT_SIGNED:
-                    mContactId = data.getStringExtra(Contants.EXTRA_CONTACT_ID);
-                    viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_CONTACT_NAME));
-                    break;
+//                case REQUEST_CODE_CHOOSE_CLIENT_SIGNED:
+//                    mContactId = data.getStringExtra(Contants.EXTRA_CONTACT_ID);
+//                    viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_CONTACT_NAME));
+//                    break;
                 case REQUEST_CODE_CHOOSE_SIGNED:
                     mSignedId = data.getStringExtra(Contants.EXTRA_EMPLOYER_ID);
                     viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_EMPLOYER_NAME));

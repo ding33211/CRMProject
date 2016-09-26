@@ -190,6 +190,10 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
+    public void startSwipeRefresh(){
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
+
     public void registerSwipeRefreshCallBack(SwipeRefreshAndLoadMoreCallBack callBack){
         //big4的共有方法
     }

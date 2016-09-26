@@ -71,6 +71,14 @@ public class SearchUtil {
         return context.getResources().getStringArray(R.array.customer_property_web);
     }
 
+    public static CharSequence[] searchCustomerStateArray(Context context){
+        return context.getResources().getStringArray(R.array.customer_status);
+    }
+
+    public static CharSequence[] searchCustomerStateWebArray(Context context){
+        return context.getResources().getStringArray(R.array.customer_status_web);
+    }
+
     public static CharSequence[] searchBusinessOpportunityStateArray(Context context){
         return context.getResources().getStringArray(R.array.business_opportunity_status);
     }

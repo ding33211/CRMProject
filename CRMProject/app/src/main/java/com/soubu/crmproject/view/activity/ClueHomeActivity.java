@@ -51,21 +51,24 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
     protected void bindEvenListener() {
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this, R.id.ll_go_left);
-        viewDelegate.setSettingMenuListener(R.menu.clue_home, new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.action_for_other) {
-                    Intent intent = new Intent(ClueHomeActivity.this, ChooseEmployeeActivity.class);
-                    intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CLUE);
-                    intent.putExtra(Contants.EXTRA_PARAM_ID, mClueParams.getId());
-                    startActivityForResult(intent, REQUEST_CHOOSE_EMPLOYEE);
+        if(!TextUtils.equals(mClueParams.getStatus(), SearchUtil.searchClueStateWebArray(getApplicationContext())[3])){
+            viewDelegate.setSettingMenuListener(R.menu.clue_home, new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.action_for_other) {
+                        Intent intent = new Intent(ClueHomeActivity.this, ChooseEmployeeActivity.class);
+                        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CLUE);
+                        intent.putExtra(Contants.EXTRA_PARAM_ID, mClueParams.getId());
+                        startActivityForResult(intent, REQUEST_CHOOSE_EMPLOYEE);
+                    }
+                    if (item.getItemId() == R.id.action_to_customer) {
+                        transfer();
+                    }
+                    return false;
                 }
-                if (item.getItemId() == R.id.action_to_customer) {
-                    transfer();
-                }
-                return false;
-            }
-        });
+            });
+        }
+
     }
 
     private void transfer() {
@@ -103,6 +106,7 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
         mStateArray = getResources().getStringArray(R.array.clue_status);
         mStateArrayWeb = getResources().getStringArray(R.array.clue_status_web);
         ClueParams param = (ClueParams) getIntent().getSerializableExtra(Contants.EXTRA_CLUE);
+
         initView(param);
 
     }

@@ -82,4 +82,13 @@ public class RegularUtil {
     public static boolean isMatch(String regex, String string) {
         return !TextUtils.isEmpty(string) && Pattern.matches(regex, string);
     }
+
+    //字符串是否是整数,此处如果位空字符串,返回false
+    public static boolean isInteger(String str) {
+        if(TextUtils.isEmpty(str)){
+            return false;
+        }
+        Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+        return pattern.matcher(str).matches();
+    }
 }

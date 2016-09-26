@@ -2,9 +2,11 @@ package com.soubu.crmproject.view.activity;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.base.greendao.Contact;
 import com.soubu.crmproject.delegate.BusinessOpportunityActivityDelegate;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.ClueParams;
@@ -12,6 +14,7 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.server.ServerErrorUtil;
+import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -46,7 +49,7 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
         super.initToolbar();
         mCustomerId = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_ID);
         mCustomerName = getIntent().getStringExtra(Contants.EXTRA_CUSTOMER_NAME);
-        if (!TextUtils.isEmpty(mCustomerName)) {
+        if (!TextUtils.isEmpty(mCustomerId)) {
             viewDelegate.setTitle(R.string.business_opportunity);
         } else {
             viewDelegate.setTitle(R.string.all_business_opportunity);
@@ -58,7 +61,18 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(BusinessOpportunityParams[] params) {
-        List<BusinessOpportunityParams> list = Arrays.asList(params);
+        List<BusinessOpportunityParams> list = new ArrayList<>(Arrays.asList(params));
+        if (mFrom == Contants.FROM_ADD_SOMETHING_ACTIVITY) {
+            //如果是从新增合同过来的，那么商机只显示没有转成合同的供选择
+            String transfer = SearchUtil.searchBusinessOpportunityStateWebArray(getApplicationContext())[6].toString();
+            for (int i = 0; i < list.size(); i++) {
+                if (TextUtils.equals(list.get(i).getStatus(), transfer)) {
+                    Log.e("xxxxxxxsize", list.size() + "    i :   " + i);
+                    list.remove(i);
+                    i--;
+                }
+            }
+        }
         viewDelegate.setData(list, mIsRefresh);
         if (mIsRefresh) {
             mIsRefresh = false;
@@ -74,8 +88,10 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
 
     @Override
     protected String[][] getChildrenArray() {
-        return new String[][]{getResources().getStringArray(R.array.business_opportunity_type), getResources().getStringArray(R.array.clue_source),
-                getResources().getStringArray(R.array.business_opportunity_status), getResources().getStringArray(R.array.clue_related)};
+        return new String[][]{getResources().getStringArray(R.array.business_opportunity_type),
+                getResources().getStringArray(R.array.clue_source),
+                getResources().getStringArray(mFrom == Contants.FROM_ADD_SOMETHING_ACTIVITY ? R.array.business_opportunity_status_without_transfer : R.array.business_opportunity_status),
+                getResources().getStringArray(R.array.clue_related)};
     }
 
     @Override
@@ -96,6 +112,7 @@ public class BusinessOpportunityActivity extends Big4AllActivityPresenter<Busine
             intent.putExtra(Contants.EXTRA_BUSINESS_ID, params.getId());
             intent.putExtra(Contants.EXTRA_BUSINESS_NAME, params.getTitle());
             intent.putExtra(Contants.EXTRA_CUSTOMER_ID, params.getCustomer().getId());
+            intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, params.getCustomer().getName());
             setResult(RESULT_OK, intent);
             finish();
         } else {

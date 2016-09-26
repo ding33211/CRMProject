@@ -24,14 +24,16 @@
     <RelativeLayout
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:text="张雨"
             android:textColor="@color/title_black"
             android:textSize="16sp" />
@@ -42,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_name"
             android:layout_below="@+id/tv_name"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_department"
@@ -75,8 +78,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_below="@+id/ll_subtitle"
-            android:layout_marginTop="12dp"
+            android:layout_below="@+id/tv_name"
             android:background="@color/item_line_grey" />
     </RelativeLayout>
 </LinearLayout>

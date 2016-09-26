@@ -48,7 +48,7 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         super.initData();
         mContractParams = (ContractParams) getIntent().getSerializableExtra(Contants.EXTRA_CONTRACT);
         mIfApproval = getIntent().getIntExtra(Contants.EXTRA_FROM, -1) == Contants.FROM_CONTRACT_APPROVAL;
-        if(mIfApproval){
+        if (mIfApproval) {
             viewDelegate.setApprovalVisible();
         }
         mStateArray = SearchUtil.searchContractStateArray(getApplicationContext());
@@ -67,14 +67,15 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
         initItem(contractParams.getTitle(), R.string.contract_title, true);
-        if(contractParams.getCustomer() != null){
-            initItem(contractParams.getCustomer().getName(), R.string.related_customer, hasTop ? false : true);
-        }
-        if(contractParams.getDeal() != null){
+        if (contractParams.getDeal() != null) {
             initItem(contractParams.getDeal().getTitle(), R.string.related_business_opportunity, hasTop ? false : true);
         }
+        if (contractParams.getCustomer() != null) {
+            initItem(contractParams.getCustomer().getName(), R.string.related_customer, hasTop ? false : true);
+        }
+
 //        initItem(contractParams.getProduct(), R.string.related_product, hasTop ? false : true);
-        if(!hasTop){
+        if (!hasTop) {
             mList.remove(mList.size() - 1);
         } else {
             hasTop = false;
@@ -98,7 +99,7 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         initItem(ConvertUtil.dateToYYYY_MM_DD(contractParams.getClosedAt()), R.string.signed_date, hasTop ? false : true);
 //        initItem(contractParams.getAttachments().toString(), R.string.contract_attachments, hasTop ? false : true);
         initItem(contractParams.getNote(), R.string.remark, hasTop ? false : true);
-        if(!hasTop){
+        if (!hasTop) {
             mList.remove(mList.size() - 1);
         } else {
             hasTop = false;
@@ -116,9 +117,9 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         addItem.setTitleRes(R.string.manager_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        if(contractParams.getUser() != null && !TextUtils.isEmpty(contractParams.getUser().getUserName())){
+        if (contractParams.getUser() != null && !TextUtils.isEmpty(contractParams.getUser().getUserName())) {
             initItem(contractParams.getUser().getUserName(), R.string.manager, true);
-        } else if(contractParams.getCreator() != null && !TextUtils.isEmpty(contractParams.getCreator().getUserName())){
+        } else if (contractParams.getCreator() != null && !TextUtils.isEmpty(contractParams.getCreator().getUserName())) {
             initItem(contractParams.getCreator().getUserName(), R.string.manager, true);
         } else {
             initItem(CrmApplication.getContext().getName(), R.string.manager, true);

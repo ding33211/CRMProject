@@ -105,6 +105,7 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
     @Override
     protected void onResume() {
         super.onResume();
+        viewDelegate.startSwipeRefresh();
         getList(true);
     }
 

@@ -139,7 +139,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
             item = new AddItem();
             item.setTitleRes(R.string.email);
             item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
-            item.setEditTextType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
+            item.setEditTextType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
             mList.add(item);
             item = new AddItem();
             item.setTitleRes(R.string.qq);
