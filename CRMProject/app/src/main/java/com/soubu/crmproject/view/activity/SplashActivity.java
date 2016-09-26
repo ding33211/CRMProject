@@ -72,26 +72,28 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, REQUEST_LOGIN);
         } else {
-            if(mStaffDao.count() == 0){
-                RetrofitRequest.getInstance().getStaffList();
-                mEventBusJustForThis = true;
-            } else {
+//            if(mStaffDao.count() == 0){
+//                mEventBusJustForThis = true;
+//                RetrofitRequest.getInstance().getStaffList();
+//            } else {
                 //欢迎界面停两秒用以处理后期加载
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(1500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+                        mEventBusJustForThis = true;
+                        RetrofitRequest.getInstance().getStaffList();
+//                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+//                        startActivity(intent);
+//                        finish();
                     }
                 }).start();
 
-            }
+//            }
         }
     }
 
@@ -104,6 +106,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
             mEventBusJustForThis = false;
         }
         Log.e("mStaffDao.count()", mStaffDao.count() + "");
+        mStaffDao.deleteAll();
         if(params != null && params.length > 0){
             //如果有token,实际拿到的是登录成功的回调
             if(!TextUtils.isEmpty(params[0].getToken())){

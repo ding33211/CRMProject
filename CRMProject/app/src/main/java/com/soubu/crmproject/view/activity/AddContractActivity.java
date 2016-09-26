@@ -20,6 +20,7 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
+import com.soubu.crmproject.utils.RegularUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
@@ -367,7 +368,7 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                 contractParams.setSerialNumber(item.getContent());
                 continue;
             }
-            if (item.getTitleRes() == R.string.contract_amount_price) {
+            if (item.getTitleRes() == R.string.contract_amount_price  && RegularUtil.isInteger(item.getContent())) {
                 contractParams.setAmountPrice(item.getContent());
             }
             if (item.getTitleRes() == R.string.contract_status) {

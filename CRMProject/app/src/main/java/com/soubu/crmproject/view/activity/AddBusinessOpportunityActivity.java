@@ -114,7 +114,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
 //        mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.signing_amount);
-        if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getAmountPrice())) {
+        if (mFromEdit && !TextUtils.isEmpty(mBusinessOpportunityParams.getAmountPrice()) && TextUtils.equals(mBusinessOpportunityParams.getAmountPrice(), "0")) {
             item.setContent(mBusinessOpportunityParams.getAmountPrice());
         }
         item.setEditTextType(InputType.TYPE_CLASS_NUMBER);
