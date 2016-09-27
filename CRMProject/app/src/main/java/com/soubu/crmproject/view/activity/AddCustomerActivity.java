@@ -231,7 +231,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
             customerParams = new CustomerParams();
         }
         for (AddItem item : list) {
-            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || item.getItemType() == AddSomethingRvAdapter.TYPE_OTHER) {
+            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || item.getItemType() == AddSomethingRvAdapter.TYPE_OTHER || TextUtils.isEmpty(item.getContent())) {
                 continue;
             }
             if (item.getTitleRes() == R.string.customer_name) {

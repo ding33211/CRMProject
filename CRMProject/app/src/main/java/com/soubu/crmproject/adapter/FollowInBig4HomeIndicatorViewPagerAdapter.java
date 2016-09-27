@@ -3,6 +3,7 @@ package com.soubu.crmproject.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,9 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
 
     private FollowInBig4HomeViewPagerRvAdapter mAdapter0;
     private FollowInBig4HomeViewPagerRvAdapter mAdapter1;
+
+    private View mEmptyView0;
+    private View mEmptyView1;
 
 
     public FollowInBig4HomeIndicatorViewPagerAdapter(int which) {
@@ -60,8 +64,10 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         if(position == 0){
             recyclerView.setAdapter(mAdapter0);
+            mEmptyView0 = convertView.findViewById(R.id.ll_empty);
         } else {
             recyclerView.setAdapter(mAdapter1);
+            mEmptyView1 = convertView.findViewById(R.id.ll_empty);
         }
         return convertView;
     }
@@ -73,9 +79,20 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
 
     public void setViewPagerData(int pos, List<FollowParams> list){
         if (pos == 0){
+            Log.e("xxxxxxxxxx", list.isEmpty() + "");
             mAdapter0.setData(list);
+            if(list.isEmpty()){
+                mEmptyView0.setVisibility(View.VISIBLE);
+            } else {
+                mEmptyView0.setVisibility(View.GONE);
+            }
         } else {
             mAdapter1.setData(list);
+            if(list.isEmpty()){
+                mEmptyView1.setVisibility(View.VISIBLE);
+            } else {
+                mEmptyView1.setVisibility(View.GONE);
+            }
         }
     }
 }

@@ -79,6 +79,7 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
         intent.putExtra(Contants.EXTRA_BUSINESS_ID, mBusinessOpportunityParams.getId());
         intent.putExtra(Contants.EXTRA_BUSINESS_NAME, mBusinessOpportunityParams.getTitle());
         intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mBusinessOpportunityParams.getCustomer().getId());
+        intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, mBusinessOpportunityParams.getCustomer().getName());
         intent.putExtra(Contants.EXTRA_TRANSFER, true);
         startActivityForResult(intent, REQUEST_TRANSFER);
     }
@@ -176,6 +177,7 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
                     transfer();
                     break;
                 case REQUEST_TRANSFER:
+                    ShowWidgetUtil.showLong(R.string.transfer_contract_succeed_message);
                     Intent intent = new Intent(this, ContractHomeActivity.class);
                     intent.putExtra(Contants.EXTRA_CONTRACT, data.getSerializableExtra(Contants.EXTRA_CONTRACT));
                     startActivity(intent);

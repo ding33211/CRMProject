@@ -102,10 +102,14 @@ public interface RetrofitApi {
     @PUT("customers/{id}")
     Call<GetPageResp<CustomerParams[]>> updateCustomer(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
 
-    //转移线索
+    //转移客户
     @FormUrlEncoded
     @PUT("customers/{id}/transfer")
     Call<GetPageResp<CustomerParams[]>> transferCustomer(@Path("id") String id, @FieldMap Map<String, String> names, @Header("sign") String sign);
+
+    //转入客户公海
+    @PUT("customers/{id}/public")
+    Call<GetPageResp<CustomerParams[]>> throwToCustomerHighSeas(@Path("id") String id, @Header("sign") String sign);
 
 
     //获取商机
@@ -245,15 +249,31 @@ public interface RetrofitApi {
     //获取线索公海
     @GET("opportunities/public")
     Call<GetPageResp<ClueParams[]>> getClueHighSeas(@Query("source") String source,//线索来源
-                                            @Query("status") String status,//线索状态
-                                            @Query("page") Integer page,//页数
-                                            @Query("sort") String sort,//排序项
-                                            @Query("order") String order,//顺序
-                                            @Query("count") Integer count, //每页条数,默认10
-                                            @Query("q") String search);//搜索
+                                                    @Query("status") String status,//线索状态
+                                                    @Query("page") Integer page,//页数
+                                                    @Query("sort") String sort,//排序项
+                                                    @Query("order") String order,//顺序
+                                                    @Query("count") Integer count, //每页条数,默认10
+                                                    @Query("q") String search);//搜索
 
-
-    //获取线索公海
+    //获取员工列表
     @GET("users")
     Call<GetPageResp<UserParams[]>> getStaffList();
+
+    //获取客户公海
+    @GET("customers/public")
+    Call<GetPageResp<CustomerParams[]>> getCustomerHighSeas(@Query("type") String type,//客户类型
+                                                        @Query("source") String source,//线索来源
+                                                        @Query("size") String size,//规模
+                                                        @Query("industry") String industry,//行业
+                                                        @Query("status") String status,//客户状态
+                                                        @Query("page") Integer page,//页数
+                                                        @Query("sort") String sort,//排序项
+                                                        @Query("order") String order,//顺序
+                                                        @Query("count") Integer count,//每页条数,默认10
+                                                        @Query("q") String search);//搜索
+
+    //抢客户公海
+    @PUT("customers/{id}/grab")
+    Call<GetPageResp<CustomerParams[]>> rushCustomerHighSeas(@Path("id") String id, @Header("sign") String sign);
 }

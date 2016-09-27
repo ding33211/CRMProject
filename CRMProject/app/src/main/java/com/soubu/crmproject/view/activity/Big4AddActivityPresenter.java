@@ -101,9 +101,9 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
         if(isFinishing()){
             return;
         }
-        if (mFromEdit) {
+        if (mFromEdit && !mTransfer) {
             ShowWidgetUtil.showLong(R.string.edit_params_succeed_message);
-        } else {
+        } else if (!mTransfer){
             ShowWidgetUtil.showLong(R.string.add_params_succeed_message);
         }
         finish();

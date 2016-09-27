@@ -210,7 +210,7 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
             businessOpportunityParams = new BusinessOpportunityParams();
         }
         for (AddItem item : list) {
-            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || item.getItemType() == AddSomethingRvAdapter.TYPE_OTHER) {
+            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || TextUtils.isEmpty(item.getContent())) {
                 continue;
             }
             if (item.getTitleRes() == R.string.business_opportunity_title) {

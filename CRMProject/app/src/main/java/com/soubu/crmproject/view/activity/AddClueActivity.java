@@ -190,7 +190,7 @@ public class AddClueActivity extends Big4AddActivityPresenter {
         if (mFromEdit && mClueParams.getUser() != null && !TextUtils.isEmpty(mClueParams.getUser().getUserName())) {
             item.setContent(mClueParams.getUser().getUserName());
             mManagerId = mClueParams.getUser().getId();
-        } else if(mFromEdit && mClueParams.getCreator() != null && !TextUtils.isEmpty(mClueParams.getUser().getUserName())){
+        } else if (mFromEdit && mClueParams.getCreator() != null && !TextUtils.isEmpty(mClueParams.getUser().getUserName())) {
             item.setContent(mClueParams.getCreator().getUserName());
             mManagerId = mClueParams.getCreator().getId();
         } else {
@@ -233,7 +233,7 @@ public class AddClueActivity extends Big4AddActivityPresenter {
             clueParams = new ClueParams();
         }
         for (AddItem item : list) {
-            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || item.getItemType() == AddSomethingRvAdapter.TYPE_OTHER) {
+            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || TextUtils.isEmpty(item.getContent())) {
                 continue;
             }
             if (item.getTitleRes() == R.string.name) {
@@ -288,7 +288,7 @@ public class AddClueActivity extends Big4AddActivityPresenter {
                 continue;
             }
             if (item.getTitleRes() == R.string.manager) {
-                if(!TextUtils.isEmpty(mManagerId)){
+                if (!TextUtils.isEmpty(mManagerId)) {
                     clueParams.setUserId(mManagerId);
                 }
                 continue;

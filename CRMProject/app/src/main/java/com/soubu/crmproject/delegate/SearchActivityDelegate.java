@@ -26,7 +26,7 @@ public class SearchActivityDelegate extends BaseRecyclerViewActivityDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        switch (mType){
+        switch (mType) {
             case Contants.FROM_CLUE:
                 mClueAdapter = new ClueRvAdapter(getActivity().getApplicationContext(), false);
                 setListAdapter(mClueAdapter);
@@ -36,7 +36,11 @@ public class SearchActivityDelegate extends BaseRecyclerViewActivityDelegate {
                 setListAdapter(mClueAdapter);
                 break;
             case Contants.FROM_CUSTOMER:
-                mCustomerAdapter = new CustomerRvAdapter(getActivity().getApplicationContext());
+                mCustomerAdapter = new CustomerRvAdapter(getActivity().getApplicationContext(), false);
+                setListAdapter(mCustomerAdapter);
+                break;
+            case Contants.FROM_CUSTOMER_HIGH_SEAS:
+                mCustomerAdapter = new CustomerRvAdapter(getActivity().getApplicationContext(), true);
                 setListAdapter(mCustomerAdapter);
                 break;
             case Contants.FROM_BUSINESS_OPPORTUNITY:
@@ -51,43 +55,47 @@ public class SearchActivityDelegate extends BaseRecyclerViewActivityDelegate {
     }
 
 
-    public void setOnClueClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+    public void setOnClueClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
         mClueAdapter.setOnItemClickListener(listener);
     }
 
-    public void setOnClueRushClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+    public void setOnClueRushClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
         mClueAdapter.setOnRushClickListener(listener);
     }
 
-    public void setOnCustomerClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+    public void setOnCustomerClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
         mCustomerAdapter.setOnItemClickListener(listener);
     }
 
-    public void setOnBusinessOpportunityClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+    public void setOnCustomerRushClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
+        mCustomerAdapter.setOnRushClickListener(listener);
+    }
+
+    public void setOnBusinessOpportunityClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
         mBusinessOpportunityRvAdapter.setOnItemClickListener(listener);
     }
 
-    public void setOnContractClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+    public void setOnContractClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
         mContractRvAdapter.setOnItemClickListener(listener);
     }
 
-    public void setType(int type){
+    public void setType(int type) {
         mType = type;
     }
 
-    public ClueParams getClueParams(int pos){
+    public ClueParams getClueParams(int pos) {
         return mClueAdapter.getParams(pos);
     }
 
-    public CustomerParams getCustomerParams(int pos){
+    public CustomerParams getCustomerParams(int pos) {
         return mCustomerAdapter.getParams(pos);
     }
 
-    public BusinessOpportunityParams getBusinessOpportunityParams(int pos){
+    public BusinessOpportunityParams getBusinessOpportunityParams(int pos) {
         return mBusinessOpportunityRvAdapter.getParams(pos);
     }
 
-    public ContractParams getContractParams(int pos){
+    public ContractParams getContractParams(int pos) {
         return mContractRvAdapter.getParams(pos);
     }
 
@@ -108,25 +116,25 @@ public class SearchActivityDelegate extends BaseRecyclerViewActivityDelegate {
 //        }
 //    }
 
-    public void setClue(List<ClueParams> list, boolean isRefresh){
+    public void setClue(List<ClueParams> list, boolean isRefresh) {
         mClueAdapter.setData(list, isRefresh);
         mClueAdapter.notifyDataSetChanged();
         ifDataEmpty(list.isEmpty());
     }
 
-    public void setCustomer(List<CustomerParams> list, boolean isRefresh){
+    public void setCustomer(List<CustomerParams> list, boolean isRefresh) {
         mCustomerAdapter.setData(list, isRefresh);
         mCustomerAdapter.notifyDataSetChanged();
         ifDataEmpty(list.isEmpty());
     }
 
-    public void setBusinessOpportunity(List<BusinessOpportunityParams> list, boolean isRefresh){
+    public void setBusinessOpportunity(List<BusinessOpportunityParams> list, boolean isRefresh) {
         mBusinessOpportunityRvAdapter.setData(list, isRefresh);
         mBusinessOpportunityRvAdapter.notifyDataSetChanged();
         ifDataEmpty(list.isEmpty());
     }
 
-    public void setContract(List<ContractParams> list, boolean isRefresh){
+    public void setContract(List<ContractParams> list, boolean isRefresh) {
         mContractRvAdapter.setData(list, isRefresh);
         mContractRvAdapter.notifyDataSetChanged();
         ifDataEmpty(list.isEmpty());

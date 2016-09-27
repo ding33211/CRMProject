@@ -27,8 +27,9 @@ public class CustomerRvAdapter extends BaseBig4RvAdapter<CustomerParams> {
     private CharSequence[] mPropertyArray;
     private CharSequence[] mPropertyWebArray;
 
-    public CustomerRvAdapter(Context context) {
+    public CustomerRvAdapter(Context context, Boolean ifHighSeas) {
         mContext = context;
+        mIfHighSeas = ifHighSeas;
         mTypeArray = SearchUtil.searchCustomerTypeArray(context);
         mTypeWebArray = SearchUtil.searchCustomerTypeWebArray(context);
         mPropertyArray = SearchUtil.searchCustomerPropertyArray(context);

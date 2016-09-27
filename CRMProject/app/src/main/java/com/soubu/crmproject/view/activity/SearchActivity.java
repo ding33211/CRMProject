@@ -93,6 +93,10 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                         request.getClueHighSeasList(null, null, null, null, null, null, s.toString());
                         mIsRefresh = true;
                         break;
+                    case Contants.FROM_CUSTOMER_HIGH_SEAS:
+                        request.getCustomerHighSeasList(null, null, null, null, null, null, null, null, null, s.toString());
+                        mIsRefresh = true;
+                        break;
                 }
             }
         });
@@ -163,16 +167,35 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                 viewDelegate.setOnClueClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int pos) {
-                        Intent intent = new Intent(SearchActivity.this, ClueHomeActivity.class);
+                        Intent intent = new Intent(SearchActivity.this, ClueSpecActivity.class);
                         intent.putExtra(Contants.EXTRA_CLUE, viewDelegate.getClueParams(pos));
+                        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CLUE_HIGH_SEAS);
                         startActivity(intent);
                     }
                 });
-
                 viewDelegate.setOnClueRushClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int pos) {
                         RetrofitRequest.getInstance().rushClue(viewDelegate.getClueParams(pos).getId());
+                        mRushAction = true;
+                    }
+                });
+                break;
+
+            case Contants.FROM_CUSTOMER_HIGH_SEAS:
+                viewDelegate.setOnCustomerClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int pos) {
+                        Intent intent = new Intent(SearchActivity.this, CustomerSpecActivity.class);
+                        intent.putExtra(Contants.EXTRA_CUSTOMER, viewDelegate.getCustomerParams(pos));
+                        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
+                        startActivity(intent);
+                    }
+                });
+                viewDelegate.setOnCustomerRushClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int pos) {
+                        RetrofitRequest.getInstance().rushCustomer(viewDelegate.getCustomerParams(pos).getId());
                         mRushAction = true;
                     }
                 });
@@ -216,10 +239,32 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(CustomerParams[] params) {
-        List<CustomerParams> list = Arrays.asList(params);
-        viewDelegate.setCustomer(list, mIsRefresh);
-        if (mIsRefresh) {
-            mIsRefresh = false;
+        if (mRushAction) {
+            if (params != null && params.length > 0) {
+                final CustomerParams params1 = params[0];
+                new android.app.AlertDialog.Builder(this).setMessage(getString(R.string.succeed_rush_customer_message, params1.getName()))
+                        .setPositiveButton(R.string.look_customer_spec, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(SearchActivity.this, CustomerSpecActivity.class);
+                                intent.putExtra(Contants.EXTRA_CUSTOMER, params1);
+                                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton(R.string.continue_rush, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RetrofitRequest.getInstance().getCustomerHighSeasList(null, null, null, null, null, null, null, null, null, ((EditText) viewDelegate.get(R.id.et_search)).getText().toString());
+                    }
+                }).setCancelable(false).show();
+            }
+            mRushAction = false;
+        } else {
+            List<CustomerParams> list = Arrays.asList(params);
+            viewDelegate.setCustomer(list, mIsRefresh);
+            if (mIsRefresh) {
+                mIsRefresh = false;
+            }
         }
     }
 

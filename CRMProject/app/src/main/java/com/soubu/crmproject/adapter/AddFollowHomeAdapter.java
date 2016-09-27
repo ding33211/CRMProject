@@ -42,14 +42,17 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
     View.OnClickListener mBusinessOpportunitySearchListener;
     View.OnClickListener mContractSearchListener;
 
-
+    View mVClueEmpty;
+    View mVCustomerEmpty;
+    View mVBusinessEmpty;
+    View mVContractEmpty;
 
     public AddFollowHomeAdapter(Context context) {
         this.mContext = context;
         mTabs = new String[]{mContext.getString(R.string.clue), mContext.getString(R.string.customer), mContext.getString(R.string.business_opportunity)
                 , mContext.getString(R.string.contract)};
         mClueAdapter = new ClueRvAdapter(context, false);
-        mCustomerAdapter = new CustomerRvAdapter(context);
+        mCustomerAdapter = new CustomerRvAdapter(context, false);
         mBusinessOpportunityAdapter = new BusinessOpportunityRvAdapter(context);
         mContractAdapter = new ContractRvAdapter(context);
     }
@@ -93,11 +96,23 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
                 }
                 registerSwipeRefreshCallBack(layoutManager, srlContainer, rvContent, mClueCallBack, mClueAdapter);
                 rvContent.setAdapter(mClueAdapter);
+                mVClueEmpty = convertView.findViewById(R.id.ll_empty);
+                if(mClueAdapter.getItemCount() == 0){
+                    mVClueEmpty.setVisibility(View.VISIBLE);
+                } else {
+                    mVClueEmpty.setVisibility(View.GONE);
+                }
                 break;
             case 1:
                 tvSearchHint.setText(R.string.please_input_customer_name);
                 if(mCustomerSearchListener != null){
                     vSearch.setOnClickListener(mCustomerSearchListener);
+                }
+                mVCustomerEmpty = convertView.findViewById(R.id.ll_empty);
+                if(mCustomerAdapter.getItemCount() == 0){
+                    mVCustomerEmpty.setVisibility(View.VISIBLE);
+                } else {
+                    mVCustomerEmpty.setVisibility(View.GONE);
                 }
                 registerSwipeRefreshCallBack(layoutManager, srlContainer, rvContent, mCustomerCallBack, mCustomerAdapter);
                 rvContent.setAdapter(mCustomerAdapter);
@@ -107,6 +122,12 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
                 if(mBusinessOpportunitySearchListener != null){
                     vSearch.setOnClickListener(mBusinessOpportunitySearchListener);
                 }
+                mVBusinessEmpty = convertView.findViewById(R.id.ll_empty);
+                if(mBusinessOpportunityAdapter.getItemCount() == 0){
+                    mVBusinessEmpty.setVisibility(View.VISIBLE);
+                } else {
+                    mVBusinessEmpty.setVisibility(View.GONE);
+                }
                 registerSwipeRefreshCallBack(layoutManager, srlContainer, rvContent, mBusinessOpportunityCallBack, mBusinessOpportunityAdapter);
                 rvContent.setAdapter(mBusinessOpportunityAdapter);
                 break;
@@ -114,6 +135,12 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
                 tvSearchHint.setText(R.string.please_input_contract_name);
                 if(mContractSearchListener != null){
                     vSearch.setOnClickListener(mContractSearchListener);
+                }
+                mVContractEmpty = convertView.findViewById(R.id.ll_empty);
+                if(mContractAdapter.getItemCount() == 0){
+                    mVContractEmpty.setVisibility(View.VISIBLE);
+                } else {
+                    mVContractEmpty.setVisibility(View.GONE);
                 }
                 registerSwipeRefreshCallBack(layoutManager, srlContainer, rvContent, mContractCallBack, mContractAdapter);
                 rvContent.setAdapter(mContractAdapter);
@@ -187,18 +214,38 @@ public class AddFollowHomeAdapter extends IndicatorViewPager.IndicatorViewPagerA
         switch (type) {
             case Contants.TYPE_CLUE:
                 mClueAdapter.setData((List<ClueParams>) list, isRefresh);
+                if(list.isEmpty()){
+                    mVClueEmpty.setVisibility(View.VISIBLE);
+                } else {
+                    mVClueEmpty.setVisibility(View.GONE);
+                }
                 mClueAdapter.notifyDataSetChanged();
                 break;
             case Contants.TYPE_CUSTOMER:
                 mCustomerAdapter.setData((List<CustomerParams>) list, isRefresh);
+                if(list.isEmpty()){
+                    mVCustomerEmpty.setVisibility(View.VISIBLE);
+                } else {
+                    mVCustomerEmpty.setVisibility(View.GONE);
+                }
                 mCustomerAdapter.notifyDataSetChanged();
                 break;
             case Contants.TYPE_BUSINESS_OPPORTUNITY:
                 mBusinessOpportunityAdapter.setData((List<BusinessOpportunityParams>) list, isRefresh);
+                if(list.isEmpty()){
+                    mVBusinessEmpty.setVisibility(View.VISIBLE);
+                } else {
+                    mVBusinessEmpty.setVisibility(View.GONE);
+                }
                 mBusinessOpportunityAdapter.notifyDataSetChanged();
                 break;
             case Contants.TYPE_CONTRACT:
                 mContractAdapter.setData((List<ContractParams>) list, isRefresh);
+                if(list.isEmpty()){
+                    mVContractEmpty.setVisibility(View.VISIBLE);
+                } else {
+                    mVContractEmpty.setVisibility(View.GONE);
+                }
                 mContractAdapter.notifyDataSetChanged();
                 break;
         }

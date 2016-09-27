@@ -204,6 +204,7 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
                     transfer();
                     break;
                 case REQUEST_TRANSFER:
+                    ShowWidgetUtil.showLong(R.string.transfer_customer_succeed_message);
                     Intent intent = new Intent(this, CustomerHomeActivity.class);
                     intent.putExtra(Contants.EXTRA_CUSTOMER, data.getSerializableExtra(Contants.EXTRA_CUSTOMER));
                     startActivity(intent);

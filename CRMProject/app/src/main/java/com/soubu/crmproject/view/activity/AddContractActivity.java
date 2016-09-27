@@ -180,7 +180,7 @@ public class AddContractActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.related_customer);
-        if(!TextUtils.isEmpty(mCustomerName)) {
+        if (!TextUtils.isEmpty(mCustomerName)) {
             item.setContent(mCustomerName);
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_UNABLE);
@@ -341,7 +341,7 @@ public class AddContractActivity extends Big4AddActivityPresenter {
             contractParams = new ContractParams();
         }
         for (AddItem item : list) {
-            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || item.getItemType() == AddSomethingRvAdapter.TYPE_OTHER) {
+            if (item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL || TextUtils.isEmpty(item.getContent())) {
                 continue;
             }
             if (item.getTitleRes() == R.string.contract_title) {
@@ -368,7 +368,7 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                 contractParams.setSerialNumber(item.getContent());
                 continue;
             }
-            if (item.getTitleRes() == R.string.contract_amount_price  && RegularUtil.isInteger(item.getContent())) {
+            if (item.getTitleRes() == R.string.contract_amount_price && RegularUtil.isInteger(item.getContent())) {
                 contractParams.setAmountPrice(item.getContent());
             }
             if (item.getTitleRes() == R.string.contract_status) {

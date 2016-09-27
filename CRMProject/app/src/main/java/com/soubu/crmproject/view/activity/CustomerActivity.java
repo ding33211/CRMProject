@@ -1,10 +1,12 @@
 package com.soubu.crmproject.view.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.delegate.CustomerActivityDelegate;
+import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
@@ -24,14 +26,16 @@ import java.util.Map;
  */
 public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityDelegate> {
 
-    String mSource = null;
-    String mStatus = null;
-    String mType = null;
-    String mSize = null;
-    String mIndustry = null;
-    String mSort = null;
-    String mOrder = null;
-    String mRelated = null;
+    String mProperty;
+    String mSource;
+    String mStatus;
+    String mType;
+    String mSize;
+    String mIndustry;
+    String mSort;
+    String mOrder;
+    String mRelated;
+    boolean mRushAction = false;
 
 
     @Override
@@ -44,25 +48,63 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(CustomerParams[] params) {
-        List<CustomerParams> list = Arrays.asList(params);
-        viewDelegate.setData(list, mIsRefresh);
-        if (mIsRefresh) {
-            mIsRefresh = false;
-            viewDelegate.stopSwipeRefresh();
+        if(!mEventBusJustForThis){
+            return;
+        } else {
+            mEventBusJustForThis = false;
+        }
+        if (mRushAction) {
+            if (params != null && params.length > 0) {
+                final CustomerParams params1 = params[0];
+                new android.app.AlertDialog.Builder(this).setMessage(getString(R.string.succeed_rush_customer_message, params1.getName()))
+                        .setPositiveButton(R.string.look_customer_spec, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(CustomerActivity.this, CustomerSpecActivity.class);
+                                intent.putExtra(Contants.EXTRA_CUSTOMER, params1);
+                                intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton(R.string.continue_rush, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getList(true);
+                    }
+                }).setCancelable(false).show();
+            }
+            mRushAction = false;
+        } else {
+            List<CustomerParams> list = Arrays.asList(params);
+            viewDelegate.setData(list, mIsRefresh);
+            if (mIsRefresh) {
+                mIsRefresh = false;
+                viewDelegate.stopSwipeRefresh();
+            }
         }
     }
 
     @Override
     protected int getParentArray() {
-        return R.array.customer_filter;
+        if (mFrom == Contants.TYPE_HIGH_SEAS) {
+            return R.array.customer_high_seas_filter;
+        } else {
+            return R.array.customer_filter;
+        }
     }
 
     @Override
     protected String[][] getChildrenArray() {
-        return new String[][]{getResources().getStringArray(R.array.customer_type),
+        return new String[][]{getResources().getStringArray(R.array.customer_property),getResources().getStringArray(R.array.customer_type),
                 getResources().getStringArray(R.array.clue_source), getResources().getStringArray(R.array.customer_size),
                 getResources().getStringArray(R.array.customer_industry), getResources().getStringArray(R.array.customer_status),
                 getResources().getStringArray(R.array.clue_related)};
+    }
+
+    @Override
+    protected void initToolbar() {
+        super.initToolbar();
+        viewDelegate.setHighSeas(mFrom == Contants.TYPE_HIGH_SEAS);
+
     }
 
     @Override
@@ -72,30 +114,48 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
 
     @Override
     protected void doRequest(int pageNum) {
-        RetrofitRequest.getInstance().getCustomerList(pageNum, mType, mSource, mSize, mIndustry, mStatus, mSort, mOrder, mRelated, null, null);
+        mEventBusJustForThis = true;
+        if (mFrom == Contants.TYPE_HIGH_SEAS) {
+            RetrofitRequest.getInstance().getCustomerHighSeasList(pageNum, mType, mSource, mSize, mIndustry, mStatus, mSort, mOrder, null, null);
+        } else {
+            RetrofitRequest.getInstance().getCustomerList(pageNum, mType, mSource, mSize, mIndustry, mStatus, mSort, mOrder, mRelated, null, null);
+        }
+
 
     }
 
     @Override
     protected void onRvItemClickListener(View v, int pos) {
         CustomerParams params = viewDelegate.getCustomerParams(pos);
-        if(mFrom == Contants.FROM_ADD_SOMETHING_ACTIVITY){
+        if (mFrom == Contants.FROM_ADD_SOMETHING_ACTIVITY) {
             Intent intent = new Intent();
             intent.putExtra(Contants.EXTRA_CUSTOMER_ID, params.getId());
             intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, params.getName());
             setResult(RESULT_OK, intent);
             finish();
+        } else if (mFrom == Contants.TYPE_HIGH_SEAS) {
+            Intent intent = new Intent(this, CustomerSpecActivity.class);
+            intent.putExtra(Contants.EXTRA_CUSTOMER, params);
+            intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
+            startActivity(intent);
         } else {
             Intent intent = new Intent(this, CustomerHomeActivity.class);
             intent.putExtra(Contants.EXTRA_CUSTOMER, params);
             startActivity(intent);
         }
+    }
 
+    @Override
+    public void onRushClickListener(View v, int pos) {
+        mEventBusJustForThis = true;
+        RetrofitRequest.getInstance().rushCustomer(viewDelegate.getCustomerParams(pos).getId());
+        mRushAction = true;
     }
 
     @Override
     protected void onSelectFilter(Map<Integer, Integer> map) {
         if (map.isEmpty()) {
+            mProperty = null;
             mSource = null;
             mStatus = null;
             mType = null;
@@ -110,42 +170,42 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
             String[] strings5 = getResources().getStringArray(R.array.clue_related_web);
 
             if (map.containsKey(0)) {
-                if(map.get(0) == 0){
+                if (map.get(0) == 0) {
                     mType = null;
                 } else {
                     mType = strings0[map.get(0) - 1];
                 }
             }
             if (map.containsKey(1)) {
-                if(map.get(1) == 0){
+                if (map.get(1) == 0) {
                     mSource = null;
                 } else {
                     mSource = strings1[map.get(1) - 1];
                 }
             }
             if (map.containsKey(2)) {
-                if(map.get(2) == 0){
+                if (map.get(2) == 0) {
                     mSize = null;
                 } else {
                     mSize = strings2[map.get(2) - 1];
                 }
             }
             if (map.containsKey(3)) {
-                if(map.get(3) == 0){
+                if (map.get(3) == 0) {
                     mIndustry = null;
                 } else {
                     mIndustry = strings3[map.get(3) - 1];
                 }
             }
             if (map.containsKey(4)) {
-                if(map.get(4) == 0){
+                if (map.get(4) == 0) {
                     mStatus = null;
                 } else {
                     mStatus = strings4[map.get(4) - 1];
                 }
             }
-            if(map.containsKey(5)){
-                if(map.get(5) == 0){
+            if (map.containsKey(5)) {
+                if (map.get(5) == 0) {
                     mRelated = null;
                 } else {
                     mRelated = strings5[map.get(5) - 1];
@@ -189,7 +249,11 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
     @Override
     protected void onClickSearch(View v) {
         Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
+        if (mFrom == Contants.TYPE_HIGH_SEAS) {
+            intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
+        } else {
+            intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
+        }
         startActivity(intent);
     }
 

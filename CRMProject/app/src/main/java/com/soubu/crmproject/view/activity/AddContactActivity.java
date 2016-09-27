@@ -187,7 +187,7 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
             contactParams = new ContactParams();
         }
         for(AddItem item : list){
-            if(item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL){
+            if(item.getItemType() == AddSomethingRvAdapter.TYPE_LABEL  || TextUtils.isEmpty(item.getContent())){
                 continue;
             }
             if(item.getTitleRes() == R.string.name){

@@ -37,6 +37,7 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
     CharSequence[] mPropertyWebArray;
     CharSequence[] mSourceArray;
     CharSequence[] mSourceWebArray;
+    boolean ifHighSeas = false;
 
 
     @Override
@@ -71,7 +72,7 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         initItem(TextUtils.isEmpty(customerParams.getProperty()) ? "" : mPropertyArray[SearchUtil.searchInArray(mPropertyWebArray, customerParams.getProperty())].toString(), R.string.customer_property, hasTop ? false : true);
         initItem(customerParams.getWebsite(), R.string.website, hasTop ? false : true);
         initItem(customerParams.getAddress(), R.string.address, hasTop ? false : true);
-        if(!hasTop){
+        if (!hasTop) {
             mList.remove(mList.size() - 1);
         } else {
             hasTop = false;
@@ -109,9 +110,9 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
         addItem.setTitleRes(R.string.manager_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        if(customerParams.getUser() != null && !TextUtils.isEmpty(customerParams.getUser().getUserName())){
+        if (customerParams.getUser() != null && !TextUtils.isEmpty(customerParams.getUser().getUserName())) {
             initItem(customerParams.getUser().getUserName(), R.string.manager, true);
-        } else if(customerParams.getCreator() != null && !TextUtils.isEmpty(customerParams.getCreator().getUserName())){
+        } else if (customerParams.getCreator() != null && !TextUtils.isEmpty(customerParams.getCreator().getUserName())) {
             initItem(customerParams.getCreator().getUserName(), R.string.manager, true);
         } else {
             initItem(CrmApplication.getContext().getName(), R.string.manager, true);
@@ -139,19 +140,23 @@ public class CustomerSpecActivity extends ActivityPresenter<SpecActivityDelegate
     protected void initToolbar() {
         super.initToolbar();
         viewDelegate.setTitle(R.string.customer_spec);
+        ifHighSeas = getIntent().getIntExtra(Contants.EXTRA_FROM, -1) == Contants.FROM_CUSTOMER_HIGH_SEAS;
+
     }
 
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setSettingText(R.string.edit, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CustomerSpecActivity.this, AddCustomerActivity.class);
-                intent.putExtra(Contants.EXTRA_CUSTOMER, mCustomerParams);
-                startActivity(intent);
-            }
-        });
+        if (!ifHighSeas) {
+            viewDelegate.setSettingText(R.string.edit, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CustomerSpecActivity.this, AddCustomerActivity.class);
+                    intent.putExtra(Contants.EXTRA_CUSTOMER, mCustomerParams);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

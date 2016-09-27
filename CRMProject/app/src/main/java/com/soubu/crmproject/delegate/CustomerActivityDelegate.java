@@ -2,6 +2,7 @@ package com.soubu.crmproject.delegate;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
+import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.adapter.CustomerRvAdapter;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
@@ -14,12 +15,17 @@ import java.util.List;
 public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
 
     CustomerRvAdapter mAdapter;
+    private boolean mIfHighSeas = false;
 
     @Override
     public void initWidget() {
         super.initWidget();
-        setTitle(R.string.all_customer);
-        mAdapter = new CustomerRvAdapter(getActivity().getApplicationContext());
+        if(mIfHighSeas){
+            setTitle(R.string.customer_high_seas);
+        } else {
+            setTitle(R.string.all_customer);
+        }
+        mAdapter = new CustomerRvAdapter(getActivity().getApplicationContext(), mIfHighSeas);
         setListAdapter(mAdapter);
     }
 
@@ -28,7 +34,10 @@ public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
         mAdapter.setData(list, isRefresh);
         mAdapter.notifyDataSetChanged();
         ifDataEmpty(list.isEmpty());
+    }
 
+    public void setOnRushClickListener(ClueRvAdapter.OnItemClickListener listener){
+        mAdapter.setOnRushClickListener(listener);
     }
 
     public CustomerParams getCustomerParams(int pos){
@@ -59,6 +68,10 @@ public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
     @Override
     public void setOnRecyclerViewItemClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
         mAdapter.setOnItemClickListener(listener);
+    }
+
+    public void setHighSeas(boolean flag){
+        mIfHighSeas = flag;
     }
 
 }

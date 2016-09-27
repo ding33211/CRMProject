@@ -15,6 +15,7 @@ import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.GetPageResp;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.utils.ConvertUtil;
+import com.soubu.crmproject.widget.customcalendar.Event;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -175,7 +176,7 @@ public class RetrofitRequest {
     }
 
     /**
-     * 获取线索列表
+     * 领取线索公海
      */
     public void rushClue(String id) {
         Call<GetPageResp<ClueParams[]>> call = RetrofitService.getInstance()
@@ -231,6 +232,39 @@ public class RetrofitRequest {
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .getCustomerSpec(id);
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 获取客户公海列表
+     */
+    public void getCustomerHighSeasList(Integer page, String type, String source, String size, String industry,
+                                        String status, String sort, String order, Integer count, String search) {
+        Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .getCustomerHighSeas(type, source, size, industry, status, page, sort, order, count, search);
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 领取客户公海
+     */
+    public void rushCustomer(String id) {
+        Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .rushCustomerHighSeas(id, ConvertUtil.hmacsha256(new HashMap<String, String>(), CrmApplication.getContext().getToken()));
+        enqueueClue(call, true);
+    }
+
+    /**
+     * 转入客户公海
+     *
+     * @param id  客户id
+     */
+    public void throwToCustomerHighSeas(String id) {
+        Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
+                .createApi(true)
+                .throwToCustomerHighSeas(id, ConvertUtil.hmacsha256(new HashMap<String, String>(), CrmApplication.getContext().getToken()));
         enqueueClue(call, true);
     }
 

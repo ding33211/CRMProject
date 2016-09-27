@@ -26,14 +26,15 @@ public class Contants {
 
 
 
-    public static final int FROM_CLUE = 0x00;
-    public static final int FROM_CUSTOMER = 0x01;
-    public static final int FROM_BUSINESS_OPPORTUNITY = 0x02;
-    public static final int FROM_CONTRACT = 0x03;
-    public static final int FROM_ADD_SOMETHING_ACTIVITY = 0x04;
-    public static final int FROM_CLUE_HIGH_SEAS = 0x05;
-    public static final int FROM_CONTRACT_APPROVAL = 0x06;
-    public static final int FROM_ADD_CONTRACT = 0x07;
+    public static final int FROM_CLUE = 0x10;
+    public static final int FROM_CUSTOMER = 0x11;
+    public static final int FROM_BUSINESS_OPPORTUNITY = 0x12;
+    public static final int FROM_CONTRACT = 0x13;
+    public static final int FROM_ADD_SOMETHING_ACTIVITY = 0x14;
+    public static final int FROM_CLUE_HIGH_SEAS = 0x15;
+    public static final int FROM_CONTRACT_APPROVAL = 0x16;
+    public static final int FROM_ADD_CONTRACT = 0x17;
+    public static final int FROM_CUSTOMER_HIGH_SEAS = 0x18;
 
 
     //在跟进总表

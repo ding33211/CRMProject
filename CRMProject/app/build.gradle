@@ -45,23 +45,22 @@ android {
     }
 
     buildTypes {
-        release {
-            buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        // 输出apk名称为crm_v1.0_2015-01-15.apk
-                        def fileName = "crm_v${defaultConfig.versionName}_${releaseTime()}.apk"
-                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
-                }
-            }
-            signingConfig signingConfigs.release
-
-        }
+//        release {
+//            buildConfigField "boolean", "IS_PRODUCT_ENV", "true"
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        // 输出apk名称为crm_v1.0_2015-01-15.apk
+//                        def fileName = "crm_v${defaultConfig.versionName}_${releaseTime()}.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
+//            signingConfig signingConfigs.release
+//        }
 
         debug {
             versionNameSuffix "-debug"

@@ -90,8 +90,7 @@ public class ClueActivity extends Big4AllActivityPresenter<ClueActivityDelegate>
                         }).setNegativeButton(R.string.continue_rush, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        doRequest(1);
-                        dialog.dismiss();
+                        getList(true);
                     }
                 }).setCancelable(false).show();
             }

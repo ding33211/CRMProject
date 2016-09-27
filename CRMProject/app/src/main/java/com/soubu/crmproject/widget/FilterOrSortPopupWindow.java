@@ -240,6 +240,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             if (mSelectCategory != null) {
                 mSelectCategory.selectSort(position);
             }
+            mCategoryAdapter.setSelectedPosition(position);
             dismiss();
         }
     };

@@ -92,7 +92,7 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
     }
 
 
-    private void getList(boolean isRefresh) {
+    void getList(boolean isRefresh) {
         mIsRefresh = isRefresh;
         if (isRefresh) {
             mPageNum = 1;

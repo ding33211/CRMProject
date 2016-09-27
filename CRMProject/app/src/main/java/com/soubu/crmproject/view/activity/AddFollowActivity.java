@@ -132,6 +132,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 break;
 
             case Contants.FROM_CUSTOMER:
+                mStateLabelRes = R.string.customer_state;
                 CustomerParams customerParams = (CustomerParams) mEntity;
                 mFollowParams.setEntityId(customerParams.getId());
                 mFollowParams.setEntityType(Contants.FOLLOW_TYPE_CUSTOMER);
@@ -146,7 +147,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mFollowParams.setStatus(customerParams.getStatus());
                 mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(customerParams.getId()))
                         .orderDesc(ContactDao.Properties.TouchedAt).list();
-                return;
+                break;
 
             case Contants.FROM_BUSINESS_OPPORTUNITY:
                 mStateLabelRes = R.string.business_opportunity_status;

@@ -68,12 +68,22 @@
     </string-array>
 
     <string-array name="customer_filter">
+        <item>客户属性</item>
         <item>客户类型</item>
         <item>客户来源</item>
         <item>公司规模</item>
         <item>所属行业</item>
         <item>客户状态</item>
         <item>客户数据</item>
+    </string-array>
+
+    <string-array name="customer_high_seas_filter">
+        <item>客户属性</item>
+        <item>客户类型</item>
+        <item>客户来源</item>
+        <item>公司规模</item>
+        <item>所属行业</item>
+        <item>客户状态</item>
     </string-array>
 
     <string-array name="customer_type">

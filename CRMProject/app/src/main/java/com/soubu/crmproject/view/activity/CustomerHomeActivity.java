@@ -72,11 +72,19 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         viewDelegate.setSettingMenuListener(R.menu.customer_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.action_for_other) {
-                    Intent intent = new Intent(CustomerHomeActivity.this, ChooseEmployeeActivity.class);
-                    intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
-                    intent.putExtra(Contants.EXTRA_PARAM_ID, mCustomerParams.getId());
-                    startActivityForResult(intent, REQUEST_CHOOSE_EMPLOYEE);
+                switch (item.getItemId()){
+                    case R.id.action_for_other:
+                        Intent intent = new Intent(CustomerHomeActivity.this, ChooseEmployeeActivity.class);
+                        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
+                        intent.putExtra(Contants.EXTRA_PARAM_ID, mCustomerParams.getId());
+                        startActivityForResult(intent, REQUEST_CHOOSE_EMPLOYEE);
+                        break;
+                    case R.id.action_to_customer_high_seas:
+                        if(!TextUtils.equals(mCustomerParams.getDealsCount(), "0") || !TextUtils.equals(mCustomerParams.getContractsCount(), "0")){
+                            ShowWidgetUtil.showShort(R.string.throw_to_customer_high_sea_unable_message);
+                        } else {
+                            RetrofitRequest.getInstance().throwToCustomerHighSeas(mCustomerParams.getId());
+                        }
                 }
                 return false;
             }
@@ -116,6 +124,12 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(CustomerParams[] params) {
+        //说明是转入客户公海成功
+        if(params.length == 0){
+            ShowWidgetUtil.showShort(R.string.throw_to_customer_high_sea_success_message);
+            finish();
+            return;
+        }
         List<CustomerParams> list = Arrays.asList(params);
         mCustomerParams = list.get(0);
         viewDelegate.setEntity(mCustomerParams);
