@@ -47,17 +47,17 @@ public class ColorArcProgressBar extends View {
     private int[] colors = new int[]{Color.GREEN, Color.YELLOW, Color.RED, Color.RED};
     private float maxValues = 60;
     private float curValues = 0;
-    private float bgArcWidth = dipToPx(5);
-    private float progressWidth = dipToPx(5);
-    private float textSize = dipToPx(24);
-    private float hintSize = dipToPx(15);
-    private float curSpeedSize = dipToPx(13);
+    private float bgArcWidth = dipToPx(10);
+    private float progressWidth = dipToPx(10);
+    private float textSize = dipToPx(30);
+    private float hintSize = dipToPx(20);
+    private float curSpeedSize = dipToPx(16);
     private int aniSpeed = 1000;
     private float longdegree = dipToPx(13);
     private float shortdegree = dipToPx(5);
     private int DEGREE_PROGRESS_DISTANCE = dipToPx(8);
 
-    private String hintColor = "#e5e5e5";
+    private String hintColor = "#999999";
     private String longDegreeColor = "#111111";
     private String shortDegreeColor = "#111111";
     private String bgArcColor = "#e5e5e5";
@@ -129,7 +129,7 @@ public class ColorArcProgressBar extends View {
     }
 
     private void initView() {
-        diameter = getResources().getDimensionPixelSize(R.dimen.color_arc_progressbar_diameter);
+        diameter = dipToPx(100);
         //弧形的矩阵区域
         bgRect = new RectF();
         bgRect.top =  progressWidth / 2 + DEGREE_PROGRESS_DISTANCE;

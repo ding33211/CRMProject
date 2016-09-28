@@ -5,7 +5,6 @@
     <color name="colorAccent">#ff6500</color>
     <color name="textColorPrimary">#ffffff</color>
 
-
     <!-- 首页底部bar背景色-->
     <color name="bottom_bar_normal_bg">#fcfcfc</color>
     <!-- 首页底部bar字体选中颜色-->
@@ -37,5 +36,6 @@
     <color name="three_translucent_white">#4dffffff</color>
     <color name="two_translucent_black">#33000000</color>
     <color name="orange_1">#fe8a36</color>
+    <color name="progressbar_green">#95cd36</color>
 
 </resources>
