@@ -164,6 +164,9 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"></activity>
 
+        <receiver
+            android:name="com.soubu.crmproject.receiver.FollowRemindReceiver"
+            android:process=":remote" />
     </application>
 
 

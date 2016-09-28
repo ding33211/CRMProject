@@ -23,8 +23,10 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
+import com.soubu.crmproject.receiver.FollowRemindReceiver;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.ConvertUtil;
+import com.soubu.crmproject.utils.PhoneUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
@@ -34,6 +36,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -59,6 +62,8 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
     private FollowParams mFollowParams;
     private Calendar mFollowTime;
     private List<Contact> mContactsList;
+    private boolean mIfClickRemind = false;
+    private Date mRemindTime;
 
     @Override
     protected Class<AddFollowActivityDelegate> getDelegateClass() {
@@ -234,6 +239,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 });
                 break;
             case R.id.rl_remind_time:
+                mIfClickRemind = true;
             case R.id.rl_follow_time:
                 final Calendar now = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
                 final TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
@@ -254,9 +260,16 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                                 return;
                             }
                         }
-                        mFollowParams.setFollowupAt(mFollowTime.getTime());
-                        viewDelegate.giveTextViewString(R.id.tv_follow_time, ConvertUtil.dateToYYYY_MM_DD_HH_mm(mFollowTime.getTime()));
-                        ((TextView)viewDelegate.get(R.id.tv_follow_time)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
+                        if(mIfClickRemind){
+                            mRemindTime = mFollowTime.getTime();
+                            viewDelegate.giveTextViewString(R.id.tv_remind_time, ConvertUtil.dateToYYYY_MM_DD_HH_mm(mFollowTime.getTime()));
+                            ((TextView)viewDelegate.get(R.id.tv_remind_time)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
+                            mIfClickRemind = false;
+                        } else {
+                            mFollowParams.setFollowupAt(mFollowTime.getTime());
+                            viewDelegate.giveTextViewString(R.id.tv_follow_time, ConvertUtil.dateToYYYY_MM_DD_HH_mm(mFollowTime.getTime()));
+                            ((TextView)viewDelegate.get(R.id.tv_follow_time)).setTextColor(getResources().getColor(R.color.filter_tab_text_color));
+                        }
                     }
                 }, mFollowTime.get(Calendar.HOUR_OF_DAY), mFollowTime.get(Calendar.MINUTE), true);
                 new DatePickerDialog(this,
@@ -267,13 +280,13 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                                                   int monthOfYear, int dayOfMonth) {
                                 mFollowTime.set(year, monthOfYear, dayOfMonth);
                                 if (mType == TYPE_RECORD) {
-                                    if (mFollowTime.getTimeInMillis() > now.getTimeInMillis()) {
+                                    if (mFollowTime.getTimeInMillis() - now.getTimeInMillis() > 24 * 3600 * 1000) {
                                         ShowWidgetUtil.showLong(R.string.add_follow_record_time_error);
                                         mFollowTime = now;
                                         return;
                                     }
                                 } else {
-                                    if (mFollowTime.getTimeInMillis() < now.getTimeInMillis()) {
+                                    if (now.getTimeInMillis() - mFollowTime.getTimeInMillis() > 24 * 3600 * 1000) {
                                         ShowWidgetUtil.showLong(R.string.add_follow_plan_time_error);
                                         mFollowTime = now;
                                         return;
@@ -287,6 +300,9 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 break;
             case R.id.rl_remind:
                 viewDelegate.pressRemind();
+                if(TextUtils.isEmpty(((TextView)viewDelegate.get(R.id.tv_remind_time)).getText())){
+                    viewDelegate.giveTextViewString(R.id.tv_remind_time, getString(R.string.required_choose));
+                }
                 break;
             case R.id.rl_transfer:
                 viewDelegate.pressTransfer();
@@ -343,12 +359,19 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
             }
             ShowWidgetUtil.showShort(R.string.add_follow_success);
             if(viewDelegate.isTransferChecked()){
-                if(mFrom == Contants.FROM_CLUE){
-                    //此处返回OK,就说明用户选择了同步转换
+//                if(mFrom == Contants.FROM_CLUE){
+//                    //此处返回OK,就说明用户选择了同步转换
                     setResult(RESULT_OK, null);
-                } else {
-                    setResult(RESULT_OK, null);
-                }
+//                } else {
+//                    setResult(RESULT_OK, null);
+//                }
+            }
+            if(viewDelegate.isRemind() && mRemindTime != null){
+                FollowParams param = params[0];
+                Intent intent = new Intent(this, FollowRemindReceiver.class);
+                intent.putExtra(Contants.EXTRA_REMIND_TITLE, param.getTitle());
+                intent.putExtra(Contants.EXTRA_REMIND_MESSAGE, param.getContent());
+                PhoneUtil.setAlert(mRemindTime.getTime(), this, intent);
             }
             finish();
         }

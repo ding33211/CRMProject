@@ -401,10 +401,10 @@ public class RetrofitRequest {
      *
      * @param id 线索id
      */
-    public void getClueFollow(String id, String status, String sort, String order, Integer page, Integer count) {
+    public void getClueFollow(String id, String status, String sort, String order, Integer page, Integer count, String type) {
         Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getClueFollow(id, status, sort, order, page, count);
+                .getClueFollow(id, status, sort, order, page, count, type);
         enqueueClue(call, true);
     }
 
@@ -413,10 +413,10 @@ public class RetrofitRequest {
      *
      * @param id 线索id
      */
-    public void getCustomerFollow(String id, String status, String sort, String order, Integer page, Integer count) {
+    public void getCustomerFollow(String id, String status, String sort, String order, Integer page, Integer count, String type) {
         Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getCustomerFollow(id, status, sort, order, page, count);
+                .getCustomerFollow(id, status, sort, order, page, count, type);
         enqueueClue(call, true);
     }
 
@@ -425,10 +425,10 @@ public class RetrofitRequest {
      *
      * @param id 线索id
      */
-    public void getBusinessOpportunityFollow(String id, String status, String sort, String order, Integer page, Integer count) {
+    public void getBusinessOpportunityFollow(String id, String status, String sort, String order, Integer page, Integer count, String type) {
         Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getBusinessOpportunityFollow(id, status, sort, order, page, count);
+                .getBusinessOpportunityFollow(id, status, sort, order, page, count, type);
         enqueueClue(call, true);
     }
 
@@ -437,10 +437,10 @@ public class RetrofitRequest {
      *
      * @param id 线索id
      */
-    public void getContractFollow(String id, String status, String sort, String order, Integer page, Integer count) {
+    public void getContractFollow(String id, String status, String sort, String order, Integer page, Integer count, String type) {
         Call<GetPageResp<FollowParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getContractFollow(id, status, sort, order, page, count);
+                .getContractFollow(id, status, sort, order, page, count, type);
         enqueueClue(call, true);
     }
 

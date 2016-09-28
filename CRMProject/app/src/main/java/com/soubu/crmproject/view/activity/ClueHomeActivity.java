@@ -3,6 +3,7 @@ package com.soubu.crmproject.view.activity;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -168,21 +169,19 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
             mEventBusJustForThis = false;
         }
         List<FollowParams> list = Arrays.asList(params);
-        List<FollowParams> records = new ArrayList<>();
-        List<FollowParams> plans = new ArrayList<>();
-        for (FollowParams param : list) {
-            if (TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)) {
-                plans.add(param);
-            } else {
-                records.add(param);
-            }
-        }
-        if(records.size() > 0){
-            mClueParams.setStatus(records.get(0).getStatus());
+        if(list.size() > 0 && TextUtils.equals(list.get(0).getType(), Contants.FOLLOW_TYPE_RECORD)){
+            mClueParams.setStatus(list.get(0).getStatus());
             ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mClueParams.getStatus())]);
         }
-        viewDelegate.setViewPagerData(0, records);
-        viewDelegate.setViewPagerData(1, plans);
+        if(mRequestFollowType == REQUEST_RECORD){
+            viewDelegate.setViewPagerData(0, list);
+            mRequestFollowType = REQUEST_PLAN;
+            mEventBusJustForThis = true;
+            RetrofitRequest.getInstance().getClueFollow(mClueParams.getId(), null, null, null, null, null, Contants.FOLLOW_TYPE_PLAN);
+        } else {
+            viewDelegate.setViewPagerData(1, list);
+            mRequestFollowType = -1;
+        }
     }
 
 
@@ -191,8 +190,11 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
     @Override
     protected void onResume() {
         super.onResume();
-        mEventBusJustForThis = true;
-        RetrofitRequest.getInstance().getClueFollow(mClueParams.getId(), null, null, null, null, null);
+        if(mRequestFollowType == -1){
+            mEventBusJustForThis = true;
+            mRequestFollowType = REQUEST_RECORD;
+            RetrofitRequest.getInstance().getClueFollow(mClueParams.getId(), null, null, null, null, null, Contants.FOLLOW_TYPE_RECORD);
+        }
     }
 
     @Override

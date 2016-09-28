@@ -55,6 +55,10 @@ public class RegisterActivityDelegate extends AppDelegate {
             ShowWidgetUtil.showLong(R.string.two_password_not_same);
             return false;
         }
+        if(pwd.length() < 8){
+            ShowWidgetUtil.showLong(R.string.password_regular_wrong);
+            return false;
+        }
         params.setPwd(pwd);
         params.setConfirmPwd(pwd);
         return true;

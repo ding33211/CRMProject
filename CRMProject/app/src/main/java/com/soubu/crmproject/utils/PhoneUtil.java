@@ -1,5 +1,7 @@
 package com.soubu.crmproject.utils;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -235,6 +237,16 @@ public class PhoneUtil {
         } else {
             return context.getCacheDir().toString();
         }
+    }
 
+
+    public static void setAlert(long time, Context context, Intent intent){
+        AlarmManager manager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            manager.setExact(AlarmManager.RTC_WAKEUP, time, pendIntent);
+        }else {
+            manager.set(AlarmManager.RTC_WAKEUP, time, pendIntent);
+        }
     }
 }

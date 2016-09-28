@@ -27,6 +27,10 @@ public abstract class Big4HomeActivityPresenter<T extends AppDelegate> extends A
     List<DialogItem> mQqList;
     String mLocation;
     int mIndex = -1;
+    int mRequestFollowType = -1;
+
+    final int REQUEST_RECORD = 0x00;
+    final int REQUEST_PLAN = 0x01;
 
     class DialogItem {
         String name;

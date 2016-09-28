@@ -58,7 +58,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
             return new ItemViewHolder(v);
         }
         View v = LayoutInflater.from(context).inflate(R.layout.item_home_recyclerview, parent, false);
-        View viewPagerItem = null;
+        View viewPagerItem;
         IndicatorViewPager.IndicatorViewPagerAdapter adapter = null;
         final ViewPager viewPager = (ViewPager) v.findViewById(R.id.vp_content);
         Indicator indicator = (Indicator) v.findViewById(R.id.fiv_indicator);

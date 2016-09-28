@@ -119,5 +119,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.1.1'
     compile 'com.android.support:gridlayout-v7:24.1.1'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile 'com.android.support:design:24.1.1'
 }
 

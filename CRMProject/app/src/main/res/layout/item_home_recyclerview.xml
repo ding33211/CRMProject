@@ -6,8 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_title"
@@ -23,9 +22,9 @@
             android:id="@+id/fiv_indicator"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
-            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
             android:layout_width="80dp"
-            android:layout_height="36dp" />
+            android:layout_height="match_parent" />
     </RelativeLayout>
     <View
         android:id="@+id/view_temp"

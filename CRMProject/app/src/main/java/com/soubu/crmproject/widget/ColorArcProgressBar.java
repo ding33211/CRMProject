@@ -22,7 +22,7 @@ import com.soubu.crmproject.R;
  * Created by shinelw on 12/4/15.
  */
 public class ColorArcProgressBar extends View {
-    private int diameter = 100;  //直径
+    private int diameter;  //直径
     private float centerX;  //圆心X坐标
     private float centerY;  //圆心Y坐标
 
@@ -49,7 +49,7 @@ public class ColorArcProgressBar extends View {
     private float curValues = 0;
     private float bgArcWidth = dipToPx(5);
     private float progressWidth = dipToPx(5);
-    private float textSize = dipToPx(30);
+    private float textSize = dipToPx(24);
     private float hintSize = dipToPx(15);
     private float curSpeedSize = dipToPx(13);
     private int aniSpeed = 1000;
@@ -57,10 +57,10 @@ public class ColorArcProgressBar extends View {
     private float shortdegree = dipToPx(5);
     private int DEGREE_PROGRESS_DISTANCE = dipToPx(8);
 
-    private String hintColor = "#676767";
+    private String hintColor = "#e5e5e5";
     private String longDegreeColor = "#111111";
     private String shortDegreeColor = "#111111";
-    private String bgArcColor = "#666666";
+    private String bgArcColor = "#e5e5e5";
     private String titleString;
     private String hintString;
 
@@ -122,13 +122,14 @@ public class ColorArcProgressBar extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
         int width = (int) ( progressWidth + diameter + 2 * DEGREE_PROGRESS_DISTANCE);
         int height= (int) ( progressWidth + diameter + 2 * DEGREE_PROGRESS_DISTANCE);
         setMeasuredDimension(width, height);
     }
 
     private void initView() {
-        diameter = 300;
+        diameter = getResources().getDimensionPixelSize(R.dimen.color_arc_progressbar_diameter);
         //弧形的矩阵区域
         bgRect = new RectF();
         bgRect.top =  progressWidth / 2 + DEGREE_PROGRESS_DISTANCE;
@@ -163,7 +164,7 @@ public class ColorArcProgressBar extends View {
         //内容显示文字
         vTextPaint = new Paint();
         vTextPaint.setTextSize(textSize);
-        vTextPaint.setColor(Color.RED);
+        vTextPaint.setColor(getContext().getResources().getColor(R.color.colorPrimary));
         vTextPaint.setTextAlign(Paint.Align.CENTER);
 
         //显示单位文字

@@ -177,34 +177,38 @@ public interface RetrofitApi {
                                                     @Query("sort") String sort,//排序项
                                                     @Query("order") String order,//顺序
                                                     @Query("page") Integer page,//页数
-                                                    @Query("count") Integer count);//每页条数,默认10
+                                                    @Query("count") Integer count,//每页条数,默认10
+                                                    @Query("type") String type);
 
-    //获取线索相关的跟进
+    //获取线客户相关的跟进
     @GET("customers/{id}/records")
     Call<GetPageResp<FollowParams[]>> getCustomerFollow(@Path("id") String id,
                                                         @Query("status") String status,//线索状态
                                                         @Query("sort") String sort,//排序项
                                                         @Query("order") String order,//顺序
                                                         @Query("page") Integer page,//页数
-                                                        @Query("count") Integer count);//每页条数,默认10
+                                                        @Query("count") Integer count,//每页条数,默认10
+                                                        @Query("type") String type);
 
-    //获取线索相关的跟进
+    //获取商机相关的跟进
     @GET("deals/{id}/records")
     Call<GetPageResp<FollowParams[]>> getBusinessOpportunityFollow(@Path("id") String id,
                                                                    @Query("status") String status,//线索状态
                                                                    @Query("sort") String sort,//排序项
                                                                    @Query("order") String order,//顺序
                                                                    @Query("page") Integer page,//页数
-                                                                   @Query("count") Integer count);//每页条数,默认10
+                                                                   @Query("count") Integer count,//每页条数,默认10
+                                                                   @Query("type") String type);
 
-    //获取线索相关的跟进
+    //获取合同相关的跟进
     @GET("contracts/{id}/records")
     Call<GetPageResp<FollowParams[]>> getContractFollow(@Path("id") String id,
                                                         @Query("status") String status,//线索状态
                                                         @Query("sort") String sort,//排序项
                                                         @Query("order") String order,//顺序
                                                         @Query("page") Integer page,//页数
-                                                        @Query("count") Integer count);//每页条数,默认10
+                                                        @Query("count") Integer count,//每页条数,默认10
+                                                        @Query("type") String type);
 
     //添加已回款
     @Headers({"Content-type:application/json"})

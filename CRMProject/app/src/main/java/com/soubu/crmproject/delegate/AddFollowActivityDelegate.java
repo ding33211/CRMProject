@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.view.AppDelegate;
 import com.soubu.crmproject.model.FollowParams;
+import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 import com.soubu.crmproject.view.activity.AddFollowActivity;
 
@@ -57,6 +58,10 @@ public class AddFollowActivityDelegate extends AppDelegate {
         return ((SwitchCompat)get(R.id.sc_transfer)).isChecked();
     }
 
+    public boolean isRemind(){
+        return ((SwitchCompat)get(R.id.sc_remind)).isChecked();
+    }
+
 
     public boolean verify(FollowParams followParams){
         String title = ((EditText)get(R.id.et_title)).getText().toString();
@@ -83,6 +88,10 @@ public class AddFollowActivityDelegate extends AppDelegate {
         }
         if(TextUtils.equals(((TextView)get(R.id.tv_follow_time)).getText(), getActivity().getResources().getString(R.string.required_choose))){
             ShowWidgetUtil.showLong(R.string.follow_time_empty_error);
+            return false;
+        }
+        if(isRemind() && TextUtils.equals(((TextView)get(R.id.tv_remind_time)).getText(), getActivity().getResources().getString(R.string.required_choose))){
+            ShowWidgetUtil.showLong(R.string.remind_time_empty_error);
             return false;
         }
         return true;

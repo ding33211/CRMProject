@@ -10,93 +10,103 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="72dp"
             android:layout_weight="1"
-            android:paddingTop="20dp"
             android:paddingLeft="16dp">
 
             <ImageView
                 android:id="@+id/iv_total_turnover"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/total_turnover" />
 
-            <TextView
-                android:id="@+id/tv_total_turnover_label"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="4dp"
-                android:textSize="14sp"
-                android:layout_toRightOf="@+id/iv_total_turnover"
-                android:text="@string/total_turnover" />
+                android:layout_toRightOf="@+id/iv_total_turnover">
 
-            <TextView
-                android:id="@+id/tv_total_turnover_rmb_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_total_turnover_label"
-                android:layout_below="@+id/tv_total_turnover_label"
-                android:layout_marginTop="6dp"
-                android:textSize="14sp"
-                android:text="@string/rmb_label"
-                android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/tv_total_turnover_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_turnover"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tv_total_turnover"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_total_turnover_rmb_label"
-                android:layout_toRightOf="@+id/tv_total_turnover_rmb_label"
-                android:singleLine="true"
-                android:textSize="14sp"
-                android:text="266655920.33"
-                android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/tv_total_turnover_rmb_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_total_turnover_label"
+                    android:layout_below="@+id/tv_total_turnover_label"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/rmb_label"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_total_turnover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_total_turnover_rmb_label"
+                    android:layout_toRightOf="@+id/tv_total_turnover_rmb_label"
+                    android:singleLine="true"
+                    android:text="266655920.33"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="72dp"
             android:layout_weight="1"
-            android:paddingTop="20dp"
             android:paddingLeft="16dp">
 
             <ImageView
                 android:id="@+id/iv_unit_price"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/unit_price" />
 
-            <TextView
-                android:id="@+id/tv_unit_price_label"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="4dp"
-                android:textSize="14sp"
-                android:layout_toRightOf="@+id/iv_unit_price"
-                android:text="@string/unit_price" />
+                android:layout_toRightOf="@+id/iv_unit_price">
 
-            <TextView
-                android:id="@+id/tv_unit_price_rmb_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_unit_price_label"
-                android:layout_below="@+id/tv_unit_price_label"
-                android:layout_marginTop="6dp"
-                android:textSize="14sp"
-                android:text="@string/rmb_label"
-                android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/tv_unit_price_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_price"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tv_unit_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_unit_price_rmb_label"
-                android:layout_toRightOf="@+id/tv_unit_price_rmb_label"
-                android:text="2.25"
-                android:textSize="14sp"
-                android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/tv_unit_price_rmb_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_unit_price_label"
+                    android:layout_below="@+id/tv_unit_price_label"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/rmb_label"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_unit_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_unit_price_rmb_label"
+                    android:layout_toRightOf="@+id/tv_unit_price_rmb_label"
+                    android:text="2.25"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 
@@ -106,74 +116,83 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="72dp"
             android:layout_weight="1"
-            android:paddingTop="20dp"
-            android:paddingLeft="16dp"
-            android:paddingBottom="20dp">
+            android:paddingLeft="16dp">
 
             <ImageView
                 android:id="@+id/iv_numbers_of_customer"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/customer" />
 
-            <TextView
-                android:id="@+id/tv_numbers_of_customer_label"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="4dp"
-                android:textSize="14sp"
-                android:layout_toRightOf="@+id/iv_numbers_of_customer"
-                android:text="@string/numbers_of_customer" />
+                android:layout_toRightOf="@+id/iv_numbers_of_customer">
 
-            <TextView
-                android:id="@+id/tv_numbers_of_customer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_numbers_of_customer_label"
-                android:layout_below="@+id/tv_numbers_of_customer_label"
-                android:layout_marginTop="6dp"
-                android:textSize="14sp"
-                android:text="804"
-                android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/tv_numbers_of_customer_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/numbers_of_customer"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_numbers_of_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_numbers_of_customer_label"
+                    android:layout_below="@+id/tv_numbers_of_customer_label"
+                    android:layout_marginTop="6dp"
+                    android:text="804"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="72dp"
             android:layout_weight="1"
-            android:paddingTop="20dp"
             android:paddingLeft="16dp">
 
             <ImageView
                 android:id="@+id/iv_contract_number"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/contract" />
 
-            <TextView
-                android:id="@+id/tv_contract_number_label"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="4dp"
-                android:textSize="14sp"
-                android:layout_toRightOf="@+id/iv_contract_number"
-                android:text="@string/contract_number" />
+                android:layout_toRightOf="@+id/iv_contract_number">
 
-            <TextView
-                android:id="@+id/tv_contract_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_contract_number_label"
-                android:layout_below="@+id/tv_contract_number_label"
-                android:layout_marginTop="6dp"
-                android:textSize="14sp"
-                android:text="84"
-                android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/tv_contract_number_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contract_number"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_contract_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_contract_number_label"
+                    android:layout_below="@+id/tv_contract_number_label"
+                    android:layout_marginTop="6dp"
+                    android:text="84"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

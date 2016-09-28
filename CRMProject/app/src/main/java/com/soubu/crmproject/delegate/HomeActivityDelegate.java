@@ -34,10 +34,10 @@ public class HomeActivityDelegate extends AppDelegate {
                 get(R.id.btn_todo)};
         fragments = new Fragment[]{mWorkBenchFragment, mCRMFragment, mTodoFragment};
         //一期只显示第二个界面
-        mTabs[1].setSelected(true);
+        mTabs[0].setSelected(true);
 //        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mWorkBenchFragment).
 //                add(R.id.fragment_container, mCRMFragment).hide(mCRMFragment).show(mWorkBenchFragment).commit();
-        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mCRMFragment).show(mCRMFragment).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mWorkBenchFragment).show(mWorkBenchFragment).commit();
     }
 
     @Override

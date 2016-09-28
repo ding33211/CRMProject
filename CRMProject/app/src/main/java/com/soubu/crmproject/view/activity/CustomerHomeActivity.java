@@ -55,7 +55,7 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(SearchUtil.searchCustomerTypeArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerTypeWebArray(this), mCustomerParams.getType())]);
     }
 
-    private void initCountView(){
+    private void initCountView() {
         ((TextView) viewDelegate.get(R.id.tv_left_number)).setText(mDealsCount + "");
         ((TextView) viewDelegate.get(R.id.tv_right_number)).setText(mContractCount + "");
     }
@@ -72,7 +72,7 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         viewDelegate.setSettingMenuListener(R.menu.customer_home, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.action_for_other:
                         Intent intent = new Intent(CustomerHomeActivity.this, ChooseEmployeeActivity.class);
                         intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
@@ -80,7 +80,7 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
                         startActivityForResult(intent, REQUEST_CHOOSE_EMPLOYEE);
                         break;
                     case R.id.action_to_customer_high_seas:
-                        if(!TextUtils.equals(mCustomerParams.getDealsCount(), "0") || !TextUtils.equals(mCustomerParams.getContractsCount(), "0")){
+                        if (!TextUtils.equals(mCustomerParams.getDealsCount(), "0") || !TextUtils.equals(mCustomerParams.getContractsCount(), "0")) {
                             ShowWidgetUtil.showShort(R.string.throw_to_customer_high_sea_unable_message);
                         } else {
                             RetrofitRequest.getInstance().throwToCustomerHighSeas(mCustomerParams.getId());
@@ -125,7 +125,7 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(CustomerParams[] params) {
         //说明是转入客户公海成功
-        if(params.length == 0){
+        if (params.length == 0) {
             ShowWidgetUtil.showShort(R.string.throw_to_customer_high_sea_success_message);
             finish();
             return;
@@ -138,17 +138,15 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
-        List<FollowParams> records = new ArrayList<>();
-        List<FollowParams> plans = new ArrayList<>();
-        for (FollowParams param : list) {
-            if (TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)) {
-                plans.add(param);
-            } else {
-                records.add(param);
-            }
+        if(mRequestFollowType == REQUEST_RECORD){
+            viewDelegate.setViewPagerData(0, list);
+            mRequestFollowType = REQUEST_PLAN;
+            mEventBusJustForThis = true;
+            RetrofitRequest.getInstance().getCustomerFollow(mCustomerParams.getId(), null, null, null, null, null, Contants.FOLLOW_TYPE_PLAN);
+        } else {
+            viewDelegate.setViewPagerData(1, list);
+            mRequestFollowType = -1;
         }
-        viewDelegate.setViewPagerData(0, records);
-        viewDelegate.setViewPagerData(1, plans);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -157,15 +155,15 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         if (params != null && params.length > 0) {
             mLocation = mCustomerParams.getAddress();
             ContactDao contactDao = DBHelper.getInstance(this).getContactDao();
-            for(ContactParams param : params){
-                if(TextUtils.isEmpty(param.getId())){
+            for (ContactParams param : params) {
+                if (TextUtils.isEmpty(param.getId())) {
                     continue;
                 }
                 List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Contact_id.eq(param.getId())).list();
-                if (list == null || list.size() == 0){
+                if (list == null || list.size() == 0) {
                     contactDao.insert(param.copyToContact());
                 } else {
-                    if(!param.equalsContact(list.get(0))){
+                    if (!param.equalsContact(list.get(0))) {
                         Contact contact = param.copyToContact();
                         contact.setId(list.get(0).getId());
                         contactDao.update(contact);
@@ -178,9 +176,9 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(Integer key) {
-        if(key == Contants.EVENT_BUS_KEY_ADD_BUSINESS){
+        if (key == Contants.EVENT_BUS_KEY_ADD_BUSINESS) {
             mDealsCount++;
-        } else if(key == Contants.EVENT_BUS_KEY_ADD_CONTRACT){
+        } else if (key == Contants.EVENT_BUS_KEY_ADD_CONTRACT) {
             mContractCount++;
         }
     }
@@ -188,8 +186,12 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
     @Override
     protected void onResume() {
         super.onResume();
-        //获取跟进记录
-        RetrofitRequest.getInstance().getCustomerFollow(mCustomerParams.getId(), null, null, null, null, null);
+        mEventBusJustForThis = true;
+        if (mRequestFollowType == -1) {
+            mRequestFollowType = REQUEST_RECORD;
+            //获取跟进记录
+            RetrofitRequest.getInstance().getCustomerFollow(mCustomerParams.getId(), null, null, null, null, null, Contants.FOLLOW_TYPE_RECORD);
+        }
         //获取客户名下联系人
         RetrofitRequest.getInstance().getContactList(null, mCustomerParams.getId());
         initCountView();

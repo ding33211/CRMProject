@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Created by dingsigang on 16-8-29.
  */
-public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener{
+public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivityDelegate> implements View.OnClickListener {
     BusinessOpportunityParams mBusinessOpportunityParams;
     CustomerParams mCustomerParams;
     CharSequence[] mStateArray;
@@ -57,11 +57,11 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
     protected void bindEvenListener() {
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this, R.id.ll_go_left, R.id.ll_go_right);
-        if(!TextUtils.equals(mBusinessOpportunityParams.getStatus(), SearchUtil.searchBusinessOpportunityStateWebArray(getApplicationContext())[6])){
+        if (!TextUtils.equals(mBusinessOpportunityParams.getStatus(), SearchUtil.searchBusinessOpportunityStateWebArray(getApplicationContext())[6])) {
             viewDelegate.setSettingMenuListener(R.menu.business_opportunity_home, new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    if(item.getItemId() == R.id.action_to_contract){
+                    if (item.getItemId() == R.id.action_to_contract) {
                         transfer();
                     }
                     return false;
@@ -71,7 +71,7 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
 
     }
 
-    private void transfer(){
+    private void transfer() {
         Intent intent = new Intent(BusinessOpportunityHomeActivity.this, AddContractActivity.class);
         ContractParams params = new ContractParams();
         params.settDeal(mBusinessOpportunityParams.getId());
@@ -87,7 +87,7 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        switch (id){
+        switch (id) {
             case R.id.ll_go_left:
                 Intent intent = new Intent(this, BusinessOpportunitySpecActivity.class);
                 intent.putExtra(Contants.EXTRA_BUSINESS_OPPORTUNITY, mBusinessOpportunityParams);
@@ -129,7 +129,7 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
         List<Contact> list = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(mCustomerParams.getId()))
                 .orderDesc(ContactDao.Properties.TouchedAt).list();
         List<ContactParams> contactList = new ArrayList<>();
-        for(Contact contact : list){
+        for (Contact contact : list) {
             contactList.add(contact.copyToContactParams());
         }
         mLocation = mCustomerParams.getAddress();
@@ -139,40 +139,44 @@ public class BusinessOpportunityHomeActivity extends Big4HomeActivityPresenter<B
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
-        if(!mEventBusJustForThis){
+        if (!mEventBusJustForThis) {
             return;
         } else {
             mEventBusJustForThis = false;
         }
         List<FollowParams> list = Arrays.asList(params);
-        List<FollowParams> records = new ArrayList<>();
-        List<FollowParams> plans = new ArrayList<>();
-        for(FollowParams param : list){
-            if(TextUtils.equals(param.getType(), Contants.FOLLOW_TYPE_PLAN)){
-                plans.add(param);
-            } else {
-                records.add(param);
-            }
+        if (list.size() > 0 && TextUtils.equals(list.get(0).getType(), Contants.FOLLOW_TYPE_RECORD)) {
+            mBusinessOpportunityParams.setStatus(list.get(0).getStatus());
+            ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mBusinessOpportunityParams.getStatus())]);
         }
-        mBusinessOpportunityParams.setStatus(records.get(0).getStatus());
-        ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mBusinessOpportunityParams.getStatus())]);
-        viewDelegate.setViewPagerData(0, records);
-        viewDelegate.setViewPagerData(1, plans);
+        if (mRequestFollowType == REQUEST_RECORD) {
+            viewDelegate.setViewPagerData(0, list);
+            mRequestFollowType = REQUEST_PLAN;
+            mEventBusJustForThis = true;
+            RetrofitRequest.getInstance().getBusinessOpportunityFollow(mBusinessOpportunityParams.getId(), null, null, null, null, null, Contants.FOLLOW_TYPE_PLAN);
+        } else {
+            viewDelegate.setViewPagerData(1, list);
+            mRequestFollowType = -1;
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mEventBusJustForThis = true;
-        RetrofitRequest.getInstance().getBusinessOpportunityFollow(mBusinessOpportunityParams.getId(), null, null, null, null, null);
+        if (mRequestFollowType == -1) {
+            mEventBusJustForThis = true;
+            mRequestFollowType = REQUEST_RECORD;
+            //获取跟进记录
+            RetrofitRequest.getInstance().getBusinessOpportunityFollow(mBusinessOpportunityParams.getId(), null, null, null, null, null, Contants.FOLLOW_TYPE_RECORD);
+        }
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            switch (requestCode){
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
                 case Big4HomeActivityDelegate.REQUEST_ADD_FOLLOW:
                     transfer();
                     break;

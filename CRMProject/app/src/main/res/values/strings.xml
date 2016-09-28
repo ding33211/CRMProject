@@ -192,6 +192,7 @@
     <string name="title_empty_error">标题不能为空</string>
     <string name="content_empty_error">内容不能为空</string>
     <string name="follow_time_empty_error">请选择跟进时间</string>
+    <string name="remind_time_empty_error">请选择提醒时间</string>
     <string name="follow_method_empty_error">请选择跟进方式</string>
     <string name="follow_clue">跟进线索</string>
     <string name="follow_customer">跟进客户</string>
@@ -230,6 +231,7 @@
     <string name="please_input_email">请输入邮箱</string>
     <string name="wrong_email">邮箱格式不正确</string>
     <string name="two_password_not_same">两次密码不匹配</string>
+    <string name="password_regular_wrong">密码需要8位以上数字或字母</string>
     <string name="please_input_password_again">请再次输入密码</string>
     <string name="register_success_message">注册成功,请去邮箱激活</string>
     <string name="empty_data">暂无数据</string>
