@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
@@ -117,7 +118,7 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
 
     public void bindFilterAndSortEventListener(final Activity activity, final String[] parentStrings,
                                                final String[][] childrenStrings, final String[][][] grandChildStrings,
-                                               final String[] sortStrings, final FilterOrSortPopupWindow.SelectCategory filterListener){
+                                               final String[] sortStrings, final FilterOrSortPopupWindow.SelectCategory filterListener1, final FilterOrSortPopupWindow.SelectCategory filterListener2){
         setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,15 +133,17 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
                         ImageView ivArrow = (ImageView)v.findViewById(R.id.iv_filter1);
                         ivArrow.setImageResource(R.drawable.arrow_up);
                         if(mFilterPopupWindow == null){
-                            for(int i = 0; i < childrenStrings.length; i++){
-                                List<String> list = new ArrayList<String>();
-                                list.add( activity.getString(R.string.all));
-                                for(String a : childrenStrings[i]){
-                                    list.add(a);
+                            if(childrenStrings != null){
+                                for(int i = 0; i < childrenStrings.length; i++){
+                                    List<String> list = new ArrayList<String>();
+                                    list.add( activity.getString(R.string.all));
+                                    for(String a : childrenStrings[i]){
+                                        list.add(a);
+                                    }
+                                    childrenStrings[i] = list.toArray(new String[1]);
                                 }
-                                childrenStrings[i] = list.toArray(new String[1]);
                             }
-                            mFilterPopupWindow = new FilterOrSortPopupWindow(parentStrings, childrenStrings, null, activity, filterListener);
+                            mFilterPopupWindow = new FilterOrSortPopupWindow(parentStrings, childrenStrings, null, activity, filterListener1);
                         }
                         mFilterPopupWindow.showAsDropDown(v, 0, 0);
                         bindOnDismissListener(mFilterPopupWindow, ivArrow);
@@ -155,7 +158,7 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
                         ImageView ivArrow = (ImageView)v.findViewById(R.id.iv_filter2);
                         ivArrow.setImageResource(R.drawable.arrow_up);
                         if(mSortPopupWindow == null){
-                            mSortPopupWindow = new FilterOrSortPopupWindow(sortStrings, null, null, activity, filterListener);
+                            mSortPopupWindow = new FilterOrSortPopupWindow(sortStrings, null, null, activity, filterListener2);
                         }
                         mSortPopupWindow.showAsDropDown(v, 0, 0);
                         bindOnDismissListener(mSortPopupWindow, ivArrow);
@@ -222,5 +225,13 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
     //让底部的联系栏可见
     public void setContactVisible(){
         get(R.id.rl_contact_method).setVisibility(View.VISIBLE);
+    }
+
+    public void setLeftFilterTitle(String title){
+        ((TextView)get(R.id.tv_left_filter)).setText(title);
+    }
+
+    public void setRightFilterTitle(String title){
+        ((TextView)get(R.id.tv_right_filter)).setText(title);
     }
 }

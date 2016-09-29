@@ -23,6 +23,7 @@ public class SalesPerformanceAdapter extends BaseHomePageIndicatorViewPagerAdapt
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(getViewPagerLayoutRes(), container, false);
         }
+
         return convertView;
     }
 

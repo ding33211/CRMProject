@@ -1,6 +1,7 @@
 package com.soubu.crmproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.model.Contants;
+import com.soubu.crmproject.view.activity.AllFollowActivity;
 import com.soubu.crmproject.widget.indicatorviewpager.ColorBar;
 import com.soubu.crmproject.widget.indicatorviewpager.Indicator;
 import com.soubu.crmproject.widget.indicatorviewpager.IndicatorViewPager;
@@ -55,7 +58,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
         Context context = parent.getContext();
         if(viewType == TYPE_WORK_PLAN){
             View v = LayoutInflater.from(context).inflate(R.layout.item_work_plan, parent, false);
-            return new ItemViewHolder(v);
+            return new ItemViewHolder(v, context, viewType);
         }
         View v = LayoutInflater.from(context).inflate(R.layout.item_home_recyclerview, parent, false);
         View viewPagerItem;
@@ -107,7 +110,7 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
 //                    ViewGroup.LayoutParams.WRAP_CONTENT));
 //            return new FooterViewHolder(view);
 //        }
-        return new ItemViewHolder(v);
+        return new ItemViewHolder(v, context, viewType);
     }
 
     @Override
@@ -133,12 +136,65 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
     }
 
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvTitle;
+        View vFollowRecord;
+        View vFollowPlan;
+        View vTotalTurnOver;
+        View vUnitPrice;
+        View vCustomerNumber;
+        View vContractNumber;
+        View vTotalFollow;
+        View vNewClue;
+        View vNewBusiness;
+        Context context;
 
-        public ItemViewHolder(View itemView) {
+        public ItemViewHolder(View itemView, Context context, int viewType) {
             super(itemView);
+            this.context = context;
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
+            switch (viewType){
+                case TYPE_WORK_PLAN:
+                    vFollowRecord = itemView.findViewById(R.id.rl_follow_record);
+                    vFollowPlan = itemView.findViewById(R.id.rl_follow_plan);
+                    vFollowRecord.setOnClickListener(this);
+                    vFollowPlan.setOnClickListener(this);
+                    break;
+//                case TYPE_SALES_PERFORMANCE:
+//                    vTotalTurnOver = itemView.findViewById(R.id.rl_total_turnover);
+//                    vTotalTurnOver.setOnClickListener(this);
+//                    vUnitPrice = itemView.findViewById(R.id.rl_unit_price);
+//                    vUnitPrice.setOnClickListener(this);
+//                    vCustomerNumber = itemView.findViewById(R.id.rl_numbers_of_customer);
+//                    vCustomerNumber.setOnClickListener(this);
+//                    vContractNumber = itemView.findViewById(R.id.rl_contract_number);
+//                    vContractNumber.setOnClickListener(this);
+//                    break;
+//                case TYPE_SALES_EXECUTIVE:
+//                    vTotalFollow = itemView.findViewById(R.id.rl_total_follow_up);
+//                    vTotalFollow.setOnClickListener(this);
+//                    vNewClue = itemView.findViewById(R.id.rl_new_clue);
+//                    vNewClue.setOnClickListener(this);
+//                    vNewBusiness = itemView.findViewById(R.id.rl_new_business_opportunity);
+//                    vNewBusiness.setOnClickListener(this);
+//                    break;
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.rl_follow_record:
+                    Intent intent = new Intent(context, AllFollowActivity.class);
+                    intent.putExtra(Contants.EXTRA_TYPE, Contants.TYPE_FOLLOW_RECORD);
+                    context.startActivity(intent);
+                    break;
+                case R.id.rl_follow_plan:
+                    Intent intent1= new Intent(context, AllFollowActivity.class);
+                    intent1.putExtra(Contants.EXTRA_TYPE, Contants.TYPE_FOLLOW_PLAN);
+                    context.startActivity(intent1);
+                    break;
+            }
         }
     }
 

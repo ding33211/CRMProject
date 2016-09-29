@@ -1,6 +1,7 @@
 package com.soubu.crmproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,11 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.base.greendao.Contact;
+import com.soubu.crmproject.base.greendao.ContactDao;
+import com.soubu.crmproject.base.greendao.DBHelper;
+import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.SearchUtil;
+import com.soubu.crmproject.view.activity.ContactSpecActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +52,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
     private int mDay;
     private CharSequence[] mFollowMethod;
     private CharSequence[] mFollowMethodWeb;
+    private ContactDao mContactDao;
 
 
     public FollowInBig4HomeViewPagerRvAdapter(int pos, int where, int which) {
@@ -62,9 +69,11 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mFollowMethod = parent.getContext().getResources().getStringArray(R.array.follow_method);
-        mFollowMethodWeb = parent.getContext().getResources().getStringArray(R.array.follow_method_web);
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_clue_spec_viewpager_recyclerview, parent, false);
+        Context context = parent.getContext();
+        mContactDao = DBHelper.getInstance(context).getContactDao();
+        mFollowMethod = context.getResources().getStringArray(R.array.follow_method);
+        mFollowMethodWeb = context.getResources().getStringArray(R.array.follow_method_web);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_clue_spec_viewpager_recyclerview, parent, false);
         View llDate = v.findViewById(R.id.ll_date);
         View bottomLine = v.findViewById(R.id.v_bottom_line);
         TextView tvFollowState = (TextView) v.findViewById(R.id.tv_follow_state_label);
@@ -96,7 +105,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
 //                v.findViewById(R.id.ll_follow_state).setVisibility(View.GONE);
                 break;
         }
-        return new ItemViewHolder(v);
+        return new ItemViewHolder(v, context);
     }
 
     @Override
@@ -126,8 +135,9 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
             }
             if (!TextUtils.equals(entityType, Contants.FOLLOW_TYPE_OPPORTUNITY)) {
                 holder1.vContact.setVisibility(View.VISIBLE);
-                if (mList.get(position).getContact() != null) {
-                    holder1.tvContact.setText(mList.get(position).getContact().getName());
+                ContactParams param = mList.get(position).getContact();
+                if (param != null && !TextUtils.isEmpty(param.getName())) {
+                    holder1.tvContact.setText(param.getName());
                 } else {
                     holder1.vContact.setVisibility(View.GONE);
                 }
@@ -155,6 +165,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
             }
             holder1.tvDate.setText(ConvertUtil.dateToYYYY_MM_DD_EEEE(mList.get(position).getFollowupAt()));
             holder1.tvTime.setText(ConvertUtil.dateToHH_mm(mList.get(position).getFollowupAt()));
+            holder1.tvCreator.setText(mList.get(position).getUser().getNickName());
         }
         if (mPos == POS_PLAN) {
 //            mCalendar.setTime(new Date(mList.get(position).getTime()));
@@ -221,7 +232,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
     }
 
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView ivFollowState;
         ImageView ivAlarm;
         TextView tvTitle;
@@ -234,9 +245,12 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
         View vContact;
         TextView tvLastState;
         TextView tvNowState;
+        TextView tvCreator;
+        Context context;
 
-        public ItemViewHolder(View itemView) {
+        public ItemViewHolder(View itemView, Context context) {
             super(itemView);
+            this.context = context;
             ivFollowState = (ImageView) itemView.findViewById(R.id.iv_complete_state);
             ivAlarm = (ImageView) itemView.findViewById(R.id.iv_alarm);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
@@ -244,11 +258,28 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             tvDate = (TextView) itemView.findViewById(R.id.tv_date);
             tvContact = (TextView) itemView.findViewById(R.id.tv_related_two_value);
+            tvContact.setOnClickListener(this);
             vLast = itemView.findViewById(R.id.ll_last_state);
             tvLastState = (TextView) itemView.findViewById(R.id.tv_follow_state_before);
             tvNowState = (TextView) itemView.findViewById(R.id.tv_follow_state_next);
             vContact = itemView.findViewById(R.id.ll_related_two);
             tvFollowMethod = (TextView) itemView.findViewById(R.id.tv_follow_method);
+            tvFollowMethod.setOnClickListener(this);
+            tvCreator = (TextView) itemView.findViewById(R.id.tv_creator);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.tv_related_two_value:
+                    List<Contact> chooseList = mContactDao.queryBuilder().where(ContactDao.Properties.Contact_id.eq(mList.get(getLayoutPosition()).getContact().getId())).list();
+                    Intent intent = new Intent(context, ContactSpecActivity.class);
+                    intent.putExtra(Contants.EXTRA_CONTACT, chooseList.get(0).copyToContactParams());
+                    context.startActivity(intent);
+                    break;
+                case R.id.tv_follow_method:
+                    break;
+            }
         }
     }
 

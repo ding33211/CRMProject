@@ -147,7 +147,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
 //            @Override
 //            public void onClick(View v) {
 //                if (mSelectCategory != null) {
-//                    mSelectCategory.selectFilter(mMap);
+//                    mSelectCategory.selectTwoStep(mMap);
 //                }
 //                dismiss();
 //            }
@@ -184,7 +184,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
             mChildrenCategoryAdapter.notifyDataSetChanged();
             mMap.put(mParentPos, position);
             if (mSelectCategory != null) {
-                mSelectCategory.selectFilter(mMap);
+                mSelectCategory.selectTwoStep(mMap);
             }
             dismiss();
         }
@@ -216,18 +216,19 @@ public class FilterOrSortPopupWindow extends PopupWindow {
      */
     public interface SelectCategory {
         /**
-         * 筛选的map
+         * 筛选两步
          * key为左,value为右
          *
          * @param map
          */
-        public void selectFilter(Map<Integer, Integer> map);
+        public void selectTwoStep(Map<Integer, Integer> map);
 
         /**
-         * 排序的回调
+         * 筛选一步
          * @param pos 选择位置
          */
-        public void selectSort(int pos);
+        public void selectOneStep(int pos);
+
     }
 
 
@@ -238,7 +239,7 @@ public class FilterOrSortPopupWindow extends PopupWindow {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             if (mSelectCategory != null) {
-                mSelectCategory.selectSort(position);
+                mSelectCategory.selectOneStep(position);
             }
             mCategoryAdapter.setSelectedPosition(position);
             dismiss();

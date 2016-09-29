@@ -73,10 +73,14 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
         Intent[] intentsTwo = new Intent[]{null, null,
                 intent, intent1, null, null};
 
-        int[] labelsThree = new int[]{R.string.business_card_scanning, R.string.nearby_customers, R.string.fill_in_follow_up, R.string.new_reminder};
-        int[] iconsThree = new int[]{R.drawable.business_card_scanning_disable, R.drawable.nearby_customers_disable, R.drawable.fill_in_follow_up, R.drawable.new_reminder_disable};
+        int[] labelsThree = new int[]{R.string.business_card_scanning, R.string.nearby_customers, R.string.fill_in_follow_up, R.string.new_plan};
+        int[] iconsThree = new int[]{R.drawable.business_card_scanning_disable, R.drawable.nearby_customers_disable, R.drawable.fill_in_follow_up, R.drawable.new_reminder};
+        Intent intent3_3 = new Intent(activity, AddFollowHomeActivity.class);
+        intent3_3.putExtra(Contants.EXTRA_TYPE, Contants.TYPE_FOLLOW_RECORD);
+        Intent intent3_4 = new Intent(activity, AddFollowHomeActivity.class);
+        intent3_4.putExtra(Contants.EXTRA_TYPE, Contants.TYPE_FOLLOW_PLAN);
         Intent[] intentsThree = new Intent[]{null, null,
-                new Intent(activity, AddFollowHomeActivity.class), null};
+                intent3_3, intent3_4};
         mCustomerItems = new ArrayList<>();
         for (int i = 0; i < labelsOne.length; i++) {
             CRMRvItem crm = new CRMRvItem();

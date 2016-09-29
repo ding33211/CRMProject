@@ -23,6 +23,8 @@ public class Contants {
     public static final int TYPE_HIGH_SEAS = 0x04;
     //还没有转成合同的商机
     public static final int TYPE_NO_TRANSFER_BUSINESS = 0x05;
+    public static final int TYPE_FOLLOW_PLAN = 0x06;
+    public static final int TYPE_FOLLOW_RECORD = 0x07;
 
 
 

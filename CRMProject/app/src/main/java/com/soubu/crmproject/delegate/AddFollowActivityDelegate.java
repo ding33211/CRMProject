@@ -7,7 +7,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.base.greendao.Contact;
 import com.soubu.crmproject.base.mvp.view.AppDelegate;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
@@ -28,7 +30,7 @@ public class AddFollowActivityDelegate extends AppDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        if(mType == AddFollowActivity.TYPE_RECORD){
+        if(mType == Contants.TYPE_FOLLOW_RECORD){
             ((TextView)get(R.id.tv_expected_contract_label)).setText(R.string.related_contact);
         } else {
             get(R.id.rl_state).setVisibility(View.GONE);

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/rl_total_turnover"
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_weight="1"
@@ -62,6 +63,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_unit_price"
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_weight="1"
@@ -117,6 +119,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/rl_numbers_of_customer"
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_weight="1"
@@ -158,6 +161,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_contract_number"
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_weight="1"

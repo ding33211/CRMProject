@@ -3,6 +3,7 @@ package com.soubu.crmproject.view.activity;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -156,6 +157,7 @@ public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
             ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(mStateArray[SearchUtil.searchInArray(mStateArrayWeb, mContractParams.getStatus())]);
         }
         if (mRequestFollowType == REQUEST_RECORD) {
+            Log.e("zzzzzzz", "setViewPagerData  begin ");
             viewDelegate.setViewPagerData(0, list);
             mRequestFollowType = REQUEST_PLAN;
             mEventBusJustForThis = true;
@@ -169,6 +171,7 @@ public class ContractHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e("zzzzzzz", "onResume  begin ");
         if (mRequestFollowType == -1) {
             mEventBusJustForThis = true;
             mRequestFollowType = REQUEST_RECORD;

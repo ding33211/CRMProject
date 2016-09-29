@@ -21,7 +21,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,11 +28,13 @@ import java.util.List;
  * Created by dingsigang on 16-9-5.
  */
 public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivityDelegate> {
-    int mtype = Contants.TYPE_CLUE;
+    int mType = Contants.TYPE_CLUE;
     int mCluePage = 1;
     int mCustomerPage = 1;
     int mContractPage = 1;
     int mBusinessOpportunityPage = 1;
+    int mFollowType = -1;
+
     boolean mIsRefresh = false;
     //是否来自再次选择对象
     boolean mFromAddFollow = false;
@@ -50,6 +51,7 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
         super.initToolbar();
         viewDelegate.setTitle(R.string.please_choose_follow_object);
         mFromAddFollow = getIntent().getBooleanExtra(Contants.EXTRA_FROM_ADD_FOLLOW, false);
+        mFollowType = getIntent().getIntExtra(Contants.EXTRA_TYPE, -1);
     }
 
     @Override
@@ -168,7 +170,7 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
     private void onRecyclerItemClick(int from, Serializable entity){
         Intent intent = new Intent(AddFollowHomeActivity.this, AddFollowActivity.class);
         intent.putExtra(Contants.EXTRA_FROM, from);
-        intent.putExtra(Contants.EXTRA_TYPE, AddFollowActivity.TYPE_RECORD);
+        intent.putExtra(Contants.EXTRA_TYPE, mFollowType);
         intent.putExtra(Contants.EXTRA_ENTITY, entity);
         intent.putExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, true);
         if (mFromAddFollow) {
@@ -187,7 +189,7 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
     }
 
     private void getList(boolean isRefresh, int type, int pageNum) {
-        mtype = type;
+        mType = type;
         mIsRefresh = isRefresh;
         if (isRefresh) {
             pageNum = 1;
@@ -222,7 +224,7 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
     @Override
     protected void onResume() {
         super.onResume();
-        getList(true, mtype, 1);
+        getList(true, mType, 1);
         haveInit[0] = true;
     }
 

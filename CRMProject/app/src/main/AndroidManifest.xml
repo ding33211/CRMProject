@@ -163,7 +163,10 @@
             android:name=".view.activity.ChooseEmployeeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="portrait"></activity>
-
+        <activity
+            android:name=".view.activity.AllFollowActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait"></activity>
         <receiver
             android:name="com.soubu.crmproject.receiver.FollowRemindReceiver"
             android:process=":remote" />

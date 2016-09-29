@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/rl_total_follow_up"
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_weight="1"
@@ -52,6 +53,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_new_clue"
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_weight="1"
@@ -95,6 +97,7 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/rl_new_business_opportunity"
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_weight="1"
@@ -132,44 +135,4 @@
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
-
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="1"-->
-    <!--android:paddingBottom="20dp"-->
-    <!--android:paddingLeft="16dp"-->
-    <!--android:paddingTop="20dp">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/iv_new_contract"-->
-    <!--android:layout_width="40dp"-->
-    <!--android:layout_height="40dp"-->
-    <!--android:src="@drawable/fx_find_pressed" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_new_contract_label"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:layout_marginTop="5dp"-->
-    <!--android:layout_toRightOf="@+id/iv_new_contract"-->
-    <!--android:text="@string/new_contract" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_new_contract"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignLeft="@+id/tv_new_contract_label"-->
-    <!--android:layout_below="@+id/tv_new_contract_label"-->
-    <!--android:layout_marginTop="5dp"-->
-    <!--android:text="84"-->
-    <!--android:textColor="@android:color/black" />-->
-    <!--</RelativeLayout>-->
-    <!--</LinearLayout>-->
 </LinearLayout>

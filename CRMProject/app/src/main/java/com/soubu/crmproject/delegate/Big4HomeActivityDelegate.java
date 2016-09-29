@@ -91,7 +91,7 @@ public class Big4HomeActivityDelegate extends AppDelegate {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFollowActivity.class);
                 intent.putExtra(Contants.EXTRA_FROM, mFrom);
-                intent.putExtra(Contants.EXTRA_TYPE, AddFollowActivity.TYPE_RECORD);
+                intent.putExtra(Contants.EXTRA_TYPE, Contants.TYPE_FOLLOW_RECORD);
                 intent.putExtra(Contants.EXTRA_ENTITY, mSerializable);
                 getActivity().startActivityForResult(intent, REQUEST_ADD_FOLLOW);
             }
@@ -101,7 +101,7 @@ public class Big4HomeActivityDelegate extends AppDelegate {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFollowActivity.class);
                 intent.putExtra(Contants.EXTRA_FROM, mFrom);
-                intent.putExtra(Contants.EXTRA_TYPE, AddFollowActivity.TYPE_PLAN);
+                intent.putExtra(Contants.EXTRA_TYPE, Contants.TYPE_FOLLOW_PLAN);
                 intent.putExtra(Contants.EXTRA_ENTITY, mSerializable);
                 getActivity().startActivity(intent);
             }

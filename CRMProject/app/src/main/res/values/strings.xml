@@ -59,6 +59,7 @@
     <string name="nearby_customers">附近客户</string>
     <string name="fill_in_follow_up">填写跟进</string>
     <string name="new_reminder">新增提醒</string>
+    <string name="new_plan">新增计划</string>
 
     <string name="no_reminder">不提醒</string>
     <string name="remind">提醒</string>
@@ -280,5 +281,7 @@
     <string name="please_choose_related_business_first">请先选择关联商机</string>
     <string name="throw_to_customer_high_sea_unable_message">该客户已经产生商机与合同,不支持转入公海</string>
     <string name="throw_to_customer_high_sea_success_message">已成功转入客户公海</string>
+    <string name="follow_object">跟进对象</string>
+    <string name="follow_man">跟进人</string>
 
 </resources>

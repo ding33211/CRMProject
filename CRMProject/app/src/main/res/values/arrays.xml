@@ -316,7 +316,6 @@
         <item>OTHER</item>
     </string-array>
 
-
     <string-array name="contract_review_state">
         <item>未审核</item>
         <item>审核通过</item>
@@ -328,4 +327,44 @@
         <item>SUCCEEDED</item>
         <item>FAILED</item>
     </string-array>
+
+
+    <string-array name="follow_object">
+        <item>全部</item>
+        <item>线索</item>
+        <item>客户</item>
+        <item>商机</item>
+        <item>合同</item>
+    </string-array>
+
+    <string-array name="follow_object_web">
+        <item>NOT_STARTED</item>
+        <item>SUCCEEDED</item>
+        <item>FAILED</item>
+    </string-array>
+
+    <string-array name="follow_man">
+        <item>全部</item>
+        <item>我的跟进</item>
+        <item>其他人的跟进</item>
+    </string-array>
+
+    <string-array name="follow_man_web">
+        <item>NOT_STARTED</item>
+        <item>SUCCEEDED</item>
+        <item>FAILED</item>
+    </string-array>
+
+    <string-array name="follow_time">
+        <item>全部</item>
+        <item>今天</item>
+        <item>明天</item>
+    </string-array>
+
+    <string-array name="follow_time_web">
+        <item>NOT_STARTED</item>
+        <item>SUCCEEDED</item>
+        <item>FAILED</item>
+    </string-array>
+
 </resources>

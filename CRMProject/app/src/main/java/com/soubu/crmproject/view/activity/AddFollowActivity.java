@@ -45,8 +45,6 @@ import java.util.TimeZone;
  * Created by dingsigang on 16-8-30.
  */
 public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelegate> implements View.OnClickListener {
-    public static final int TYPE_RECORD = 0x00;
-    public static final int TYPE_PLAN = 0x01;
 
     private static final int REQUEST_CODE_CHANGE_OBJECT = 1001;
     private boolean mFromAddHome = false;
@@ -91,12 +89,12 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
     @Override
     protected void initToolbar() {
         super.initToolbar();
-        mType = getIntent().getIntExtra(Contants.EXTRA_TYPE, TYPE_RECORD);
+        mType = getIntent().getIntExtra(Contants.EXTRA_TYPE, Contants.TYPE_FOLLOW_RECORD);
         mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, Contants.FROM_CLUE);
         mEntity = getIntent().getSerializableExtra(Contants.EXTRA_ENTITY);
         mFromAddHome = getIntent().getBooleanExtra(Contants.EXTRA_FROM_ADD_FOLLOW_HOME, false);
         mFollowParams = new FollowParams();
-        if (mType == TYPE_RECORD) {
+        if (mType == Contants.TYPE_FOLLOW_RECORD) {
             viewDelegate.setTitle(R.string.add_follow_record);
         } else {
             viewDelegate.setTitle(R.string.add_follow_plan);
@@ -110,7 +108,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
         if (mFromAddHome) {
             viewDelegate.get(R.id.iv_related_one).setVisibility(View.VISIBLE);
         }
-        if(mType == TYPE_PLAN){
+        if(mType == Contants.TYPE_FOLLOW_PLAN){
             mFollowParams.setType(Contants.FOLLOW_TYPE_PLAN);
         }
         ContactDao contactDao = DBHelper.getInstance(getApplicationContext()).getContactDao();
@@ -247,7 +245,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         mFollowTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         mFollowTime.set(Calendar.MINUTE, minute);
-                        if (mType == TYPE_RECORD) {
+                        if (mType == Contants.TYPE_FOLLOW_RECORD) {
                             if (mFollowTime.getTimeInMillis() > now.getTimeInMillis()) {
                                 ShowWidgetUtil.showLong(R.string.add_follow_record_time_error);
                                 mFollowTime = now;
@@ -279,7 +277,7 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 mFollowTime.set(year, monthOfYear, dayOfMonth);
-                                if (mType == TYPE_RECORD) {
+                                if (mType == Contants.TYPE_FOLLOW_RECORD) {
                                     if (mFollowTime.getTimeInMillis() - now.getTimeInMillis() > 24 * 3600 * 1000) {
                                         ShowWidgetUtil.showLong(R.string.add_follow_record_time_error);
                                         mFollowTime = now;

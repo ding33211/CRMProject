@@ -78,17 +78,33 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
         parentStrings = getResources().getStringArray(getParentArray());
         childrenStrings = getChildrenArray();
         sortStrings = getResources().getStringArray(getSortArray());
-        viewDelegate.bindFilterAndSortEventListener(this, parentStrings, childrenStrings, null, sortStrings, new FilterOrSortPopupWindow.SelectCategory() {
+        viewDelegate.bindFilterAndSortEventListener(this, parentStrings, childrenStrings, null, sortStrings, getFirstFilterListener(), getSecondFilterListener());
+    }
+
+    FilterOrSortPopupWindow.SelectCategory getFirstFilterListener() {
+        return new FilterOrSortPopupWindow.SelectCategory() {
             @Override
-            public void selectFilter(Map<Integer, Integer> map) {
+            public void selectTwoStep(Map<Integer, Integer> map) {
                 onSelectFilter(map);
             }
 
             @Override
-            public void selectSort(int pos) {
+            public void selectOneStep(int pos) {
+            }
+        };
+    }
+
+    FilterOrSortPopupWindow.SelectCategory getSecondFilterListener() {
+        return new FilterOrSortPopupWindow.SelectCategory() {
+            @Override
+            public void selectTwoStep(Map<Integer, Integer> map) {
+            }
+
+            @Override
+            public void selectOneStep(int pos) {
                 onSelectSort(pos);
             }
-        });
+        };
     }
 
 
@@ -131,7 +147,7 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void throwError(Integer errorCode) {
-        if(!mEventBusJustForThis){
+        if (!mEventBusJustForThis) {
             return;
         } else {
             mEventBusJustForThis = false;

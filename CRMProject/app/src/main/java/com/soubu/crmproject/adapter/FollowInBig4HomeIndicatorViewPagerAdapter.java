@@ -32,7 +32,6 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
     public FollowInBig4HomeIndicatorViewPagerAdapter(int which) {
         mAdapter0 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_RECORD, Contants.IN_4_HOME, which);
         mAdapter1 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_PLAN, Contants.IN_4_HOME, which);
-
     }
 
     @Override
@@ -65,9 +64,19 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
         if(position == 0){
             recyclerView.setAdapter(mAdapter0);
             mEmptyView0 = convertView.findViewById(R.id.ll_empty);
+            if(mAdapter0.getItemCount() == 0){
+                mEmptyView0.setVisibility(View.VISIBLE);
+            } else {
+                mEmptyView0.setVisibility(View.GONE);
+            }
         } else {
             recyclerView.setAdapter(mAdapter1);
             mEmptyView1 = convertView.findViewById(R.id.ll_empty);
+            if(mAdapter1.getItemCount() == 0){
+                mEmptyView1.setVisibility(View.VISIBLE);
+            } else {
+                mEmptyView1.setVisibility(View.GONE);
+            }
         }
         return convertView;
     }
@@ -79,8 +88,11 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
 
     public void setViewPagerData(int pos, List<FollowParams> list){
         if (pos == 0){
-            Log.e("xxxxxxxxxx", list.isEmpty() + "");
             mAdapter0.setData(list);
+            //可能存在情况,由于下面的跟随界面还没有初始化完,而data就已经进来了
+            if(mEmptyView0 == null){
+                return;
+            }
             if(list.isEmpty()){
                 mEmptyView0.setVisibility(View.VISIBLE);
             } else {
@@ -88,6 +100,9 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
             }
         } else {
             mAdapter1.setData(list);
+            if(mEmptyView1 == null){
+                return;
+            }
             if(list.isEmpty()){
                 mEmptyView1.setVisibility(View.VISIBLE);
             } else {
