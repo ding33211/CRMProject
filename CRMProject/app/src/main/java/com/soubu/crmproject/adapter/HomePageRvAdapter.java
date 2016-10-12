@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.view.activity.AllFollowActivity;
+import com.soubu.crmproject.view.activity.BasePerformanceActivity;
 import com.soubu.crmproject.widget.indicatorviewpager.ColorBar;
 import com.soubu.crmproject.widget.indicatorviewpager.Indicator;
 import com.soubu.crmproject.widget.indicatorviewpager.IndicatorViewPager;
@@ -193,6 +194,10 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
                     Intent intent1= new Intent(context, AllFollowActivity.class);
                     intent1.putExtra(Contants.EXTRA_TYPE, Contants.TYPE_FOLLOW_PLAN);
                     context.startActivity(intent1);
+                    break;
+                case R.id.rl_total_turnover:
+                    Intent intent2 = new Intent(context, BasePerformanceActivity.class);
+                    context.startActivity(intent2);
                     break;
             }
         }

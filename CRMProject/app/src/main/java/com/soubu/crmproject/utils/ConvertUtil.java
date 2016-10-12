@@ -44,6 +44,16 @@ public class ConvertUtil {
         return (int) (pxValue / fontScale + 0.5f);
     }
 
+    public static int dip2px(Context context, float dipValue){
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int)(dipValue * scale + 0.5f);
+    }
+
+    public static int px2dip(Context context, float pxValue){
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int)(pxValue / scale + 0.5f);
+    }
+
     /**
      * MD5加密
      */
@@ -164,5 +174,18 @@ public class ConvertUtil {
             e.printStackTrace();
             return "";
         }
+    }
+
+
+    /**
+     * Find the Greatest Common Denominator.
+     * https://en.wikipedia.org/wiki/Euclidean_algorithm
+     *
+     * @param min   Minimum value
+     * @param max   Maximum value
+     * @return Greatest common denominator
+     */
+    public static int GCD(int min, int max) {
+        return max==0 ? min : GCD(max, min % max);
     }
 }
