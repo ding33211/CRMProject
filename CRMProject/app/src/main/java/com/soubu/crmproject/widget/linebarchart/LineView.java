@@ -26,7 +26,7 @@ import java.util.Map;
 public class LineView extends View {
     private int mViewHeight;
     private int bottomLineY;
-    private int verticalGridNum;
+    private int verticalGridNum = -1;
     private YAxisView leftAxisView;
     private YAxisView rightAxisView;
     private Map<Integer, String> leftScaleMap = new HashMap<>();
@@ -42,9 +42,10 @@ public class LineView extends View {
     private ArrayList<ArrayList<Integer>> dataLists;
     private ArrayList<Integer> dataList;
 
-    private ArrayList<Float> percentList;
-    private ArrayList<Float> targetPercentList;
-    private ArrayList<Integer> barList;
+    private ArrayList<ArrayList<Float>> percentList;
+    private ArrayList<ArrayList<Float>> targetPercentList;
+    private ArrayList<ArrayList<Integer>> barList;
+    private ArrayList<Integer> barColorList;
 
     private ArrayList<Integer> xCoordinateList = new ArrayList<Integer>();
     private ArrayList<Integer> yCoordinateList = new ArrayList<Integer>();
@@ -70,6 +71,7 @@ public class LineView extends View {
 
     private int barToSelect = -1;
     private int selectedBarIndex = -1;
+    private int selectedBarListIndex = -1;
 
     private int topLineLength = ConvertUtil.dip2px(getContext(), 12); // | | ←this
     //-+-+-
@@ -128,16 +130,22 @@ public class LineView extends View {
         @Override
         public void run() {
             boolean needNewFrame = false;
-            for (int i=0; i<targetPercentList.size();i++) {
-                if (percentList.get(i) < targetPercentList.get(i)) {
-                    percentList.set(i,percentList.get(i)+0.02f);
-                    needNewFrame = true;
-                } else if (percentList.get(i) > targetPercentList.get(i)){
-                    percentList.set(i,percentList.get(i)-0.02f);
-                    needNewFrame = true;
-                }
-                if(Math.abs(targetPercentList.get(i)-percentList.get(i))<0.02f){
-                    percentList.set(i,targetPercentList.get(i));
+            ArrayList<Float> aTargetPercentList;
+            ArrayList<Float> aPercentList;
+            for (int j = 0; j < targetPercentList.size(); j++) {
+                aTargetPercentList = targetPercentList.get(j);
+                aPercentList = percentList.get(j);
+                for (int i = 0; i < aTargetPercentList.size(); i++) {
+                    if (aPercentList.get(i) < aTargetPercentList.get(i)) {
+                        aPercentList.set(i, aPercentList.get(i) + 0.02f);
+                        needNewFrame = true;
+                    } else if (aPercentList.get(i) > aTargetPercentList.get(i)) {
+                        aPercentList.set(i, aPercentList.get(i) - 0.02f);
+                        needNewFrame = true;
+                    }
+                    if (Math.abs(aTargetPercentList.get(i) - aPercentList.get(i)) < 0.02f) {
+                        aPercentList.set(i, aTargetPercentList.get(i));
+                    }
                 }
             }
             if (needNewFrame) {
@@ -167,7 +175,6 @@ public class LineView extends View {
 
         fgPaint = new Paint();
         fgPaint.setAntiAlias(true);
-        fgPaint.setColor(getResources().getColor(R.color.progressbar_green));
     }
 
     /**
@@ -243,7 +250,7 @@ public class LineView extends View {
     }
 
     private void refreshAfterDataChanged() {
-        verticalGridNum  = getVerticalGridNum();
+        verticalGridNum = getVerticalGridNum();
         refreshTopLineLength(verticalGridNum);
         refreshYCoordinateList(verticalGridNum);
         refreshDrawDotList(verticalGridNum);
@@ -253,6 +260,15 @@ public class LineView extends View {
         int verticalGridNum = MIN_VERTICAL_GRID_NUM;
         if (dataLists != null && !dataLists.isEmpty()) {
             for (ArrayList<Integer> list : dataLists) {
+                for (Integer integer : list) {
+                    if (verticalGridNum < (integer + 1)) {
+                        verticalGridNum = integer + 1;
+                    }
+                }
+            }
+        }
+        if (barList != null && !barList.isEmpty()) {
+            for (ArrayList<Integer> list : barList) {
                 for (Integer integer : list) {
                     if (verticalGridNum < (integer + 1)) {
                         verticalGridNum = integer + 1;
@@ -344,9 +360,9 @@ public class LineView extends View {
 
         if (showPopup && selectedBarIndex != -1) {
             drawPopup(canvas,
-                    String.valueOf(barList.get(selectedBarIndex)),
-                    selectedBarIndex, popupColorArray[1]);
+                    String.valueOf(barList.get(selectedBarListIndex).get(selectedBarIndex)), popupColorArray[1]);
             selectedBarIndex = -1;
+            selectedBarListIndex = -1;
         }
 
         drawAxis();
@@ -370,7 +386,7 @@ public class LineView extends View {
         }
         Collections.sort(list);
         int j = 0;
-        for (int i = list.size() - 1; i >= 0; i--){
+        for (int i = list.size() - 1; i >= 0; i--) {
             leftScaleMap.put(list.get(i), dataOfAGirdLeft * j++ + "");
         }
 
@@ -379,52 +395,76 @@ public class LineView extends View {
     private void drawRect(Canvas canvas) {
         Rect rect;
         bars.clear();
+        int size = percentList.size();
         if (percentList != null && !percentList.isEmpty()) {
-            for (int i = 0; i < percentList.size(); i++) {
-                rect = new Rect();
-                rect.set(sideLineLength + backgroundGridWidth * i - DOT_OUTER_CIR_RADIUS - ConvertUtil.dip2px(getContext(), 8),
-                        topLineLength + (int) ((mViewHeight - topLineLength - bottomTextHeight - bottomTextTopMargin -
-                                bottomLineLength - bottomTextDescent) * percentList.get(i)),
-                        sideLineLength + backgroundGridWidth * i + DOT_OUTER_CIR_RADIUS + ConvertUtil.dip2px(getContext(), 8),
-                        bottomLineY);
-                bars.add(rect);
-                canvas.drawRect(rect, fgPaint);
+            List<Integer> leftList = new ArrayList<>();
+            List<Integer> rightList = new ArrayList<>();
+            switch (size) {
+                case 1:
+                    int left = sideLineLength - DOT_OUTER_CIR_RADIUS - ConvertUtil.dip2px(getContext(), 8);
+                    int right = sideLineLength + DOT_OUTER_CIR_RADIUS + ConvertUtil.dip2px(getContext(), 8);
+                    leftList.add(left);
+                    rightList.add(right);
+                    break;
+                case 2:
+                    int left2 = sideLineLength - DOT_INNER_CIR_RADIUS - ConvertUtil.dip2px(getContext(), 10);
+                    int right2 = sideLineLength - DOT_INNER_CIR_RADIUS;
+                    int left3 = sideLineLength + DOT_INNER_CIR_RADIUS;
+                    int right3 = sideLineLength + DOT_INNER_CIR_RADIUS + ConvertUtil.dip2px(getContext(), 10);
+                    leftList.add(left2);
+                    leftList.add(left3);
+                    rightList.add(right2);
+                    rightList.add(right3);
+                    break;
             }
+            for (int j = 0; j < percentList.size(); j++) {
+                fgPaint.setColor(barColorList.get(j));
+                ArrayList<Float> list = percentList.get(j);
+                for (int i = 0; i < list.size(); i++) {
+                    rect = new Rect();
+                    rect.set(backgroundGridWidth * i + leftList.get(j),
+                            topLineLength + (int) ((mViewHeight - topLineLength - bottomTextHeight - bottomTextTopMargin -
+                                    bottomLineLength - bottomTextDescent) * list.get(i)),
+                            backgroundGridWidth * i + rightList.get(j),
+                            bottomLineY);
+                    bars.add(rect);
+                    canvas.drawRect(rect, fgPaint);
+                }
+            }
+
         }
     }
 
 
-    public void setBarDataList(ArrayList<Integer> list, YAxisView leftAxisView, int dataOfAGirdLeft) {
+    public void setBarDataList(ArrayList<ArrayList<Integer>> list, YAxisView leftAxisView, int dataOfAGirdLeft, ArrayList<Integer> colorList) {
         if (list == null || list.size() == 0) {
             return;
         }
         this.leftAxisView = leftAxisView;
         this.dataOfAGirdLeft = dataOfAGirdLeft;
         barList = list;
-
+        barColorList = colorList;
+        if (verticalGridNum == -1) {
+            refreshAfterDataChanged();
+        }
         percentList = new ArrayList<>();
         targetPercentList = new ArrayList<>();
-        int max = 0;
+        int max;
         if (dataOfAGridRight != -1) {
             max = verticalGridNum * dataOfAGirdLeft / dataOfAGridRight;
         } else {
-
+            max = verticalGridNum;
         }
-        for (Integer integer : barList) {
-            targetPercentList.add(1 - (float) integer / (float) max);
-        }
-        if(percentList.isEmpty() || percentList.size()<targetPercentList.size()){
-            int temp = targetPercentList.size()-percentList.size();
-            for(int i=0; i<temp;i++){
-                percentList.add(1f);
+        for (int j = 0; j < barList.size(); j++) {
+            ArrayList<Float> targetList = new ArrayList<>();
+            ArrayList<Float> aPercentList = new ArrayList<>();
+            for (Integer integer : barList.get(j)) {
+                targetList.add(1 - (float) integer / (float) max);
+                aPercentList.add(1f);
             }
-        } else if (percentList.size()>targetPercentList.size()){
-            int temp = percentList.size()-targetPercentList.size();
-            for(int i=0; i<temp;i++){
-                percentList.remove(percentList.size()-1);
-            }
+            percentList.add(aPercentList);
+            targetPercentList.add(targetList);
         }
-
         removeCallbacks(barAnimator);
         post(barAnimator);
     }
@@ -433,7 +473,7 @@ public class LineView extends View {
      * @param canvas The canvas you need to draw on.
      * @param point  The Point consists of the x y coordinates from left bottom to right top.
      *               Like is
-     *               <p>
+     *               <p/>
      *               3
      *               2
      *               1
@@ -458,11 +498,12 @@ public class LineView extends View {
     }
 
 
-    private void drawPopup(Canvas canvas, String num, int index, int PopupColor) {
+    private void drawPopup(Canvas canvas, String num, int PopupColor) {
         boolean singularNum = (num.length() == 1);
         int sidePadding = ConvertUtil.dip2px(getContext(), singularNum ? 8 : 5);
-        int x = sideLineLength + backgroundGridWidth * index;
-        int y = bars.get(index).top;
+        int barIndex = selectedBarListIndex * bottomTextList.size() + selectedBarIndex;
+        int x = (bars.get(barIndex).right + bars.get(barIndex).left) / 2;
+        int y = bars.get(barIndex).top;
         Rect popupTextRect = new Rect();
         popupTextPaint.getTextBounds(num, 0, num.length(), popupTextRect);
         Rect r = new Rect(x - popupTextRect.width() / 2 - sidePadding,
@@ -537,7 +578,13 @@ public class LineView extends View {
             //draw solid lines
             List<Integer> list = new ArrayList<>();
             for (int i = 0; i < yCoordinateList.size(); i++) {
-                if ((yCoordinateList.size() - 1 - i) % dataOfAGridRight == 0) {
+                int dataOfAGrid = 100;
+                if (dataOfAGridRight != -1) {
+                    dataOfAGrid = dataOfAGridRight;
+                } else if (dataOfAGirdLeft != -1) {
+                    dataOfAGrid = dataOfAGirdLeft;
+                }
+                if ((yCoordinateList.size() - 1 - i) % dataOfAGrid == 0) {
                     canvas.drawLine(0, yCoordinateList.get(i), getWidth(), yCoordinateList.get(i), paint);
                     bottomLineY = yCoordinateList.get(i);
                     list.add(yCoordinateList.get(i));
@@ -602,7 +649,8 @@ public class LineView extends View {
                 pointToSelect = null;
                 postInvalidate();
             } else if (barToSelect != -1) {
-                selectedBarIndex = barToSelect;
+                selectedBarIndex = barToSelect % bottomTextList.size();
+                selectedBarListIndex = barToSelect / bottomTextList.size();
                 barToSelect = -1;
                 postInvalidate();
             }

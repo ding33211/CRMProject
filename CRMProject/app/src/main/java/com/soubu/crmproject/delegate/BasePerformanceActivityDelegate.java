@@ -34,13 +34,11 @@ public class BasePerformanceActivityDelegate extends AppDelegate {
         mLineView.setDrawDotLine(false);
     }
 
-    public void setLineDataList(ArrayList<Integer> list, int space){
-        ArrayList<ArrayList<Integer>> dataLists = new ArrayList<ArrayList<Integer>>();
-        dataLists.add(list);
-        mLineView.setDataList(dataLists, mRightAxisView, space);
+    public void setLineDataList(ArrayList<ArrayList<Integer>> list, int space){
+        mLineView.setDataList(list, mRightAxisView, space);
     }
 
-    public void setBarDataList(ArrayList<Integer> list, int space){
-        mLineView.setBarDataList(list, mLeftAxisView, space);
+    public void setBarDataList(ArrayList<ArrayList<Integer>> list, int space, ArrayList<Integer> colorList){
+        mLineView.setBarDataList(list, mLeftAxisView, space, colorList);
     }
 }
