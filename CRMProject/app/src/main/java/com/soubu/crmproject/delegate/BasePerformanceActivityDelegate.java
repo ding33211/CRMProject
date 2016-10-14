@@ -26,12 +26,6 @@ public class BasePerformanceActivityDelegate extends AppDelegate {
         mLineView = get(R.id.line_view);
         mLeftAxisView = get(R.id.v_left_line);
         mRightAxisView = get(R.id.v_right_line);
-        ArrayList<String> test = new ArrayList<String>();
-        for (int i = 0; i < 12; i++) {
-            test.add(i + 1 + "月");
-        }
-        mLineView.setBottomTextList(test);
-        mLineView.setDrawDotLine(false);
     }
 
     public void setLineDataList(ArrayList<ArrayList<Integer>> list, int space){
@@ -40,5 +34,9 @@ public class BasePerformanceActivityDelegate extends AppDelegate {
 
     public void setBarDataList(ArrayList<ArrayList<Integer>> list, int space, ArrayList<Integer> colorList){
         mLineView.setBarDataList(list, mLeftAxisView, space, colorList);
+    }
+
+    public void setBottomTextList(ArrayList<String> list){
+        mLineView.setBottomTextList(list);
     }
 }

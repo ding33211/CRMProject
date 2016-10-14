@@ -1,7 +1,5 @@
 package com.soubu.crmproject.view.activity;
 
-import android.util.Log;
-
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.BasePerformanceActivityDelegate;
@@ -20,6 +18,11 @@ public class BasePerformanceActivity extends ActivityPresenter<BasePerformanceAc
     @Override
     protected void initData() {
         super.initView();
+        ArrayList<String> test = new ArrayList<String>();
+        for (int i = 0; i < 12; i++) {
+            test.add(i + 1 + "月");
+        }
+        viewDelegate.setBottomTextList(test);
 //        ArrayList<Integer> list = new ArrayList<>();
 //        for(int i = 0; i < 12; i++){
 //            list.add((int)(Math.random() * 1000));
@@ -33,7 +36,6 @@ public class BasePerformanceActivity extends ActivityPresenter<BasePerformanceAc
         for(int i = 0; i < 12; i++){
             list2.add((int)(Math.random() * 100));
             list3.add((int)(Math.random() * 100));
-
         }
         ArrayList<ArrayList<Integer>> barList = new ArrayList<>();
         barList.add(list2);

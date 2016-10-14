@@ -5,38 +5,222 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="80dp">
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_stroke_bottom"
+        android:orientation="vertical">
 
-        <HorizontalScrollView
-            android:id="@+id/hsv_chart"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:scrollbars="none">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="80dp">
 
-            <com.soubu.crmproject.widget.linebarchart.LineView
-                android:id="@+id/line_view"
+            <HorizontalScrollView
+                android:id="@+id/hsv_chart"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:scrollbars="none">
+
+                <com.soubu.crmproject.widget.linebarchart.LineView
+                    android:id="@+id/line_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp" />
+            </HorizontalScrollView>
+
+            <com.soubu.crmproject.widget.linebarchart.YAxisView
+                android:id="@+id/v_left_line"
                 android:layout_width="wrap_content"
-                android:layout_height="200dp" />
-        </HorizontalScrollView>
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/hsv_chart"
+                custom:type="left" />
 
-        <com.soubu.crmproject.widget.linebarchart.YAxisView
-            android:id="@+id/v_left_line"
-            android:layout_width="wrap_content"
+            <com.soubu.crmproject.widget.linebarchart.YAxisView
+                android:id="@+id/v_right_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/hsv_chart"
+                custom:type="right" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/hsv_chart"
-            custom:type="left" />
+            android:layout_margin="20dp"
+            android:gravity="center">
 
-        <com.soubu.crmproject.widget.linebarchart.YAxisView
-            android:id="@+id/v_right_line"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll_left_color_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <View
+                    android:id="@+id/v_left_color"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="成交额"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_right_color_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <View
+                    android:id="@+id/v_right_color"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合同数"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/item_line_grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/hsv_chart"
-            custom:type="right" />
-    </RelativeLayout>
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="成交额(万元)"
+                    android:textColor="@color/subtitle_grey"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rmb_label"
+                        android:textColor="@color/progressbar_green"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="775894"
+                        android:textColor="@color/progressbar_green"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:background="@color/item_line_grey" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="成交额(万元)"
+                    android:textColor="@color/subtitle_grey"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rmb_label"
+                        android:textColor="@color/progressbar_green"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="775894"
+                        android:textColor="@color/progressbar_green"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:background="@color/item_line_grey" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="成交额(万元)"
+                    android:textColor="@color/subtitle_grey"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rmb_label"
+                        android:textColor="@color/progressbar_green"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="775894"
+                        android:textColor="@color/progressbar_green"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

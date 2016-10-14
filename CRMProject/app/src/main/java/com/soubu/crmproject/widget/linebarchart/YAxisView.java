@@ -21,7 +21,6 @@ public class YAxisView extends View {
     private Map<Integer, String> map = new HashMap<>();
     private int bottom = -1;
     private int top = -1;
-    private int left = -1;
     private int type;
     private final int SCALE_MARGIN = ConvertUtil.dip2px(getContext(), 4);
 

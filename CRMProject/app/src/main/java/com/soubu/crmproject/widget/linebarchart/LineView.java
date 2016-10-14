@@ -94,7 +94,7 @@ public class LineView extends View {
     private final int BOTTOM_TEXT_COLOR = Color.parseColor("#9B9A9B");
     private final int barWidth = ConvertUtil.dip2px(getContext(), 26);
 
-    private Boolean drawDotLine = true;
+    private Boolean drawDotLine = false;
 
     private String[] colorArray = {"#e74c3c", "#2980b9", "#1abc9c"};
 
