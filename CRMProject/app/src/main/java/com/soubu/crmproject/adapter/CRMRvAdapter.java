@@ -19,6 +19,7 @@ import com.soubu.crmproject.utils.PhoneUtil;
 import com.soubu.crmproject.view.activity.AddFollowActivity;
 import com.soubu.crmproject.view.activity.AddFollowHomeActivity;
 import com.soubu.crmproject.view.activity.BusinessOpportunityActivity;
+import com.soubu.crmproject.view.activity.ChooseEmployeeActivity;
 import com.soubu.crmproject.view.activity.ClueActivity;
 import com.soubu.crmproject.view.activity.ContractActivity;
 import com.soubu.crmproject.view.activity.CustomerActivity;
@@ -60,17 +61,17 @@ public class CRMRvAdapter extends RecyclerView.Adapter {
         Intent[] intentsOne = new Intent[]{new Intent(activity, ClueActivity.class), new Intent(activity, CustomerActivity.class),
                 new Intent(activity, BusinessOpportunityActivity.class), new Intent(activity, ContractActivity.class)};
 
-        int[] labelsTwo = new int[]{R.string.sales_management, R.string.product_management, R.string.clue_high_seas, R.string.customer_high_seas,
+        int[] labelsTwo = new int[]{R.string.company_contacts, R.string.product_management, R.string.clue_high_seas, R.string.customer_high_seas,
                 R.string.weekly_and_monthly_report, R.string.approval};
-        int[] iconsTwo = new int[]{R.drawable.sales_management_disable, R.drawable.product_management_disable, R.drawable.clue_high_seas ,R.drawable.customer_high_seas,
+        int[] iconsTwo = new int[]{R.drawable.sales_management, R.drawable.product_management_disable, R.drawable.clue_high_seas ,R.drawable.customer_high_seas,
                 R.drawable.weekly_and_monthly_report_disable, R.drawable.approval_disable};
         Intent intent = new Intent(activity, ClueActivity.class);
         intent.putExtra(Contants.EXTRA_FROM, Contants.TYPE_HIGH_SEAS);
         Intent intent1 = new Intent(activity, CustomerActivity.class);
         intent1.putExtra(Contants.EXTRA_FROM, Contants.TYPE_HIGH_SEAS);
-//        Intent intent1 = new Intent(activity, ContractActivity.class);
-//        intent1.putExtra(Contants.EXTRA_FROM, Contants.FROM_CONTRACT_APPROVAL);
-        Intent[] intentsTwo = new Intent[]{null, null,
+        Intent intent2 = new Intent(activity, ChooseEmployeeActivity.class);
+        intent2.putExtra(Contants.EXTRA_FROM, Contants.FROM_HOME);
+        Intent[] intentsTwo = new Intent[]{intent2, null,
                 intent, intent1, null, null};
 
         int[] labelsThree = new int[]{R.string.business_card_scanning, R.string.nearby_customers, R.string.fill_in_follow_up, R.string.new_plan};

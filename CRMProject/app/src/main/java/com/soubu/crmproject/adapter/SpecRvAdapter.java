@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.AddItem;
+import com.soubu.crmproject.server.RetrofitRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class SpecRvAdapter extends RecyclerView.Adapter {
         View vContent = v.findViewById(R.id.rl_item_content);
         View vLabel = v.findViewById(R.id.rl_label);
         View vBottom = v.findViewById(R.id.v_bottom);
-        switch (viewType){
+        switch (viewType) {
             //此处约定,三个type,相应的显式label,中间,和底部item
             case AddSomethingRvAdapter.TYPE_LABEL:
                 vContent.setVisibility(View.GONE);
@@ -40,16 +41,15 @@ public class SpecRvAdapter extends RecyclerView.Adapter {
                 vLabel.setVisibility(View.GONE);
                 break;
             case AddSomethingRvAdapter.TYPE_NOT_PASS:
-
-
+                break;
         }
         return new ItemViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ItemViewHolder){
-            switch (holder.getItemViewType()){
+        if (holder instanceof ItemViewHolder) {
+            switch (holder.getItemViewType()) {
                 case AddSomethingRvAdapter.TYPE_LABEL:
                     ((ItemViewHolder) holder).tvLabel.setText(mList.get(position).getTitleRes());
                     break;

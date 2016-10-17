@@ -437,8 +437,8 @@ public class AddContractActivity extends Big4AddActivityPresenter {
 //                    viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_CONTACT_NAME));
 //                    break;
                 case REQUEST_CODE_CHOOSE_SIGNED:
-                    mSignedId = data.getStringExtra(Contants.EXTRA_EMPLOYER_ID);
-                    viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_EMPLOYER_NAME));
+                    mSignedId = data.getStringExtra(Contants.EXTRA_EMPLOYEE_ID);
+                    viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_EMPLOYEE_NAME));
                     break;
             }
         }

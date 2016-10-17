@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_clue_spec"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+                <TextView
+                    android:id="@+id/tv_circle_name"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:background="@drawable/bg_circle_employee_1"
+                    android:textColor="@android:color/white"
+                    android:text="汉林"/>
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:layout_below="@+id/tv_circle_name"
+                    android:layout_marginTop="10dp"
+                    android:text="王汉林"/>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/rl_customer_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/ll_left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_left_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/business_opportunity"
+                    android:textColor="@color/five_translucent_white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_left_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="3"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/five_translucent_white" />
+
+            <LinearLayout
+                android:id="@+id/ll_right"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_right_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contract"
+                    android:textColor="@color/five_translucent_white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_right_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="3"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_contact_method"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_sns1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/clue_spec_circle"
+                android:src="@drawable/clue_spec_phone" />
+
+            <ImageView
+                android:id="@+id/iv_sns3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/clue_spec_circle"
+                android:src="@drawable/clue_spec_qq" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/iv_sns3"
+                android:layout_toRightOf="@+id/iv_sns1">
+
+                <ImageView
+                    android:id="@+id/iv_sns2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/clue_spec_circle"
+                    android:src="@drawable/clue_spec_wechat" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_sns5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/clue_spec_circle"
+                android:src="@drawable/clue_spec_email" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/iv_sns5"
+                android:layout_toRightOf="@+id/iv_sns3">
+
+                <ImageView
+                    android:id="@+id/iv_sns4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/clue_spec_circle"
+                    android:src="@drawable/clue_spec_message" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

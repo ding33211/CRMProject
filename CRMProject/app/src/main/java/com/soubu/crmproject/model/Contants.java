@@ -37,6 +37,8 @@ public class Contants {
     public static final int FROM_CONTRACT_APPROVAL = 0x16;
     public static final int FROM_ADD_CONTRACT = 0x17;
     public static final int FROM_CUSTOMER_HIGH_SEAS = 0x18;
+    //从主页来的
+    public static final int FROM_HOME = 0x19;
 
 
     //在跟进总表
@@ -83,8 +85,9 @@ public class Contants {
     public static final String EXTRA_TRANSFER = "TRANSFER";
     public static final String EXTRA_TRANSFER_NAME = "TRANSFER_NAME";
     public static final String EXTRA_PARAM_ID = "PARAM_ID";
-    public static final String EXTRA_EMPLOYER_ID = "EMPLOYER_ID";
-    public static final String EXTRA_EMPLOYER_NAME = "EMPLOYER_NAME";
+    public static final String EXTRA_EMPLOYEE_ID = "EMPLOYEE_ID";
+    public static final String EXTRA_EMPLOYEE_NAME = "EMPLOYEE_NAME";
+    public static final String EXTRA_EMPLOYEE = "EMPLOYEE";
 
     public static final String EXTRA_REMIND_TITLE = "REMIND_TITLE";
     public static final String EXTRA_REMIND_MESSAGE = "REMIND_MESSAGE";

@@ -113,8 +113,8 @@ public abstract class Big4AddActivityPresenter extends ActivityPresenter<AddSome
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == AddSomethingRvAdapter.REQUEST_CODE_CHOOSE_MANAGER){
-            viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_EMPLOYER_NAME));
-            mManagerId = data.getStringExtra(Contants.EXTRA_EMPLOYER_ID);
+            viewDelegate.setLastClickName(data.getStringExtra(Contants.EXTRA_EMPLOYEE_NAME));
+            mManagerId = data.getStringExtra(Contants.EXTRA_EMPLOYEE_ID);
         }
     }
 }

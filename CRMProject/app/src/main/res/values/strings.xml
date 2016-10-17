@@ -47,6 +47,7 @@
     <string name="contract">合同</string>
     <string name="all_contract">全部合同</string>
     <string name="sales_management">销售管理</string>
+    <string name="company_contacts">企业通讯录</string>
     <string name="contract_management">合同管理</string>
     <string name="back_sales_management">回款管理</string>
     <string name="product_management">产品管理</string>
@@ -204,6 +205,8 @@
     <string name="please_input_customer_name">请输入客户名称</string>
     <string name="please_input_business_opportunity_name">请输入商机名称</string>
     <string name="please_input_contract_name">请输入合同名称</string>
+    <string name="find_employee">搜索同事</string>
+
 
     <string name="sales_back_plan">回款计划</string>
     <string name="add_sales_back_plan">新增回款计划</string>

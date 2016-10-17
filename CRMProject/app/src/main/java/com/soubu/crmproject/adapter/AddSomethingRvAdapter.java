@@ -50,6 +50,8 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
     public static final int TYPE_ITEM_REQUIRED_CHOOSE_DATE = 0x08;  //必选日期
     public static final int TYPE_ITEM_CAN_CHOOSE_DATE = 0x09;  //可选日期
     public static final int TYPE_NOT_PASS = 0x10;  //审核状态
+    public static final int TYPE_HEADER_VIEW = 0x11;
+
 
 
     public static final int REQUEST_CODE_CHOOSE_CUSTOMER = 1100;

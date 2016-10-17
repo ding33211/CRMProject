@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="@string/please_input_clue_name"
+                android:text="@string/find_employee"
                 android:textColor="@color/subtitle_grey"
                 android:textSize="14sp" />
         </LinearLayout>

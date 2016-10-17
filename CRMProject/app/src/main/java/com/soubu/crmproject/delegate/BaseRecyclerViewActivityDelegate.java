@@ -234,4 +234,5 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
     public void setRightFilterTitle(String title){
         ((TextView)get(R.id.tv_right_filter)).setText(title);
     }
+
 }
