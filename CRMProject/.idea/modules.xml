@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CRMProject.iml" filepath="$PROJECT_DIR$/CRMProject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/daogenerator/daogenerator.iml" filepath="$PROJECT_DIR$/daogenerator/daogenerator.iml" />
+      <module fileurl="file:///bigdisk/ding/WorkBench/ABCProject/CRMProject/CRMProject.iml" filepath="/bigdisk/ding/WorkBench/ABCProject/CRMProject/CRMProject.iml" />
+      <module fileurl="file:///bigdisk/ding/WorkBench/ABCProject/CRMProject/app/app.iml" filepath="/bigdisk/ding/WorkBench/ABCProject/CRMProject/app/app.iml" />
+      <module fileurl="file:///bigdisk/ding/WorkBench/ABCProject/CRMProject/daogenerator/daogenerator.iml" filepath="/bigdisk/ding/WorkBench/ABCProject/CRMProject/daogenerator/daogenerator.iml" />
     </modules>
   </component>
 </project>
