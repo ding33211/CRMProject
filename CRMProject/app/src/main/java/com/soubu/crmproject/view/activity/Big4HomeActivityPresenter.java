@@ -2,8 +2,6 @@ package com.soubu.crmproject.view.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -80,8 +78,9 @@ public abstract class Big4HomeActivityPresenter<T extends AppDelegate> extends A
                                         if (!TextUtils.isEmpty(mPhoneList.get(0).id)) {
                                             RetrofitRequest.getInstance().touchContact(mPhoneList.get(mIndex).id);
                                         }
-                                        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + mPhoneList.get(mIndex).value));
-                                        startActivity(intent);
+                                        callSomeOne(mPhoneList.get(mIndex).value);
+//                                        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + mPhoneList.get(mIndex).value));
+//                                        startActivity(intent);
                                     }
                                 })
                                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -94,8 +93,9 @@ public abstract class Big4HomeActivityPresenter<T extends AppDelegate> extends A
                         if (!TextUtils.isEmpty(mPhoneList.get(0).id)) {
                             RetrofitRequest.getInstance().touchContact(mPhoneList.get(0).id);
                         }
-                        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + mPhoneList.get(0).value));
-                        startActivity(intent);
+                        callSomeOne(mPhoneList.get(0).value);
+//                        Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + mPhoneList.get(0).value));
+//                        startActivity(intent);
                     }
                     break;
                 case R.id.iv_sns2:

@@ -13,7 +13,6 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.CompileUtil;
-import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
         mFromEdit = false;
         if (mCustomerParams != null) {
             mFromEdit = true;
-            if(mTransfer){
+            if (mTransfer) {
                 viewDelegate.setTitle(R.string.transfer_customer);
             } else {
                 viewDelegate.setTitle(R.string.edit_customer);
@@ -58,6 +57,8 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
                         if (map.size() > 0) {
                             mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().updateCustomer(mCustomerParams.getId(), map);
+                        } else {
+                            finish();
                         }
                     } else {
                         mEventBusJustForThis = true;
@@ -200,7 +201,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
         if (mFromEdit && mCustomerParams.getUser() != null && !TextUtils.isEmpty(mCustomerParams.getUser().getUserName())) {
             item.setContent(mCustomerParams.getUser().getUserName());
             mManagerId = mCustomerParams.getUser().getId();
-        } else if(mFromEdit && mCustomerParams.getCreator() != null && !TextUtils.isEmpty(mCustomerParams.getUser().getUserName())){
+        } else if (mFromEdit && mCustomerParams.getCreator() != null && !TextUtils.isEmpty(mCustomerParams.getUser().getUserName())) {
             item.setContent(mCustomerParams.getCreator().getUserName());
             mManagerId = mCustomerParams.getCreator().getId();
         } else {
@@ -291,7 +292,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
                 continue;
             }
             if (item.getTitleRes() == R.string.manager) {
-                if(!TextUtils.isEmpty(mManagerId)){
+                if (!TextUtils.isEmpty(mManagerId)) {
                     customerParams.setUserId(mManagerId);
                 }
                 continue;

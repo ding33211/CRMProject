@@ -238,5 +238,17 @@ public abstract class AppDelegate implements IDelegate {
         v.setVisibility(View.VISIBLE);
     }
 
+    public void setSettingTextVisibility(int visible){
+        get(R.id.ll_setting_text).setVisibility(visible);
+    }
+
+    public void setRightMenuOneVisibility(int visible){
+        get(R.id.ll_menu_r_1).setVisibility(visible);
+    }
+
+    public void setRightMenuTwoVisibility(int visible){
+        get(R.id.ll_menu_r_2).setVisibility(visible);
+    }
+
 
 }

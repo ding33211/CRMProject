@@ -3,7 +3,6 @@ package com.soubu.crmproject.view.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -18,7 +17,6 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -186,7 +184,7 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                 viewDelegate.setOnCustomerClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int pos) {
-                        Intent intent = new Intent(SearchActivity.this, CustomerSpecActivity.class);
+                        Intent intent = new Intent(SearchActivity.this, DamnCustomerActivity.class);
                         intent.putExtra(Contants.EXTRA_CUSTOMER, viewDelegate.getCustomerParams(pos));
                         intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
                         startActivity(intent);
@@ -246,7 +244,7 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                         .setPositiveButton(R.string.look_customer_spec, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(SearchActivity.this, CustomerSpecActivity.class);
+                                Intent intent = new Intent(SearchActivity.this, DamnCustomerActivity.class);
                                 intent.putExtra(Contants.EXTRA_CUSTOMER, params1);
                                 intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
                                 startActivity(intent);

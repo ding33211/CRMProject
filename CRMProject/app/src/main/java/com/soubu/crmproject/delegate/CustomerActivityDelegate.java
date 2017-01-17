@@ -5,6 +5,7 @@ import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
 import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.adapter.CustomerRvAdapter;
 import com.soubu.crmproject.model.CustomerParams;
+import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
         }
         mAdapter = new CustomerRvAdapter(getActivity().getApplicationContext(), mIfHighSeas);
         setListAdapter(mAdapter);
+        setRecyclerViewDecoration(ConvertUtil.dip2px(this.getActivity(), 10));
     }
 
 

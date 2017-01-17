@@ -1,10 +1,8 @@
 package com.soubu.crmproject.delegate;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,18 +11,13 @@ import android.widget.TextView;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
-import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.base.mvp.view.AppDelegate;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
-import com.soubu.crmproject.utils.WindowUtil;
 import com.soubu.crmproject.widget.DividerItemDecoration;
 import com.soubu.crmproject.widget.FilterOrSortPopupWindow;
 import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -76,6 +69,10 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
 
     public void setListAdapter(RecyclerView.Adapter adapter) {
         mRvContent.setAdapter(adapter);
+    }
+
+    public void setRecyclerViewDecoration(int height){
+        mRvContent.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL, height));
     }
 
 

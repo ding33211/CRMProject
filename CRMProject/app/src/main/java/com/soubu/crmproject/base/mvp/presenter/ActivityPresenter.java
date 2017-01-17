@@ -151,4 +151,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends BaseActivit
         ServerErrorUtil.handleServerError(errorCode);
     }
 
+
+
+
 }

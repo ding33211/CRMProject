@@ -236,7 +236,6 @@ public class AddFollowHomeActivity extends ActivityPresenter<AddFollowHomeActivi
             mEventBusJustForThis = false;
         }
         List<ClueParams> list = Arrays.asList(params);
-        Log.e("xxxxxxxxxx", "    refreshData     mIsRefresh   " + mIsRefresh);
         viewDelegate.setData(list, mIsRefresh, Contants.TYPE_CLUE);
         if (mIsRefresh) {
             mIsRefresh = false;

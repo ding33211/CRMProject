@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_clue_count"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/iv_clue_count"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/clue" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/iv_clue_count">
+
+                <TextView
+                    android:id="@+id/tv_clue_count_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clue_count"
+                    android:textColor="@color/subtitle_grey"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_clue_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_clue_count_label"
+                    android:layout_below="@+id/tv_clue_count_label"
+                    android:layout_marginTop="4dp"
+                    android:text="8544"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_total_follow_up"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/iv_total_follow_up"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/follow_record" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/iv_total_follow_up">
+
+                <TextView
+                    android:id="@+id/tv_total_follow_up_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_follow_up"
+                    android:textColor="@color/subtitle_grey"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_unit_price_rmb_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_total_follow_up_label"
+                    android:layout_below="@+id/tv_total_follow_up_label"
+                    android:layout_marginTop="4dp"
+                    android:text="7504"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_register_customer"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/iv_register_customer"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/deal_customer" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/iv_register_customer">
+
+                <TextView
+                    android:id="@+id/tv_register_customer_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_customer_num"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_numbers_of_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_register_customer_label"
+                    android:layout_below="@+id/tv_register_customer_label"
+                    android:layout_marginTop="4dp"
+                    android:text="804"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_visit_customer"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/iv_visit_customer"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/visit_customer" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/iv_visit_customer">
+
+                <TextView
+                    android:id="@+id/tv_visit_customer_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/visit_customer"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_contract_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_visit_customer_label"
+                    android:layout_below="@+id/tv_visit_customer_label"
+                    android:layout_marginTop="4dp"
+                    android:text="84"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_deal_customer"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/iv_deal_customer"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/register_customer" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/iv_deal_customer">
+
+                <TextView
+                    android:id="@+id/tv_deal_customer_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_customer_num"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_deal_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_deal_customer_label"
+                    android:layout_below="@+id/tv_deal_customer_label"
+                    android:layout_marginTop="4dp"
+                    android:text="804"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:paddingLeft="16dp">
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

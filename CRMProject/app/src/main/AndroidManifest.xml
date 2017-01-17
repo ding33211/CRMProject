@@ -49,71 +49,71 @@
         <activity
             android:name=".view.activity.HomeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.CustomerActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ClueActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.BusinessOpportunityActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ContractActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.AddClueActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ClueHomeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ClueSpecActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.AddCustomerActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.CustomerHomeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".view.activity.CustomerSpecActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <!--<activity-->
+            <!--android:name=".view.activity.CustomerSpecActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden|navigation"-->
+            <!--android:screenOrientation="portrait" />-->
         <activity
             android:name=".view.activity.AddBusinessOpportunityActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.BusinessOpportunityHomeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.BusinessOpportunitySpecActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.AddContractActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ContractHomeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ContractSpecActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.AddFollowActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -122,59 +122,64 @@
         <activity
             android:name=".view.activity.AddFollowHomeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.BackSalesPlanActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.AddBackSalesActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.AlreadyBackSalesActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".view.activity.ContactActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <!--<activity-->
+            <!--android:name=".view.activity.ContactActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden|navigation"-->
+            <!--android:screenOrientation="portrait" />-->
         <activity
             android:name=".view.activity.AddContactActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ContactSpecActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.RegisterActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.SearchActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ChooseEmployeeActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.AllFollowActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.BasePerformanceActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.EmployeeSpecActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.DamnCustomerActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="portrait" />
+
         <receiver
             android:name="com.soubu.crmproject.receiver.FollowRemindReceiver"
             android:process=":remote" />

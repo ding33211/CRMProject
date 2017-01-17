@@ -68,6 +68,8 @@ public class AddContractActivity extends Big4AddActivityPresenter {
                         if (map.size() > 0) {
                             mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().updateContract(mContractParams.getId(), map);
+                        } else {
+                            finish();
                         }
                     } else {
                         mEventBusJustForThis = true;

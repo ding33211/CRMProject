@@ -7,14 +7,12 @@ import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
-import com.soubu.crmproject.base.greendao.Contact;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
@@ -54,6 +52,8 @@ public class AddContactActivity extends ActivityPresenter<AddSomethingActivityDe
                         if(map.size() > 0) {
                             mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().updateContact(mContactParams.getId(), map);
+                        } else {
+                            finish();
                         }
                     } else {
                         mEventBusJustForThis = true;

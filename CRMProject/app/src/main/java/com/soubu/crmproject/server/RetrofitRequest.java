@@ -2,8 +2,6 @@ package com.soubu.crmproject.server;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.model.BackSalesParams;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
@@ -15,7 +13,6 @@ import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.GetPageResp;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.utils.ConvertUtil;
-import com.soubu.crmproject.widget.customcalendar.Event;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -80,7 +77,8 @@ public class RetrofitRequest {
 
                     String finallyError = sb.toString();
                     Log.e(TAG, "errorbody  :   " + finallyError);
-                    EventBus.getDefault().post(response.code());
+//                    EventBus.getDefault().post(response.code());
+                    ServerErrorUtil.handleServerError(response.code());
                     return;
                 }
                 //由于存在errorCode, 暂时不适用status去判断成功与失败

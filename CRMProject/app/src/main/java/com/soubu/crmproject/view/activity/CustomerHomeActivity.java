@@ -24,7 +24,6 @@ import com.soubu.crmproject.utils.ShowWidgetUtil;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,9 +49,14 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
         mDealsCount = Integer.valueOf(mCustomerParams.getDealsCount());
         mContractCount = Integer.valueOf(mCustomerParams.getContractsCount());
-        ((TextView) viewDelegate.get(R.id.tv_title)).setText(mCustomerParams.getName());
-        ((TextView) viewDelegate.get(R.id.tv_sub_left)).setText(SearchUtil.searchCustomerPropertyArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerPropertyWebArray(this), mCustomerParams.getProperty())]);
-        ((TextView) viewDelegate.get(R.id.tv_sub_right)).setText(SearchUtil.searchCustomerTypeArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerTypeWebArray(this), mCustomerParams.getType())]);
+        refreshCustomerContent();
+    }
+
+
+    private void refreshCustomerContent() {
+        ((TextView) viewDelegate.get(R.id.tv_company)).setText(mCustomerParams.getName());
+        ((TextView) viewDelegate.get(R.id.tv_sub_left_1)).setText(SearchUtil.searchCustomerPropertyArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerPropertyWebArray(this), mCustomerParams.getProperty())]);
+        ((TextView) viewDelegate.get(R.id.tv_sub_right_1)).setText(SearchUtil.searchCustomerTypeArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerTypeWebArray(this), mCustomerParams.getType())]);
     }
 
     private void initCountView() {
@@ -89,7 +93,7 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
                 return false;
             }
         });
-        viewDelegate.setOnClickListener(this, R.id.ll_go_left, R.id.ll_go_right, R.id.ll_left, R.id.ll_right);
+        viewDelegate.setOnClickListener(this, R.id.ll_go_left, R.id.ll_go_right, R.id.ll_left, R.id.ll_right, R.id.ll_customer_home);
 
     }
 
@@ -98,15 +102,19 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         int id = v.getId();
         switch (id) {
             case R.id.ll_go_left:
-                Intent intent = new Intent(this, CustomerSpecActivity.class);
+            case R.id.ll_customer_home:
+                Intent intent = new Intent(this, DamnCustomerActivity.class);
                 intent.putExtra(Contants.EXTRA_CUSTOMER, mCustomerParams);
+                intent.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerParams.getId());
+                intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, mCustomerParams.getName());
                 startActivity(intent);
                 break;
+            //样式修改已禁用
             case R.id.ll_go_right:
-                Intent intent1 = new Intent(this, ContactActivity.class);
-                intent1.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerParams.getId());
-                intent1.putExtra(Contants.EXTRA_CUSTOMER_NAME, mCustomerParams.getName());
-                startActivity(intent1);
+//                Intent intent1 = new Intent(this, ContactActivity.class);
+//                intent1.putExtra(Contants.EXTRA_CUSTOMER_ID, mCustomerParams.getId());
+//                intent1.putExtra(Contants.EXTRA_CUSTOMER_NAME, mCustomerParams.getName());
+//                startActivity(intent1);
                 break;
             case R.id.ll_left:
                 Intent intent2 = new Intent(this, BusinessOpportunityActivity.class);
@@ -133,12 +141,13 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         List<CustomerParams> list = Arrays.asList(params);
         mCustomerParams = list.get(0);
         viewDelegate.setEntity(mCustomerParams);
+        refreshCustomerContent();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshFollow(FollowParams[] params) {
         List<FollowParams> list = Arrays.asList(params);
-        if(mRequestFollowType == REQUEST_RECORD){
+        if (mRequestFollowType == REQUEST_RECORD) {
             viewDelegate.setViewPagerData(0, list);
             mRequestFollowType = REQUEST_PLAN;
             mEventBusJustForThis = true;

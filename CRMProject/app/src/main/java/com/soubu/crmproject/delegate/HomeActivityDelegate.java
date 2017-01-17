@@ -31,8 +31,8 @@ public class HomeActivityDelegate extends AppDelegate {
         mTodoFragment = new TodoFragment();
         mProfileFragment = new ProfileFragment();
         mTabs = new Button[]{get(R.id.btn_home), get(R.id.btn_crm),
-                get(R.id.btn_todo)};
-        fragments = new Fragment[]{mWorkBenchFragment, mCRMFragment, mTodoFragment};
+                get(R.id.btn_setting)};
+        fragments = new Fragment[]{mWorkBenchFragment, mCRMFragment, mProfileFragment};
         //一期只显示第二个界面
         mTabs[0].setSelected(true);
 //        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mWorkBenchFragment).

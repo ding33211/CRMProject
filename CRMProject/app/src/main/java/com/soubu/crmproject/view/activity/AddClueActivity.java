@@ -39,6 +39,8 @@ public class AddClueActivity extends Big4AddActivityPresenter {
                         if (map.size() > 0) {
                             mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().updateClue(mClueParams.getId(), map);
+                        } else {
+                            finish();
                         }
                     } else {
                         mEventBusJustForThis = true;

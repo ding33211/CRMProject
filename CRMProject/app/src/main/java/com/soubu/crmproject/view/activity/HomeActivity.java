@@ -6,10 +6,8 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.soubu.crmproject.BuildConfig;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
-import com.soubu.crmproject.common.ApiConfig;
 import com.soubu.crmproject.delegate.HomeActivityDelegate;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
@@ -46,7 +44,7 @@ public class HomeActivity extends ActivityPresenter<HomeActivityDelegate> {
             case R.id.btn_crm:
                 mIndex = 1;
                 break;
-            case R.id.btn_todo:
+            case R.id.btn_setting:
                 mIndex = 2;
                 break;
 //            case R.id.btn_profile:

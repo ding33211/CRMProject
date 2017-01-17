@@ -1,10 +1,12 @@
 package com.soubu.crmproject.server;
 
+import android.content.Context;
 import android.content.Intent;
 
 import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
+import com.soubu.crmproject.view.activity.LoginActivity;
 
 import java.net.HttpURLConnection;
 
@@ -25,6 +27,10 @@ public class ServerErrorUtil {
                 break;
             case HttpURLConnection.HTTP_FORBIDDEN:
                 ShowWidgetUtil.showLong(R.string.error_403_message);
+                Context nowContext = CrmApplication.getContext().getNowContext();
+                CrmApplication.getContext().finishAllActivity();
+                Intent intent = new Intent(nowContext, LoginActivity.class);
+                nowContext.startActivity(intent);
                 break;
             case HttpURLConnection.HTTP_NOT_FOUND:
                 ShowWidgetUtil.showLong(R.string.error_404_message);

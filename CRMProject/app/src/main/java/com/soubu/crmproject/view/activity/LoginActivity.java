@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -16,20 +15,14 @@ import android.widget.ImageView;
 
 import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
-import com.soubu.crmproject.base.greendao.DBHelper;
-import com.soubu.crmproject.base.greendao.User;
-import com.soubu.crmproject.base.greendao.UserDao;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.LoginActivityDelegate;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.List;
 
 /**
  * Created by dingsigang on 16-9-9.
@@ -217,7 +210,8 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 CrmApplication.getContext().setToken(userParams[0].getToken());
                 CrmApplication.getContext().setUid(userParams[0].getId());
                 CrmApplication.getContext().setName(userParams[0].getNickName());
-                setResult(RESULT_OK, null);
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
                 finish();
             } else {
                 ShowWidgetUtil.showShort(R.string.login_error_message);

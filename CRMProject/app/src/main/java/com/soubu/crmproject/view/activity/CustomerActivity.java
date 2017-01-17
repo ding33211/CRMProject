@@ -6,17 +6,13 @@ import android.view.View;
 
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.delegate.CustomerActivityDelegate;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
-import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +56,7 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
                         .setPositiveButton(R.string.look_customer_spec, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(CustomerActivity.this, CustomerSpecActivity.class);
+                                Intent intent = new Intent(CustomerActivity.this, DamnCustomerActivity.class);
                                 intent.putExtra(Contants.EXTRA_CUSTOMER, params1);
                                 intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
                                 startActivity(intent);
@@ -134,7 +130,7 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
             setResult(RESULT_OK, intent);
             finish();
         } else if (mFrom == Contants.TYPE_HIGH_SEAS) {
-            Intent intent = new Intent(this, CustomerSpecActivity.class);
+            Intent intent = new Intent(this, DamnCustomerActivity.class);
             intent.putExtra(Contants.EXTRA_CUSTOMER, params);
             intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
             startActivity(intent);

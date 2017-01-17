@@ -9,25 +9,15 @@ import android.view.View;
 import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
-import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
-import com.soubu.crmproject.delegate.AddSomethingActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
-import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.CompileUtil;
 import com.soubu.crmproject.utils.RegularUtil;
 import com.soubu.crmproject.utils.SearchUtil;
-import com.soubu.crmproject.utils.ShowWidgetUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +43,8 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
                         if (map.size() > 0) {
                             mEventBusJustForThis = true;
                             RetrofitRequest.getInstance().updateBusinessOpportunity(mBusinessOpportunityParams.getId(), map);
+                        } else {
+                            finish();
                         }
                     } else {
                         mEventBusJustForThis = true;

@@ -5,8 +5,7 @@
     android:orientation="vertical">
 
 
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -14,321 +13,499 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:fitsSystemWindows="true">
 
+
             <LinearLayout
-                android:id="@+id/ll_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient_clue_spec"
                 android:orientation="vertical"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                android:padding="16dp">
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
-                <RelativeLayout
-                    android:id="@+id/rl_content"
+                <LinearLayout
+                    android:id="@+id/ll_top"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gradient_clue_spec"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-
-                    <LinearLayout
+                    <RelativeLayout
+                        android:id="@+id/rl_content"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content">
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:id="@+id/ll_customer_home"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
+                                android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/tv_title"
+                                    android:id="@+id/tv_company"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:singleLine="true"
                                     android:text="title"
                                     android:textColor="@android:color/white"
                                     android:textSize="20sp" />
 
-                                <ImageView
-                                    android:id="@+id/iv_contract_review_state_yes"
-                                    android:layout_width="40dp"
-                                    android:layout_height="16dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_weight="0"
-                                    android:src="@drawable/contract_home_pass"
-                                    android:visibility="gone" />
-
-                                <ImageView
-                                    android:id="@+id/iv_contract_review_state_no_or_wait"
-                                    android:layout_width="50dp"
-                                    android:layout_height="16dp"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_weight="0"
-                                    android:src="@drawable/contract_home_not_pass"
-                                    android:visibility="gone" />
-                            </LinearLayout>
-                        </RelativeLayout>
-
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:gravity="center_vertical">
-
-                                <TextView
-                                    android:id="@+id/tv_sub_left"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:singleLine="true"
-                                    android:text="供应商"
-                                    android:textColor="@color/seven_translucent_white"
-                                    android:textSize="14sp" />
+                                    android:layout_marginTop="6dp"
+                                    android:gravity="center_vertical">
 
-                                <View
-                                    android:id="@+id/v_mid_line_sub"
-                                    android:layout_width="1dp"
-                                    android:layout_height="16dp"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_marginRight="15dp"
-                                    android:layout_weight="0"
-                                    android:background="@color/seven_translucent_white" />
+                                    <TextView
+                                        android:id="@+id/tv_sub_left_1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:singleLine="true"
+                                        android:text="供应商"
+                                        android:textColor="@color/seven_translucent_white"
+                                        android:textSize="14sp" />
 
-                                <TextView
-                                    android:id="@+id/tv_sub_right"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="0"
-                                    android:text="供应商"
-                                    android:textColor="@color/seven_translucent_white"
-                                    android:textSize="14sp" />
+                                    <View
+                                        android:id="@+id/v_mid_line_sub_1"
+                                        android:layout_width="1dp"
+                                        android:layout_height="16dp"
+                                        android:layout_marginLeft="15dp"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="0"
+                                        android:background="@color/seven_translucent_white" />
+
+                                    <TextView
+                                        android:id="@+id/tv_sub_right_1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0"
+                                        android:text="供应商"
+                                        android:textColor="@color/seven_translucent_white"
+                                        android:textSize="14sp" />
+                                </LinearLayout>
+
                             </LinearLayout>
-                        </RelativeLayout>
+
+                            <ImageView
+                                android:id="@+id/iv_choose"
+                                android:layout_width="40dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/white_arrow_choose" />
+                        </LinearLayout>
 
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:id="@+id/ll_normal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp">
+                            android:orientation="vertical">
 
-                            <LinearLayout
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tv_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:singleLine="true"
+                                        android:text="title"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="20sp" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_contract_review_state_yes"
+                                        android:layout_width="40dp"
+                                        android:layout_height="16dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_weight="0"
+                                        android:src="@drawable/contract_home_pass"
+                                        android:visibility="gone" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_contract_review_state_no_or_wait"
+                                        android:layout_width="50dp"
+                                        android:layout_height="16dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_weight="0"
+                                        android:src="@drawable/contract_home_not_pass"
+                                        android:visibility="gone" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:gravity="center_vertical">
+
+                                    <TextView
+                                        android:id="@+id/tv_sub_left"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:singleLine="true"
+                                        android:text="供应商"
+                                        android:textColor="@color/seven_translucent_white"
+                                        android:textSize="14sp" />
+
+                                    <View
+                                        android:id="@+id/v_mid_line_sub"
+                                        android:layout_width="1dp"
+                                        android:layout_height="16dp"
+                                        android:layout_marginLeft="15dp"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="0"
+                                        android:background="@color/seven_translucent_white" />
+
+                                    <TextView
+                                        android:id="@+id/tv_sub_right"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0"
+                                        android:text="供应商"
+                                        android:textColor="@color/seven_translucent_white"
+                                        android:textSize="14sp" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true">
+
+                                    <RelativeLayout
+                                        android:id="@+id/ll_go_left"
+                                        android:layout_width="90dp"
+                                        android:layout_height="26dp"
+                                        android:background="@drawable/bg_4_home_btn">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:gravity="center">
+
+                                            <TextView
+                                                android:id="@+id/tv_go_left"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="供应商"
+                                                android:textColor="@color/seven_translucent_white"
+                                                android:textSize="14sp" />
+
+                                            <ImageView
+                                                android:layout_width="12dp"
+                                                android:layout_height="12dp"
+                                                android:src="@drawable/white_arrow_choose" />
+                                        </LinearLayout>
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/ll_go_right"
+                                        android:layout_width="90dp"
+                                        android:layout_height="26dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:background="@drawable/bg_4_home_btn">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:gravity="center">
+
+                                            <TextView
+                                                android:id="@+id/tv_go_right"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="供应商"
+                                                android:textColor="@color/seven_translucent_white"
+                                                android:textSize="14sp" />
+
+                                            <ImageView
+                                                android:layout_width="12dp"
+                                                android:layout_height="12dp"
+                                                android:src="@drawable/white_arrow_choose" />
+                                        </LinearLayout>
+                                    </RelativeLayout>
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/rl_customer_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:id="@+id/ll_left"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_left_label"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true">
+                                android:text="@string/business_opportunity"
+                                android:textColor="@color/five_translucent_white"
+                                android:textSize="14sp" />
 
-                                <RelativeLayout
-                                    android:id="@+id/ll_go_left"
-                                    android:layout_width="90dp"
-                                    android:layout_height="26dp"
-                                    android:background="@drawable/bg_4_home_btn">
+                            <TextView
+                                android:id="@+id/tv_left_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="3"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp" />
+                        </LinearLayout>
 
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:gravity="center">
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/five_translucent_white" />
 
-                                        <TextView
-                                            android:id="@+id/tv_go_left"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="供应商"
-                                            android:textColor="@color/seven_translucent_white"
-                                            android:textSize="14sp" />
+                        <LinearLayout
+                            android:id="@+id/ll_right"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                                        <ImageView
-                                            android:layout_width="12dp"
-                                            android:layout_height="12dp"
-                                            android:src="@drawable/white_arrow_choose" />
-                                    </LinearLayout>
-                                </RelativeLayout>
+                            <TextView
+                                android:id="@+id/tv_right_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/contract"
+                                android:textColor="@color/five_translucent_white"
+                                android:textSize="14sp" />
 
-                                <RelativeLayout
-                                    android:id="@+id/ll_go_right"
-                                    android:layout_width="90dp"
-                                    android:layout_height="26dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:background="@drawable/bg_4_home_btn">
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:gravity="center">
-
-                                        <TextView
-                                            android:id="@+id/tv_go_right"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="供应商"
-                                            android:textColor="@color/seven_translucent_white"
-                                            android:textSize="14sp" />
-
-                                        <ImageView
-                                            android:layout_width="12dp"
-                                            android:layout_height="12dp"
-                                            android:src="@drawable/white_arrow_choose" />
-                                    </LinearLayout>
-                                </RelativeLayout>
-                            </LinearLayout>
-                        </RelativeLayout>
+                            <TextView
+                                android:id="@+id/tv_right_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="3"
+                                android:textColor="@android:color/white"
+                                android:textSize="16sp" />
+                        </LinearLayout>
                     </LinearLayout>
-                </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_contact_method"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="20dp">
+
+                        <ImageView
+                            android:id="@+id/iv_sns1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentLeft="true"
+                            android:background="@drawable/clue_spec_circle"
+                            android:src="@drawable/clue_spec_phone" />
+
+                        <ImageView
+                            android:id="@+id/iv_sns3"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/clue_spec_circle"
+                            android:src="@drawable/clue_spec_email" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/iv_sns3"
+                            android:layout_toRightOf="@+id/iv_sns1">
+
+                            <ImageView
+                                android:id="@+id/iv_sns2"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/clue_spec_circle"
+                                android:src="@drawable/clue_spec_wechat" />
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/iv_sns5"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/clue_spec_circle"
+                            android:src="@drawable/clue_spec_qq" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/iv_sns5"
+                            android:layout_toRightOf="@+id/iv_sns3">
+
+                            <ImageView
+                                android:id="@+id/iv_sns4"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/clue_spec_circle"
+                                android:src="@drawable/clue_spec_locate" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
 
                 <LinearLayout
-                    android:id="@+id/rl_customer_content"
+                    android:id="@+id/ll_customer_bottom"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_white_stroke_bottom"
                     android:visibility="gone">
 
                     <LinearLayout
-                        android:id="@+id/ll_left"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_left_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/business_opportunity"
-                            android:textColor="@color/five_translucent_white"
-                            android:textSize="14sp" />
+                            android:text="@string/order_count"
+                            android:textColor="@color/title_black" />
 
                         <TextView
-                            android:id="@+id/tv_left_number"
+                            android:id="@+id/tv_order_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="3"
-                            android:textColor="@android:color/white"
+                            android:layout_marginTop="4dp"
+                            android:text="535"
+                            android:textColor="@color/progressbar_green"
                             android:textSize="16sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="1dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@color/five_translucent_white" />
+                        android:layout_height="match_parent"
+                        android:background="@color/item_line_grey" />
 
                     <LinearLayout
-                        android:id="@+id/ll_right"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_right_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/contract"
-                            android:textColor="@color/five_translucent_white"
-                            android:textSize="14sp" />
+                            android:text="@string/order_turnover"
+                            android:textColor="@color/title_black" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/rmb_label"
+                                android:textColor="@color/orange_1"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_order_turnover"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5356.45"
+                                android:textColor="@color/orange_1"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/item_line_grey" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tv_right_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="3"
-                            android:textColor="@android:color/white"
+                            android:text="@string/useful_follow"
+                            android:textColor="@color/title_black" />
+
+                        <TextView
+                            android:id="@+id/tv_useful_follow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="535"
+                            android:textColor="@color/blue_useful_follow"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
-
-                <RelativeLayout
-                    android:id="@+id/rl_contact_method"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginTop="20dp">
-
-                    <ImageView
-                        android:id="@+id/iv_sns1"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/clue_spec_circle"
-                        android:src="@drawable/clue_spec_phone" />
-
-                    <ImageView
-                        android:id="@+id/iv_sns3"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/clue_spec_circle"
-                        android:src="@drawable/clue_spec_email" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/iv_sns3"
-                        android:layout_toRightOf="@+id/iv_sns1">
-
-                        <ImageView
-                            android:id="@+id/iv_sns2"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/clue_spec_circle"
-                            android:src="@drawable/clue_spec_wechat" />
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/iv_sns5"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/clue_spec_circle"
-                        android:src="@drawable/clue_spec_qq" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/iv_sns5"
-                        android:layout_toRightOf="@+id/iv_sns3">
-
-                        <ImageView
-                            android:id="@+id/iv_sns4"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/clue_spec_circle"
-                            android:src="@drawable/clue_spec_locate" />
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@android:color/white">
+                android:background="@drawable/bg_white_stroke_top_and_bottom">
 
                 <com.soubu.crmproject.widget.indicatorviewpager.FixedIndicatorView
                     android:id="@+id/fiv_indicator"
-                    android:layout_width="150dp"
+                    android:layout_width="240dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
@@ -341,8 +518,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:scrollbars="none"
             android:paddingBottom="48dp"
+            android:scrollbars="none"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <android.support.v4.view.ViewPager

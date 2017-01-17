@@ -3,8 +3,6 @@ package com.soubu.crmproject.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.soubu.crmproject.model.ClueParams;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +55,6 @@ public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
         public FooterViewHolder(View view) {
             super(view);
         }
-
     }
 
     public interface OnItemClickListener{

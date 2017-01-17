@@ -3,7 +3,6 @@ package com.soubu.crmproject.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowParams;
-import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.widget.indicatorviewpager.IndicatorViewPager;
 
 import java.util.List;
@@ -28,15 +26,18 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
     private View mEmptyView0;
     private View mEmptyView1;
 
+    private int mFrom;
+
 
     public FollowInBig4HomeIndicatorViewPagerAdapter(int which) {
+        mFrom = which;
         mAdapter0 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_RECORD, Contants.IN_4_HOME, which);
         mAdapter1 = new FollowInBig4HomeViewPagerRvAdapter(FollowInBig4HomeViewPagerRvAdapter.POS_PLAN, Contants.IN_4_HOME, which);
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return mFrom == Contants.FROM_CUSTOMER ? 3 : 2;
     }
 
     @Override
@@ -47,8 +48,10 @@ public class FollowInBig4HomeIndicatorViewPagerAdapter extends IndicatorViewPage
         TextView textView = (TextView) convertView.findViewById(R.id.tv_tab);
         if (position == 0) {
             textView.setText(R.string.follow_record);
-        } else {
+        } else if(position == 1){
             textView.setText(R.string.follow_plan);
+        } else {
+            textView.setText(R.string.order_record);
         }
         return convertView;
     }

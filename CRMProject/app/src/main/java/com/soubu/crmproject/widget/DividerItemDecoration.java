@@ -23,21 +23,21 @@ import com.soubu.crmproject.R;
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDrawable;
-    private static final int DEFAULT_ORENTATION = LinearLayoutManager.VERTICAL;
-    private int mOrentaion;
+    private static final int DEFAULT_ORIENTATION = LinearLayoutManager.VERTICAL;
+    private int mOrientation;
     private int mHeight;
 
     /**
      * 自定义recyclerView分割线
      * @param context
-     * @param orentaion
+     * @param orientation
      * @param height  定义分割线高度
      */
-    public DividerItemDecoration(Context context, int orentaion, int height) {
-        if (orentaion != LinearLayoutManager.HORIZONTAL && orentaion != LinearLayoutManager.VERTICAL) {
-            this.mOrentaion = DEFAULT_ORENTATION;
+    public DividerItemDecoration(Context context, int orientation, int height) {
+        if (orientation != LinearLayoutManager.HORIZONTAL && orientation != LinearLayoutManager.VERTICAL) {
+            this.mOrientation = DEFAULT_ORIENTATION;
         } else {
-            this.mOrentaion = orentaion;
+            this.mOrientation = orientation;
         }
         mDrawable = context.getResources().getDrawable(R.drawable.divider_home_recyclerview);
         mHeight = height;
@@ -45,7 +45,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        if (mOrentaion == LinearLayoutManager.HORIZONTAL) {
+        if (mOrientation == LinearLayoutManager.HORIZONTAL) {
             drawHorizontal(c, parent);
         } else {
             drawVertical(c, parent);
@@ -60,7 +60,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         for (int i = 0; i < childCount; i++) {
             View chileView = parent.getChildAt(i);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) chileView.getLayoutParams();
-
             int left = chileView.getRight() + params.rightMargin;
             int right = left + mHeight;
             mDrawable.setBounds(left, top, right, bottom);
@@ -89,10 +88,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        if (mOrentaion == LinearLayoutManager.VERTICAL) {
-            outRect.set(0, 0, 0, mDrawable.getIntrinsicHeight());
+        if (mOrientation == LinearLayoutManager.VERTICAL) {
+            outRect.set(0, 0, 0, mHeight);
         } else {
-            outRect.set(0, 0, mDrawable.getIntrinsicWidth(), 0);
+            outRect.set(0, 0, mHeight, 0);
         }
     }
 }

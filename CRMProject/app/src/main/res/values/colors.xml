@@ -38,4 +38,15 @@
     <color name="orange_1">#fe8a36</color>
     <color name="progressbar_green">#95cd36</color>
 
+    <color name="avatar_1">#f2725e</color>
+    <color name="avatar_2">#668aad</color>
+    <color name="avatar_3">#9a89b9</color>
+    <color name="avatar_4">#8a8a8a</color>
+    <color name="avatar_5">#4da9eb</color>
+    <color name="avatar_6">#f7b55e</color>
+    <color name="avatar_7">#17c295</color>
+
+    <color name="red_logout">#ee2222</color>
+    <color name="blue_useful_follow">#6099ea</color>
+
 </resources>

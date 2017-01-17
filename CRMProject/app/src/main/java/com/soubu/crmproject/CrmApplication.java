@@ -1,19 +1,17 @@
 package com.soubu.crmproject;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.text.TextUtils;
 
-import com.soubu.crmproject.base.greendao.DBHelper;
-import com.soubu.crmproject.base.greendao.UserDao;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.sdk.eventbus.MyEventBusIndex;
 import com.soubu.crmproject.utils.AppUtil;
 import com.soubu.crmproject.utils.CrashHandler;
 import com.soubu.crmproject.utils.PhoneUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
-
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,6 +31,8 @@ public class CrmApplication extends Application {
     private static String mToken;
     private static String mUid;
     private static String mName;
+    private ActivityLifecycle activityLifecycle;
+
 //    private UserDao mUserDao;
 
     @Override
@@ -47,6 +47,7 @@ public class CrmApplication extends Application {
         CrashHandler.getInstance().init(instance);
         EventBus.builder().addIndex(new MyEventBusIndex()).installDefaultEventBus();
         ShowWidgetUtil.register(this);
+        initActivityCycle();
     }
 
 
@@ -107,4 +108,16 @@ public class CrmApplication extends Application {
         return mName;
     }
 
+    private void initActivityCycle() {
+        activityLifecycle = new ActivityLifecycle();
+        this.registerActivityLifecycleCallbacks(activityLifecycle);//注册
+    }
+
+    public Context getNowContext() {
+        return activityLifecycle.getNowContext();
+    }
+
+    public void finishAllActivity() {
+        activityLifecycle.finishAllActivity();
+    }
 }

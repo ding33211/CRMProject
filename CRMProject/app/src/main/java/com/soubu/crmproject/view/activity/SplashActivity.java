@@ -17,7 +17,6 @@ import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.SplashActivityDelegate;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.PermissionUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -66,7 +65,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     }
 
     //需要验证权限的方法
-    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
+    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void load() {
         if(TextUtils.isEmpty(CrmApplication.getContext().getToken())){
             Intent intent = new Intent(this, LoginActivity.class);
@@ -137,17 +136,17 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     //之前拒绝过这个请求,当再次请求这个权限的时候调起的方法
     //建议是对话框的方式,告知用户请求这个权限的原因
     //注意由于是在build中生成的类文件,因此每次对注释方法有有修改需要clean,rebuild.
-    @OnShowRationale({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
+    @OnShowRationale({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void showDialog(PermissionRequest request) {
         PermissionUtil.showPermissionExplainDialog(getApplicationContext(), R.string.permission_explain_storage, request);
     }
 
-    @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
+    @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void onPermissionDenied() {
         finish();
     }
 
-    @OnNeverAskAgain({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE})
+    @OnNeverAskAgain({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void showGoToSettingDialog() {
         PermissionUtil.showGoToSettingDialog(this, R.string.permission_explain_storage, true);
     }

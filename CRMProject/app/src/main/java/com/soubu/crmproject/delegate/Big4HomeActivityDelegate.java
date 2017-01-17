@@ -19,8 +19,6 @@ import com.soubu.crmproject.widget.indicatorviewpager.OnTransitionTextListener;
 import java.io.Serializable;
 import java.util.List;
 
-import retrofit2.http.GET;
-
 
 /**
  * 大四样主页代理
@@ -44,15 +42,18 @@ public class Big4HomeActivityDelegate extends AppDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        switch (mFrom){
+        switch (mFrom) {
             case Contants.FROM_CUSTOMER:
-                get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
+//                get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
 //                get(R.id.ll_state_content).setVisibility(View.GONE);
 //                get(R.id.rl_contact_method).setVisibility(View.GONE);
 //                get(R.id.rl_contact).setVisibility(View.VISIBLE);
 //                ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.customer_property);
-                ((TextView)get(R.id.tv_go_left)).setText(R.string.customer_spec);
-                ((TextView)get(R.id.tv_go_right)).setText(R.string.contact);
+                ((TextView) get(R.id.tv_go_left)).setText(R.string.customer_spec);
+                ((TextView) get(R.id.tv_go_right)).setText(R.string.contact);
+                get(R.id.ll_normal).setVisibility(View.GONE);
+                get(R.id.ll_customer_home).setVisibility(View.VISIBLE);
+                get(R.id.ll_customer_bottom).setVisibility(View.VISIBLE);
                 break;
             case Contants.FROM_CONTRACT:
 //                get(R.id.rl_customer_content).setVisibility(View.VISIBLE);
@@ -61,17 +62,17 @@ public class Big4HomeActivityDelegate extends AppDelegate {
 //                ((TextView)get(R.id.tv_left_label)).setText(R.string.sales_back_plan);
 //                ((TextView)get(R.id.tv_right_label)).setText(R.string.already_sales_back);
 //                ((TextView)get(R.id.tv_subtitle_label)).setText(R.string.related_customer);
-                ((TextView)get(R.id.tv_go_left)).setText(R.string.contract_spec);
-                ((TextView)get(R.id.tv_go_right)).setText(R.string.customer_home);
+                ((TextView) get(R.id.tv_go_left)).setText(R.string.contract_spec);
+                ((TextView) get(R.id.tv_go_right)).setText(R.string.customer_home);
                 break;
             case Contants.FROM_BUSINESS_OPPORTUNITY:
-                ((TextView)get(R.id.tv_go_left)).setText(R.string.business_opportunity_spec);
-                ((TextView)get(R.id.tv_go_right)).setText(R.string.customer_home);
+                ((TextView) get(R.id.tv_go_left)).setText(R.string.business_opportunity_spec);
+                ((TextView) get(R.id.tv_go_right)).setText(R.string.customer_home);
                 break;
             case Contants.FROM_CLUE:
 //                get(R.id.ll_subtitle_label).setVisibility(View.GONE);
                 get(R.id.ll_go_right).setVisibility(View.GONE);
-                ((TextView)get(R.id.tv_go_left)).setText(R.string.clue_spec);
+                ((TextView) get(R.id.tv_go_left)).setText(R.string.clue_spec);
                 break;
         }
         mIndicatorViewPagerAdapter = new FollowInBig4HomeIndicatorViewPagerAdapter(mFrom);
@@ -108,11 +109,11 @@ public class Big4HomeActivityDelegate extends AppDelegate {
         });
     }
 
-    public void setEntity(Serializable entity){
+    public void setEntity(Serializable entity) {
         mSerializable = entity;
     }
 
-    public void setFrom(int from){
+    public void setFrom(int from) {
         mFrom = from;
     }
 
@@ -121,7 +122,7 @@ public class Big4HomeActivityDelegate extends AppDelegate {
         return true;
     }
 
-    public void setViewPagerData(int pos, List<FollowParams> list){
+    public void setViewPagerData(int pos, List<FollowParams> list) {
         mIndicatorViewPagerAdapter.setViewPagerData(pos, list);
     }
 

@@ -2,10 +2,8 @@ package com.soubu.crmproject.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +26,13 @@ import com.soubu.crmproject.widget.indicatorviewpager.OnTransitionTextListener;
 public class HomePageRvAdapter extends RecyclerView.Adapter {
 
     private static final int TYPE_PERFORMANCE_GOAL = 0x00;//业绩目标
-    private static final int TYPE_WORK_PLAN = 0x01;//工作计划
+//    private static final int TYPE_WORK_PLAN = 0x01;//工作计划
     private static final int TYPE_SALES_PERFORMANCE = 0x02;//销售业绩
-    private static final int TYPE_SALES_EXECUTIVE = 0x03;//销售执行力
+//    private static final int TYPE_SALES_EXECUTIVE = 0x03;//销售执行力
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 2;
     }
 
 
@@ -43,12 +41,12 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
         switch (position) {
             case 0:
                 return TYPE_PERFORMANCE_GOAL;
+//            case 1:
+//                return TYPE_WORK_PLAN;
             case 1:
-                return TYPE_WORK_PLAN;
-            case 2:
                 return TYPE_SALES_PERFORMANCE;
-            case 3:
-                return TYPE_SALES_EXECUTIVE;
+//            case 3:
+//                return TYPE_SALES_EXECUTIVE;
             default:
                 return 0;
         }
@@ -57,10 +55,10 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        if(viewType == TYPE_WORK_PLAN){
-            View v = LayoutInflater.from(context).inflate(R.layout.item_work_plan, parent, false);
-            return new ItemViewHolder(v, context, viewType);
-        }
+//        if(viewType == TYPE_WORK_PLAN){
+//            View v = LayoutInflater.from(context).inflate(R.layout.item_work_plan, parent, false);
+//            return new ItemViewHolder(v, context, viewType);
+//        }
         View v = LayoutInflater.from(context).inflate(R.layout.item_home_recyclerview, parent, false);
         View viewPagerItem;
         IndicatorViewPager.IndicatorViewPagerAdapter adapter = null;
@@ -77,7 +75,8 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
 
         switch (viewType) {
             case TYPE_PERFORMANCE_GOAL:
-                adapter = new PerformanceGoalAdapter(context);
+//                adapter = new PerformanceGoalAdapter(context);
+                adapter = new OrderStatisticsAdapter(context);
                 break;
 //            case TYPE_WORK_PLAN:
 //                adapter = new WorkPlanAdapter(context);
@@ -85,9 +84,9 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
             case TYPE_SALES_PERFORMANCE:
                 adapter = new SalesPerformanceAdapter(context);
                 break;
-            case TYPE_SALES_EXECUTIVE:
-                adapter = new SalesExecutiveAdapter(context);
-                break;
+//            case TYPE_SALES_EXECUTIVE:
+//                adapter = new SalesExecutiveAdapter(context);
+//                break;
             default:
                 break;
         }
@@ -119,19 +118,19 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
         if (holder instanceof ItemViewHolder) {
             switch (position) {
                 case 0:
-                    ((ItemViewHolder) holder).tvTitle.setText(R.string.performance_goal);
+                    ((ItemViewHolder) holder).tvTitle.setText(R.string.order_statistics);
                     break;
 //                case 1:
 //                    ((ItemViewHolder) holder).tvTitle.setText(R.string.work_plan);
 //                    break;
-                case 2:
+                case 1:
                     ((ItemViewHolder) holder).tvTitle.setText(R.string.sales_performance);
                     break;
-                case 3:
-                    ((ItemViewHolder) holder).tvTitle.setText(R.string.sales_executive);
-                    break;
-                default:
-                    break;
+//                case 3:
+//                    ((ItemViewHolder) holder).tvTitle.setText(R.string.sales_executive);
+//                    break;
+//                default:
+//                    break;
             }
         }
     }
@@ -155,12 +154,12 @@ public class HomePageRvAdapter extends RecyclerView.Adapter {
             this.context = context;
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             switch (viewType){
-                case TYPE_WORK_PLAN:
-                    vFollowRecord = itemView.findViewById(R.id.rl_follow_record);
-                    vFollowPlan = itemView.findViewById(R.id.rl_follow_plan);
-                    vFollowRecord.setOnClickListener(this);
-                    vFollowPlan.setOnClickListener(this);
-                    break;
+//                case TYPE_WORK_PLAN:
+//                    vFollowRecord = itemView.findViewById(R.id.rl_follow_record);
+//                    vFollowPlan = itemView.findViewById(R.id.rl_follow_plan);
+//                    vFollowRecord.setOnClickListener(this);
+//                    vFollowPlan.setOnClickListener(this);
+//                    break;
 //                case TYPE_SALES_PERFORMANCE:
 //                    vTotalTurnOver = itemView.findViewById(R.id.rl_total_turnover);
 //                    vTotalTurnOver.setOnClickListener(this);

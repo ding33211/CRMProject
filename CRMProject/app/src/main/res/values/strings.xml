@@ -47,7 +47,7 @@
     <string name="contract">合同</string>
     <string name="all_contract">全部合同</string>
     <string name="sales_management">销售管理</string>
-    <string name="company_contacts">企业通讯录</string>
+    <string name="company_contacts">公司通讯录</string>
     <string name="contract_management">合同管理</string>
     <string name="back_sales_management">回款管理</string>
     <string name="product_management">产品管理</string>
@@ -286,5 +286,23 @@
     <string name="throw_to_customer_high_sea_success_message">已成功转入客户公海</string>
     <string name="follow_object">跟进对象</string>
     <string name="follow_man">跟进人</string>
+
+
+    <!--  2.0 -->
+    <string name="order_turnover">订单成交额</string>
+    <string name="order_count">订单数量</string>
+    <string name="order_statistics">订单统计</string>
+    <string name="clue_count">线索数量</string>
+    <string name="register_customer_num">注册客户数</string>
+    <string name="visit_customer">拜访客户</string>
+    <string name="statistics">统计</string>
+    <string name="setting">设置</string>
+    <string name="logout">退出登录</string>
+    <string name="useful_follow">有效跟进</string>
+    <string name="order_record">订单记录</string>
+    <string name="alert">警告</string>
+    <string name="logout_alert_message">确定退出当前账号么？</string>
+    <string name="permission_explain_phone">您只有打开了电话权限才可以拨打电话</string>
+
 
 </resources>

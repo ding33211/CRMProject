@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/white"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_turnover"
+            android:textColor="@color/subtitle_grey" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rmb_label"
+                android:textColor="@color/orange_1" />
+
+            <TextView
+                android:id="@+id/tv_order_turnover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="589237"
+                android:textColor="@color/orange_1"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_order_turnover_after_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=".64"
+                android:textColor="@color/orange_1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_count"
+            android:textColor="@color/subtitle_grey" />
+
+        <TextView
+            android:id="@+id/tv_order_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="589237"
+            android:textColor="@color/progressbar_green"
+            android:textSize="24sp" />
+    </LinearLayout>
+</LinearLayout>

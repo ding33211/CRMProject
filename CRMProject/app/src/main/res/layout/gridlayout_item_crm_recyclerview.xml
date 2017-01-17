@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/selector_item_white_grey_bg">
     <RelativeLayout
         android:id="@+id/rl_horizontal"
@@ -15,7 +16,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/fx_find_normal" />
+            tools:src="@drawable/fx_find_normal" />
 
         <TextView
             android:id="@+id/tv_right_title"
@@ -26,7 +27,7 @@
             android:layout_toRightOf="@+id/iv_image"
             android:layout_marginLeft="8dp"
             android:textColor="@color/title_black"
-            android:text="@string/customer"/>
+            tools:text="@string/customer"/>
     </RelativeLayout>
 
     <RelativeLayout

@@ -3,7 +3,6 @@ package com.soubu.crmproject.view.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -18,7 +17,6 @@ import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -208,8 +206,9 @@ public class ContactSpecActivity extends ActivityPresenter<SpecActivityDelegate>
                                     if (!TextUtils.isEmpty(mContactParams.getId())) {
                                         RetrofitRequest.getInstance().touchContact(mContactParams.getId());
                                     }
-                                    Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + mPhoneList.get(mIndex)));
-                                    startActivity(intent);
+                                    callSomeOne(mPhoneList.get(mIndex));
+//                                    Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + mPhoneList.get(mIndex)));
+//                                    startActivity(intent);
                                 }
                             })
                             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -222,8 +221,9 @@ public class ContactSpecActivity extends ActivityPresenter<SpecActivityDelegate>
                     if (!TextUtils.isEmpty(mContactParams.getId())) {
                         RetrofitRequest.getInstance().touchContact(mContactParams.getId());
                     }
-                    Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + mPhoneList.get(0)));
-                    startActivity(intent);
+                    callSomeOne(mPhoneList.get(0));
+//                    Intent intent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + mPhoneList.get(0)));
+//                    startActivity(intent);
                 }
                 break;
             case R.id.iv_sns2:

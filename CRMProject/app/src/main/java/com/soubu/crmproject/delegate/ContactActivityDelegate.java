@@ -1,13 +1,8 @@
 package com.soubu.crmproject.delegate;
 
-import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
-import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.adapter.ContactRvAdapter;
-import com.soubu.crmproject.base.greendao.Contact;
-import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.ContactParams;
-import com.soubu.crmproject.widget.SwipeRefreshAndLoadMoreCallBack;
 
 import java.util.List;
 
@@ -21,7 +16,7 @@ public class ContactActivityDelegate extends BaseRecyclerViewActivityDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
-        setTitle(R.string.contact);
+//        setTitle(R.string.contact);
         mAdapter = new ContactRvAdapter();
         setListAdapter(mAdapter);
     }
@@ -61,5 +56,10 @@ public class ContactActivityDelegate extends BaseRecyclerViewActivityDelegate {
 
     public ContactParams getContactParams(int pos){
         return mAdapter.getParams(pos);
+    }
+
+    @Override
+    public boolean ifNeedHideToolBar() {
+        return true;
     }
 }
