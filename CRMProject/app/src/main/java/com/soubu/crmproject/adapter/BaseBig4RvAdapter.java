@@ -44,6 +44,7 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
             if (mIfHighSeas) {
                 v.findViewById(R.id.rl_rush_in).setVisibility(View.VISIBLE);
                 v.findViewById(R.id.tv_state).setVisibility(View.GONE);
+                v.findViewById(R.id.iv_phone).setVisibility(View.GONE);
             }
             ItemViewHolder vh = new ItemViewHolder(v);
             return vh;
@@ -77,13 +78,22 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
             ivStateNoOrWait = (ImageView) itemView.findViewById(R.id.iv_approval_no_or_wait);
             subLine = itemView.findViewById(R.id.v_sub_line);
             itemView.findViewById(R.id.rl_rush_in).setOnClickListener(this);
+            itemView.findViewById(R.id.iv_phone).setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.rl_rush_in) {
-                mRushListener.onItemClick(v, getLayoutPosition());
-                return;
+                if(mRushListener != null){
+                    mRushListener.onItemClick(v, getLayoutPosition());
+                    return;
+                }
+            }
+            if(v.getId() == R.id.iv_phone){
+                if(mCustomerPhoneClickListener != null){
+                    mCustomerPhoneClickListener.onItemClick(v, getLayoutPosition());
+                    return;
+                }
             }
             if (mListener != null) {
                 mListener.onItemClick(v, getLayoutPosition());

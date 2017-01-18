@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.soubu.crmproject.utils.ShowWidgetUtil.showCustomerPhoneDialog;
+
 /**
  * Created by dingsigang on 16-8-12.
  */
@@ -32,11 +34,16 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
     String mOrder;
     String mRelated;
     boolean mRushAction = false;
-
+    List<CustomerParams> list;
 
     @Override
     protected Class<CustomerActivityDelegate> getDelegateClass() {
         return CustomerActivityDelegate.class;
+    }
+
+    @Override
+    protected void bindEvenListener() {
+        super.bindEvenListener();
     }
 
     /**
@@ -70,7 +77,7 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
             }
             mRushAction = false;
         } else {
-            List<CustomerParams> list = Arrays.asList(params);
+            list = Arrays.asList(params);
             viewDelegate.setData(list, mIsRefresh);
             if (mIsRefresh) {
                 mIsRefresh = false;
@@ -251,6 +258,13 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
             intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
         }
         startActivity(intent);
+    }
+
+    @Override
+    public void onCustomerPhoneClickListener(View v, int pos) {
+        super.onCustomerPhoneClickListener(v, pos);
+        String customerId = list.get(pos).getId();
+        showCustomerPhoneDialog(this, customerId);
     }
 
 }

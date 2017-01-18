@@ -3,6 +3,7 @@ package com.soubu.crmproject.view.activity;
 import android.view.View;
 
 import com.soubu.crmproject.R;
+import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
 import com.soubu.crmproject.adapter.ClueRvAdapter;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.BaseRecyclerViewActivityDelegate;
@@ -72,6 +73,13 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
             @Override
             public void onItemClick(View v, int pos) {
                 onRushClickListener(v, pos);
+            }
+        });
+
+        viewDelegate.setOnCustomerPhoneClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                onCustomerPhoneClickListener(v, pos);
             }
         });
 
@@ -164,6 +172,10 @@ public abstract class Big4AllActivityPresenter<T extends BaseRecyclerViewActivit
     protected abstract void onRvItemClickListener(View v, int pos);
 
     public void onRushClickListener(View v, int pos) {
+    }
+
+    public void onCustomerPhoneClickListener(View v, int pos){
+
     }
 
     protected abstract void onSelectFilter(Map<Integer, Integer> map);

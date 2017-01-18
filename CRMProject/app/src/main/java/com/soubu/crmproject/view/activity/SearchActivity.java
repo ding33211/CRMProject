@@ -17,6 +17,7 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.server.RetrofitRequest;
+import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,6 +37,8 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
     //是否来自于添加跟进的搜索
     boolean mFromAddFollowHome = false;
 
+    //客户列表
+    List<CustomerParams> customerList;
 
     @Override
     protected Class<SearchActivityDelegate> getDelegateClass() {
@@ -128,6 +131,13 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
                             intent.putExtra(Contants.EXTRA_CUSTOMER, viewDelegate.getCustomerParams(pos));
                             startActivity(intent);
                         }
+                    }
+                });
+                viewDelegate.setOnCustomerPhoneClickListener(new BaseWithFooterRvAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int pos) {
+                        String customerId = customerList.get(pos).getId();
+                        ShowWidgetUtil.showCustomerPhoneDialog(SearchActivity.this, customerId);
                     }
                 });
                 break;
@@ -258,8 +268,8 @@ public class SearchActivity extends ActivityPresenter<SearchActivityDelegate> {
             }
             mRushAction = false;
         } else {
-            List<CustomerParams> list = Arrays.asList(params);
-            viewDelegate.setCustomer(list, mIsRefresh);
+            customerList = Arrays.asList(params);
+            viewDelegate.setCustomer(customerList, mIsRefresh);
             if (mIsRefresh) {
                 mIsRefresh = false;
             }

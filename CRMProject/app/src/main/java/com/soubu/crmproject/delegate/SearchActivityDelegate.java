@@ -1,5 +1,8 @@
 package com.soubu.crmproject.delegate;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+
 import com.soubu.crmproject.adapter.BaseWithFooterRvAdapter;
 import com.soubu.crmproject.adapter.BusinessOpportunityRvAdapter;
 import com.soubu.crmproject.adapter.ClueRvAdapter;
@@ -10,6 +13,8 @@ import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
 import com.soubu.crmproject.model.CustomerParams;
+import com.soubu.crmproject.utils.ConvertUtil;
+import com.soubu.crmproject.widget.DividerItemDecoration;
 
 import java.util.List;
 
@@ -34,13 +39,16 @@ public class SearchActivityDelegate extends BaseRecyclerViewActivityDelegate {
             case Contants.FROM_CLUE_HIGH_SEAS:
                 mClueAdapter = new ClueRvAdapter(getActivity().getApplicationContext(), true);
                 setListAdapter(mClueAdapter);
+
                 break;
             case Contants.FROM_CUSTOMER:
                 mCustomerAdapter = new CustomerRvAdapter(getActivity().getApplicationContext(), false);
+                mRvContent.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(this.getActivity(), 10)));
                 setListAdapter(mCustomerAdapter);
                 break;
             case Contants.FROM_CUSTOMER_HIGH_SEAS:
                 mCustomerAdapter = new CustomerRvAdapter(getActivity().getApplicationContext(), true);
+                mRvContent.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL, ConvertUtil.dip2px(this.getActivity(), 10)));
                 setListAdapter(mCustomerAdapter);
                 break;
             case Contants.FROM_BUSINESS_OPPORTUNITY:
@@ -65,6 +73,10 @@ public class SearchActivityDelegate extends BaseRecyclerViewActivityDelegate {
 
     public void setOnCustomerClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
         mCustomerAdapter.setOnItemClickListener(listener);
+    }
+
+    public void setOnCustomerPhoneClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
+        mCustomerAdapter.setOnCustomerPhoneClickListener(listener);
     }
 
     public void setOnCustomerRushClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener) {
@@ -125,6 +137,7 @@ public class SearchActivityDelegate extends BaseRecyclerViewActivityDelegate {
     public void setCustomer(List<CustomerParams> list, boolean isRefresh) {
         mCustomerAdapter.setData(list, isRefresh);
         mCustomerAdapter.notifyDataSetChanged();
+        Log.e("xxxxxxx", "setCustomer");
         ifDataEmpty(list.isEmpty());
     }
 

@@ -42,6 +42,10 @@ public class CustomerActivityDelegate extends BaseRecyclerViewActivityDelegate {
         mAdapter.setOnRushClickListener(listener);
     }
 
+    public void setOnCustomerPhoneClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+        mAdapter.setOnCustomerPhoneClickListener(listener);
+    }
+
     public CustomerParams getCustomerParams(int pos){
         return mAdapter.getParams(pos);
     }

@@ -116,6 +116,7 @@
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/tv_forget_pwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_login"
@@ -132,5 +133,6 @@
         android:background="@color/two_translucent_black"
         android:text="@string/no_user_to_register"
         android:textColor="@color/title_black"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone"/>
 </RelativeLayout>

@@ -207,6 +207,11 @@ public abstract class BaseRecyclerViewActivityDelegate extends AppDelegate {
         //只有拥有公海才有的方法
     }
 
+
+    public void setOnCustomerPhoneClickListener(BaseWithFooterRvAdapter.OnItemClickListener listener){
+        //客户列表点击拨打电话
+    }
+
     public void ifDataEmpty(boolean empty){
         if(empty){
             mEmptyView.setVisibility(View.VISIBLE);

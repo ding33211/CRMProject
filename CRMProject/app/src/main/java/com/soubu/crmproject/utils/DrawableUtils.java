@@ -23,4 +23,12 @@ public class DrawableUtils {
                 return R.drawable.avatar_1;
         }
     }
+
+    public static String getMiniName(String name){
+        if(RegularUtil.isChz(name)){
+            return name.substring(0, 2);
+        } else {
+            return Character.toString(CharacterParser.getInstance().getSelling(name).charAt(0)).toUpperCase();
+        }
+    }
 }

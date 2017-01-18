@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
+import com.soubu.crmproject.utils.UserManager;
 import com.soubu.crmproject.view.activity.LoginActivity;
 
 import java.net.HttpURLConnection;
@@ -29,6 +30,7 @@ public class ServerErrorUtil {
                 ShowWidgetUtil.showLong(R.string.error_403_message);
                 Context nowContext = CrmApplication.getContext().getNowContext();
                 CrmApplication.getContext().finishAllActivity();
+                UserManager.clearUser();
                 Intent intent = new Intent(nowContext, LoginActivity.class);
                 nowContext.startActivity(intent);
                 break;

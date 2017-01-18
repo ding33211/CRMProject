@@ -32,6 +32,7 @@ public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
     List<T> mList;
     OnItemClickListener mListener;
     OnItemClickListener mRushListener;
+    OnItemClickListener mCustomerPhoneClickListener;
 
     public BaseWithFooterRvAdapter(){
         mList = new ArrayList<T>();
@@ -67,6 +68,10 @@ public abstract class BaseWithFooterRvAdapter<T> extends RecyclerView.Adapter {
 
     public void setOnRushClickListener(OnItemClickListener listener){
         mRushListener = listener;
+    }
+
+    public void setOnCustomerPhoneClickListener(OnItemClickListener listener){
+        mCustomerPhoneClickListener = listener;
     }
 
     public T getParams(int pos){

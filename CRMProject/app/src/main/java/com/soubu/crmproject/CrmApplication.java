@@ -12,6 +12,7 @@ import com.soubu.crmproject.utils.AppUtil;
 import com.soubu.crmproject.utils.CrashHandler;
 import com.soubu.crmproject.utils.PhoneUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
+import com.soubu.crmproject.utils.UserManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,7 +42,7 @@ public class CrmApplication extends Application {
         //Log机制
         instance = (CrmApplication) getApplicationContext();
         cacheDir = PhoneUtil.getCacheDir(instance);
-//        mUserDao = DBHelper.getInstance(instance).getUserDao();
+        UserManager.init(this);
         //初始化crash输出工具
         //具体决策需要商议
         CrashHandler.getInstance().init(instance);

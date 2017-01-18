@@ -20,6 +20,7 @@ import com.soubu.crmproject.delegate.LoginActivityDelegate;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
+import com.soubu.crmproject.utils.UserManager;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -38,7 +39,7 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setOnClickListener(this, R.id.btn_register, R.id.btn_login, R.id.iv_clear, R.id.iv_clear_user, R.id.iv_transfer_pwd);
+        viewDelegate.setOnClickListener(this, R.id.btn_register, R.id.btn_login, R.id.iv_clear, R.id.iv_clear_user, R.id.iv_transfer_pwd, R.id.tv_forget_pwd);
         viewDelegate.get(R.id.et_user).setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -162,6 +163,10 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 ((EditText) viewDelegate.get(R.id.et_user)).setText("");
                 break;
 
+            case R.id.tv_forget_pwd:
+                ShowWidgetUtil.showShort(R.string.forget_pwd_alert);
+                break;
+
         }
     }
 
@@ -210,6 +215,7 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 CrmApplication.getContext().setToken(userParams[0].getToken());
                 CrmApplication.getContext().setUid(userParams[0].getId());
                 CrmApplication.getContext().setName(userParams[0].getNickName());
+                UserManager.saveUserInfo(userParams[0]);
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 finish();

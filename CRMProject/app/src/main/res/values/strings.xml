@@ -303,6 +303,8 @@
     <string name="alert">警告</string>
     <string name="logout_alert_message">确定退出当前账号么？</string>
     <string name="permission_explain_phone">您只有打开了电话权限才可以拨打电话</string>
+    <string name="no_contact">当前该客户没有联系人</string>
+    <string name="forget_pwd_alert">请联系相关人员修改密码</string>
 
 
 </resources>
