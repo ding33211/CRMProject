@@ -145,9 +145,9 @@ public class AddFollowActivity extends ActivityPresenter<AddFollowActivityDelega
                 mStateArrayRes = R.array.customer_status;
                 mStateArray = getResources().getTextArray(mStateArrayRes);
                 mStateArrayWeb = getResources().getTextArray(R.array.customer_status_web);
-                state = mStateArray[SearchUtil.searchInArray(mStateArrayWeb, customerParams.getStatus())].toString();
-                viewDelegate.giveTextViewString(R.id.tv_state, state);
-                mFollowParams.setStatus(customerParams.getStatus());
+//                state = mStateArray[SearchUtil.searchInArray(mStateArrayWeb, customerParams.getStatus())].toString();
+//                viewDelegate.giveTextViewString(R.id.tv_state, state);
+//                mFollowParams.setStatus(customerParams.getStatus());
                 mContactsList = contactDao.queryBuilder().where(ContactDao.Properties.Customer.eq(customerParams.getId()))
                         .orderDesc(ContactDao.Properties.TouchedAt).list();
                 break;

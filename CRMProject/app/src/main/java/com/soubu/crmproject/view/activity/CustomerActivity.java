@@ -137,8 +137,10 @@ public class CustomerActivity extends Big4AllActivityPresenter<CustomerActivityD
             setResult(RESULT_OK, intent);
             finish();
         } else if (mFrom == Contants.TYPE_HIGH_SEAS) {
-            Intent intent = new Intent(this, DamnCustomerActivity.class);
+            Intent intent = new Intent(this, CustomerHomeActivity.class);
             intent.putExtra(Contants.EXTRA_CUSTOMER, params);
+//            intent.putExtra(Contants.EXTRA_CUSTOMER_ID, params.getId());
+//            intent.putExtra(Contants.EXTRA_CUSTOMER_NAME, params.getName());
             intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER_HIGH_SEAS);
             startActivity(intent);
         } else {

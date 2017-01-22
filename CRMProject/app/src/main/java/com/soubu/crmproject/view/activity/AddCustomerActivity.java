@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.adapter.AddSomethingRvAdapter;
 import com.soubu.crmproject.model.AddItem;
@@ -87,9 +86,9 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.customer_type);
-        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getType())) {
-            item.setContent(mCustomerParams.getType());
-        }
+//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getType())) {
+//            item.setContent(mCustomerParams.getType());
+//        }
         item.setArrayRes(R.array.customer_type);
         item.setWebArrayRes(R.array.customer_type_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
@@ -105,9 +104,9 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.website);
-        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getWebsite())) {
-            item.setContent(mCustomerParams.getWebsite());
-        }
+//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getWebsite())) {
+//            item.setContent(mCustomerParams.getWebsite());
+//        }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_FILL);
         item.setEditTextType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
         mList.add(item);
@@ -164,11 +163,9 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.customer_source);
-        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getSource())) {
-//            CharSequence[] array = SearchUtil.searchClueSourceArray(getApplicationContext());
-//            CharSequence[] webArray = SearchUtil.searchClueSourceWebArray(getApplicationContext());
-            item.setContent(mCustomerParams.getSource());
-        }
+//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getSource())) {
+//            item.setContent(mCustomerParams.getSource());
+//        }
         item.setArrayRes(R.array.clue_source);
         item.setWebArrayRes(R.array.clue_source_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
@@ -182,11 +179,9 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.personal_size);
-        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getSize())) {
-//            CharSequence[] array = SearchUtil.searchCustomerSizeArray(getApplicationContext());
-//            CharSequence[] webArray = SearchUtil.searchCustomerSizeWebArray(getApplicationContext());
-            item.setContent(mCustomerParams.getSize());
-        }
+//        if (mFromEdit && !TextUtils.isEmpty(mCustomerParams.getSize())) {
+//            item.setContent(mCustomerParams.getSize());
+//        }
         item.setArrayRes(R.array.customer_size);
         item.setWebArrayRes(R.array.customer_size_web);
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
@@ -198,16 +193,16 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.manager);
-        if (mFromEdit && mCustomerParams.getUser() != null && !TextUtils.isEmpty(mCustomerParams.getUser().getUserName())) {
-            item.setContent(mCustomerParams.getUser().getUserName());
-            mManagerId = mCustomerParams.getUser().getId();
-        } else if (mFromEdit && mCustomerParams.getCreator() != null && !TextUtils.isEmpty(mCustomerParams.getUser().getUserName())) {
-            item.setContent(mCustomerParams.getCreator().getUserName());
-            mManagerId = mCustomerParams.getCreator().getId();
-        } else {
-            item.setContent(CrmApplication.getContext().getName());
-            mManagerId = CrmApplication.getContext().getUid();
-        }
+//        if (mFromEdit && mCustomerParams.getUser() != null && !TextUtils.isEmpty(mCustomerParams.getUser().getUsername())) {
+//            item.setContent(mCustomerParams.getUser().getUsername());
+//            mManagerId = mCustomerParams.getUser().getId();
+//        } else if (mFromEdit && mCustomerParams.getCreator() != null && !TextUtils.isEmpty(mCustomerParams.getUser().getUsername())) {
+//            item.setContent(mCustomerParams.getCreator().getUsername());
+//            mManagerId = mCustomerParams.getCreator().getId();
+//        } else {
+//            item.setContent(CrmApplication.getContext().getName());
+//            mManagerId = CrmApplication.getContext().getUid();
+//        }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_CAN_CHOOSE);
         mList.add(item);
 //        item = new AddItem();
@@ -240,7 +235,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
                 continue;
             }
             if (item.getTitleRes() == R.string.customer_type) {
-                customerParams.setType(item.getContent());
+//                customerParams.setType(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.customer_property) {
@@ -248,7 +243,7 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
                 continue;
             }
             if (item.getTitleRes() == R.string.website) {
-                customerParams.setWebsite(item.getContent());
+//                customerParams.setWebsite(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.address) {
@@ -256,31 +251,31 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
                 continue;
             }
             if (item.getTitleRes() == R.string.name) {
-                customerParams.setCname(item.getContent());
+//                customerParams.setCname(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.mobile) {
-                customerParams.setCmobile(item.getContent());
+//                customerParams.setCmobile(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.phone) {
-                customerParams.setCphone(item.getContent());
+//                customerParams.setCphone(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.qq) {
-                customerParams.setCqq(item.getContent());
+//                customerParams.setCqq(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.email) {
-                customerParams.setCemail(item.getContent());
+//                customerParams.setCemail(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.wechat) {
-                customerParams.setCwechat(item.getContent());
+//                customerParams.setCwechat(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.customer_source) {
-                customerParams.setSource(item.getContent());
+//                customerParams.setSource(item.getContent());
                 continue;
             }
 //            if(item.getTitleRes() == R.string.operating_products){
@@ -288,12 +283,12 @@ public class AddCustomerActivity extends Big4AddActivityPresenter {
 //                continue;
 //            }
             if (item.getTitleRes() == R.string.personal_size) {
-                customerParams.setSize(item.getContent());
+//                customerParams.setSize(item.getContent());
                 continue;
             }
             if (item.getTitleRes() == R.string.manager) {
                 if (!TextUtils.isEmpty(mManagerId)) {
-                    customerParams.setUserId(mManagerId);
+//                    customerParams.setUserId(mManagerId);
                 }
                 continue;
             }

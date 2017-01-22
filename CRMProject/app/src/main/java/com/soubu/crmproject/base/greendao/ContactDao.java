@@ -37,6 +37,7 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         public final static Property TouchedAt = new Property(12, java.util.Date.class, "touchedAt", false, "TOUCHED_AT");
         public final static Property TouchedCount = new Property(13, String.class, "touchedCount", false, "TOUCHED_COUNT");
         public final static Property Contact_id = new Property(14, String.class, "contact_id", false, "CONTACT_ID");
+        public final static Property Customer_name = new Property(15, String.class, "customer_name", false, "CUSTOMER_NAME");
     };
 
 
@@ -66,7 +67,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
                 "\"UPDATED_AT\" INTEGER," + // 11: updatedAt
                 "\"TOUCHED_AT\" INTEGER," + // 12: touchedAt
                 "\"TOUCHED_COUNT\" TEXT," + // 13: touchedCount
-                "\"CONTACT_ID\" TEXT);"); // 14: contact_id
+                "\"CONTACT_ID\" TEXT," + // 14: contact_id
+                "\"CUSTOMER_NAME\" TEXT);"); // 15: customer_name
     }
 
     /** Drops the underlying database table. */
@@ -153,6 +155,11 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         if (contact_id != null) {
             stmt.bindString(15, contact_id);
         }
+ 
+        String customer_name = entity.getCustomer_name();
+        if (customer_name != null) {
+            stmt.bindString(16, customer_name);
+        }
     }
 
     @Override
@@ -233,6 +240,11 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         if (contact_id != null) {
             stmt.bindString(15, contact_id);
         }
+ 
+        String customer_name = entity.getCustomer_name();
+        if (customer_name != null) {
+            stmt.bindString(16, customer_name);
+        }
     }
 
     @Override
@@ -257,7 +269,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             cursor.isNull(offset + 11) ? null : new java.util.Date(cursor.getLong(offset + 11)), // updatedAt
             cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)), // touchedAt
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // touchedCount
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // contact_id
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // contact_id
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // customer_name
         );
         return entity;
     }
@@ -279,6 +292,7 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         entity.setTouchedAt(cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)));
         entity.setTouchedCount(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setContact_id(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setCustomer_name(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
      }
     
     @Override

@@ -1,198 +1,40 @@
 package com.soubu.crmproject.model;
 
-import com.soubu.crmproject.base.greendao.User;
-
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.Data;
 
 /**
  * Created by dingsigang on 16-9-9.
  */
-public class UserParams implements Serializable{
+@Data
+public class UserParams implements Serializable {
 
-    String nickname;
+    //    String nickname;
     String username;
     String loginname;
-    String department;
-    String position;
+    //    String department;
+//    String position;
     String mobile;
     String email;
     String token;
-    String employeeNumber;
-    String officeAddress;
-    String note;
+    //    String employeeNumber;
+//    String officeAddress;
+//    String note;
     String pwd;
     String confirmPwd;
-    Boolean  activated;
-    Date activatedAt;
+    //    Boolean  activated;
+//    Date activatedAt;
     Date createdAt;
     Date updatedAt;
     String id;
 
-    public String getLoginName() {
-        return loginname;
-    }
-
-    public void setLoginName(String loginname) {
-        this.loginname = loginname;
-    }
-
-    public String getConfirmPwd() {
-        return confirmPwd;
-    }
-
-    public void setConfirmPwd(String confirmPwd) {
-        this.confirmPwd = confirmPwd;
-    }
-
-    public String getNickName() {
-        return nickname;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickname = nickName;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    public String getUserName() {
-        return username;
-    }
-
-    public void setUserName(String userName) {
-        this.username = userName;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getEmployeeNumber() {
-        return employeeNumber;
-    }
-
-    public void setEmployeeNumber(String employeeNumber) {
-        this.employeeNumber = employeeNumber;
-    }
-
-    public String getOfficeAddress() {
-        return officeAddress;
-    }
-
-    public void setOfficeAddress(String officeAddress) {
-        this.officeAddress = officeAddress;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public Boolean getActivated() {
-        return activated;
-    }
-
-    public void setActivated(Boolean activated) {
-        this.activated = activated;
-    }
-
-    public Date getActivatedAt() {
-        return activatedAt;
-    }
-
-    public void setActivatedAt(Date activatedAt) {
-        this.activatedAt = activatedAt;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public User copyToUser(){
-        User user = new User();
-        user.setNickname(nickname);
-        user.setActivated(activated);
-        user.setUpdatedAt(updatedAt);
-        user.setActivatedAt(activatedAt);
-        user.setCreatedAt(createdAt);
-        user.setDepartment(department);
-        user.setEmail(email);
-        user.setEmployeeNumber(employeeNumber);
-        user.setLoginname(loginname);
-        user.setMobile(mobile);
-        user.setUsername(username);
-        user.setNote(note);
-        user.setOfficeAddress(officeAddress);
-        user.setPosition(position);
-        user.setPwd(pwd);
-        user.setToken(token);
-        user.setUser_id(id);
-        return user;
-    }
+    String companyId;//公司id
+    String companyName;//公司名称
+    String roleId;//角色id
+    String roleName;//角色名称
+    String type;//用户类型
+    String area;//所属区域
 
 }

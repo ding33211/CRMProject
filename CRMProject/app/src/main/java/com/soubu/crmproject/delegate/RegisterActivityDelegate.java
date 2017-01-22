@@ -40,7 +40,7 @@ public class RegisterActivityDelegate extends AppDelegate {
             ShowWidgetUtil.showLong(R.string.please_input_user_name);
             return false;
         }
-        params.setNickName(nickName);
+        params.setUsername(nickName);
         String pwd = ((EditText)get(R.id.et_password)).getText().toString();
         if(TextUtils.isEmpty(pwd)){
             ShowWidgetUtil.showLong(R.string.please_input_password);

@@ -59,7 +59,7 @@ public class ChooseEmployeeActivity extends ActivityPresenter<ChooseEmployeeActi
 //                        setMessage(message).setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
-                mName = staff.getNickname();
+                mName = staff.getUsername();
                 if (mFrom == Contants.FROM_CLUE) {
                     mEventBusJustForThis = true;
                     RetrofitRequest.getInstance().transferClue(mParamId, staff.getStaff_id());

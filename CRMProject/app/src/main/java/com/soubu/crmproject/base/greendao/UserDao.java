@@ -23,23 +23,21 @@ public class UserDao extends AbstractDao<User, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Nickname = new Property(1, String.class, "nickname", false, "NICKNAME");
-        public final static Property Username = new Property(2, String.class, "username", false, "USERNAME");
-        public final static Property Loginname = new Property(3, String.class, "loginname", false, "LOGINNAME");
-        public final static Property Department = new Property(4, String.class, "department", false, "DEPARTMENT");
-        public final static Property Position = new Property(5, String.class, "position", false, "POSITION");
-        public final static Property Mobile = new Property(6, String.class, "mobile", false, "MOBILE");
-        public final static Property Email = new Property(7, String.class, "email", false, "EMAIL");
-        public final static Property Token = new Property(8, String.class, "token", false, "TOKEN");
-        public final static Property EmployeeNumber = new Property(9, String.class, "employeeNumber", false, "EMPLOYEE_NUMBER");
-        public final static Property OfficeAddress = new Property(10, String.class, "officeAddress", false, "OFFICE_ADDRESS");
-        public final static Property Note = new Property(11, String.class, "note", false, "NOTE");
-        public final static Property Pwd = new Property(12, String.class, "pwd", false, "PWD");
-        public final static Property Activated = new Property(13, Boolean.class, "activated", false, "ACTIVATED");
-        public final static Property ActivatedAt = new Property(14, java.util.Date.class, "activatedAt", false, "ACTIVATED_AT");
-        public final static Property CreatedAt = new Property(15, java.util.Date.class, "createdAt", false, "CREATED_AT");
-        public final static Property UpdatedAt = new Property(16, java.util.Date.class, "updatedAt", false, "UPDATED_AT");
-        public final static Property User_id = new Property(17, String.class, "user_id", false, "USER_ID");
+        public final static Property Username = new Property(1, String.class, "username", false, "USERNAME");
+        public final static Property Loginname = new Property(2, String.class, "loginname", false, "LOGINNAME");
+        public final static Property Mobile = new Property(3, String.class, "mobile", false, "MOBILE");
+        public final static Property Email = new Property(4, String.class, "email", false, "EMAIL");
+        public final static Property Token = new Property(5, String.class, "token", false, "TOKEN");
+        public final static Property Pwd = new Property(6, String.class, "pwd", false, "PWD");
+        public final static Property CreatedAt = new Property(7, java.util.Date.class, "createdAt", false, "CREATED_AT");
+        public final static Property UpdatedAt = new Property(8, java.util.Date.class, "updatedAt", false, "UPDATED_AT");
+        public final static Property User_id = new Property(9, String.class, "user_id", false, "USER_ID");
+        public final static Property CompanyId = new Property(10, String.class, "companyId", false, "COMPANY_ID");
+        public final static Property CompanyName = new Property(11, String.class, "companyName", false, "COMPANY_NAME");
+        public final static Property RoleId = new Property(12, String.class, "roleId", false, "ROLE_ID");
+        public final static Property RoleName = new Property(13, String.class, "roleName", false, "ROLE_NAME");
+        public final static Property Type = new Property(14, String.class, "type", false, "TYPE");
+        public final static Property Area = new Property(15, String.class, "area", false, "AREA");
     };
 
 
@@ -56,23 +54,21 @@ public class UserDao extends AbstractDao<User, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"User\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"NICKNAME\" TEXT," + // 1: nickname
-                "\"USERNAME\" TEXT," + // 2: username
-                "\"LOGINNAME\" TEXT," + // 3: loginname
-                "\"DEPARTMENT\" TEXT," + // 4: department
-                "\"POSITION\" TEXT," + // 5: position
-                "\"MOBILE\" TEXT," + // 6: mobile
-                "\"EMAIL\" TEXT," + // 7: email
-                "\"TOKEN\" TEXT," + // 8: token
-                "\"EMPLOYEE_NUMBER\" TEXT," + // 9: employeeNumber
-                "\"OFFICE_ADDRESS\" TEXT," + // 10: officeAddress
-                "\"NOTE\" TEXT," + // 11: note
-                "\"PWD\" TEXT," + // 12: pwd
-                "\"ACTIVATED\" INTEGER," + // 13: activated
-                "\"ACTIVATED_AT\" INTEGER," + // 14: activatedAt
-                "\"CREATED_AT\" INTEGER," + // 15: createdAt
-                "\"UPDATED_AT\" INTEGER," + // 16: updatedAt
-                "\"USER_ID\" TEXT);"); // 17: user_id
+                "\"USERNAME\" TEXT," + // 1: username
+                "\"LOGINNAME\" TEXT," + // 2: loginname
+                "\"MOBILE\" TEXT," + // 3: mobile
+                "\"EMAIL\" TEXT," + // 4: email
+                "\"TOKEN\" TEXT," + // 5: token
+                "\"PWD\" TEXT," + // 6: pwd
+                "\"CREATED_AT\" INTEGER," + // 7: createdAt
+                "\"UPDATED_AT\" INTEGER," + // 8: updatedAt
+                "\"USER_ID\" TEXT," + // 9: user_id
+                "\"COMPANY_ID\" TEXT," + // 10: companyId
+                "\"COMPANY_NAME\" TEXT," + // 11: companyName
+                "\"ROLE_ID\" TEXT," + // 12: roleId
+                "\"ROLE_NAME\" TEXT," + // 13: roleName
+                "\"TYPE\" TEXT," + // 14: type
+                "\"AREA\" TEXT);"); // 15: area
     }
 
     /** Drops the underlying database table. */
@@ -90,89 +86,79 @@ public class UserDao extends AbstractDao<User, Long> {
             stmt.bindLong(1, id);
         }
  
-        String nickname = entity.getNickname();
-        if (nickname != null) {
-            stmt.bindString(2, nickname);
-        }
- 
         String username = entity.getUsername();
         if (username != null) {
-            stmt.bindString(3, username);
+            stmt.bindString(2, username);
         }
  
         String loginname = entity.getLoginname();
         if (loginname != null) {
-            stmt.bindString(4, loginname);
-        }
- 
-        String department = entity.getDepartment();
-        if (department != null) {
-            stmt.bindString(5, department);
-        }
- 
-        String position = entity.getPosition();
-        if (position != null) {
-            stmt.bindString(6, position);
+            stmt.bindString(3, loginname);
         }
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(7, mobile);
+            stmt.bindString(4, mobile);
         }
  
         String email = entity.getEmail();
         if (email != null) {
-            stmt.bindString(8, email);
+            stmt.bindString(5, email);
         }
  
         String token = entity.getToken();
         if (token != null) {
-            stmt.bindString(9, token);
-        }
- 
-        String employeeNumber = entity.getEmployeeNumber();
-        if (employeeNumber != null) {
-            stmt.bindString(10, employeeNumber);
-        }
- 
-        String officeAddress = entity.getOfficeAddress();
-        if (officeAddress != null) {
-            stmt.bindString(11, officeAddress);
-        }
- 
-        String note = entity.getNote();
-        if (note != null) {
-            stmt.bindString(12, note);
+            stmt.bindString(6, token);
         }
  
         String pwd = entity.getPwd();
         if (pwd != null) {
-            stmt.bindString(13, pwd);
-        }
- 
-        Boolean activated = entity.getActivated();
-        if (activated != null) {
-            stmt.bindLong(14, activated ? 1L: 0L);
-        }
- 
-        java.util.Date activatedAt = entity.getActivatedAt();
-        if (activatedAt != null) {
-            stmt.bindLong(15, activatedAt.getTime());
+            stmt.bindString(7, pwd);
         }
  
         java.util.Date createdAt = entity.getCreatedAt();
         if (createdAt != null) {
-            stmt.bindLong(16, createdAt.getTime());
+            stmt.bindLong(8, createdAt.getTime());
         }
  
         java.util.Date updatedAt = entity.getUpdatedAt();
         if (updatedAt != null) {
-            stmt.bindLong(17, updatedAt.getTime());
+            stmt.bindLong(9, updatedAt.getTime());
         }
  
         String user_id = entity.getUser_id();
         if (user_id != null) {
-            stmt.bindString(18, user_id);
+            stmt.bindString(10, user_id);
+        }
+ 
+        String companyId = entity.getCompanyId();
+        if (companyId != null) {
+            stmt.bindString(11, companyId);
+        }
+ 
+        String companyName = entity.getCompanyName();
+        if (companyName != null) {
+            stmt.bindString(12, companyName);
+        }
+ 
+        String roleId = entity.getRoleId();
+        if (roleId != null) {
+            stmt.bindString(13, roleId);
+        }
+ 
+        String roleName = entity.getRoleName();
+        if (roleName != null) {
+            stmt.bindString(14, roleName);
+        }
+ 
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(15, type);
+        }
+ 
+        String area = entity.getArea();
+        if (area != null) {
+            stmt.bindString(16, area);
         }
     }
 
@@ -185,89 +171,79 @@ public class UserDao extends AbstractDao<User, Long> {
             stmt.bindLong(1, id);
         }
  
-        String nickname = entity.getNickname();
-        if (nickname != null) {
-            stmt.bindString(2, nickname);
-        }
- 
         String username = entity.getUsername();
         if (username != null) {
-            stmt.bindString(3, username);
+            stmt.bindString(2, username);
         }
  
         String loginname = entity.getLoginname();
         if (loginname != null) {
-            stmt.bindString(4, loginname);
-        }
- 
-        String department = entity.getDepartment();
-        if (department != null) {
-            stmt.bindString(5, department);
-        }
- 
-        String position = entity.getPosition();
-        if (position != null) {
-            stmt.bindString(6, position);
+            stmt.bindString(3, loginname);
         }
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(7, mobile);
+            stmt.bindString(4, mobile);
         }
  
         String email = entity.getEmail();
         if (email != null) {
-            stmt.bindString(8, email);
+            stmt.bindString(5, email);
         }
  
         String token = entity.getToken();
         if (token != null) {
-            stmt.bindString(9, token);
-        }
- 
-        String employeeNumber = entity.getEmployeeNumber();
-        if (employeeNumber != null) {
-            stmt.bindString(10, employeeNumber);
-        }
- 
-        String officeAddress = entity.getOfficeAddress();
-        if (officeAddress != null) {
-            stmt.bindString(11, officeAddress);
-        }
- 
-        String note = entity.getNote();
-        if (note != null) {
-            stmt.bindString(12, note);
+            stmt.bindString(6, token);
         }
  
         String pwd = entity.getPwd();
         if (pwd != null) {
-            stmt.bindString(13, pwd);
-        }
- 
-        Boolean activated = entity.getActivated();
-        if (activated != null) {
-            stmt.bindLong(14, activated ? 1L: 0L);
-        }
- 
-        java.util.Date activatedAt = entity.getActivatedAt();
-        if (activatedAt != null) {
-            stmt.bindLong(15, activatedAt.getTime());
+            stmt.bindString(7, pwd);
         }
  
         java.util.Date createdAt = entity.getCreatedAt();
         if (createdAt != null) {
-            stmt.bindLong(16, createdAt.getTime());
+            stmt.bindLong(8, createdAt.getTime());
         }
  
         java.util.Date updatedAt = entity.getUpdatedAt();
         if (updatedAt != null) {
-            stmt.bindLong(17, updatedAt.getTime());
+            stmt.bindLong(9, updatedAt.getTime());
         }
  
         String user_id = entity.getUser_id();
         if (user_id != null) {
-            stmt.bindString(18, user_id);
+            stmt.bindString(10, user_id);
+        }
+ 
+        String companyId = entity.getCompanyId();
+        if (companyId != null) {
+            stmt.bindString(11, companyId);
+        }
+ 
+        String companyName = entity.getCompanyName();
+        if (companyName != null) {
+            stmt.bindString(12, companyName);
+        }
+ 
+        String roleId = entity.getRoleId();
+        if (roleId != null) {
+            stmt.bindString(13, roleId);
+        }
+ 
+        String roleName = entity.getRoleName();
+        if (roleName != null) {
+            stmt.bindString(14, roleName);
+        }
+ 
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(15, type);
+        }
+ 
+        String area = entity.getArea();
+        if (area != null) {
+            stmt.bindString(16, area);
         }
     }
 
@@ -280,23 +256,21 @@ public class UserDao extends AbstractDao<User, Long> {
     public User readEntity(Cursor cursor, int offset) {
         User entity = new User( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // nickname
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // username
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // loginname
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // department
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // position
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // mobile
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // email
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // token
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // employeeNumber
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // officeAddress
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // note
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // pwd
-            cursor.isNull(offset + 13) ? null : cursor.getShort(offset + 13) != 0, // activated
-            cursor.isNull(offset + 14) ? null : new java.util.Date(cursor.getLong(offset + 14)), // activatedAt
-            cursor.isNull(offset + 15) ? null : new java.util.Date(cursor.getLong(offset + 15)), // createdAt
-            cursor.isNull(offset + 16) ? null : new java.util.Date(cursor.getLong(offset + 16)), // updatedAt
-            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17) // user_id
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // username
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // loginname
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // mobile
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // email
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // token
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // pwd
+            cursor.isNull(offset + 7) ? null : new java.util.Date(cursor.getLong(offset + 7)), // createdAt
+            cursor.isNull(offset + 8) ? null : new java.util.Date(cursor.getLong(offset + 8)), // updatedAt
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // user_id
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // companyId
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // companyName
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // roleId
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // roleName
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // type
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // area
         );
         return entity;
     }
@@ -304,23 +278,21 @@ public class UserDao extends AbstractDao<User, Long> {
     @Override
     public void readEntity(Cursor cursor, User entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setNickname(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setUsername(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setLoginname(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setDepartment(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setPosition(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setMobile(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setEmail(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setToken(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setEmployeeNumber(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setOfficeAddress(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setNote(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setPwd(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setActivated(cursor.isNull(offset + 13) ? null : cursor.getShort(offset + 13) != 0);
-        entity.setActivatedAt(cursor.isNull(offset + 14) ? null : new java.util.Date(cursor.getLong(offset + 14)));
-        entity.setCreatedAt(cursor.isNull(offset + 15) ? null : new java.util.Date(cursor.getLong(offset + 15)));
-        entity.setUpdatedAt(cursor.isNull(offset + 16) ? null : new java.util.Date(cursor.getLong(offset + 16)));
-        entity.setUser_id(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setUsername(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setLoginname(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setMobile(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setEmail(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setToken(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setPwd(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setCreatedAt(cursor.isNull(offset + 7) ? null : new java.util.Date(cursor.getLong(offset + 7)));
+        entity.setUpdatedAt(cursor.isNull(offset + 8) ? null : new java.util.Date(cursor.getLong(offset + 8)));
+        entity.setUser_id(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setCompanyId(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setCompanyName(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setRoleId(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setRoleName(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setType(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setArea(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
      }
     
     @Override

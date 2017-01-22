@@ -189,11 +189,11 @@ public class AddClueActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.manager);
-        if (mFromEdit && mClueParams.getUser() != null && !TextUtils.isEmpty(mClueParams.getUser().getUserName())) {
-            item.setContent(mClueParams.getUser().getUserName());
+        if (mFromEdit && mClueParams.getUser() != null && !TextUtils.isEmpty(mClueParams.getUser().getUsername())) {
+            item.setContent(mClueParams.getUser().getUsername());
             mManagerId = mClueParams.getUser().getId();
-        } else if (mFromEdit && mClueParams.getCreator() != null && !TextUtils.isEmpty(mClueParams.getUser().getUserName())) {
-            item.setContent(mClueParams.getCreator().getUserName());
+        } else if (mFromEdit && mClueParams.getCreator() != null && !TextUtils.isEmpty(mClueParams.getUser().getUsername())) {
+            item.setContent(mClueParams.getCreator().getUsername());
             mManagerId = mClueParams.getCreator().getId();
         } else {
             item.setContent(CrmApplication.getContext().getName());

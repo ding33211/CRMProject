@@ -39,6 +39,7 @@ public class Contants {
     public static final int FROM_CUSTOMER_HIGH_SEAS = 0x18;
     //从主页来的
     public static final int FROM_HOME = 0x19;
+    public static final int FROM_SPLASH = 0x20;
 
 
     //在跟进总表

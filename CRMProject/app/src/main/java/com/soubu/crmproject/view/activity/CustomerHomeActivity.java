@@ -35,6 +35,9 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
     private final int REQUEST_CHOOSE_EMPLOYEE = 1001;
     private int mDealsCount = -1;
     private int mContractCount = -1;
+    private int mFrom;
+    private CharSequence[] mPropertyWebArray;
+
 
     @Override
     protected Class<Big4HomeActivityDelegate> getDelegateClass() {
@@ -46,17 +49,42 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
         super.initView();
         viewDelegate.setTitle(R.string.customer_home);
         viewDelegate.setFrom(Contants.FROM_CUSTOMER);
+        mFrom = getIntent().getIntExtra(Contants.EXTRA_FROM, -1);
+        mPropertyWebArray = SearchUtil.searchCustomerPropertyWebArray(this);
+        if (mFrom != -1) {
+            viewDelegate.get(R.id.rl_bottom).setVisibility(View.GONE);
+        }
         mCustomerParams = (CustomerParams) getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER);
-        mDealsCount = Integer.valueOf(mCustomerParams.getDealsCount());
-        mContractCount = Integer.valueOf(mCustomerParams.getContractsCount());
+//        mDealsCount = Integer.valueOf(mCustomerParams.getDealsCount());
+//        mContractCount = Integer.valueOf(mCustomerParams.getContractsCount());
         refreshCustomerContent();
     }
 
 
     private void refreshCustomerContent() {
         ((TextView) viewDelegate.get(R.id.tv_company)).setText(mCustomerParams.getName());
-        ((TextView) viewDelegate.get(R.id.tv_sub_left_1)).setText(SearchUtil.searchCustomerPropertyArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerPropertyWebArray(this), mCustomerParams.getProperty())]);
-        ((TextView) viewDelegate.get(R.id.tv_sub_right_1)).setText(SearchUtil.searchCustomerTypeArray(this)[SearchUtil.searchInArray(SearchUtil.searchCustomerTypeWebArray(this), mCustomerParams.getType())]);
+        String contactName = mCustomerParams.getContactName();
+        if (TextUtils.isEmpty(contactName)) {
+            viewDelegate.get(R.id.v_mid_line_sub_1).setVisibility(View.GONE);
+            ((TextView) viewDelegate.get(R.id.tv_sub_right_1)).setText(mCustomerParams.getAddress());
+        } else {
+            ((TextView) viewDelegate.get(R.id.tv_sub_left_1)).setText(mCustomerParams.getContactName());
+            ((TextView) viewDelegate.get(R.id.tv_sub_right_1)).setText(mCustomerParams.getAddress());
+        }
+        String buyOrderCount = mCustomerParams.getBuyOrdersCount();
+        String sellOrderCount = mCustomerParams.getSellOrdersCount();
+        String buyAmount = mCustomerParams.getBuyOrdersAmount();
+        String sellAmount = mCustomerParams.getSellOrdersAmount();
+        int property = SearchUtil.searchInArray(mPropertyWebArray, mCustomerParams.getProperty());
+        if (property == 0) {
+            ((TextView) viewDelegate.get(R.id.tv_order_count)).setText(sellOrderCount);
+            ((TextView) viewDelegate.get(R.id.tv_order_turnover)).setText(sellAmount);
+        } else {
+            ((TextView) viewDelegate.get(R.id.tv_order_count)).setText(buyOrderCount);
+            ((TextView) viewDelegate.get(R.id.tv_order_turnover)).setText(buyAmount);
+        }
+        ((TextView) viewDelegate.get(R.id.tv_useful_follow)).setText(mCustomerParams.getRecordsCount());
+
     }
 
     private void initCountView() {
@@ -73,26 +101,28 @@ public class CustomerHomeActivity extends Big4HomeActivityPresenter<Big4HomeActi
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        viewDelegate.setSettingMenuListener(R.menu.customer_home, new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_for_other:
-                        Intent intent = new Intent(CustomerHomeActivity.this, ChooseEmployeeActivity.class);
-                        intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
-                        intent.putExtra(Contants.EXTRA_PARAM_ID, mCustomerParams.getId());
-                        startActivityForResult(intent, REQUEST_CHOOSE_EMPLOYEE);
-                        break;
-                    case R.id.action_to_customer_high_seas:
-                        if (!TextUtils.equals(mCustomerParams.getDealsCount(), "0") || !TextUtils.equals(mCustomerParams.getContractsCount(), "0")) {
-                            ShowWidgetUtil.showShort(R.string.throw_to_customer_high_sea_unable_message);
-                        } else {
+        if (mFrom == -1) {
+            viewDelegate.setSettingMenuListener(R.menu.customer_home, new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.action_for_other:
+                            Intent intent = new Intent(CustomerHomeActivity.this, ChooseEmployeeActivity.class);
+                            intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_CUSTOMER);
+                            intent.putExtra(Contants.EXTRA_PARAM_ID, mCustomerParams.getId());
+                            startActivityForResult(intent, REQUEST_CHOOSE_EMPLOYEE);
+                            break;
+                        case R.id.action_to_customer_high_seas:
+//                        if (!TextUtils.equals(mCustomerParams.getDealsCount(), "0") || !TextUtils.equals(mCustomerParams.getContractsCount(), "0")) {
+//                            ShowWidgetUtil.showShort(R.string.throw_to_customer_high_sea_unable_message);
+//                        } else {
                             RetrofitRequest.getInstance().throwToCustomerHighSeas(mCustomerParams.getId());
-                        }
+//                        }
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
         viewDelegate.setOnClickListener(this, R.id.ll_go_left, R.id.ll_go_right, R.id.ll_left, R.id.ll_right, R.id.ll_customer_home);
 
     }

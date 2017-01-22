@@ -32,18 +32,18 @@ public class UserManager {
             if (list.size() > 0) {
                 user = list.get(0);
             }
-            user.setUsername(params.getUserName());
-            user.setNickname(params.getNickName());
-            user.setLoginname(params.getLoginName());
-            user.setDepartment(params.getDepartment());
-            user.setPosition(params.getPosition());
+            user.setUsername(params.getUsername());
+//            user.setNickname(params.getNickName());
+            user.setLoginname(params.getLoginname());
+//            user.setDepartment(params.getDepartment());
+//            user.setPosition(params.getPosition());
             user.setMobile(params.getMobile());
             user.setEmail(params.getEmail());
-            user.setEmployeeNumber(params.getEmployeeNumber());
-            user.setOfficeAddress(params.getOfficeAddress());
-            user.setNote(params.getNote());
-            user.setActivated(params.getActivated());
-            user.setActivatedAt(params.getActivatedAt());
+//            user.setEmployeeNumber(params.getEmployeeNumber());
+//            user.setOfficeAddress(params.getOfficeAddress());
+//            user.setNote(params.getNote());
+//            user.setActivated(params.getActivated());
+//            user.setActivatedAt(params.getActivatedAt());
             user.setCreatedAt(params.getCreatedAt());
             user.setUpdatedAt(params.getUpdatedAt());
             user.setUser_id(params.getId());

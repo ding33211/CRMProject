@@ -173,11 +173,11 @@ public class AddBusinessOpportunityActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.manager);
-        if (mFromEdit && mBusinessOpportunityParams.getUser() != null && !TextUtils.isEmpty(mBusinessOpportunityParams.getUser().getUserName())) {
-            item.setContent(mBusinessOpportunityParams.getUser().getUserName());
+        if (mFromEdit && mBusinessOpportunityParams.getUser() != null && !TextUtils.isEmpty(mBusinessOpportunityParams.getUser().getUsername())) {
+            item.setContent(mBusinessOpportunityParams.getUser().getUsername());
             mManagerId = mBusinessOpportunityParams.getUser().getId();
-        } else if (mFromEdit && mBusinessOpportunityParams.getCreator() != null && !TextUtils.isEmpty(mBusinessOpportunityParams.getUser().getUserName())) {
-            item.setContent(mBusinessOpportunityParams.getCreator().getUserName());
+        } else if (mFromEdit && mBusinessOpportunityParams.getCreator() != null && !TextUtils.isEmpty(mBusinessOpportunityParams.getUser().getUsername())) {
+            item.setContent(mBusinessOpportunityParams.getCreator().getUsername());
             mManagerId = mBusinessOpportunityParams.getCreator().getId();
         } else {
             item.setContent(CrmApplication.getContext().getName());

@@ -12,7 +12,6 @@ import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.ContractParams;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 
@@ -117,10 +116,10 @@ public class ContractSpecActivity extends ActivityPresenter<SpecActivityDelegate
         addItem.setTitleRes(R.string.manager_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        if (contractParams.getUser() != null && !TextUtils.isEmpty(contractParams.getUser().getUserName())) {
-            initItem(contractParams.getUser().getUserName(), R.string.manager, true);
-        } else if (contractParams.getCreator() != null && !TextUtils.isEmpty(contractParams.getCreator().getUserName())) {
-            initItem(contractParams.getCreator().getUserName(), R.string.manager, true);
+        if (contractParams.getUser() != null && !TextUtils.isEmpty(contractParams.getUser().getUsername())) {
+            initItem(contractParams.getUser().getUsername(), R.string.manager, true);
+        } else if (contractParams.getCreator() != null && !TextUtils.isEmpty(contractParams.getCreator().getUsername())) {
+            initItem(contractParams.getCreator().getUsername(), R.string.manager, true);
         } else {
             initItem(CrmApplication.getContext().getName(), R.string.manager, true);
         }

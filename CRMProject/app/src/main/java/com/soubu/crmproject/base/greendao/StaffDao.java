@@ -23,19 +23,12 @@ public class StaffDao extends AbstractDao<Staff, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Nickname = new Property(1, String.class, "nickname", false, "NICKNAME");
-        public final static Property Username = new Property(2, String.class, "username", false, "USERNAME");
-        public final static Property Department = new Property(3, String.class, "department", false, "DEPARTMENT");
-        public final static Property Position = new Property(4, String.class, "position", false, "POSITION");
-        public final static Property Mobile = new Property(5, String.class, "mobile", false, "MOBILE");
-        public final static Property Email = new Property(6, String.class, "email", false, "EMAIL");
-        public final static Property EmployeeNumber = new Property(7, String.class, "employeeNumber", false, "EMPLOYEE_NUMBER");
-        public final static Property OfficeAddress = new Property(8, String.class, "officeAddress", false, "OFFICE_ADDRESS");
-        public final static Property Activated = new Property(9, Boolean.class, "activated", false, "ACTIVATED");
-        public final static Property ActivatedAt = new Property(10, java.util.Date.class, "activatedAt", false, "ACTIVATED_AT");
-        public final static Property CreatedAt = new Property(11, java.util.Date.class, "createdAt", false, "CREATED_AT");
-        public final static Property UpdatedAt = new Property(12, java.util.Date.class, "updatedAt", false, "UPDATED_AT");
-        public final static Property Staff_id = new Property(13, String.class, "staff_id", false, "STAFF_ID");
+        public final static Property Username = new Property(1, String.class, "username", false, "USERNAME");
+        public final static Property Mobile = new Property(2, String.class, "mobile", false, "MOBILE");
+        public final static Property Email = new Property(3, String.class, "email", false, "EMAIL");
+        public final static Property CreatedAt = new Property(4, java.util.Date.class, "createdAt", false, "CREATED_AT");
+        public final static Property UpdatedAt = new Property(5, java.util.Date.class, "updatedAt", false, "UPDATED_AT");
+        public final static Property Staff_id = new Property(6, String.class, "staff_id", false, "STAFF_ID");
     };
 
 
@@ -52,19 +45,12 @@ public class StaffDao extends AbstractDao<Staff, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"Staff\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"NICKNAME\" TEXT," + // 1: nickname
-                "\"USERNAME\" TEXT," + // 2: username
-                "\"DEPARTMENT\" TEXT," + // 3: department
-                "\"POSITION\" TEXT," + // 4: position
-                "\"MOBILE\" TEXT," + // 5: mobile
-                "\"EMAIL\" TEXT," + // 6: email
-                "\"EMPLOYEE_NUMBER\" TEXT," + // 7: employeeNumber
-                "\"OFFICE_ADDRESS\" TEXT," + // 8: officeAddress
-                "\"ACTIVATED\" INTEGER," + // 9: activated
-                "\"ACTIVATED_AT\" INTEGER," + // 10: activatedAt
-                "\"CREATED_AT\" INTEGER," + // 11: createdAt
-                "\"UPDATED_AT\" INTEGER," + // 12: updatedAt
-                "\"STAFF_ID\" TEXT);"); // 13: staff_id
+                "\"USERNAME\" TEXT," + // 1: username
+                "\"MOBILE\" TEXT," + // 2: mobile
+                "\"EMAIL\" TEXT," + // 3: email
+                "\"CREATED_AT\" INTEGER," + // 4: createdAt
+                "\"UPDATED_AT\" INTEGER," + // 5: updatedAt
+                "\"STAFF_ID\" TEXT);"); // 6: staff_id
     }
 
     /** Drops the underlying database table. */
@@ -82,69 +68,34 @@ public class StaffDao extends AbstractDao<Staff, Long> {
             stmt.bindLong(1, id);
         }
  
-        String nickname = entity.getNickname();
-        if (nickname != null) {
-            stmt.bindString(2, nickname);
-        }
- 
         String username = entity.getUsername();
         if (username != null) {
-            stmt.bindString(3, username);
-        }
- 
-        String department = entity.getDepartment();
-        if (department != null) {
-            stmt.bindString(4, department);
-        }
- 
-        String position = entity.getPosition();
-        if (position != null) {
-            stmt.bindString(5, position);
+            stmt.bindString(2, username);
         }
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(6, mobile);
+            stmt.bindString(3, mobile);
         }
  
         String email = entity.getEmail();
         if (email != null) {
-            stmt.bindString(7, email);
-        }
- 
-        String employeeNumber = entity.getEmployeeNumber();
-        if (employeeNumber != null) {
-            stmt.bindString(8, employeeNumber);
-        }
- 
-        String officeAddress = entity.getOfficeAddress();
-        if (officeAddress != null) {
-            stmt.bindString(9, officeAddress);
-        }
- 
-        Boolean activated = entity.getActivated();
-        if (activated != null) {
-            stmt.bindLong(10, activated ? 1L: 0L);
-        }
- 
-        java.util.Date activatedAt = entity.getActivatedAt();
-        if (activatedAt != null) {
-            stmt.bindLong(11, activatedAt.getTime());
+            stmt.bindString(4, email);
         }
  
         java.util.Date createdAt = entity.getCreatedAt();
         if (createdAt != null) {
-            stmt.bindLong(12, createdAt.getTime());
+            stmt.bindLong(5, createdAt.getTime());
         }
  
         java.util.Date updatedAt = entity.getUpdatedAt();
         if (updatedAt != null) {
-            stmt.bindLong(13, updatedAt.getTime());
+            stmt.bindLong(6, updatedAt.getTime());
         }
  
         String staff_id = entity.getStaff_id();
         if (staff_id != null) {
-            stmt.bindString(14, staff_id);
+            stmt.bindString(7, staff_id);
         }
     }
 
@@ -157,69 +108,34 @@ public class StaffDao extends AbstractDao<Staff, Long> {
             stmt.bindLong(1, id);
         }
  
-        String nickname = entity.getNickname();
-        if (nickname != null) {
-            stmt.bindString(2, nickname);
-        }
- 
         String username = entity.getUsername();
         if (username != null) {
-            stmt.bindString(3, username);
-        }
- 
-        String department = entity.getDepartment();
-        if (department != null) {
-            stmt.bindString(4, department);
-        }
- 
-        String position = entity.getPosition();
-        if (position != null) {
-            stmt.bindString(5, position);
+            stmt.bindString(2, username);
         }
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(6, mobile);
+            stmt.bindString(3, mobile);
         }
  
         String email = entity.getEmail();
         if (email != null) {
-            stmt.bindString(7, email);
-        }
- 
-        String employeeNumber = entity.getEmployeeNumber();
-        if (employeeNumber != null) {
-            stmt.bindString(8, employeeNumber);
-        }
- 
-        String officeAddress = entity.getOfficeAddress();
-        if (officeAddress != null) {
-            stmt.bindString(9, officeAddress);
-        }
- 
-        Boolean activated = entity.getActivated();
-        if (activated != null) {
-            stmt.bindLong(10, activated ? 1L: 0L);
-        }
- 
-        java.util.Date activatedAt = entity.getActivatedAt();
-        if (activatedAt != null) {
-            stmt.bindLong(11, activatedAt.getTime());
+            stmt.bindString(4, email);
         }
  
         java.util.Date createdAt = entity.getCreatedAt();
         if (createdAt != null) {
-            stmt.bindLong(12, createdAt.getTime());
+            stmt.bindLong(5, createdAt.getTime());
         }
  
         java.util.Date updatedAt = entity.getUpdatedAt();
         if (updatedAt != null) {
-            stmt.bindLong(13, updatedAt.getTime());
+            stmt.bindLong(6, updatedAt.getTime());
         }
  
         String staff_id = entity.getStaff_id();
         if (staff_id != null) {
-            stmt.bindString(14, staff_id);
+            stmt.bindString(7, staff_id);
         }
     }
 
@@ -232,19 +148,12 @@ public class StaffDao extends AbstractDao<Staff, Long> {
     public Staff readEntity(Cursor cursor, int offset) {
         Staff entity = new Staff( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // nickname
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // username
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // department
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // position
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // mobile
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // email
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // employeeNumber
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // officeAddress
-            cursor.isNull(offset + 9) ? null : cursor.getShort(offset + 9) != 0, // activated
-            cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)), // activatedAt
-            cursor.isNull(offset + 11) ? null : new java.util.Date(cursor.getLong(offset + 11)), // createdAt
-            cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)), // updatedAt
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // staff_id
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // username
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // mobile
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // email
+            cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // createdAt
+            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // updatedAt
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // staff_id
         );
         return entity;
     }
@@ -252,19 +161,12 @@ public class StaffDao extends AbstractDao<Staff, Long> {
     @Override
     public void readEntity(Cursor cursor, Staff entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setNickname(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setUsername(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setDepartment(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setPosition(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setMobile(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setEmail(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setEmployeeNumber(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setOfficeAddress(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setActivated(cursor.isNull(offset + 9) ? null : cursor.getShort(offset + 9) != 0);
-        entity.setActivatedAt(cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)));
-        entity.setCreatedAt(cursor.isNull(offset + 11) ? null : new java.util.Date(cursor.getLong(offset + 11)));
-        entity.setUpdatedAt(cursor.isNull(offset + 12) ? null : new java.util.Date(cursor.getLong(offset + 12)));
-        entity.setStaff_id(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setUsername(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setMobile(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setEmail(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setCreatedAt(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
+        entity.setUpdatedAt(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
+        entity.setStaff_id(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

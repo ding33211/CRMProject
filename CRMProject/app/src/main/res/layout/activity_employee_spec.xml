@@ -11,11 +11,12 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/rl_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
+            android:gravity="center"
+            android:orientation="vertical">
                 <TextView
                     android:id="@+id/tv_circle_name"
                     android:layout_width="80dp"
@@ -27,16 +28,16 @@
                     android:text="汉林"/>
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textColor="@android:color/white"
                     android:gravity="center"
-                    android:layout_below="@+id/tv_circle_name"
                     android:layout_marginTop="10dp"
                     android:text="王汉林"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
         <LinearLayout

@@ -26,7 +26,7 @@ public class DrawableUtils {
 
     public static String getMiniName(String name){
         if(RegularUtil.isChz(name)){
-            return name.substring(0, 2);
+            return name.substring(1);
         } else {
             return Character.toString(CharacterParser.getInstance().getSelling(name).charAt(0)).toUpperCase();
         }

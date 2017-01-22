@@ -4,8 +4,6 @@ import org.greenrobot.greendao.generator.DaoGenerator;
 import org.greenrobot.greendao.generator.Entity;
 import org.greenrobot.greendao.generator.Schema;
 
-import java.util.Date;
-
 public class MyDaoGenerator {
     public static void main(String[] args) throws Exception {
         //生成的相关文件的包名路径
@@ -22,16 +20,16 @@ public class MyDaoGenerator {
         staff.setTableName("Staff");
         //id主键自增长
         staff.addIdProperty().primaryKey().autoincrement();
-        staff.addStringProperty("nickname");
+//        staff.addStringProperty("nickname");
         staff.addStringProperty("username");
-        staff.addStringProperty("department");
-        staff.addStringProperty("position");
+//        staff.addStringProperty("department");
+//        staff.addStringProperty("position");
         staff.addStringProperty("mobile");
         staff.addStringProperty("email");
-        staff.addStringProperty("employeeNumber");
-        staff.addStringProperty("officeAddress");
-        staff.addBooleanProperty("activated");
-        staff.addDateProperty("activatedAt");
+//        staff.addStringProperty("employeeNumber");
+//        staff.addStringProperty("officeAddress");
+//        staff.addBooleanProperty("activated");
+//        staff.addDateProperty("activatedAt");
         staff.addDateProperty("createdAt");
         staff.addDateProperty("updatedAt");
         staff.addStringProperty("staff_id");
@@ -42,23 +40,29 @@ public class MyDaoGenerator {
         user.setTableName("User");
         //id主键自增长
         user.addIdProperty().primaryKey().autoincrement();
-        user.addStringProperty("nickname");
+//        user.addStringProperty("nickname");
         user.addStringProperty("username");
         user.addStringProperty("loginname");
-        user.addStringProperty("department");
-        user.addStringProperty("position");
+//        user.addStringProperty("department");
+//        user.addStringProperty("position");
         user.addStringProperty("mobile");
         user.addStringProperty("email");
         user.addStringProperty("token");
-        user.addStringProperty("employeeNumber");
-        user.addStringProperty("officeAddress");
-        user.addStringProperty("note");
+//        user.addStringProperty("employeeNumber");
+//        user.addStringProperty("officeAddress");
+//        user.addStringProperty("note");
         user.addStringProperty("pwd");
-        user.addBooleanProperty("activated");
-        user.addDateProperty("activatedAt");
+//        user.addBooleanProperty("activated");
+//        user.addDateProperty("activatedAt");
         user.addDateProperty("createdAt");
         user.addDateProperty("updatedAt");
         user.addStringProperty("user_id");
+        user.addStringProperty("companyId");
+        user.addStringProperty("companyName");
+        user.addStringProperty("roleId");
+        user.addStringProperty("roleName");
+        user.addStringProperty("type");
+        user.addStringProperty("area");
 
         //联系人列表
         Entity contact = schema.addEntity("Contact");
@@ -79,6 +83,7 @@ public class MyDaoGenerator {
         contact.addDateProperty("touchedAt");
         contact.addStringProperty("touchedCount");
         contact.addStringProperty("contact_id");
+        contact.addStringProperty("customer_name");
 
 //        //产品表
 //        Entity product = schema.addEntity("Product");

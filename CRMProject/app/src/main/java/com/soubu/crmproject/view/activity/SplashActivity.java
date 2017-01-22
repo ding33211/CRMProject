@@ -15,6 +15,7 @@ import com.soubu.crmproject.base.greendao.Staff;
 import com.soubu.crmproject.base.greendao.StaffDao;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.SplashActivityDelegate;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.PermissionUtil;
@@ -69,6 +70,7 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
     void load() {
         if(TextUtils.isEmpty(CrmApplication.getContext().getToken())){
             Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra(Contants.EXTRA_FROM, Contants.FROM_SPLASH);
             startActivityForResult(intent, REQUEST_LOGIN);
         } else {
 //            if(mStaffDao.count() == 0){
@@ -114,14 +116,14 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
             Staff staff;
             for(UserParams user : params){
                 staff = new Staff();
-                staff.setNickname(user.getNickName());
-                staff.setUsername(user.getUserName());
-                staff.setActivated(user.getActivated());
-                staff.setActivatedAt(user.getActivatedAt());
+//                staff.setNickname(user.getNickName());
+                staff.setUsername(user.getUsername());
+//                staff.setActivated(user.getActivated());
+//                staff.setActivatedAt(user.getActivatedAt());
                 staff.setCreatedAt(user.getCreatedAt());
-                staff.setDepartment(user.getDepartment());
+//                staff.setDepartment(user.getDepartment());
                 staff.setEmail(user.getEmail());
-                staff.setEmployeeNumber(user.getEmployeeNumber());
+//                staff.setEmployeeNumber(user.getEmployeeNumber());
                 staff.setStaff_id(user.getId());
                 staff.setMobile(user.getMobile());
                 Log.e("xxxxxxxxx", new Gson().toJson(staff));

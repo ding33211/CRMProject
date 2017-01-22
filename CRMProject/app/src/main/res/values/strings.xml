@@ -229,7 +229,7 @@
     <string name="forget_password"><u>忘记密码?</u></string>
     <string name="no_user_to_register">没有账号?立即注册</string>
     <string name="please_input_common_email">请输入常用邮箱地址</string>
-    <string name="please_input_user_name">请输入用户名</string>
+    <string name="please_input_user_name">请输入手机号或邮箱</string>
     <string name="password_requirement">8位以上数字或字母</string>
     <string name="password_again">密码确认</string>
     <string name="please_input_email">请输入邮箱</string>
@@ -305,6 +305,10 @@
     <string name="permission_explain_phone">您只有打开了电话权限才可以拨打电话</string>
     <string name="no_contact">当前该客户没有联系人</string>
     <string name="forget_pwd_alert">请联系相关人员修改密码</string>
+    <string name="contact_name">联系人姓名</string>
+    <string name="contact_position">联系人职位</string>
+    <string name="contact_mobile">联系人手机号</string>
+    <string name="business_scope">主营项目</string>
 
 
 </resources>

@@ -11,14 +11,10 @@ import android.widget.TextView;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.greendao.DBHelper;
 import com.soubu.crmproject.base.greendao.Staff;
-import com.soubu.crmproject.model.EmployeeParams;
-import com.soubu.crmproject.model.UserParams;
-import com.soubu.crmproject.utils.CharacterParser;
 import com.soubu.crmproject.utils.PinyinComparator;
 import com.soubu.crmproject.widget.RecyclerViewFastScroller;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -101,9 +97,9 @@ public class ChooseEmployeeRvAdapter extends RecyclerView.Adapter implements Rec
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder holder1 = (ItemViewHolder) holder;
-            holder1.tvName.setText(mParams.get(position).getNickname());
-            holder1.tvDepartment.setText(mParams.get(position).getDepartment());
-            holder1.tvPosition.setText(mParams.get(position).getPosition());
+            holder1.tvName.setText(mParams.get(position).getUsername());
+//            holder1.tvDepartment.setText(mParams.get(position).getDepartment());
+//            holder1.tvPosition.setText(mParams.get(position).getPosition());
             holder1.tvLetter.setText(mParams.get(position).getLetter());
         }
 

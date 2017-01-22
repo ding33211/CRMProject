@@ -43,6 +43,8 @@ public class EmployeeSpecActivity extends ActivityPresenter<SpecActivityDelegate
         super.initData();
         mPhoneList = new ArrayList<>();
         mStaff = (Staff) getIntent().getSerializableExtra(Contants.EXTRA_EMPLOYEE);
+        viewDelegate.setStaffInfo(mStaff);
+        viewDelegate.setTitle(mStaff.getUsername());
 //        initConnectionMethod(mStaff);
 //        initContactParams(mStaff);
     }

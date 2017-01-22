@@ -67,8 +67,8 @@
         android:layout_width="70dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/bg_orange_btn"
         android:visibility="gone">
@@ -333,9 +333,9 @@
         android:id="@+id/v_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_below="@+id/ll_customer_bottom"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_below="@+id/ll_customer_bottom"
         android:background="@color/item_line_grey" />
 
 </RelativeLayout>

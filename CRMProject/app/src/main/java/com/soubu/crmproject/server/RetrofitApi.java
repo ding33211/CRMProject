@@ -10,7 +10,6 @@ import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.GetPageResp;
 import com.soubu.crmproject.model.UserParams;
 
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -90,7 +89,7 @@ public interface RetrofitApi {
 
     //获取客户
     @GET("customers/{id}")
-    Call<GetPageResp<CustomerParams[]>> getCustomerSpec(@Path("id") String id);//搜索
+    Call<GetPageResp<CustomerParams>> getCustomerSpec(@Path("id") String id);//搜索
 
     //添加客户
     @Headers({"Content-type:application/json"})
@@ -218,7 +217,7 @@ public interface RetrofitApi {
 
     //获取客户下联系人
     @GET("contacts")
-    Call<GetPageResp<ContactParams[]>> getContact(@Query("customer") String customerId,//客户id
+    Call<GetPageResp<ContactParams[]>> getContact(@Query("customerId") String customerId,//客户id
                                                   @Query("page") Integer page,//页数
                                                   @Query("sort") String sort,//排序项
                                                   @Query("order") String order,//顺序

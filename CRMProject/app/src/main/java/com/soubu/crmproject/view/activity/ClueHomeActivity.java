@@ -3,7 +3,6 @@ package com.soubu.crmproject.view.activity;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -15,14 +14,12 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.CustomerParams;
 import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.server.RetrofitRequest;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -77,10 +74,10 @@ public class ClueHomeActivity extends Big4HomeActivityPresenter<Big4HomeActivity
         CustomerParams params = new CustomerParams();
         params.setName(mClueParams.getCompanyName());
         params.setAddress(mClueParams.getAddress());
-        params.setWebsite(mClueParams.getWebsite());
-        params.setSource(mClueParams.getSource());
-        params.setManager(mClueParams.getManager());
-        params.settOpportunity(mClueParams.getId());
+//        params.setWebsite(mClueParams.getWebsite());
+//        params.setSource(mClueParams.getSource());
+//        params.setManager(mClueParams.getManager());
+//        params.settOpportunity(mClueParams.getId());
         intent.putExtra(Contants.EXTRA_CUSTOMER, params);
         intent.putExtra(Contants.EXTRA_TRANSFER, true);
         startActivityForResult(intent, REQUEST_TRANSFER);

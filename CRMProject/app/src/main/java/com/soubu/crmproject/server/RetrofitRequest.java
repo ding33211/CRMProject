@@ -227,7 +227,7 @@ public class RetrofitRequest {
      * 获取客户详情
      */
     public void getCustomerSpec(String id) {
-        Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
+        Call<GetPageResp<CustomerParams>> call = RetrofitService.getInstance()
                 .createApi(true)
                 .getCustomerSpec(id);
         enqueueClue(call, true);

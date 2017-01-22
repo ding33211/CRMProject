@@ -278,8 +278,8 @@ public class AddContractActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.signed_person);
-        if (mFromEdit && mContractParams.getSignedPerson() != null && !TextUtils.isEmpty(mContractParams.getSignedPerson().getUserName())) {
-            item.setContent(mContractParams.getSignedPerson().getUserName());
+        if (mFromEdit && mContractParams.getSignedPerson() != null && !TextUtils.isEmpty(mContractParams.getSignedPerson().getUsername())) {
+            item.setContent(mContractParams.getSignedPerson().getUsername());
         }
         item.setItemType(AddSomethingRvAdapter.TYPE_ITEM_REQUIRED_CHOOSE);
         mList.add(item);
@@ -310,11 +310,11 @@ public class AddContractActivity extends Big4AddActivityPresenter {
         mList.add(item);
         item = new AddItem();
         item.setTitleRes(R.string.manager);
-        if (mFromEdit && mContractParams.getUser() != null && !TextUtils.isEmpty(mContractParams.getUser().getUserName())) {
-            item.setContent(mContractParams.getUser().getUserName());
+        if (mFromEdit && mContractParams.getUser() != null && !TextUtils.isEmpty(mContractParams.getUser().getUsername())) {
+            item.setContent(mContractParams.getUser().getUsername());
             mManagerId = mContractParams.getUser().getId();
-        } else if (mFromEdit && mContractParams.getCreator() != null && !TextUtils.isEmpty(mContractParams.getUser().getUserName())) {
-            item.setContent(mContractParams.getCreator().getUserName());
+        } else if (mFromEdit && mContractParams.getCreator() != null && !TextUtils.isEmpty(mContractParams.getUser().getUsername())) {
+            item.setContent(mContractParams.getCreator().getUsername());
             mManagerId = mContractParams.getCreator().getId();
         } else {
             item.setContent(CrmApplication.getContext().getName());

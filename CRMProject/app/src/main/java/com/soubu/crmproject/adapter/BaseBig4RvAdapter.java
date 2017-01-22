@@ -66,6 +66,10 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
         View subLine;
         ImageView ivStateYes;
         ImageView ivStateNoOrWait;
+        TextView tvOrderCount;
+        TextView tvOrderTurnOver;
+        TextView tvUsefulFollow;
+        View vSubRight;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -76,7 +80,11 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
             subRight = (TextView) itemView.findViewById(R.id.tv_sub_right);
             ivStateYes = (ImageView) itemView.findViewById(R.id.iv_approval_yes);
             ivStateNoOrWait = (ImageView) itemView.findViewById(R.id.iv_approval_no_or_wait);
+            tvOrderCount = (TextView) itemView.findViewById(R.id.tv_order_count);
+            tvOrderTurnOver = (TextView) itemView.findViewById(R.id.tv_order_turnover);
+            tvUsefulFollow = (TextView) itemView.findViewById(R.id.tv_useful_follow);
             subLine = itemView.findViewById(R.id.v_sub_line);
+            vSubRight = itemView.findViewById(R.id.ll_sub_right);
             itemView.findViewById(R.id.rl_rush_in).setOnClickListener(this);
             itemView.findViewById(R.id.iv_phone).setOnClickListener(this);
         }
@@ -84,13 +92,13 @@ public abstract class BaseBig4RvAdapter<T> extends BaseWithFooterRvAdapter<T> {
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.rl_rush_in) {
-                if(mRushListener != null){
+                if (mRushListener != null) {
                     mRushListener.onItemClick(v, getLayoutPosition());
                     return;
                 }
             }
-            if(v.getId() == R.id.iv_phone){
-                if(mCustomerPhoneClickListener != null){
+            if (v.getId() == R.id.iv_phone) {
+                if (mCustomerPhoneClickListener != null) {
                     mCustomerPhoneClickListener.onItemClick(v, getLayoutPosition());
                     return;
                 }

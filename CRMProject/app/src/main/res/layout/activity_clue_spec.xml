@@ -68,7 +68,6 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
                                         android:singleLine="true"
-                                        android:text="供应商"
                                         android:textColor="@color/seven_translucent_white"
                                         android:textSize="14sp" />
 
@@ -86,7 +85,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0"
-                                        android:text="供应商"
                                         android:textColor="@color/seven_translucent_white"
                                         android:textSize="14sp" />
                                 </LinearLayout>
@@ -531,6 +529,7 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_weight="0"

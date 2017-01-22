@@ -25,11 +25,12 @@ public class ProfileFragmentDelegate extends BaseFragmentDelegate {
         super.initWidget();
         User user = UserManager.getUser();
         TextView tvAvatar = get(R.id.tv_avatar);
-        tvAvatar.setText(DrawableUtils.getMiniName(user.getNickname()));
-        tvAvatar.setBackgroundResource(DrawableUtils.getAvatarColor(user.getNickname()));
-        ((TextView)get(R.id.tv_name)).setText(user.getNickname());
-        String department = user.getDepartment();
-        String position = user.getPosition();
+        tvAvatar.setText(DrawableUtils.getMiniName(user.getUsername()));
+        tvAvatar.setBackgroundResource(DrawableUtils.getAvatarColor(user.getUsername()));
+        ((TextView)get(R.id.tv_name)).setText(user.getUsername());
+        //暂无部门职位
+        String department = null;
+        String position = null;
         if(TextUtils.isEmpty(department) && TextUtils.isEmpty(position)){
             get(R.id.ll_position).setVisibility(View.GONE);
         } else {

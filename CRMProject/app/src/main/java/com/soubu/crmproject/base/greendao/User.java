@@ -11,23 +11,21 @@ public class User {
 
     @Id(autoincrement = true)
     private Long id;
-    private String nickname;
     private String username;
     private String loginname;
-    private String department;
-    private String position;
     private String mobile;
     private String email;
     private String token;
-    private String employeeNumber;
-    private String officeAddress;
-    private String note;
     private String pwd;
-    private Boolean activated;
-    private java.util.Date activatedAt;
     private java.util.Date createdAt;
     private java.util.Date updatedAt;
     private String user_id;
+    private String companyId;
+    private String companyName;
+    private String roleId;
+    private String roleName;
+    private String type;
+    private String area;
 
     @Generated
     public User() {
@@ -38,25 +36,23 @@ public class User {
     }
 
     @Generated
-    public User(Long id, String nickname, String username, String loginname, String department, String position, String mobile, String email, String token, String employeeNumber, String officeAddress, String note, String pwd, Boolean activated, java.util.Date activatedAt, java.util.Date createdAt, java.util.Date updatedAt, String user_id) {
+    public User(Long id, String username, String loginname, String mobile, String email, String token, String pwd, java.util.Date createdAt, java.util.Date updatedAt, String user_id, String companyId, String companyName, String roleId, String roleName, String type, String area) {
         this.id = id;
-        this.nickname = nickname;
         this.username = username;
         this.loginname = loginname;
-        this.department = department;
-        this.position = position;
         this.mobile = mobile;
         this.email = email;
         this.token = token;
-        this.employeeNumber = employeeNumber;
-        this.officeAddress = officeAddress;
-        this.note = note;
         this.pwd = pwd;
-        this.activated = activated;
-        this.activatedAt = activatedAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.user_id = user_id;
+        this.companyId = companyId;
+        this.companyName = companyName;
+        this.roleId = roleId;
+        this.roleName = roleName;
+        this.type = type;
+        this.area = area;
     }
 
     public Long getId() {
@@ -65,14 +61,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getUsername() {
@@ -89,22 +77,6 @@ public class User {
 
     public void setLoginname(String loginname) {
         this.loginname = loginname;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
     }
 
     public String getMobile() {
@@ -131,52 +103,12 @@ public class User {
         this.token = token;
     }
 
-    public String getEmployeeNumber() {
-        return employeeNumber;
-    }
-
-    public void setEmployeeNumber(String employeeNumber) {
-        this.employeeNumber = employeeNumber;
-    }
-
-    public String getOfficeAddress() {
-        return officeAddress;
-    }
-
-    public void setOfficeAddress(String officeAddress) {
-        this.officeAddress = officeAddress;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     public String getPwd() {
         return pwd;
     }
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
-    }
-
-    public Boolean getActivated() {
-        return activated;
-    }
-
-    public void setActivated(Boolean activated) {
-        this.activated = activated;
-    }
-
-    public java.util.Date getActivatedAt() {
-        return activatedAt;
-    }
-
-    public void setActivatedAt(java.util.Date activatedAt) {
-        this.activatedAt = activatedAt;
     }
 
     public java.util.Date getCreatedAt() {
@@ -201,6 +133,54 @@ public class User {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
 }

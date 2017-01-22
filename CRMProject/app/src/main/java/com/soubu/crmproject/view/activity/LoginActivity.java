@@ -17,6 +17,7 @@ import com.soubu.crmproject.CrmApplication;
 import com.soubu.crmproject.R;
 import com.soubu.crmproject.base.mvp.presenter.ActivityPresenter;
 import com.soubu.crmproject.delegate.LoginActivityDelegate;
+import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.ShowWidgetUtil;
@@ -90,7 +91,7 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 if (!hasFocus) {
                     viewDelegate.get(R.id.iv_clear).setVisibility(View.GONE);
                 } else {
-                    if(!TextUtils.isEmpty(((EditText)v).getText().toString())){
+                    if (!TextUtils.isEmpty(((EditText) v).getText().toString())) {
                         viewDelegate.get(R.id.iv_clear).setVisibility(View.VISIBLE);
                     }
                 }
@@ -122,7 +123,7 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 if (!hasFocus) {
                     viewDelegate.get(R.id.iv_clear_user).setVisibility(View.GONE);
                 } else {
-                    if(!TextUtils.isEmpty(((EditText)v).getText().toString())){
+                    if (!TextUtils.isEmpty(((EditText) v).getText().toString())) {
                         viewDelegate.get(R.id.iv_clear_user).setVisibility(View.VISIBLE);
                     }
                 }
@@ -214,10 +215,12 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
 //                DBHelper.getInstance(getApplicationContext()).getUserDao().insert(user);
                 CrmApplication.getContext().setToken(userParams[0].getToken());
                 CrmApplication.getContext().setUid(userParams[0].getId());
-                CrmApplication.getContext().setName(userParams[0].getNickName());
+                CrmApplication.getContext().setName(userParams[0].getUsername());
                 UserManager.saveUserInfo(userParams[0]);
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
+                if (getIntent().getIntExtra(Contants.EXTRA_FROM, -1) != Contants.FROM_SPLASH) {
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    startActivity(intent);
+                }
                 finish();
             } else {
                 ShowWidgetUtil.showShort(R.string.login_error_message);

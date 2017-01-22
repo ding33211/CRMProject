@@ -12,7 +12,6 @@ import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.ClueParams;
 import com.soubu.crmproject.model.Contants;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -100,10 +99,10 @@ public class ClueSpecActivity extends ActivityPresenter<SpecActivityDelegate> {
         addItem.setTitleRes(R.string.manager_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        if(clueParams.getUser() != null && !TextUtils.isEmpty(clueParams.getUser().getUserName())){
-            initItem(clueParams.getUser().getUserName(), R.string.manager, true);
-        } else if(clueParams.getCreator() != null && !TextUtils.isEmpty(clueParams.getCreator().getUserName())){
-            initItem(clueParams.getCreator().getUserName(), R.string.manager, true);
+        if(clueParams.getUser() != null && !TextUtils.isEmpty(clueParams.getUser().getUsername())){
+            initItem(clueParams.getUser().getUsername(), R.string.manager, true);
+        } else if(clueParams.getCreator() != null && !TextUtils.isEmpty(clueParams.getCreator().getUsername())){
+            initItem(clueParams.getCreator().getUsername(), R.string.manager, true);
         } else {
             initItem(CrmApplication.getContext().getName(), R.string.manager, true);
         }

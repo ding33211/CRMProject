@@ -17,7 +17,6 @@ import com.soubu.crmproject.base.greendao.DBHelper;
 import com.soubu.crmproject.model.ContactParams;
 import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.FollowParams;
-import com.soubu.crmproject.model.FollowTest;
 import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 import com.soubu.crmproject.view.activity.ContactSpecActivity;
@@ -165,7 +164,7 @@ public class FollowInBig4HomeViewPagerRvAdapter extends RecyclerView.Adapter {
             }
             holder1.tvDate.setText(ConvertUtil.dateToYYYY_MM_DD_EEEE(mList.get(position).getFollowupAt()));
             holder1.tvTime.setText(ConvertUtil.dateToHH_mm(mList.get(position).getFollowupAt()));
-            holder1.tvCreator.setText(mList.get(position).getUser().getNickName());
+            holder1.tvCreator.setText(mList.get(position).getUser().getUsername());
         }
         if (mPos == POS_PLAN) {
 //            mCalendar.setTime(new Date(mList.get(position).getTime()));

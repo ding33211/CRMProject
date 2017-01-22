@@ -61,16 +61,16 @@ public class DamnCustomerActivity extends ActivityPresenter<DamnCustomerActivity
     @Override
     protected void bindEvenListener() {
         super.bindEvenListener();
-        if (!mIfHighSeas) {
-            viewDelegate.setSettingText(R.string.edit, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(DamnCustomerActivity.this, AddCustomerActivity.class);
-                    intent.putExtra(Contants.EXTRA_CUSTOMER, getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER));
-                    startActivity(intent);
-                }
-            });
-        }
+//        if (!mIfHighSeas) {
+//            viewDelegate.setSettingText(R.string.edit, new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(DamnCustomerActivity.this, AddCustomerActivity.class);
+//                    intent.putExtra(Contants.EXTRA_CUSTOMER, getIntent().getSerializableExtra(Contants.EXTRA_CUSTOMER));
+//                    startActivity(intent);
+//                }
+//            });
+//        }
 
         if (mFrom != Contants.FROM_ADD_SOMETHING_ACTIVITY) {
             viewDelegate.setRightMenuOne(R.drawable.btn_add, new View.OnClickListener() {
@@ -84,7 +84,7 @@ public class DamnCustomerActivity extends ActivityPresenter<DamnCustomerActivity
                 }
             });
         }
-        viewDelegate.setSettingTextVisibility(View.VISIBLE);
+//        viewDelegate.setSettingTextVisibility(View.VISIBLE);
         viewDelegate.setRightMenuOneVisibility(View.GONE);
 
     }
@@ -95,14 +95,14 @@ public class DamnCustomerActivity extends ActivityPresenter<DamnCustomerActivity
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getPosition() == 0){
                     viewDelegate.setTitle(R.string.customer_spec);
-                    if (!mIfHighSeas) {
-                        viewDelegate.setSettingTextVisibility(View.VISIBLE);
+//                    if (!mIfHighSeas) {
+//                        viewDelegate.setSettingTextVisibility(View.VISIBLE);
                         viewDelegate.setRightMenuOneVisibility(View.GONE);
-                    }
+//                    }
                 } else {
                     viewDelegate.setTitle(R.string.contact);
                     if (mFrom != Contants.FROM_ADD_SOMETHING_ACTIVITY) {
-                        viewDelegate.setSettingTextVisibility(View.GONE);
+//                        viewDelegate.setSettingTextVisibility(View.GONE);
                         viewDelegate.setRightMenuOneVisibility(View.VISIBLE);
                     }
                 }

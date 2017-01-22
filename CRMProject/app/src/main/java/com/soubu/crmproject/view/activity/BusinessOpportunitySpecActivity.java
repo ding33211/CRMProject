@@ -12,7 +12,6 @@ import com.soubu.crmproject.delegate.SpecActivityDelegate;
 import com.soubu.crmproject.model.AddItem;
 import com.soubu.crmproject.model.BusinessOpportunityParams;
 import com.soubu.crmproject.model.Contants;
-import com.soubu.crmproject.server.ServerErrorUtil;
 import com.soubu.crmproject.utils.ConvertUtil;
 import com.soubu.crmproject.utils.SearchUtil;
 
@@ -109,10 +108,10 @@ public class BusinessOpportunitySpecActivity extends ActivityPresenter<SpecActiv
         addItem.setTitleRes(R.string.manager_information);
         addItem.setItemType(AddSomethingRvAdapter.TYPE_LABEL);
         mList.add(addItem);
-        if(businessOpportunityParams.getUser() != null && !TextUtils.isEmpty(businessOpportunityParams.getUser().getUserName())){
-            initItem(businessOpportunityParams.getUser().getUserName(), R.string.manager, true);
-        } else if(businessOpportunityParams.getCreator() != null && !TextUtils.isEmpty(businessOpportunityParams.getCreator().getUserName())){
-            initItem(businessOpportunityParams.getCreator().getUserName(), R.string.manager, true);
+        if(businessOpportunityParams.getUser() != null && !TextUtils.isEmpty(businessOpportunityParams.getUser().getUsername())){
+            initItem(businessOpportunityParams.getUser().getUsername(), R.string.manager, true);
+        } else if(businessOpportunityParams.getCreator() != null && !TextUtils.isEmpty(businessOpportunityParams.getCreator().getUsername())){
+            initItem(businessOpportunityParams.getCreator().getUsername(), R.string.manager, true);
         } else {
             initItem(CrmApplication.getContext().getName(), R.string.manager, true);
         }

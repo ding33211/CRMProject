@@ -47,7 +47,7 @@
                     android:layout_alignLeft="@+id/tv_clue_count_label"
                     android:layout_below="@+id/tv_clue_count_label"
                     android:layout_marginTop="4dp"
-                    android:text="8544"
+                    android:text="0"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
@@ -90,7 +90,7 @@
                     android:layout_alignLeft="@+id/tv_total_follow_up_label"
                     android:layout_below="@+id/tv_total_follow_up_label"
                     android:layout_marginTop="4dp"
-                    android:text="7504"
+                    android:text="0"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -136,7 +136,7 @@
                     android:layout_alignLeft="@+id/tv_register_customer_label"
                     android:layout_below="@+id/tv_register_customer_label"
                     android:layout_marginTop="4dp"
-                    android:text="804"
+                    android:text="0"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -178,7 +178,7 @@
                     android:layout_alignLeft="@+id/tv_visit_customer_label"
                     android:layout_below="@+id/tv_visit_customer_label"
                     android:layout_marginTop="4dp"
-                    android:text="84"
+                    android:text="0"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -224,7 +224,7 @@
                     android:layout_alignLeft="@+id/tv_deal_customer_label"
                     android:layout_below="@+id/tv_deal_customer_label"
                     android:layout_marginTop="4dp"
-                    android:text="804"
+                    android:text="0"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
             </RelativeLayout>
