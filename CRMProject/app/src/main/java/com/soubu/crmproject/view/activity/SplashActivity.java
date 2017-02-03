@@ -19,6 +19,7 @@ import com.soubu.crmproject.model.Contants;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.server.RetrofitRequest;
 import com.soubu.crmproject.utils.PermissionUtil;
+import com.soubu.crmproject.utils.UserManager;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -87,7 +88,8 @@ public class SplashActivity extends ActivityPresenter<SplashActivityDelegate> {
                             e.printStackTrace();
                         }
                         mEventBusJustForThis = true;
-                        RetrofitRequest.getInstance().getStaffList();
+                        Log.e("xxxxxxxxx", "companyid   :   " + UserManager.getUser().getCompanyId());
+                        RetrofitRequest.getInstance().getStaffList(UserManager.getUser().getCompanyId());
 //                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
 //                        startActivity(intent);
 //                        finish();

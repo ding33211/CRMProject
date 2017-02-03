@@ -261,15 +261,14 @@ public interface RetrofitApi {
 
     //获取员工列表
     @GET("users")
-    Call<GetPageResp<UserParams[]>> getStaffList();
+    Call<GetPageResp<UserParams[]>> getStaffList(@Query("companyId") String companyId, @Query("department") String department,
+                                                 @Query("position") String position, @Query("sort") String sort,
+                                                 @Query("order") String order, @Query("page") Integer page,
+                                                 @Query("count") Integer count);
 
     //获取客户公海
     @GET("customers/public")
-    Call<GetPageResp<CustomerParams[]>> getCustomerHighSeas(@Query("type") String type,//客户类型
-                                                        @Query("source") String source,//线索来源
-                                                        @Query("size") String size,//规模
-                                                        @Query("industry") String industry,//行业
-                                                        @Query("status") String status,//客户状态
+    Call<GetPageResp<CustomerParams[]>> getCustomerHighSeas(
                                                         @Query("page") Integer page,//页数
                                                         @Query("sort") String sort,//排序项
                                                         @Query("order") String order,//顺序

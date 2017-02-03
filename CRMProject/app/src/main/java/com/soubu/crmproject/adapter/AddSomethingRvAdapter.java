@@ -233,7 +233,7 @@ public class AddSomethingRvAdapter extends RecyclerView.Adapter {
                 tvAction.setTextColor(mActivity.getResources().getColor(R.color.line_color));
                 tvAction.setVisibility(View.VISIBLE);
             }
-            WindowUtil.hideSoftInput(mActivity);
+                WindowUtil.hideSoftInput(mActivity);
         }
     }
 

@@ -13,6 +13,7 @@ import com.soubu.crmproject.model.FollowParams;
 import com.soubu.crmproject.model.GetPageResp;
 import com.soubu.crmproject.model.UserParams;
 import com.soubu.crmproject.utils.ConvertUtil;
+import com.soubu.crmproject.utils.UserManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -240,7 +241,7 @@ public class RetrofitRequest {
                                         String status, String sort, String order, Integer count, String search) {
         Call<GetPageResp<CustomerParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getCustomerHighSeas(type, source, size, industry, status, page, sort, order, count, search);
+                .getCustomerHighSeas(page, sort, order, count, search);
         enqueueClue(call, true);
     }
 
@@ -510,11 +511,12 @@ public class RetrofitRequest {
 
     /**
      * 更新联系人
+     * @param companyId 企业id
      */
-    public void getStaffList() {
+    public void getStaffList(String companyId) {
         Call<GetPageResp<UserParams[]>> call = RetrofitService.getInstance()
                 .createApi(true)
-                .getStaffList();
+                .getStaffList(companyId, null, null, null, null ,null ,null);
         enqueueClue(call, true);
     }
 

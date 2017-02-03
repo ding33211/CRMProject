@@ -220,6 +220,8 @@ public class LoginActivity extends ActivityPresenter<LoginActivityDelegate> impl
                 if (getIntent().getIntExtra(Contants.EXTRA_FROM, -1) != Contants.FROM_SPLASH) {
                     Intent intent = new Intent(this, HomeActivity.class);
                     startActivity(intent);
+                } else {
+                    setResult(RESULT_OK, null);
                 }
                 finish();
             } else {

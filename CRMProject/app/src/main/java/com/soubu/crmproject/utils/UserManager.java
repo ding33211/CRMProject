@@ -39,6 +39,8 @@ public class UserManager {
 //            user.setPosition(params.getPosition());
             user.setMobile(params.getMobile());
             user.setEmail(params.getEmail());
+            user.setCompanyId(params.getCompanyId());
+            user.setType(params.getType());
 //            user.setEmployeeNumber(params.getEmployeeNumber());
 //            user.setOfficeAddress(params.getOfficeAddress());
 //            user.setNote(params.getNote());
